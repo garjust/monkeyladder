@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.utils import timezone
+
 class Ladder(models.Model):
     name = models.CharField(max_length=50)
-    created = models.DateTimeField()
     rungs = models.IntegerField()
-    #is_private = models.BooleanField()
+    is_private = models.BooleanField(default=False)
+    created = models.DateTimeField(default=timezone.now())
 
     def __unicode__(self):
         return self.name

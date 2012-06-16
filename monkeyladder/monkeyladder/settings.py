@@ -118,7 +118,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'ladder',
+    'ladders',
 )
 
 # A sample logging configuration. The only tangible logging
