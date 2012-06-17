@@ -1,0 +1,15 @@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <div class="span2 brand">Monkeyladder</div>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li {% if navbar_active == 'home' %}class="active"{% endif %}><a href="/ladders/home">Home</a></li>
+                    <li {% if navbar_active == 'watched' %}class="active"{% endif %}><a href="/ladders/watched">Watched Ladders</a></li>
+                    <li {% if navbar_active == 'climbing' %}class="active"{% endif %}><a href="/ladders/climbing">Ladders I'm Climbing</a></li>
+                </ul>
+                <p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+            </div>
+        </div>
+    </div>
+</div>

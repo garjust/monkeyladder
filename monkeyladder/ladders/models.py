@@ -19,3 +19,10 @@ class LadderUser(models.Model):
 
     def __unicode__(self):
         return self.user.get_full_name()
+
+class LadderWatcher(models.Model):
+    ladder = models.ForeignKey(Ladder)
+    user = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return self.user.get_full_name()

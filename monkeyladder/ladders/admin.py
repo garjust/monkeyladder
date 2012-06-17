@@ -5,11 +5,15 @@ class LadderUserInline(admin.TabularInline):
     model = LadderUser
     extra = 1
 
+class LadderWatcherInline(admin.TabularInline):
+    model = LadderWatcher
+    extra = 1
+
 class LadderAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name', 'rungs', 'is_private']}),
     ]
-    inlines = [LadderUserInline]
+    inlines = [LadderUserInline, LadderWatcherInline]
     list_display = ('name', 'rungs', 'is_private', 'created')
     list_filter = ['is_private', 'created']
     search_fields = ['name']

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Monkeyladder | {{ ladder.name }}</title>
+    {% include "ladders/bootstrap_links.html" %}
+</head>
+<body>
+{% include "ladders/navbar.html" %}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <br /><br /><br /><br />
+    </div>
+    <div class="row-fluid">
+        <div class="span2 page-header muted">
+            <h2>{{ ladder.name }}</h2>
+        </div>
+        <ol class="span4 ">
+        {% for ladder_user in ladder_users %}
+            <li>{{ ladder_user.user.get_full_name }}</li>
+        {% endfor %}
+        </ol>
+    </div>
+    <div class="row-fluid">
+        <a class="btn btn-meduim" href="update">Update</a>
+    </div>
+</div>
+</body>
+</html>
