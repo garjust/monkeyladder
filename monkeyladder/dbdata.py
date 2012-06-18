@@ -39,8 +39,8 @@ USERS = {
     },
 }
 
-PONG_USERS = [('the_tan', 4), ('jagarbut', 3), ('vladman', 1), ('mike.pettypiece', 2)]
-DOTA_USERS = [('mikey', 4), ('jagarbut', 1), ('waffle', 3), ('coma', 2)]
+PONG_USERS = [('the_tan', 5), ('jagarbut', 3), ('vladman', 1), ('mike.pettypiece', 2), ('waffle', 7), ('coma', 4), ('mikey', 6),]
+DOTA_USERS = [('mikey', 4), ('jagarbut', 1), ('waffle', 3), ('coma', 2),]
 
 for user in USERS:
     User(username=user, **USERS[user]).save()
