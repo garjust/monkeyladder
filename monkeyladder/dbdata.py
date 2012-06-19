@@ -1,4 +1,4 @@
-from ladders.models import Ladder, LadderUser
+from ladders.models import *
 from django.contrib.auth.models import User
 
 USERS = {
@@ -52,11 +52,11 @@ other_ladder = Ladder(name='Dota 2 Ladder', rungs=10)
 other_ladder.save()
 
 for user in PONG_USERS:
-    ladder_user = LadderUser(ladder=points_ladder, user=User.objects.filter(username=user[0])[0], rank=user[1])
+    ladder_user = Player(ladder=points_ladder, user=User.objects.filter(username=user[0])[0], rank=user[1])
     ladder_user.save()
 
 for user in DOTA_USERS:
-    ladder_user = LadderUser(ladder=other_ladder, user=User.objects.filter(username=user[0])[0], rank=user[1])
+    ladder_user = Player(ladder=other_ladder, user=User.objects.filter(username=user[0])[0], rank=user[1])
     ladder_user.save()
 
 admin = User.objects.filter(username='jagarbut')[0]

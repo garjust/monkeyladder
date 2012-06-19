@@ -1,22 +1,28 @@
 from ladders.models import *
 from django.contrib import admin
 
-class LadderUserInline(admin.TabularInline):
-    model = LadderUser
+class PlayerInline(admin.TabularInline):
+    model = Player
     extra = 1
 
-class LadderWatcherInline(admin.TabularInline):
-    model = LadderWatcher
+class WatcherInline(admin.TabularInline):
+    model = Watcher
     extra = 1
 
 class LadderAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name', 'rungs', 'is_private']}),
     ]
-    inlines = [LadderUserInline, LadderWatcherInline]
+    inlines = [PlayerInline, WatcherInline]
     list_display = ('name', 'rungs', 'is_private', 'created')
     list_filter = ['is_private', 'created']
     search_fields = ['name']
     date_hierarchy = 'created'
 
+class MatchAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['ladder', 'match_date']})
+    ]
+
 admin.site.register(Ladder, LadderAdmin)
+admin.site.register(Match, MatchAdmin)

@@ -28,12 +28,12 @@
                             <th>Loser</th>
                         </thead>
                         <tbody>
-                        {% for ladder_user in ladder_users %}
+                        {% for player in players %}
                             <tr>
-                                <td><strong>{{ ladder_user.rank }}</strong></td>
-                                <td>{{ ladder_user.user.get_full_name }}</td>
-                                <td><input type="radio" name="winner" id="winner" value="{{ ladder_user.id }}"/></td>
-                                <td><input type="radio" name="loser" id="loser" value="{{ ladder_user.id }}"/></td>
+                                <td><strong>{{ player.rank }}</strong></td>
+                                <td>{{ player.user.get_full_name }}</td>
+                                <td><input type="radio" name="winner" id="winner" value="{{ player.id }}"/></td>
+                                <td><input type="radio" name="loser" id="loser" value="{{ player.id }}"/></td>
                             </tr>
                         {% endfor %}
                         </tbody>

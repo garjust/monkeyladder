@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'D:/db/monkeyladder.db',                      # Or path to database file if using sqlite3.
+        'NAME': 'C:/db/monkeyladder1.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -106,7 +106,7 @@ ROOT_URLCONF = 'monkeyladder.urls'
 WSGI_APPLICATION = 'monkeyladder.wsgi.application'
 
 TEMPLATE_DIRS = (
-    "D:/workspaces\python/monkeyladder/monkeyladder/templates/"
+    "C:/workspaces/python/monkeyladder/monkeyladder/templates/"
 )
 
 INSTALLED_APPS = (
