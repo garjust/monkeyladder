@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Monkeyladder | {{ ladder.name }}</title>
+    {% include "ladders/bootstrap_links.html" %}
+    <script type="text/javascript">
+        function unhide_player_update(id) {
+            element = document.getElementById(id)
+            if (element.style.display == "none") {
+                element.style.display = "block"
+            } else {
+                element.style.display = "none"
+            }
+        }
+    </script>
+    <style type="text/css">
+        .ladder-rank-table-row {
+            height: 50px;
+            text-align: center;
+        }
+
+        #update_match {
+            margin: 0px auto 0px auto;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .match-entry {
+            /* display: none; */
+        }
+    </style>
+</head>
+<body>
+{% include "ladders/navbar.html" %}
+<div class="container">
+    <div class="row">
+        <br /><br /><br />
+        {% if error_message %}<div>{{ error_message }}</div>{% endif %}
+    </div>
+    <div class="row">
+        <div class="span6 page-header muted">
+            <h2>{{ ladder }}&nbsp;Matches</h2>
+        </div>
+    </div>
+    <div class="row">
+    {% for match in matches %}
+        <div class="span6 page-header">
+            <div class="row">
+                <div class="span3">
+                    <h4>{{ match.winner }}</h4>
+                </div>
+                <div class="span3">
+                    <h4>{{ match.loser }}</h4>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+</body>
+</html>

@@ -51,6 +51,9 @@ points_ladder.save()
 other_ladder = Ladder(name='Dota 2 Ladder', rungs=10)
 other_ladder.save()
 
+watcher = Watcher(ladder=points_ladder, user=User.objects.filter(username='random-user'))
+watcher.save()
+
 for user in PONG_USERS:
     ladder_user = Player(ladder=points_ladder, user=User.objects.filter(username=user[0])[0], rank=user[1])
     ladder_user.save()

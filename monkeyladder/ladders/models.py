@@ -9,6 +9,12 @@ class Ladder(models.Model):
     is_private = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now())
 
+    def ranking(self):
+        return self.player_set.filter().order_by('rank')
+
+    def matches(self, order='-match_date'):
+        return self.match_set.filter().order_by(order)
+
     def __unicode__(self):
         return self.name
 
@@ -45,4 +51,4 @@ class MatchPlayer(models.Model):
     score = models.IntegerField()
 
     def __unicode__(self):
-        return "{} scored {}".format(self.player, self.score)
+        return "{} ({})".format(self.player, self.score)

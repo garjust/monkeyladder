@@ -10,4 +10,5 @@ urlpatterns += patterns('ladders.views',
     url(r'^climbing$', 'climbing'),
     url(r'^(?P<ladder_id>\d+)/$', 'ladder'),
     url(r'^(?P<ladder_id>\d+)/update/$', 'update'),
+    url(r'^(?P<ladder_id>\d+)/matches/$', 'matches'),
 )
