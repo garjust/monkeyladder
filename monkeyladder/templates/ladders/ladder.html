@@ -3,6 +3,7 @@
 <head>
     <title>Monkeyladder | {{ ladder.name }}</title>
     {% include "ladders/bootstrap_links.html" %}
+    {% include "ladders/styles.html" %}
     <script type="text/javascript">
         function unhide_player_update(id) {
             element = document.getElementById(id)
@@ -13,40 +14,21 @@
             }
         }
     </script>
-    <style type="text/css">
-        .ladder-rank-table-row {
-            height: 50px;
-            text-align: center;
-        }
-
-        #update_match {
-            margin: 0px auto 0px auto;
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        .match-entry {
-           /* display: none; */
-        }
-    </style>
 </head>
 <body>
 {% include "ladders/navbar.html" %}
-<div class="container-fluid">
-    <div class="row-fluid">
+<div class="container">
+    <div class="row">
         <br /><br /><br />
         {% if error_message %}<div>{{ error_message }}</div>{% endif %}
     </div>
-    <div class="row-fluid">
-        <div class="span4 page-header muted">
-            <h2>{{ ladder.name }}</h2>
-        </div>
-        <div class="span1 match-entry">
-            <button class="btn btn-medium">Register Match</button>
+    <div class="row">
+        <div class="span6 page-header muted">
+            <h1>{{ ladder.name }}</h1>
         </div>
     </div>
-    <div class="row-fluid">
-        <div class="span4">
+    <div class="row">
+        <div class="span6">
             <table class="table table-striped">
                 <thead>
                     <th>Rank</th>
@@ -55,8 +37,8 @@
                 <tbody>
                 {% for player in players %}
                     <tr class="ladder-rank-table-row">
-                        <td><strong>{{ player.rank }}</strong></td>
-                        <td>{{ player.user.get_full_name }}</td>
+                        <td>{{ player.rank }}</td>
+                        <td>{{ player }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -23,6 +23,9 @@ class MatchAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['ladder', 'match_date']})
     ]
+    list_display = ('ladder', 'match_date')
+    list_filter = ['ladder', 'match_date']
+    date_hierarchy = 'match_date'
 
 admin.site.register(Ladder, LadderAdmin)
 admin.site.register(Match, MatchAdmin)

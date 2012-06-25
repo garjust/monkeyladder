@@ -2,6 +2,15 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <div class="span2 brand">Monkeyladder</div>
+        {% if ladder %}
+            <div class="nav-collapse">
+                <ul class="nav nav-padded-right">
+                    <li {% if navbar_active == 'ladder' %}class="active"{% endif %}><a href="/ladders/{{ ladder.id }}">{{ ladder.name }}</a></li>
+                    <li {% if navbar_active == 'matches' %}class="active"{% endif %}><a href="/ladders/{{ ladder.id }}/matches">Matches</a></li>
+                    <li {% if navbar_active == 'watchers' %}class="active"{% endif %}><a href="/ladders/{{ ladder.id }}/watchers">Watchers</a></li>
+                </ul>
+            </div>
+        {% endif %}
             <div class="nav-collapse">
                 <ul class="nav">
                     <li {% if navbar_active == 'home' %}class="active"{% endif %}><a href="/ladders/home">Home</a></li>

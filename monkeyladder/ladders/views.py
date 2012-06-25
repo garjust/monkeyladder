@@ -28,7 +28,7 @@ def ladder(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     return render_to_response(
         'ladders/ladder.html',
-        {'ladder': ladder, 'players': ladder.ranking()},
+        {'navbar_active': 'ladder', 'ladder': ladder, 'players': ladder.ranking()},
         context_instance=RequestContext(request)
     )
 
@@ -50,7 +50,7 @@ def matches(request, ladder_id):
     matches = ladder.matches()
     return render_to_response(
         'ladders/matches.html',
-        {'ladder': ladder, 'matches': matches}
+        {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches}
     )
 
 def _handle_update(request, ladder, players, match_players):
@@ -64,15 +64,15 @@ def _handle_update(request, ladder, players, match_players):
     for match_player in match_players:
         match_player = MatchPlayer(match=match, player=match_player[0], score=match_player[1])
         match_player.save()
-    return _update_error(request, ladder, players, '{}//{}'.format(match, match_players))
-    #_adjust_rankings(players, winner, loser)
+    return _update_error(request, ladder, players, match)
+    #_adjust_rankings(players, match.winner.player, match.loser.player)
     return HttpResponseRedirect(reverse('ladders.views.ladder', args=(ladder.id,)))
 
 
 def _update_error(request, ladder, players, error_message="Unexpected error posting match"):
     return render_to_response(
         'ladders/ladder.html',
-        {'ladder': ladder, 'players': players, 'error_message': error_message},
+        {'navbar_active': 'ladder', 'ladder': ladder, 'players': players, 'error_message': error_message},
         context_instance=RequestContext(request)
     )
 

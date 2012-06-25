@@ -3,32 +3,7 @@
 <head>
     <title>Monkeyladder | {{ ladder.name }}</title>
     {% include "ladders/bootstrap_links.html" %}
-    <script type="text/javascript">
-        function unhide_player_update(id) {
-            element = document.getElementById(id)
-            if (element.style.display == "none") {
-                element.style.display = "block"
-            } else {
-                element.style.display = "none"
-            }
-        }
-    </script>
-    <style type="text/css">
-        .ladder-rank-table-row {
-            height: 50px;
-            text-align: center;
-        }
-
-        #update_match {
-            margin: 0px auto 0px auto;
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        .match-entry {
-            /* display: none; */
-        }
-    </style>
+    {% include "ladders/styles.html" %}
 </head>
 <body>
 {% include "ladders/navbar.html" %}
@@ -46,11 +21,14 @@
     {% for match in matches %}
         <div class="span6 page-header">
             <div class="row">
-                <div class="span3">
+                <div class="span2">
                     <h4>{{ match.winner }}</h4>
                 </div>
-                <div class="span3">
+                <div class="span2">
                     <h4>{{ match.loser }}</h4>
+                </div>
+                <div class="span2">
+                    <h4>{{ match.match_date }}</h4>
                 </div>
             </div>
         </div>

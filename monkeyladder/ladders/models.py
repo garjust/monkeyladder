@@ -38,12 +38,12 @@ class Match(models.Model):
     match_date = models.DateTimeField(default=timezone.now())
 
     def winner(self):
-        return self.matchplayer_set.filter().order_by('score')[0]
-    def loser(self):
         return self.matchplayer_set.filter().order_by('score')[1]
+    def loser(self):
+        return self.matchplayer_set.filter().order_by('score')[0]
 
     def __unicode__(self):
-        return "{} Match".format(self.ladder.name, self.winner(), self.loser())
+        return "{} vs {}".format(self.winner(), self.loser())
 
 class MatchPlayer(models.Model):
     match = models.ForeignKey(Match)
