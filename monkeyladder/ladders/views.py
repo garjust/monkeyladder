@@ -53,6 +53,13 @@ def matches(request, ladder_id):
         {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches}
     )
 
+def watchers(request, ladder_id):
+    ladder = get_object_or_404(Ladder, pk=ladder_id)
+    return render_to_response(
+        'ladders/watchers.html',
+            {'navbar_active': 'watchers', 'ladder': ladder, 'watchers': []}
+    )
+
 def _handle_update(request, ladder, players, match_players):
     for match_player in match_players:
         if match_player[1] < 0:

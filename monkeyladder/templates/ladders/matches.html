@@ -2,22 +2,20 @@
 <html>
 <head>
     <title>Monkeyladder | {{ ladder.name }}</title>
-    {% include "ladders/bootstrap_links.html" %}
     {% include "ladders/styles.html" %}
 </head>
 <body>
 {% include "ladders/navbar.html" %}
-<div class="container">
-    <div class="row">
-        <br /><br /><br />
-        {% if error_message %}<div>{{ error_message }}</div>{% endif %}
-    </div>
-    <div class="row">
-        <div class="span6 page-header muted">
-            <h2>{{ ladder }}&nbsp;Matches</h2>
+    <div class="container">
+        <div class="row">
+            <br /><br /><br />
+            {% if error_message %}<div>{{ error_message }}</div>{% endif %}
         </div>
-    </div>
-    <div class="row">
+        <div class="row">
+            <div class="span6 page-header muted">
+                <h2>{{ ladder }}&nbsp;Matches</h2>
+            </div>
+        </div>
     {% for match in matches %}
         <div class="span6 page-header">
             <div class="row">
@@ -34,6 +32,5 @@
         </div>
     {% endfor %}
     </div>
-</div>
 </body>
 </html>
