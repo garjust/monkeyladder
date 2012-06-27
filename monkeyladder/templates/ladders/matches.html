@@ -3,6 +3,11 @@
 <head>
     <title>Monkeyladder | {{ ladder.name }}</title>
     {% include "ladders/styles.html" %}
+    <script>
+        $(function() {
+            $( "#matches-accordion" ).accordion();
+        });
+    </script>
 </head>
 <body>
 {% include "ladders/navbar.html" %}
@@ -12,25 +17,22 @@
             {% if error_message %}<div>{{ error_message }}</div>{% endif %}
         </div>
         <div class="row">
-            <div class="span6 page-header muted">
-                <h2>{{ ladder }}&nbsp;Matches</h2>
-            </div>
-        </div>
-    {% for match in matches %}
-        <div class="span6 page-header">
-            <div class="row">
-                <div class="span2">
-                    <h4>{{ match.winner }}</h4>
+            <div class="span6">
+                <div class="page-header muted">
+                    <h2>{{ ladder }}&nbsp;Matches</h2>
                 </div>
-                <div class="span2">
-                    <h4>{{ match.loser }}</h4>
+                <div id="matches-accordion" class="ui-accordian ui-widget ui-accordian-icons">
+                    {% for match in matches %}
+                    <h3><a href="#">{{ match.winner }} vs {{ match.loser }}</a></h3>
+                    <div>Match was played at {{ match.match_date }}</div>
+                    {% endfor %}
                 </div>
-                <div class="span2">
-                    <h4>{{ match.match_date }}</h4>
+                <div id="matches-pager">
+                    <button>More</button>
                 </div>
             </div>
         </div>
-    {% endfor %}
+
     </div>
 </body>
 </html>

@@ -3,6 +3,31 @@
 <head>
     <title>Monkeyladder | {{ ladder.name }}</title>
     {% include "ladders/styles.html" %}
+    <style type="text/css">
+        #match-entry-toggle-button-div {
+            text-align: center;
+            height: 50%;
+            margin-bottom: 25%;
+            margin-top: 25%;
+        }
+
+        #match-entry-toggle-button {
+            display: inline-block;
+            margin: 0px auto 0px auto;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function() {
+            function toggleMatchEntry() {
+                $(".match-entry").toggle('drop', {"direction": "right"}, 500);
+            };
+
+            $("#match-entry-toggle-button").click(function() {
+                toggleMatchEntry();
+                return false;
+            });
+        });
+    </script>
     <script type="text/javascript">
         function unhide_player_update(id) {
             element = document.getElementById(id)
@@ -24,6 +49,11 @@
     <div class="row">
         <div class="span6 page-header muted">
             <h1>{{ ladder.name }}</h1>
+        </div>
+        <div class="span2">
+            <div id="match-entry-toggle-button-div">
+                <button id="match-entry-toggle-button" class="btn btn-medium">Register Match</button>
+            </div>
         </div>
     </div>
     <div class="row">
