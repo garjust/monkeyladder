@@ -67,7 +67,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    'C:/workspaces/python/monkeyladder/monkeyladder/static',
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'ladders',
+    'loginbootstrap',
 )
 
 # A sample logging configuration. The only tangible logging
