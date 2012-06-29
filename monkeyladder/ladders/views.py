@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
@@ -12,12 +13,14 @@ def home(request):
         {'newest_ladders': newest_ladders, 'navbar_active': 'home'}
     )
 
+@login_required(login_url='/accounts/login/')
 def watched(request):
     return render_to_response(
         'ladders/watched.html',
         {'navbar_active': 'watched'}
     )
 
+@login_required(login_url='/accounts/login/')
 def climbing(request):
     return render_to_response(
         'ladders/climbing.html',
@@ -26,6 +29,8 @@ def climbing(request):
 
 def ladder(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
+    if ladder.is_private:
+        pass
     return render_to_response(
         'ladders/ladder.html',
         {'navbar_active': 'ladder', 'ladder': ladder, 'players': ladder.ranking()},
@@ -45,12 +50,14 @@ def update(request, ladder_id):
         return _update_error(request, ladder, players, "Scores must be positive integers")
     return _handle_update(request, ladder, players, match_players)
 
+@login_required(login_url="/accounts/login")
 def matches(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     matches = ladder.matches()
     return render_to_response(
         'ladders/matches.html',
-        {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches}
+        {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches},
+        context_instance=RequestContext(request)
     )
 
 def watchers(request, ladder_id):

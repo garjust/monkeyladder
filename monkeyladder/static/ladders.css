@@ -14,5 +14,9 @@
 }
 
 .nav-padded-right {
-    padding-right: 40px;
+    padding-right: 30px;
+}
+
+.nav-padded-left {
+    padding-left: 30px;
 }

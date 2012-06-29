@@ -1,49 +1,46 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title>Monkeyladder | {{ ladder.name }}</title>
-    {% include "ladders/styles.html" %}
-    <style type="text/css">
-        #match-entry-toggle-button-div {
-            text-align: center;
-            height: 50%;
-            margin-bottom: 25%;
-            margin-top: 25%;
-        }
+{% extends "base.html" %}
 
-        #match-entry-toggle-button {
-            display: inline-block;
-            margin: 0px auto 0px auto;
-        }
-    </style>
-    <script type="text/javascript">
-        $(function() {
-            function toggleMatchEntry() {
-                $(".match-entry").toggle('drop', {"direction": "right"}, 500);
-            };
+{% block head %}
+<style type="text/css">
+    #match-entry-toggle-button-div {
+        text-align: center;
+        height: 50%;
+        margin-bottom: 25%;
+        margin-top: 25%;
+    }
 
-            $("#match-entry-toggle-button").click(function() {
-                toggleMatchEntry();
-                return false;
-            });
+    #match-entry-toggle-button {
+        display: inline-block;
+        margin: 0px auto 0px auto;
+    }
+</style>
+<script type="text/javascript">
+    $(function() {
+        function toggleMatchEntry() {
+            $(".match-entry").toggle('drop', {"direction": "right"}, 500);
+        };
+
+        $("#match-entry-toggle-button").click(function() {
+            toggleMatchEntry();
+            return false;
         });
-    </script>
-    <script type="text/javascript">
-        function unhide_player_update(id) {
-            element = document.getElementById(id)
-            if (element.style.display == "none") {
-                element.style.display = "block"
-            } else {
-                element.style.display = "none"
-            }
+    });
+</script>
+<script type="text/javascript">
+    function unhide_player_update(id) {
+        element = document.getElementById(id)
+        if (element.style.display == "none") {
+            element.style.display = "block"
+        } else {
+            element.style.display = "none"
         }
-    </script>
-</head>
-<body>
-{% include "ladders/navbar.html" %}
+    }
+</script>
+{% endblock %}
+
+{% block content %}
 <div class="container">
     <div class="row">
-        <br /><br /><br />
         {% if error_message %}<div>{{ error_message }}</div>{% endif %}
     </div>
     <div class="row">
@@ -94,5 +91,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+{% endblock %}

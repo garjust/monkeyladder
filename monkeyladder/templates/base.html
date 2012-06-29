@@ -1,0 +1,12 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Monkeyladder</title>
+    {% include "styles.html" %}
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div id="navbar">{% include "ladders/navbar.html" %}</div><br /><br /><br />
+    <div id="content">{% block content %}{% endblock %}</div>
+</body>
+</html>

@@ -1,5 +1,3 @@
-# Django settings for monkeyladder project.
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -119,7 +117,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'ladders',
-    'loginbootstrap',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -150,3 +147,11 @@ LOGGING = {
         },
     }
 }
+
+LOGIN_REDIRECT_URL = '/ladders/home'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+    #'ladders.context_processors.user',
+)
