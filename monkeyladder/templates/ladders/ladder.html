@@ -48,51 +48,12 @@
         {% if error_message %}<div>{{ error_message }}</div>{% endif %}
     </div>
     <div class="row">
-        <div class="span6 page-header muted">
-            <h1>{{ ladder.name }}</h1>
-        </div>
-        <div class="span2">
-            <div id="match-entry-toggle-button-div">
-                <button id="match-entry-toggle-button" class="btn btn-medium">Register Match</button>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span6">
-            <table class="table table-striped">
-                <thead>
-                    <th>Rank</th>
-                    <th>Name</th>
-                </thead>
-                <tbody>
-                {% for player in players %}
-                    <tr class="ladder-rank-table-row">
-                        <td>{{ player.rank }}</td>
-                        <td>{{ player }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="span1 match-entry">
-            <form class="form-horizontal" action="/ladders/{{ ladder.id }}/update" method="post">{% csrf_token %}
-                <table class="table table-striped">
-                    <thead>
-                        <th>Score</th>
-                    </thead>
-                    <tbody>
-                    {% for player in players %}
-                        <tr class="ladder-rank-table-row">
-                            <td id="match-entry-player-{{ player.id }}">
-                                <input type="text" class="input-mini" name="match-entry-player-{{ player.id }}-score"/>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <input class="btn btn-medium" type="submit" value="Update" />
-            </form>
-        </div>
+    	<div class="span6">
+    	{% include "ladders/show_ladder_large.html" %}
+    	</div>
+    	<div class="span6">
+    	{% include "ladders/match_entry_form.html" %}
+    	</div>
     </div>
 </div>
 {% endblock %}

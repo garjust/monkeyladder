@@ -1,0 +1,31 @@
+<div style="background-color: #bbffff;">
+	<form class="form-horizontal" action="/ladders/{{ ladder.id }}/update" method="post">{% csrf_token %}
+	    <table class="table">
+	        <tbody>
+	            <tr>
+	            	<td style="width: 50%">
+	            		<label for="match-first-player-name-input">Player One</label>
+	            	</td>
+	                <td id="match-first-player">
+	                    <input id="match-first-player-name-input" type="text" name="match-first-player-name"/>
+	                </td>
+	                <td>
+	                	<input id="match-first-player-score-input" class="input-mini" type="text" name="match-first-player-score"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td style="width: 50%">
+	            		<label for="match-second-player-name-input">Player Two</label>
+	            	</td>
+	                <td id="match-second-player">
+	                    <input id="match-second-player-name-input" type="text" name="match-second-player-name"/>
+	                </td>
+	                <td>
+	                	<input id="match-second-player-score-input" class="input-mini" type="text" name="match-second-player-score"/>
+	                </td>
+	            </tr>
+	        </tbody>
+	    </table>
+	    <input class="btn btn-large" type="submit" value="Submit Match" />
+	</form>
+</div>
