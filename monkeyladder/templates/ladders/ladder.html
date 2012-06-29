@@ -2,6 +2,10 @@
 
 {% block head %}
 <style type="text/css">
+	.match-entry {
+		display: none;
+	}
+
     #match-entry-toggle-button-div {
         text-align: center;
         height: 50%;
@@ -79,7 +83,7 @@
                     <tbody>
                     {% for player in players %}
                         <tr class="ladder-rank-table-row">
-                            <td class="match-entry" id="match-entry-player-{{ player.id }}">
+                            <td id="match-entry-player-{{ player.id }}">
                                 <input type="text" class="input-mini" name="match-entry-player-{{ player.id }}-score"/>
                             </td>
                         </tr>

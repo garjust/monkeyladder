@@ -4,39 +4,38 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
+from django.contrib.admin.models import User
 from ladders.models import *
 
 def home(request):
     newest_ladders = Ladder.objects.all().order_by('-created')[:50]
     return render_to_response(
         'ladders/home.html',
-        {'newest_ladders': newest_ladders, 'navbar_active': 'home'}
-    )
-
-@login_required(login_url='/accounts/login/')
-def watched(request):
-    return render_to_response(
-        'ladders/watched.html',
-        {'navbar_active': 'watched'}
-    )
-
-@login_required(login_url='/accounts/login/')
-def climbing(request):
-    return render_to_response(
-        'ladders/climbing.html',
-        {'navbar_active': 'climbing'}
+        {'newest_ladders': newest_ladders, 'navbar_active': 'home'},
+        context_instance=RequestContext(request),
     )
 
 def ladder(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     if ladder.is_private:
-        pass
+        if not request.user.is_authenticated() or (len(ladder.player_set.filter(user=request.user)) == 0 and len(ladder.watcher_set.filter(user=request.user)) == 0):
+            raise Exception() 
     return render_to_response(
         'ladders/ladder.html',
         {'navbar_active': 'ladder', 'ladder': ladder, 'players': ladder.ranking()},
-        context_instance=RequestContext(request)
+        context_instance=RequestContext(request),
+    )
+    
+def watchers(request, ladder_id):
+    ladder = get_object_or_404(Ladder, pk=ladder_id)
+    watchers = ladder.watcher_set.filter()
+    return render_to_response(
+        'ladders/watchers.html',
+        {'navbar_active': 'watchers', 'ladder': ladder, 'watchers': watchers},
+        context_instance=RequestContext(request),
     )
 
+@login_required(login_url="/accounts/login")
 def update(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     players = ladder.ranking()
@@ -59,12 +58,23 @@ def matches(request, ladder_id):
         {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches},
         context_instance=RequestContext(request)
     )
-
-def watchers(request, ladder_id):
-    ladder = get_object_or_404(Ladder, pk=ladder_id)
+    
+@login_required(login_url='/accounts/login/')
+def watched(request):
+    watchers = Watcher.objects.filter(user=User.objects.filter(pk=request.user.id))
     return render_to_response(
-        'ladders/watchers.html',
-            {'navbar_active': 'watchers', 'ladder': ladder, 'watchers': []}
+        'ladders/watched.html',
+        {'watchers': watchers, 'navbar_active': 'watched'},
+        context_instance=RequestContext(request),
+    )
+
+@login_required(login_url='/accounts/login/')
+def climbing(request):
+    players = Player.objects.filter(user=User.objects.filter(pk=request.user.id))
+    return render_to_response(
+        'ladders/climbing.html',
+        {'players': players, 'navbar_active': 'climbing'},
+        context_instance=RequestContext(request),
     )
 
 def _handle_update(request, ladder, players, match_players):

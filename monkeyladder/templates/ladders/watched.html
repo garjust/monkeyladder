@@ -1,1 +1,29 @@
 {% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% if error_message %}<div>{{ error_message }}</div>{% endif %}
+    </div>
+    <div class="row">
+        <div class="span6 page-header muted">
+            <h2>Watching</h2>
+        </div>
+    </div>
+    {% if watchers %}
+    {% for watcher in watchers %}
+    <div class="row">
+        <div class="span6">
+            <h3><a href="/ladders/{{ watcher.ladder.id }}">{{ watcher.ladder }}</a></h3>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="row">
+    	<div class="span6">
+    		<h3>Not watching any ladders</h3>
+    	</div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

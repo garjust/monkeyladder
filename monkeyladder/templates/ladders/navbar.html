@@ -18,13 +18,19 @@
                 </ul>
             </div>
         {% endif %}
-            <div class="nav-collapse">
-                <div class="navbar-text pull-right">
-                    {% if not request.user.is_authenticated %}<a href="/accounts/login">Log In</a>{% endif %}
-                    {% if request.user.is_authenticated %}<div class="nav">Logged in as <a href="/accounts/profile">{{ request.user.get_full_name }}</a></div>{% endif %}
-                    {% if request.user.is_authenticated %}<a href="/accounts/logout">Log Out</a>{% endif %}
+        	<div class="nav-collapse">
+                <div class="navbar-text pull-right">   
+                	<ul class="nav">
+                	{% if not request.user.is_authenticated %}
+                    	<li class="session-link"><a href="/accounts/login">Log In</a></li>
+                	{% else %}
+                		<li class="session-link"><a href="/accounts/profile">Logged in as {{ request.user.get_full_name }}</a></li>
+                   		<li class="session-link"><a href="/accounts/logout">Log Out</a></li>
+                	{% endif %}
+                    	<li class="admin-link"><a href="/admin">Administration</a></li>
+                	</ul>
                 </div>
-            </div>
+            </div>        
         </div>
     </div>
 </div>

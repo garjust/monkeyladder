@@ -3,7 +3,7 @@
 {% block head %}
 <script type="text/javascript">
     $(function() {
-        $( "#matches-accordion" ).accordion();
+        $( "#matches-accordion" ).accordion({ animated: 'drop', active: false, event: 'mouseover' });
     });
 </script>
 {% endblock %}

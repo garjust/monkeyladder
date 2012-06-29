@@ -43,9 +43,9 @@ PONG_USERS = [('the_tan', 5), ('jagarbut', 3), ('vladman', 1), ('mike.pettypiece
 DOTA_USERS = [('mikey', 4), ('jagarbut', 1), ('waffle', 3), ('coma', 2),]
 
 for user in USERS:
-    user = User(username=user, **USERS[user])
-    user.set_password(USERS[user][password])
-    user.save()
+    user_model = User(username=user, **USERS[user])
+    user_model.set_password(USERS[user]['password'])
+    user_model.save()
 
 points_ladder = Ladder(name='Ping Pong At Points', rungs=25, is_private=True)
 points_ladder.save()
@@ -53,7 +53,7 @@ points_ladder.save()
 other_ladder = Ladder(name='Dota 2 Ladder', rungs=10)
 other_ladder.save()
 
-watcher = Watcher(ladder=points_ladder, user=User.objects.filter(username='random-user'))
+watcher = Watcher(ladder=points_ladder, user=User.objects.filter(username='random-user')[0])
 watcher.save()
 
 for user in PONG_USERS:

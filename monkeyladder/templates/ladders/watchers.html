@@ -1,11 +1,6 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title>Monkeyladder | {{ ladder.name }}</title>
-    {% include "ladders/styles.html" %}
-</head>
-<body>
-{% include "ladders/navbar.html" %}
+{% extends "base.html" %}
+
+{% block content %}
 <div class="container">
     <div class="row">
         {% if error_message %}<div>{{ error_message }}</div>{% endif %}
@@ -15,15 +10,20 @@
             <h2>{{ ladder }}&nbsp;Watchers</h2>
         </div>
     </div>
+    {% if watchers %}
     {% for watcher in watchers %}
-    <div class="span6 page-header">
-        <div class="row">
-            <div class="span2">
-                <h4>{{ watcher }}</h4>
-            </div>
+    <div class="row">
+        <div class="span6">
+            <h3>{{ watcher }}</h3>
         </div>
     </div>
     {% endfor %}
+    {% else %}
+    <div class="row">
+        <div class="span6">
+            <h3>No Watchers</h3>
+        </div>
+    </div>
+    {% endif %}
 </div>
-</body>
-</html>
+{% endblock %}

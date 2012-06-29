@@ -20,3 +20,22 @@
 .nav-padded-left {
     padding-left: 30px;
 }
+
+.session-link,
+.admin-link {
+	background-color: #282841;
+}
+
+.session-link:hover,
+.admin-link:hover {
+	background-color: #212161;
+}
+
+.session-link {
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.admin-link {
+	margin-left: 30px;
+}
