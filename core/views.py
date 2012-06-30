@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
 from django.contrib.admin.models import User
-from ladders.models import *
+from core.models import *
 
 def home(request):
     newest_ladders = Ladder.objects.all().order_by('-created')[:50]

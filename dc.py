@@ -1,5 +1,4 @@
-from ladders.models import *
-from django.contrib.auth.models import User
+from core.models import *
 
 USERS = {
     'vladman': {
@@ -47,10 +46,10 @@ for user in USERS:
     user_model.set_password(USERS[user]['password'])
     user_model.save()
 
-points_ladder = Ladder(name='Ping Pong At Points', rungs=25, is_private=True)
+points_ladder = Ladder(name='Points Ladder', rungs=25, is_private=True)
 points_ladder.save()
 
-other_ladder = Ladder(name='Dota 2 Ladder', rungs=10)
+other_ladder = Ladder(name='Other Ladder', rungs=10)
 other_ladder.save()
 
 watcher = Watcher(ladder=points_ladder, user=User.objects.filter(username='random-user')[0])

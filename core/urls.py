@@ -4,7 +4,7 @@ urlpatterns = patterns('django.views.generic.simple',
     url(r'^$', 'redirect_to', {'url': '/ladders/home'}),
 )
 
-urlpatterns += patterns('ladders.views',
+urlpatterns += patterns('core.views',
     url(r'^home$', 'home'),
     url(r'^watched$', 'watched'),
     url(r'^climbing$', 'climbing'),

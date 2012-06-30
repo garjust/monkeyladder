@@ -1,4 +1,4 @@
-from ladders.models import *
+from core.models import *
 from django.contrib import admin
 
 class PlayerInline(admin.TabularInline):

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-import django.contrib.auth.models as djangoauth
+from django.contrib.auth.models import User
 
 class Ladder(models.Model):
     name = models.CharField(max_length=50)
@@ -20,7 +20,7 @@ class Ladder(models.Model):
 
 class Player(models.Model):
     ladder = models.ForeignKey(Ladder)
-    user = models.ForeignKey(djangoauth.User)
+    user = models.ForeignKey(User)
     rank = models.IntegerField()
 
     def __unicode__(self):
@@ -28,7 +28,7 @@ class Player(models.Model):
 
 class Watcher(models.Model):
     ladder = models.ForeignKey(Ladder)
-    user = models.ForeignKey(djangoauth.User)
+    user = models.ForeignKey(User)
 
     def __unicode__(self):
         return self.user.get_full_name()
