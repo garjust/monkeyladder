@@ -19,6 +19,13 @@
     }
 </style>
 <script type="text/javascript">
+	$(function() {
+		var playerNames = [{% autoescape off %}{{ player_names }}{% endautoescape %}];
+		$(".player-name-autocomplete").autocomplete({
+			source: playerNames
+		});
+	});
+	
     $(function() {
         function toggleMatchEntry() {
             $(".match-entry").toggle('drop', {"direction": "right"}, 500);
@@ -29,16 +36,6 @@
             return false;
         });
     });
-</script>
-<script type="text/javascript">
-    function unhide_player_update(id) {
-        element = document.getElementById(id)
-        if (element.style.display == "none") {
-            element.style.display = "block"
-        } else {
-            element.style.display = "none"
-        }
-    }
 </script>
 {% endblock %}
 
@@ -51,7 +48,7 @@
     	<div class="span6">
     	{% include "ladders/show_ladder_large.html" %}
     	</div>
-    	<div class="span6">
+    	<div id="match-entry-span" class="span6">
     	{% include "ladders/match_entry_form.html" %}
     	</div>
     </div>
