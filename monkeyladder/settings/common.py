@@ -1,6 +1,6 @@
 import os
 
-PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..")).replace("\\", "/")
+PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", "..")).replace("\\", "/")
 
 ROOT_URLCONF = 'monkeyladder.urls'
 LOGIN_REDIRECT_URL = '/ladders/home'

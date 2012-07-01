@@ -7,7 +7,6 @@ from core.models import Ladder
 
 from matches.logic import MatchCreator
 
-@login_required(login_url="/accounts/login")
 def matches(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     if request.POST:
@@ -21,6 +20,7 @@ def _view_matches(request, ladder):
         context_instance=RequestContext(request)
     )
 
+@login_required(login_url="/accounts/login")
 def _create_match(request, ladder):
     player_one = (request.POST['match-first-player-name'], request.POST['match-first-player-score'])
     player_two = (request.POST['match-second-player-name'], request.POST['match-second-player-score'])

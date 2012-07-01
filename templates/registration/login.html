@@ -1,34 +1,14 @@
 {% extends "base.html" %}
 
-{% block head %}
-
-<style type="text/css">
-    .login-div {
-        background-color: #ccc;
-        border: 1px solid #000;
-
-
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 100px;
-    }
-    .login-inner-div {
-        margin: 1em, 1em, 1em, 1em;
-    }
-</style>
-
-{% endblock %}
-
 {% block content %}
-
 {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 <div class="container">
 <div class="row">
     <div class="span4">&nbsp;</div>
-    <div class="span4 login-div">
-        <div class="login-inner-div">
+    <div class="span4 monkey-form-span">
+        <div class="monkey-form-div">
             <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
                 <table>
                     <tr>
@@ -40,13 +20,13 @@
                         <td>{{ form.password }}</td>
                     </tr>
                 </table>
-
-                <input class="btn btn-large" type="submit" value="Log In" />
+				<div class="monkey-form-submit-div">
+                	<input class="btn btn-large" type="submit" value="Log In" />
+                </div>
                 <input type="hidden" name="next" value="{{ next }}" />
             </form>
         </div>
     </div>
 </div>
 </div>
-
 {% endblock %}

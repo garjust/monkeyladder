@@ -1,0 +1,53 @@
+.login-div {
+     background-color: #ccc;
+     border: 1px solid #000;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ .login-inner-div {
+
+ }
+ 
+ .monkey-form-span .error {
+	text-align: center;
+	color: red;
+	font-style: italic;
+	font-size: 120%;
+}
+
+.monkey-form-span .success {
+	text-align: center;
+	color: green;
+	font-style: italic;
+	font-size: 120%;
+}
+
+.monkey-form-div {
+	margin: 40px auto auto auto; 
+	width: 400px;
+	border: 1px solid #ccc;
+}
+
+.monkey-form-div > form {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.monkey-form-div > table {
+	width: 100%;
+}
+
+.monkey-form-div td {
+	padding-left: 10%;
+}
+
+.monkey-form-submit-div {
+	margin: 5px 5px 5px 5px;
+	text-align: center;
+}
+
+.monkey-form-submit-div > input {
+	margin-left: auto;
+	margin-right: auto;
+}
