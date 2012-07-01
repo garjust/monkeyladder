@@ -42,7 +42,7 @@ class MatchCreator(object):
     def _get_player_names(self, ladder):
         player_names = {}
         for player in ladder.ranking():
-            player_names[player.user.get_full_name()] = player.user
+            player_names[player.name()] = player.user
         return player_names
     
     def _create_match(self, ladder, players, player_names):

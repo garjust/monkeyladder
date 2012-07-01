@@ -15,8 +15,6 @@ USERS = {
     },
     'the_tan': {
         'password': 'password',
-        'first_name': 'Tan',
-        'last_name': 'Quach',
     },
     'coma': {
         'password': 'password',

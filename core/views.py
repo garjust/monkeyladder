@@ -5,6 +5,8 @@ from django.template import RequestContext
 from django.contrib.admin.models import User
 from core.models import Ladder, Player, Watcher
 
+from core.logic import LadderPlayerAutocomplete
+
 def home(request):
     newest_ladders = Ladder.objects.filter(is_private=False).order_by('-created')[:50]
     return render_to_response(
@@ -20,7 +22,7 @@ def ladder(request, ladder_id):
             raise Exception() 
     return render_to_response(
         'ladders/ladder.html',
-        {'navbar_active': 'ladder', 'ladder': ladder, 'players': ladder.ranking(), 'player_names': _get_autocomplete_player_list(ladder)},
+        {'navbar_active': 'ladder', 'ladder': ladder, 'players': ladder.ranking(), 'player_names': LadderPlayerAutocomplete().get_autocomplete_list(ladder)},
         context_instance=RequestContext(request),
     )
     
@@ -50,10 +52,3 @@ def climbing(request):
         {'players': players, 'navbar_active': 'climbing'},
         context_instance=RequestContext(request),
     )
-            
-def _get_autocomplete_player_list(ladder):
-    players = ladder.player_set.order_by('rank')
-    names = []
-    for player in players:
-        names.append(player.user.get_full_name())
-    return ','.join(map(lambda n: '"{}"'.format(n), names))

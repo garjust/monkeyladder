@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
+from core.logic import LadderPlayerAutocomplete
 from core.models import Ladder
 
 from matches.logic import MatchCreator
@@ -15,7 +16,7 @@ def matches(request, ladder_id):
     
 def _view_matches(request, ladder):
     matches = ladder.matches()
-    return render_to_response('ladders/matches.html',
+    return render_to_response('matches/match_history.html',
         {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches},
         context_instance=RequestContext(request)
     )
@@ -29,12 +30,13 @@ def _create_match(request, ladder):
         messages['success_message'] = "Match was created successfully"
     except AssertionError as e:
         messages['site_error_message'] = str(e)
+        messages['error_message'] = str(e)
     return render_to_response('ladders/ladder.html',
         _get_context(ladder, messages),
         context_instance=RequestContext(request)
     )
     
 def _get_context(ladder, messages):
-    context = {'navbar_active': 'ladder', 'ladder': ladder}
+    context = {'navbar_active': 'ladder', 'ladder': ladder, 'player_names': LadderPlayerAutocomplete().get_autocomplete_list(ladder)}
     context.update(messages)
     return context 
