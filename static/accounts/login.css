@@ -1,0 +1,18 @@
+.login-div {
+     background-color: #ccc;
+     border: 1px solid #000;
+     margin-left: auto;
+     margin-right: auto;
+}
+ 
+#login-page .monkey-form-div {
+	width: 35%;
+}
+
+#register {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	font-size: 110%;
+	font-family: cursive;
+	text-align: center;
+}
