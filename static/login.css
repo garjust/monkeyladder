@@ -5,8 +5,17 @@
      margin-right: auto;
  }
  
-#login-page {
+#login-page,
+#register-page {
 	background-color: #eee;
+}
+
+#register-page .monkey-form-div {
+	width: 60%;
+}
+
+#login-page .monkey-form-div {
+	width: 35%;
 }
  
  .monkey-form-span .error {
@@ -25,17 +34,16 @@
 
 .monkey-form-div {
 	margin: 40px auto auto auto; 
-	width: 400px;
 	border: 1px solid #ccc;
 	background-color: #fff;
 }
 
-.monkey-form-div > form {
+.monkey-form-div form {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
-.monkey-form-div > table {
+.monkey-form-div table {
 	width: 100%;
 }
 
