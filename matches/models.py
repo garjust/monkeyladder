@@ -11,14 +11,26 @@ class Match(models.Model):
 
     def winner(self):
         return self.matchplayer_set.filter().order_by('score')[1]
+    
     def loser(self):
         return self.matchplayer_set.filter().order_by('score')[0]
+    
+    def comments(self, order='-created'):
+        return self.comment_set.filter().order_by(order)
 
     def __unicode__(self):
         return "{} vs {}".format(self.winner(), self.loser())
     
     class Meta:
         verbose_name_plural = "Matches"
+        
+class Comment(models.Model):
+    match = models.ForeignKey(Match)
+    comment = models.CharField(max_length=100)
+    created = models.DateTimeField(default=timezone.now())
+    
+    def __unicode__(self):
+        return self.comment
 
 class MatchPlayer(models.Model):
     match = models.ForeignKey(Match)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from matches.models import Match, MatchPlayer
+from matches.models import Comment, Match, MatchPlayer
 
 class PlayerInline(admin.TabularInline):
     model = MatchPlayer
@@ -11,11 +11,15 @@ class PlayerInline(admin.TabularInline):
     def has_delete_permission(self, request, obj=None):
         return False
 
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 1
+
 class MatchAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['ladder', 'match_date']})
     ]
-    inlines = [PlayerInline]
+    inlines = [PlayerInline, CommentInline]
     list_display = ('__unicode__', 'ladder', 'match_date')
     list_filter = ['ladder', 'match_date']
     date_hierarchy = 'match_date'

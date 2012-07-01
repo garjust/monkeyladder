@@ -54,22 +54,10 @@ class MatchCreator(object):
             logger.debug("Created a match player: {}".format(match_player))
         logger.debug("Created a match: {}".format(match))
     
-    def _adjust_rankings(self, players, winner, loser):
-        rank_diff = winner.rank - loser.rank
-        if rank_diff <= 0:
-            return
-        elif rank_diff <= 2:
-            temp = winner.rank
-            winner.rank = loser.rank
-            loser.rank = temp
-            winner.save()
-            loser.save()
-        else:
-            players_slice = players[loser.rank-1:winner.rank]
-            players_slice[0].rank += 1
-            players_slice[1].rank -= 1
-            players_slice[len(players_slice)-1].rank -= 2
-            players_slice[len(players_slice)-2].rank += 1
-            players_slice[len(players_slice)-3].rank += 1
-            for player in players_slice:
-                player.save()
+class RankingAlgorithm(object):
+    
+    def __init__(self, *args, **kwargs):
+        object.__init__(self, *args, **kwargs)
+    
+    def adjust_rankings(self, match):
+        pass

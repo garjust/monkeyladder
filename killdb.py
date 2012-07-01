@@ -1,14 +1,14 @@
 import os
 
-from monkeyladder.development import DATABASES
+from monkeyladder.settings.development import DATABASES
 
 for name, database in DATABASES.items():
     database_file = database['NAME']
     if not database_file.endswith('monkeyladder.db'):
-        print "bad file"
+        print "Bad File: {}".format(database_file)
         continue
     if not os.path.exists(database_file):
-        print "db dne"
+        print "Target database does not exist: {}".format(database_file)
         continue
     print "Killing database: {}".format(database_file)
     os.remove(database_file)

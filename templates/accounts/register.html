@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+	    <div class="span4">&nbsp;</div>
+	    <div class="span4 monkey-form-span">
+	    {% if form.errors %}
+			<p>eerrrr</p>
+		{% endif %}
+	        <div class="monkey-form-div">
+	            <form method="post" action="/accounts/register">{% csrf_token %}
+	                <table>
+	                    <tr>
+	                        <td>{{ form.username.label_tag }}</td>
+	                        <td>{{ form.username }}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>{{ form.password1.label_tag }}</td>
+	                        <td>{{ form.password1 }}</td>
+	                    </tr>
+	                    <tr>
+	                        <td>{{ form.password2.label_tag }}</td>
+	                        <td>{{ form.password2 }}</td>
+	                    </tr>
+	                </table>
+					<div class="monkey-form-submit-div">
+	                	<input class="btn btn-large" type="submit" value="Register" />
+	        
+	                </div>
+	                <input type="hidden" name="next" value="{{ next }}" />
+	            </form>
+	        </div>
+	    </div>
+	</div>
+</div>
+{% endblock %}
