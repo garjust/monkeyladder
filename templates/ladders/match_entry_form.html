@@ -28,10 +28,17 @@
 	    	<input class="btn btn-large" type="submit" value="Submit Match" />
 	    </div>   
 	</form>
-	{% if site_error %}
+	{% if success_message %}
+		<div id="match-created-success" class="success">
+			<div>
+				<p>{{ success_message }}</p>
+			</div>
+		</div>
+	{% endif %}
+	{% if site_error_message %}
 		<div id="site-error" class="error">
-			<div class="">
-				<p>{{ site_error }}</p>
+			<div>
+				<p>{{ site_error_message }}</p>
 			</div>
 		</div>
 	{% endif %}

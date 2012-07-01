@@ -1,9 +1,9 @@
 <div id="footer">
 	<div class="container">
-	{% if site_error %}
+	{% if site_error_message %}
 		<div id="site-error" class="row error">
 			<div class="span12">
-				<p>{{ site_error }}</p>
+				<p>{{ site_error_message }}</p>
 			</div>
 		</div>	
 	{% endif %}

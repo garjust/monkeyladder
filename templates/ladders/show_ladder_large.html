@@ -11,10 +11,15 @@
                 <th>Name</th>
             </thead>
             <tbody>
-            {% for player in players %}
+            {% for player in ladder.ranking %}
                 <tr class="ladder-rank-table-row">
                     <td>{{ player.rank }}</td>
                     <td>{{ player }}</td>
+                </tr>
+            {% empty %}
+            	<tr class="ladder-rank-table-row">
+                    <td>?</td>
+                    <td></td>
                 </tr>
             {% endfor %}
             </tbody>

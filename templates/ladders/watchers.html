@@ -10,20 +10,18 @@
             <h2>{{ ladder }}&nbsp;Watchers</h2>
         </div>
     </div>
-    {% if watchers %}
     {% for watcher in watchers %}
     <div class="row">
         <div class="span6">
             <h3>{{ watcher }}</h3>
         </div>
     </div>
-    {% endfor %}
-    {% else %}
+    {% empty %}
     <div class="row">
         <div class="span6">
             <h3>No Watchers</h3>
         </div>
     </div>
-    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

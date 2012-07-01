@@ -22,6 +22,9 @@
                 {% for match in matches %}
                 <h3><a href="#">{{ match.winner }} vs {{ match.loser }}</a></h3>
                 <div>Match was played at {{ match.match_date }}</div>
+                {% empty %}
+                <h3><a href="#">No Matches</a></h3>
+                <div>Go play a match!</div>
                 {% endfor %}
             </div>
             <div id="matches-pager">
