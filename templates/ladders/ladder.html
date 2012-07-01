@@ -26,10 +26,19 @@
 <div class="container">
     <div class="row">
     	<div class="span6">
-    	{% include "ladders/show_ladder_large.html" %}
+    	{% include "ladders/ladder_display.html" %}
     	</div>
-    	<div id="match-entry-span" class="span6">
-    	{% include "matches/match_entry_form.html" %}
+    	<div class="span6">
+	    	<div class="row">
+	    		<div id="match-entry-span" >
+	    		{% include "matches/match_entry_form.html" %}
+	    		</div>
+	    	</div>
+	    	<div class="row">
+	    		<div id="ladder-feed-parent" >
+	    		{% include "ladders/ladder_feed.html" %}
+	    		</div>
+	    	</div>
     	</div>
     </div>
 </div>
