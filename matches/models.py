@@ -26,4 +26,4 @@ class MatchPlayer(models.Model):
     score = models.IntegerField()
 
     def __unicode__(self):
-        return "{} ({})".format(self.user, self.score)
+        return "{} ({})".format(self.user.get_full_name(), self.score)
