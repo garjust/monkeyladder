@@ -5,6 +5,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..")).replace("\\",
 ROOT_URLCONF = 'monkeyladder.urls'
 LOGIN_REDIRECT_URL = '/ladders/home'
 
+AUTH_PROFILE_MODULE = 'core.UserProfile'
+
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 USE_L10N = True
@@ -36,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'core',
+    'matches',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

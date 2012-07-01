@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import post_save
 from django.utils import timezone
 
 from django.contrib.auth.models import User
@@ -32,23 +33,12 @@ class Watcher(models.Model):
 
     def __unicode__(self):
         return self.user.get_full_name()
-
-class Match(models.Model):
-    ladder = models.ForeignKey(Ladder)
-    match_date = models.DateTimeField(default=timezone.now())
-
-    def winner(self):
-        return self.matchplayer_set.filter().order_by('score')[1]
-    def loser(self):
-        return self.matchplayer_set.filter().order_by('score')[0]
-
-    def __unicode__(self):
-        return "{} vs {}".format(self.winner(), self.loser())
-
-class MatchPlayer(models.Model):
-    match = models.ForeignKey(Match)
-    player = models.ForeignKey(Player)
-    score = models.IntegerField()
-
-    def __unicode__(self):
-        return "{} ({})".format(self.player, self.score)
+    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    paddle = models.CharField(max_length=300, null=True, blank=True)
+    
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+post_save.connect(create_user_profile, sender=User)

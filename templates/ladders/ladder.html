@@ -1,23 +1,6 @@
 {% extends "base.html" %}
 
 {% block head %}
-<style type="text/css">
-	.match-entry {
-		display: none;
-	}
-
-    #match-entry-toggle-button-div {
-        text-align: center;
-        height: 50%;
-        margin-bottom: 25%;
-        margin-top: 25%;
-    }
-
-    #match-entry-toggle-button {
-        display: inline-block;
-        margin: 0px auto 0px auto;
-    }
-</style>
 <script type="text/javascript">
 	$(function() {
 		var playerNames = [{% autoescape off %}{{ player_names }}{% endautoescape %}];

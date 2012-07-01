@@ -1,4 +1,4 @@
-from core.models import *
+from core.models import Ladder, Player, Watcher#, Match, MatchPlayer
 from django.contrib import admin
 
 class PlayerInline(admin.TabularInline):
@@ -19,13 +19,16 @@ class LadderAdmin(admin.ModelAdmin):
     search_fields = ['name']
     date_hierarchy = 'created'
 
-class MatchAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['ladder', 'match_date']})
-    ]
-    list_display = ('ladder', 'match_date')
-    list_filter = ['ladder', 'match_date']
-    date_hierarchy = 'match_date'
-
-admin.site.register(Ladder, LadderAdmin)
-admin.site.register(Match, MatchAdmin)
+#class MatchAdmin(admin.ModelAdmin):
+#    fieldsets = [
+#        (None, {'fields': ['ladder', 'match_date']})
+#    ]
+#    list_display = ('__unicode__', 'ladder', 'match_date')
+#    list_filter = ['ladder', 'match_date']
+#    date_hierarchy = 'match_date'
+#    
+#    def has_add_permission(self, request):
+#        return False
+#
+#admin.site.register(Ladder, LadderAdmin)
+#admin.site.register(Match, MatchAdmin)

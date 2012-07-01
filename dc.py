@@ -1,4 +1,5 @@
 from core.models import *
+from matches.models import *
 
 USERS = {
     'vladman': {
