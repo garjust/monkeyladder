@@ -1,9 +1,6 @@
-from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
-from django.utils import simplejson
 
 from django.contrib.admin.models import User
 from core.models import Ladder, Player, Watcher

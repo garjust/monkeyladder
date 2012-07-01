@@ -28,4 +28,11 @@
 	    	<input class="btn btn-large" type="submit" value="Submit Match" />
 	    </div>   
 	</form>
+	{% if site_error %}
+		<div id="site-error" class="error">
+			<div class="">
+				<p>{{ site_error }}</p>
+			</div>
+		</div>
+	{% endif %}
 </div>

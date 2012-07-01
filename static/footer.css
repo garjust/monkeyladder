@@ -8,3 +8,9 @@
 	font-style: italic;
 	font-weight: bold;
 }
+
+#footer .error {
+	font-size: 125%;
+	font-family: monospace;
+	color: red;
+}

@@ -6,6 +6,13 @@
     /* display: none; */
 }
 
+#match-entry-span .error {
+	text-align: center;
+	color: red;
+	font-style: italic;
+	font-size: 120%;
+}
+
 #match-entry-form {
 	margin: 15% auto auto auto; 
 	width: 400px;

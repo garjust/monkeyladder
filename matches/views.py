@@ -11,7 +11,7 @@ from matches.models import Match, MatchPlayer
 @login_required(login_url="/accounts/login")
 def matches(request, ladder_id):
     if request.POST:
-        return new_match(request, ladder_id)
+        return _new_match(request, ladder_id)
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     matches = ladder.matches()
     return render_to_response(
@@ -20,8 +20,7 @@ def matches(request, ladder_id):
         context_instance=RequestContext(request)
     )
     
-@login_required(login_url="/accounts/login")
-def new_match(request, ladder_id):
+def _new_match(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     player_one = (request.POST['match-first-player-name'], request.POST['match-first-player-score'])
     player_two = (request.POST['match-second-player-name'], request.POST['match-second-player-score'])     
@@ -46,7 +45,7 @@ def _handle_update(request, ladder, player_one, player_two):
     match_player_two.save()
     return _update_error(request, ladder, ladder.ranking, match)
     #_adjust_rankings(players, match.winner.player, match.loser.player)
-    return HttpResponseRedirect(reverse('ladders.views.ladder', args=(ladder.id,)))
+    return HttpResponseRedirect(reverse('/ladders/{}/ladder'.format(ladder.id)))
 
 def _get_player_from_full_name(player_name):
     pass
@@ -54,7 +53,7 @@ def _get_player_from_full_name(player_name):
 def _update_error(request, ladder, players, error_message="Unexpected error posting match"):
     return render_to_response(
         'ladders/ladder.html',
-        {'navbar_active': 'ladder', 'ladder': ladder, 'players': players, 'error_message': error_message},
+        {'navbar_active': 'ladder', 'ladder': ladder, 'players': players, 'site_error': error_message},
         context_instance=RequestContext(request)
     )
 

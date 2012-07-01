@@ -1,9 +1,16 @@
 <div id="footer">
 	<div class="container">
+	{% if site_error %}
+		<div id="site-error" class="row error">
+			<div class="span12">
+				<p>{{ site_error }}</p>
+			</div>
+		</div>	
+	{% endif %}
 		<div class="row">
 			<div class="span12">
 				<p>Built and designed by Justin Garbutt &copy; 2012 - present</p>
 			</div>
-		</div>
+		</div>	
 	</div>
 </div>
