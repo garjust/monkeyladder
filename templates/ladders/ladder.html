@@ -5,7 +5,7 @@
 	$(function() {
 		var playerNames = [{% autoescape off %}{{ player_names }}{% endautoescape %}];
 		$(".player-name-autocomplete").autocomplete({
-			source: playerNames
+			source: playerNames, delay: 50
 		});
 	});
 	

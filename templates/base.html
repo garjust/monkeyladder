@@ -3,10 +3,12 @@
 <head>
     <title>Monkeyladder</title>
     {% include "styles.html" %}
+    {% include "js.html" %}
     {% block head %}{% endblock %} 
 </head>
 <body>
-    <div id="navbar">{% include "ladders/navbar.html" %}</div><br /><br /><br />
-    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="navbar-parent">{% include "ladders/navbar.html" %}</div>
+    <div id="content-parent">{% block content %}{% endblock %}</div>
+    <div id="footer-parent">{% include "footer.html" %}</div>
 </body>
 </html>

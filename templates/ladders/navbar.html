@@ -5,8 +5,8 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li {% if navbar_active == 'home' %}class="active"{% endif %}><a href="/ladders/home">Home</a></li>
-                    {% if request.user.is_authenticated %}<li {% if navbar_active == 'watched' %}class="active"{% endif %}><a href="/ladders/watched">Watched Ladders</a></li>{% endif %}
-                    {% if request.user.is_authenticated %}<li {% if navbar_active == 'climbing' %}class="active"{% endif %}><a href="/ladders/climbing">Ladders I'm Climbing</a></li>{% endif %}
+                    {% if request.user.is_authenticated %}<li {% if navbar_active == 'watched' %}class="active"{% endif %}><a href="/ladders/watched">Watching</a></li>{% endif %}
+                    {% if request.user.is_authenticated %}<li {% if navbar_active == 'climbing' %}class="active"{% endif %}><a href="/ladders/climbing">Climbing</a></li>{% endif %}
                 </ul>
             </div>
         {% if ladder %}
