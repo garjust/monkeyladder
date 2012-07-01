@@ -5,9 +5,9 @@
      margin-right: auto;
  }
  
- .login-inner-div {
-
- }
+#login-page {
+	background-color: #eee;
+}
  
  .monkey-form-span .error {
 	text-align: center;
@@ -27,6 +27,7 @@
 	margin: 40px auto auto auto; 
 	width: 400px;
 	border: 1px solid #ccc;
+	background-color: #fff;
 }
 
 .monkey-form-div > form {
@@ -54,6 +55,7 @@
 
 #register {
 	margin-top: 15px;
+	margin-bottom: 15px;
 	font-size: 110%;
 	font-family: cursive;
 	text-align: center;
