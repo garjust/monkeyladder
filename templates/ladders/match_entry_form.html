@@ -1,23 +1,23 @@
-<div id="match-entry-form" class="table">
-	<form class="form-horizontal" action="/ladders/{{ ladder.id }}/matches" method="post">{% csrf_token %}
+<div id="match-entry-form">
+	<form class="" action="/ladders/{{ ladder.id }}/matches" method="post">{% csrf_token %}
 	    <table id="match-entry-table">
 	        <tbody>
 	            <tr>
-	                <td id="match-first-player">
+	                <td id="match-first-player" class="match-player-entry">
 	                	<label for="match-first-player-name-input">Player One</label>
 	                    <input id="match-first-player-name-input" class="player-name-autocomplete" type="text" name="match-first-player-name"/>
 	                </td>
-	                <td>
+	                <td class="match-score-entry">
 	                	<label for="match-first-player-score-input">Score</label>
 	                	<input id="match-first-player-score-input" class="input-mini" type="text" name="match-first-player-score"/>
 	                </td>
 	            </tr>
 	            <tr>
-	                <td id="match-second-player">
+	                <td id="match-second-player" class="match-player-entry">
 	                	<label for="match-second-player-name-input">Player Two</label>
 	                    <input id="match-second-player-name-input" class="player-name-autocomplete" type="text" name="match-second-player-name"/>
 	                </td>
-	                <td>
+	                <td class="match-score-entry">
 	                	<label for="match-second-player-score-input">Score</label>
 	                	<input id="match-second-player-score-input" class="input-mini" type="text" name="match-second-player-score"/>
 	                </td>
