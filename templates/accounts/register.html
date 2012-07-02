@@ -2,57 +2,25 @@
 
 {% block head %}
 <script type="text/javascript">
-	{% if form.errors.username %}
-	$(function() { 
-		$("#register-form-username").css("background-color", "#FF8C8C") 
-		$("#register-form-username-error").position({of: $("#register-form-username"), my: "left center", at: "right center"});
+	$(function() {
+		var errorFields = [
+			{% if form.errors.username %}"username",{% endif %}
+		    {% if form.errors.password1 %}"password1",{% endif %}
+		    {% if form.errors.password2 %}"password2",{% endif %}
+		    {% if form.errors.email %}"email",{% endif %}
+		    {% if form.errors.first_name %}"first-name",{% endif %}
+		    {% if form.errors.last_name %}"last-name",{% endif %}
+		]
+		for (var i = 0; i < errorFields.length; i++) {
+			$("#register-form-"+errorFields[i]).css("background-color", "#FF8C8C") 
+			$("#register-form-"+errorFields[i]+"-error").position({of: $("#register-form-"+errorFields[i]), my: "left center", at: "right center"});
+		}
 	});
-	{% endif %}
-	
-	{% if form.errors.password1 %}
-	$(function() { 
-		$("#register-form-password1").css("background-color", "#FF8C8C") 
-		$("#register-form-password1-error").position({of: $("#register-form-password1"), my: "left center", at: "right center"});
-	});
-	{% endif %}
-	
-	{% if form.errors.password2 %}
-	$(function() { 
-		$("#register-form-password2").css("background-color", "#FF8C8C") 
-		$("#register-form-password2-error").position({of: $("#register-form-password2"), my: "left center", at: "right center"});
-	});
-	{% endif %}
-	
-	{% if form.errors.email %}
-	$(function() { 
-		$("#register-form-email").css("background-color", "#FF8C8C") 
-		$("#register-form-email-error").position({of: $("#register-form-email"), my: "left center", at: "right center"});
-	});
-	{% endif %}
-	
-	{% if form.errors.first_name %}
-	$(function() { 
-		$("#register-form-first-name").css("background-color", "#FF8C8C") 
-		$("#register-form-first-name-error").position({of: $("#register-form-first-name"), my: "left center", at: "right center"});
-	});
-	{% endif %}
-	
-	{% if form.errors.last_name %}
-	$(function() { 
-		$("#register-form-last-name").css("background-color", "#FF8C8C") 
-		$("#register-form-last-name-error").position({of: $("#register-form-last-name"), my: "left center", at: "right center"});
-	});
-	{% endif %}
-	
 	{% if form.success %}
 	$(function() {
-		$("#register-form-username").css("background-color", "#8CD1A3") 
-		$("#register-form-password1").css("background-color", "#8CD1A3") 
-		$("#register-form-password2").css("background-color", "#8CD1A3") 
-		$("#register-form-email").css("background-color", "#8CD1A3") 
-		$("#register-form-first-name").css("background-color", "#8CD1A3") 
-		$("#register-form-last-name").css("background-color", "#8CD1A3")
-		$("#register-form-success").css("background-color", "#8CD1A3") 
+		var fields = ["username", "password1", "password2", "email", "first-name", "last-name"]
+		for (var i = 0; i < fields.length; i++) { $("#register-form-"+fields[i]).css("background-color", "#8CD1A3") }
+		$("#register-form-success").css("background-color", "#8CD1A3")
 	});
 	{% endif %}
 </script>
@@ -69,7 +37,7 @@
 	    <div class="span12 monkey-form-span">
 	        <div class="monkey-form-div">
 	        {% if form.success %}
-				<div id="register-form-success">Success</div>
+				<div id="register-form-success">Account created, check your email for an activation link</div>
 			{% endif %}
 	            <form method="post" action="/accounts/register">{% csrf_token %}
 	                <table>
