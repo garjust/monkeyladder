@@ -24,11 +24,12 @@ class LadderPlayerAutocomplete(object):
     
 class LadderAccessPermission(object):
     
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         object.__init__(self, *args, **kwargs)
+        self.user = user
         
-    def has_permission(self, ladder, user):
-        return user.is_authenticated() and (len(ladder.player_set.filter(user=user)) != 0 or len(ladder.watcher_set.filter(user=user)) != 0)
+    def has_permission(self, ladder):
+        return self.user.is_authenticated() and (len(ladder.player_set.filter(user=self.user)) != 0 or len(ladder.watcher_set.filter(user=self.user)) != 0)
     
 class LadderContext(object):
     

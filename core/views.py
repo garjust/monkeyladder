@@ -5,13 +5,17 @@ from django.template import RequestContext
 from django.contrib.admin.models import User
 from core.models import Ladder, Player, Watcher
 
-from core.logic import LadderContext
+from core.logic import LadderContext, LadderAccessPermission
 
 def home(request):
-    newest_ladders = Ladder.objects.filter(is_private=False).order_by('-created')[:50]
+    newest_ladders = Ladder.objects.filter(is_private=False).order_by('-created')[:10]
+    private_ladders = []
+    if request.user.is_authenticated():
+        permissioner = LadderAccessPermission(request.user)
+        private_ladders = filter(lambda l: permissioner.has_permission(l), Ladder.objects.filter(is_private=True).order_by('-created'))
     return render_to_response(
         'ladders/home.html',
-        {'newest_ladders': newest_ladders, 'navbar_active': 'home'},
+        {'newest_ladders': newest_ladders, 'private_ladders': private_ladders, 'navbar_active': 'home'},
         context_instance=RequestContext(request),
     )
 
