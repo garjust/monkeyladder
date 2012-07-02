@@ -15,7 +15,7 @@ def _do_registration(request):
     form = ExtendedUserCreationForm(request.POST)
     if form.is_valid():
         print "GOOD FORM"
-        #form = ExtendedUserCreationForm()
+        form = ExtendedUserCreationForm()
         form.success = True
     else:
         print "BAD FORM"

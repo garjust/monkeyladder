@@ -20,6 +20,8 @@
 }
 
 #register-form-success {
+	padding-top: 5px;
+	padding-bottom: 5px;
 	font-size: 120%;
 	text-align: center;
 }

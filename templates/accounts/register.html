@@ -17,11 +17,7 @@
 		}
 	});
 	{% if form.success %}
-	$(function() {
-		var fields = ["username", "password1", "password2", "email", "first-name", "last-name"]
-		for (var i = 0; i < fields.length; i++) { $("#register-form-"+fields[i]).css("background-color", "#8CD1A3") }
-		$("#register-form-success").css("background-color", "#8CD1A3")
-	});
+	$(document).ready(function() { $(".monkey-form-div").css("background-color", "#8CD1A3") })
 	{% endif %}
 </script>
 <style type="text/css">
