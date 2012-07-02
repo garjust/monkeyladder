@@ -1,0 +1,9 @@
+<div>
+	<ul>Match Feed
+	{% for match in match_feed %}
+		<li>{{ match }}</li>
+	{% empty %}
+		<li>Match feed was empty</li>
+	{% endfor %}
+	</ul
+</div>

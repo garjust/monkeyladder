@@ -13,8 +13,8 @@ class Ladder(models.Model):
     def ranking(self):
         return self.player_set.filter().order_by('rank')
 
-    def matches(self, order='-match_date'):
-        return self.match_set.filter().order_by(order)
+    def match_feed(self, order='-match_date'):
+        return self.match_set.filter().order_by(order)[:5]
 
     def __unicode__(self):
         return self.name

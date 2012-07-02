@@ -16,7 +16,7 @@ class Match(models.Model):
         return self.matchplayer_set.filter().order_by('score')[0]
     
     def comments(self, order='-created'):
-        return self.comment_set.filter().order_by(order)
+        return self.comment_set.filter().order_by(order) 
 
     def __unicode__(self):
         return "{} vs {}".format(self.winner(), self.loser())

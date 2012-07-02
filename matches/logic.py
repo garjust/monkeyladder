@@ -1,4 +1,5 @@
 from matches.models import Match, MatchPlayer
+from core.logic import get_best_name
 
 import logging
 logger = logging.getLogger('monkeyladder')
@@ -14,11 +15,11 @@ class MatchCreator(object):
         object.__init__(self, *args, **kwargs)
         self.ladder = ladder
         
-    def create(self, *players):
+    def create(self, user, *players):
         logger.debug("Creating a match with: {}".format(players))
         self._validate_scores(*map(lambda p: p[1], players))
         player_names = self._get_player_names(self.ladder)
-        self._validate_players(player_names, *map(lambda p: p[0], players))
+        self._validate_players(user, player_names, *map(lambda p: p[0], players))
         self._create_match(self.ladder, players, player_names)
     
     def _validate_scores(self, *scores):
@@ -32,8 +33,10 @@ class MatchCreator(object):
             logger.error("A score was incorrect")
             raise AssertionError("Scores must be positive integers")
         
-    def _validate_players(self, player_names, *players):
+    def _validate_players(self, user, player_names, *players):
         logger.debug("Validating players: {}".format(players))
+        if get_best_name(user) not in players:
+            raise AssertionError("Cannot create match on the behalf of other players")
         for player in players:
             if players.count(player) != 1:
                 logger.error("Match has the same player more than once")

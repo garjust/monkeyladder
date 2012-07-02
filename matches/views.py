@@ -15,7 +15,7 @@ def matches(request, ladder_id):
     return _view_matches(request, ladder)
     
 def _view_matches(request, ladder):
-    matches = ladder.matches()
+    matches = ladder.match_set.filter().order_by('-match_date')
     return render_to_response('matches/match_history.html',
         {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches},
         context_instance=RequestContext(request)
@@ -27,7 +27,7 @@ def _create_match(request, ladder):
     player_two = (request.POST['match-second-player-name'], request.POST['match-second-player-score'])
     messages = {}
     try:
-        messages['site_error_message'] = MatchCreator(ladder).create(player_one, player_two)
+        messages['site_error_message'] = MatchCreator(ladder).create(request.user, player_one, player_two)
         messages['success_message'] = "Match was created successfully"
     except AssertionError as e:
         messages['site_error_message'] = str(e)

@@ -36,7 +36,12 @@ class LadderContext(object):
         object.__init__(self, *args, **kwargs)
         
     def get(self, ladder, *partial_contexts):
-        context = {'navbar_active': 'ladder', 'ladder': ladder, 'player_names': LadderPlayerAutocomplete().get_autocomplete_list(ladder)}
+        context = {'navbar_active': 'ladder', 'ladder': ladder, 'player_names': LadderPlayerAutocomplete().get_autocomplete_list(ladder), 'match_feed': ladder.match_feed()}
         for partial_context in partial_contexts:
             context.update(partial_context)
-        return context 
+        return context
+    
+def get_best_name(user):
+    if user.get_full_name():
+        return user.get_full_name()
+    return user.username

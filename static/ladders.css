@@ -53,3 +53,11 @@ td.match-score-entry {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#match-feed {
+	margin: 20px 20px 20px 20px;
+}
+
+#match-feed ul {
+	list-style: none;
+}
