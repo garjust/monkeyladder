@@ -38,29 +38,28 @@
 	            <form method="post" action="/accounts/register">{% csrf_token %}
 	                <table>
 	                    <tr id="register-form-username">
-	                        <td>{{ form.username.label_tag }}</td>
-	                        <td>{{ form.username }}</td>
+	                        <td class="monkey-form-label">{{ form.username.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ form.username }}</td>
 	                    </tr>
 	                    <tr id="register-form-password1">
-	                        <td>{{ form.password1.label_tag }}</td>
-	                        <td>{{ form.password1 }}</td>
+	                        <td class="monkey-form-label">{{ form.password1.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ form.password1 }}</td>
 	                    </tr>
 	                    <tr id="register-form-password2">
-	                        <td>{{ form.password2.label_tag }}</td>
-	                        <td>{{ form.password2 }}</td>
-	                        
+	                        <td class="monkey-form-label">{{ form.password2.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ form.password2 }}</td>       
 	                    </tr>
 	                    <tr id="register-form-email">
-	                        <td>{{ form.email.label_tag }}</td>
-	                        <td>{{ form.email }}</td>
+	                        <td class="monkey-form-label">{{ form.email.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ form.email }}</td>
 	                    </tr>
 	                    <tr id="register-form-first-name">
-	                        <td>{{ form.first_name.label_tag }}</td>
-	                        <td>{{ form.first_name }}</td>
+	                        <td class="monkey-form-label">{{ form.first_name.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ form.first_name }}</td>
 	                    </tr>
 	                    <tr id="register-form-last-name">
-	                        <td>{{ form.last_name.label_tag }}</td>
-	                        <td>{{ form.last_name }}</td>
+	                        <td class="monkey-form-label">{{ form.last_name.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ form.last_name }}</td>
 	                    </tr>
 	                </table>
 					<div class="monkey-form-submit-div">
