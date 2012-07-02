@@ -2,19 +2,12 @@
 #register-page {
 	background-color: #eee;
 }
-
-.login-div {
-     background-color: #ccc;
-     border: 1px solid #000;
-     margin-left: auto;
-     margin-right: auto;
-}
  
 #login-page .monkey-form-div {
-	width: 35%;
+	width: 411px;
 }
 
-#register {
+#login-page #register-link {
 	margin-top: 15px;
 	margin-bottom: 15px;
 	font-size: 110%;
@@ -23,5 +16,10 @@
 }
 
 #register-page .monkey-form-div {
-	width: 60%;
+	width: 704px;
+}
+
+#register-form-success {
+	font-size: 120%;
+	text-align: center;
 }

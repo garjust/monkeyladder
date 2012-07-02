@@ -1,26 +1,102 @@
 {% extends "base.html" %}
 
+{% block head %}
+<script type="text/javascript">
+	{% if form.errors.username %}
+	$(function() { 
+		$("#register-form-username").css("background-color", "#FF8C8C") 
+		$("#register-form-username-error").position({of: $("#register-form-username"), my: "left center", at: "right center"});
+	});
+	{% endif %}
+	
+	{% if form.errors.password %}
+	$(function() { 
+		$("#register-form-password").css("background-color", "#FF8C8C") 
+		$("#register-form-password-error").position({of: $("#register-form-password"), my: "left center", at: "right center"});
+	});
+	{% endif %}
+	
+	{% if form.errors.password2 %}
+	$(function() { 
+		$("#register-form-password2").css("background-color", "#FF8C8C") 
+		$("#register-form-password2-error").position({of: $("#register-form-password2"), my: "left center", at: "right center"});
+	});
+	{% endif %}
+	
+	{% if form.errors.email %}
+	$(function() { 
+		$("#register-form-email").css("background-color", "#FF8C8C") 
+		$("#register-form-email-error").position({of: $("#register-form-email"), my: "left center", at: "right center"});
+	});
+	{% endif %}
+	
+	{% if form.errors.first_name %}
+	$(function() { 
+		$("#register-form-first-name").css("background-color", "#FF8C8C") 
+		$("#register-form-first-name-error").position({of: $("#register-form-first-name"), my: "left center", at: "right center"});
+	});
+	{% endif %}
+	
+	{% if form.errors.last_name %}
+	$(function() { 
+		$("#register-form-last-name").css("background-color", "#FF8C8C") 
+		$("#register-form-last-name-error").position({of: $("#register-form-last-name"), my: "left center", at: "right center"});
+	});
+	{% endif %}
+	
+	{% if form.success %}
+	$(function() {
+		$("#register-form-username").css("background-color", "#8CD1A3") 
+		$("#register-form-password").css("background-color", "#8CD1A3") 
+		$("#register-form-password2").css("background-color", "#8CD1A3") 
+		$("#register-form-email").css("background-color", "#8CD1A3") 
+		$("#register-form-first-name").css("background-color", "#8CD1A3") 
+		$("#register-form-last-name").css("background-color", "#8CD1A3")
+		$("#register-form-success").css("background-color", "#8CD1A3") 
+	});
+	{% endif %}
+</script>
+<style type="text/css">
+	.position-absolute {
+		position: absolute;
+	}
+</style>
+{% endblock %}
+
 {% block content %}
 <div id="register-page" class="container">
 	<div class="row">
 	    <div class="span12 monkey-form-span">
-	    {% if form.errors %}
-			<p>eerrrr</p>
-		{% endif %}
 	        <div class="monkey-form-div">
+	        {% if form.success %}
+				<div id="register-form-success">Success</div>
+			{% endif %}
 	            <form method="post" action="/accounts/register">{% csrf_token %}
 	                <table>
-	                    <tr>
+	                    <tr id="register-form-username">
 	                        <td>{{ form.username.label_tag }}</td>
 	                        <td>{{ form.username }}</td>
 	                    </tr>
-	                    <tr>
+	                    <tr id="register-form-password">
 	                        <td>{{ form.password1.label_tag }}</td>
 	                        <td>{{ form.password1 }}</td>
 	                    </tr>
-	                    <tr>
+	                    <tr id="register-form-password2">
 	                        <td>{{ form.password2.label_tag }}</td>
 	                        <td>{{ form.password2 }}</td>
+	                        
+	                    </tr>
+	                    <tr id="register-form-email">
+	                        <td>{{ form.email.label_tag }}</td>
+	                        <td>{{ form.email }}</td>
+	                    </tr>
+	                    <tr id="register-form-first-name">
+	                        <td>{{ form.first_name.label_tag }}</td>
+	                        <td>{{ form.first_name }}</td>
+	                    </tr>
+	                    <tr id="register-form-last-name">
+	                        <td>{{ form.last_name.label_tag }}</td>
+	                        <td>{{ form.last_name }}</td>
 	                    </tr>
 	                </table>
 					<div class="monkey-form-submit-div">
@@ -33,4 +109,22 @@
 	    </div>
 	</div>
 </div>
+{% if form.errors.username %}
+<div id="register-form-username-error" class="position-absolute register-form-error">{{ form.errors.username|removetags:"ul li" }}</div>
+{% endif %}
+{% if form.errors.password %}
+<div id="register-form-password-error" class="position-absolute register-form-error">{{ form.errors.password|removetags:"ul li" }}</div>
+{% endif %}
+{% if form.errors.password2 %}
+<div id="register-form-password2-error" class="position-absolute register-form-error">{{ form.errors.password2|removetags:"ul li" }}</div>
+{% endif %}
+{% if form.errors.email %}
+<div id="register-form-email-error" class="position-absolute register-form-error">{{ form.errors.email|removetags:"ul li" }}</div>
+{% endif %}
+{% if form.errors.first_name %}
+<div id="register-form-first-name-error" class="position-absolute register-form-error">{{ form.errors.first_name|removetags:"ul li" }}</div>
+{% endif %}
+{% if form.errors.last_name %}
+<div id="register-form-last-name-error" class="position-absolute register-form-error">{{ form.errors.last_name|removetags:"ul li" }}</div>
+{% endif %}
 {% endblock %}
