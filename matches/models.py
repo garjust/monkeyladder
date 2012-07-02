@@ -27,6 +27,7 @@ class Match(models.Model):
 class Comment(models.Model):
     match = models.ForeignKey(Match)
     comment = models.CharField(max_length=100)
+    creater = models.ForeignKey(User)
     created = models.DateTimeField(default=timezone.now())
     
     def __unicode__(self):

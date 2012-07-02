@@ -35,6 +35,9 @@ class MatchCreator(object):
     def _validate_players(self, player_names, *players):
         logger.debug("Validating players: {}".format(players))
         for player in players:
+            if players.count(player) != 1:
+                logger.error("Match has the same player more than once")
+                raise AssertionError("Players must be unique")
             if player not in player_names:
                 logger.error("A player was not on the ladder")
                 raise AssertionError("Players must be on the ladder")
