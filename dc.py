@@ -45,7 +45,7 @@ for user in USERS:
     user_model.set_password(USERS[user]['password'])
     user_model.save()
 
-points_ladder = Ladder(name='Points Ladder', rungs=25, is_private=True)
+points_ladder = Ladder(name='Points Ping Pong', rungs=25, is_private=True)
 points_ladder.save()
 
 other_ladder = Ladder(name='Other Ladder', rungs=10)

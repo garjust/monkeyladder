@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from accounts.forms import ExtendedUserCreationForm
+from core.models import Ladder, Player
 
 def register(request):
     if request.POST:
@@ -15,9 +16,13 @@ def register(request):
 def _do_registration(request):
     form = ExtendedUserCreationForm(request.POST)
     if form.is_valid():
-        form.save(commit=True)
+        user = form.save(commit=True)
         form = ExtendedUserCreationForm()
         form.success = True
+        ladder = Ladder.objects.filter(name="Points Ping Pong")
+        if ladder:
+            ladder = ladder[0]
+            Player(ladder=ladder, user=user, rank=len(Player.objects.filter(ladder=ladder)) + 1).save()
     return render_to_response('accounts/register.html',
         {'form': form},
         context_instance=RequestContext(request)
