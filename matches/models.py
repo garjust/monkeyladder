@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 from django.contrib.auth.models import User
-from core.models import Ladder
+from core.models import Ladder, Player
 
 class Match(models.Model):
     ladder = models.ForeignKey(Ladder)
@@ -37,6 +37,9 @@ class MatchPlayer(models.Model):
     match = models.ForeignKey(Match)
     user = models.ForeignKey(User)
     score = models.IntegerField()
+    
+    def player(self):
+        return Player.objects.filter(ladder=self.match.ladder, user=self.user)[0]
 
     def __unicode__(self):
         if self.user.get_full_name():

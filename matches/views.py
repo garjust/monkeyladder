@@ -5,7 +5,7 @@ from django.template import RequestContext
 from core.logic import LadderContext
 from core.models import Ladder
 
-from matches.logic import MatchCreator
+from matches.logic import MatchCreator, RankingAlgorithm
 from matches.models import Match
 
 def matches(request, ladder_id):
@@ -27,8 +27,9 @@ def _create_match(request, ladder):
     player_two = (request.POST['match-second-player-name'], request.POST['match-second-player-score'])
     messages = {}
     try:
-        messages['site_error_message'] = MatchCreator(ladder).create(request.user, player_one, player_two)
+        match = MatchCreator(ladder).create(request.user, player_one, player_two)
         messages['success_message'] = "Match was created successfully"
+        RankingAlgorithm().adjust_rankings(match)
     except AssertionError as e:
         messages['site_error_message'] = str(e)
         messages['error_message'] = str(e)
