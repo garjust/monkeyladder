@@ -12,6 +12,7 @@ urlpatterns += patterns('django.contrib.auth.views',
 urlpatterns += patterns('accounts.views',
     url(r'^register$', 'register'),
     url(r'^profile$', 'profile'),
+    url(r'^profile/edit$', 'edit_profile'),
 )
 
 

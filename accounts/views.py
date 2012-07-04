@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -22,8 +23,16 @@ def _do_registration(request):
         context_instance=RequestContext(request)
     )
 
+@login_required(login_url="/accounts/login")
 def profile(request):
     return render_to_response('accounts/profile.html',
+        {},
+        context_instance=RequestContext(request)
+    )
+    
+@login_required(login_url="/accounts/login")
+def edit_profile(request):
+    return render_to_response('accounts/edit_profile.html',
         {},
         context_instance=RequestContext(request)
     )
