@@ -4,10 +4,10 @@
 <div id="login-page" class="container">
 	<div class="row">
 	    <div class="span12 monkey-form-span">
-	    {% if form.errors %}
-			<p>Your username and password didn't match. Please try again.</p>
-		{% endif %}
 	        <div class="monkey-form-div">
+	        {% if form.errors %}
+			<div>{{ form.errors|removetags:"ul li" }}</div>
+			{% endif %}
 	            <form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
 	                <table>
 	                    <tr>
