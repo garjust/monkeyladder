@@ -33,7 +33,7 @@
 	    <div class="span12 monkey-form-span">
 	        <div class="monkey-form-div">
 	        {% if form.success %}
-				<div id="register-form-success">Account created, check your email for an activation link</div>
+				<div id="register-form-success">Account created successfully</div>
 			{% endif %}
 	            <form method="post" action="/accounts/register">{% csrf_token %}
 	                <table>

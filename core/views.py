@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from django.http import HttpResponseForbidden
 
 from django.contrib.admin.models import User
 from core.models import Ladder, Player, Watcher
@@ -22,8 +23,9 @@ def home(request):
 def ladder(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     if ladder.is_private:
-        if not request.user.is_authenticated() or (len(ladder.player_set.filter(user=request.user)) == 0 and len(ladder.watcher_set.filter(user=request.user)) == 0):
-            raise Exception() 
+        permissioner = LadderAccessPermission(request.user)
+        if not permissioner.has_permission(ladder):
+            return HttpResponseForbidden()
     return render_to_response(
         'ladders/ladder.html',
         LadderContext().get(ladder),

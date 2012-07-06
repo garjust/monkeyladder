@@ -6,7 +6,6 @@ from core.models import Ladder, Player
 
 class Match(models.Model):
     ladder = models.ForeignKey(Ladder)
-    summary = models.CharField(max_length=300, null=True, blank=True)
     match_date = models.DateTimeField(default=timezone.now())
 
     def winner(self):

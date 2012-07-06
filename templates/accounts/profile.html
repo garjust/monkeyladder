@@ -3,11 +3,70 @@
 {% block content %}
 <div id="profile-page" class="container">
 	<div class="row">
-	    <div class="span12">
+	    <div class="span6">
 	        <div>
-	        Profile
+	        	<h2>{{ request.user.get_profile.name }}'s Profile</h2>
 	        </div>
 	    </div>
+		<div class="span6">	        
+	        <div>
+	        	<table class="table	">
+	        		<tr>
+			        	<td>Username</td>
+			        	<td>{{ request.user.username }}</td>
+			    	</tr>
+			    	<tr>
+			        	<td>First Name</td>
+			        	<td>{{ request.user.first_name }}</td>
+	        		</tr>
+	        		<tr>
+			        	<td>Last Name</td>
+			        	<td>{{ request.user.last_name }}</td>
+	        		</tr>
+	        		<tr>
+			        	<td>Email</td>
+			        	<td>{{ request.user.email}}</td>
+	        		</tr>
+	        	</table>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="span6">
+			<div>
+				<h3>Ladders</h3>
+				<table class="table">
+				{% for ladder in ladders %}
+					<tr>
+						<td><a href="/ladders/{{ ladder.id }}">{{ ladder }}</a></td>
+					</tr>
+				{% empty %}
+					<tr>
+						<td>No Ladders</td>
+					</tr>
+				{% endfor %}
+				</table>
+			</div>
+		</div>
+		<div class="span6">
+			<div>
+				<h3>Recent Matches</h3>
+				<table class="table">
+				{% for match in recent_matches %}
+					<tr>
+						<tr>
+							<td>{{ match }}</td>
+							<td>{{ match.match_date }}</td>
+						</tr>
+					</tr>
+				{% empty %}
+					<tr>
+						<td>No Matches</td>
+					</tr>
+				{% endfor %}
+				</table>
+			</div>
+		</div>
 	</div>
 </div>
 {% endblock %}

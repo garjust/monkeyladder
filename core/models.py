@@ -44,6 +44,12 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     paddle = models.CharField(max_length=300, null=True, blank=True)
     
+    def name(self):
+        full_name = self.user.get_full_name()
+        if full_name:
+            return full_name
+        return self.user.username
+    
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
