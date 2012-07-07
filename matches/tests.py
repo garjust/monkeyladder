@@ -7,10 +7,16 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 
+from matches.logic import RankingAlgorithm
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+class RankingAlgorithmTest(TestCase):
+    
+    def setUp(self):
+        self.fixture = RankingAlgorithm()
+    
+    def test_adjust_ranking(self):
         """
         Tests that 1 + 1 always equals 2.
         """
         self.assertEqual(1 + 1, 2)
+        raise AssertionError()

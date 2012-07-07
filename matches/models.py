@@ -6,7 +6,7 @@ from core.models import Ladder, Player
 
 class Match(models.Model):
     ladder = models.ForeignKey(Ladder)
-    match_date = models.DateTimeField()#auto_now_add=True)
+    match_date = models.DateTimeField()
 
     def winner(self):
         return self.matchplayer_set.filter().order_by('score')[1]
@@ -23,14 +23,10 @@ class Match(models.Model):
     class Meta:
         verbose_name_plural = "Matches"
         
-class Comment(models.Model):
-    match = models.ForeignKey(Match)
-    comment = models.CharField(max_length=100)
-    creater = models.ForeignKey(User)
-    created = models.DateTimeField(default=timezone.now())
-    
-    def __unicode__(self):
-        return self.comment
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.match_date = timezone.now()
+        super(Match, self).save(*args, **kwargs)
 
 class MatchPlayer(models.Model):
     match = models.ForeignKey(Match)
