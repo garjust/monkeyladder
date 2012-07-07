@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20120707 15:01:30.184" generator="Robot 2.7.3 (Python 2.7.3 on win32)">
+<suite source="D:\workspaces\python\monkeyladder\test-robot\testcases" id="s1" name="Robot Tests">
+<metadata>
+</metadata>
+<suite source="D:\workspaces\python\monkeyladder\test-robot\testcases\login.txt" id="s1-s1" name="Login">
+<metadata>
+</metadata>
+<test id="s1-s1-t1" timeout="" name="Successfully Login As Super User">
+<kw type="kw" name="login_flows.Successful Login Flow" timeout="">
+<doc></doc>
+<arguments>
+<arg>${SUPERUSER_USERNAME}</arg>
+<arg>${SUPERUSER_PASSWORD}</arg>
+<arg>${SUPERUSER_NAME}</arg>
+</arguments>
+<kw type="kw" name="test_setup_keywords.Start Browser Session" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Open Browser" timeout="">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${url}</arg>
+<arg>browser=firefox</arg>
+</arguments>
+<msg timestamp="20120707 15:01:30.315" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8000/'</msg>
+<status status="PASS" endtime="20120707 15:01:35.988" starttime="20120707 15:01:30.315"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Maximize Browser Window" timeout="">
+<doc>Maximizes current browser window.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20120707 15:01:36.019" starttime="20120707 15:01:35.988"></status>
+</kw>
+<status status="PASS" endtime="20120707 15:01:36.019" starttime="20120707 15:01:30.314"></status>
+</kw>
+<kw type="kw" name="navbar_keywords.Go To Login" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="safe_selenium_keywords.Safe Click Link" timeout="">
+<doc></doc>
+<arguments>
+<arg>${NAV_LOGIN_LINK}</arg>
+<arg>error=Failed to click login link</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Wait Until Page Contains Element" timeout="">
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<arguments>
+<arg>${link}</arg>
+<arg>timeout=5</arg>
+<arg>error=${error}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20120707 15:01:41.059" level="FAIL">WebDriverException: Message: u'Could not take screenshot of current page - [Exception... "Component returned failure code: 0x8007000e (NS_ERROR_OUT_OF_MEMORY) [nsIDOMHTMLCanvasElement.getContext]"  nsresult: "0x8007000e (NS_ERROR_OUT_OF_MEMORY)"  location: "JS frame :: file:///c:/users/jagarbut/appdata/local/temp/tmpbrc7o5/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/driver_component.js :: &lt;TOP_LEVEL&gt; :: line 6205"  data: no]' </msg>
+<status status="FAIL" endtime="20120707 15:01:41.059" starttime="20120707 15:01:41.044"></status>
+</kw>
+<msg timestamp="20120707 15:01:41.059" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'Could not take screenshot of current page - [Exception... "Component returned failure code: 0x8007000e (NS_ERROR_OUT_OF_MEMORY) [nsIDOMHTMLCanvasElement.getContext]"  nsresult: "0x8007000e (NS_ERROR_OUT_OF_MEMORY)"  location: "JS frame :: file:///c:/users/jagarbut/appdata/local/temp/tmpbrc7o5/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/driver_component.js :: &lt;TOP_LEVEL&gt; :: line 6205"  data: no]' </msg>
+<msg timestamp="20120707 15:01:41.062" level="FAIL">Failed to click login link</msg>
+<status status="FAIL" endtime="20120707 15:01:41.062" starttime="20120707 15:01:36.021"></status>
+</kw>
+<status status="FAIL" endtime="20120707 15:01:41.063" starttime="20120707 15:01:36.020"></status>
+</kw>
+<status status="FAIL" endtime="20120707 15:01:41.063" starttime="20120707 15:01:36.019"></status>
+</kw>
+<status status="FAIL" endtime="20120707 15:01:41.063" starttime="20120707 15:01:30.314"></status>
+</kw>
+<doc></doc>
+<tags>
+<tag>test</tag>
+</tags>
+<status status="FAIL" endtime="20120707 15:01:41.064" critical="yes" starttime="20120707 15:01:30.313">Failed to click login link</status>
+</test>
+<kw type="teardown" name="suite_setup_keywords.End Suite" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="BuiltIn.Log Variables" timeout="">
+<doc>Logs all variables in the current scope with given log level.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20120707 15:01:41.066" level="INFO">${/} = \</msg>
+<msg timestamp="20120707 15:01:41.066" level="INFO">${:} = ;</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${DEBUG_FILE} = NONE</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${EMPTY} = </msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${EXECDIR} = D:\workspaces\python\monkeyladder\test-robot</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${False} = False</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${LOG_FILE} = D:\workspaces\python\monkeyladder\test-robot\reports\log.html</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${LOGIN_BUTTON} = xpath=//input[@id='login-button']</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${LOGIN_PAGE} = xpath=//div[@id='login-page']</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${LOGIN_PASSWORD_FIELD} = xpath=//input[@id='id_password']</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${LOGIN_USERNAME_FIELD} = xpath=//input[@id='id_username']</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${NAV_ADMIN_LINK} = xpath=//a[@id='nav-admin-link']</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${NAV_CLIMBING_LINK} = xpath=//a[@id='nav-climbing-link']</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${NAV_HOME_LINK} = xpath=//a[@id='nav-home-link']</msg>
+<msg timestamp="20120707 15:01:41.067" level="INFO">${NAV_LADDER_LINK} = xpath=//a[@id='nav-ladder-link']</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${NAV_LOGIN_LINK} = xpath=//a[@id='nav-login-link']</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${NAV_LOGOUT_LINK} = xpath=//a[@id='nav-logout-link']</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${NAV_MATCHES_LINK} = xpath=//a[@id='nav-matches-link']</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${NAV_PROFILE_LINK} = xpath=//a[@id='nav-profile-link']</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${NAV_WATCHERS_LINK} = xpath=//a[@id='nav-watchers-link']</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${NAV_WATCHING_LINK} = xpath=//a[@id='nav-watching-link']</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${None} = None</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${null} = None</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${OUTPUT_DIR} = D:\workspaces\python\monkeyladder\test-robot\reports</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${OUTPUT_FILE} = D:\workspaces\python\monkeyladder\test-robot\reports\output.xml</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${PREV_TEST_MESSAGE} = Failed to click login link</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${PREV_TEST_NAME} = Successfully Login As Super User</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${PREV_TEST_STATUS} = FAIL</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${REPORT_FILE} = D:\workspaces\python\monkeyladder\test-robot\reports\report.html</msg>
+<msg timestamp="20120707 15:01:41.068" level="INFO">${SPACE} =  </msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUITE_DOCUMENTATION} = </msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUITE_MESSAGE} = 1 critical test, 0 passed, 1 failed
+1 test total, 0 passed, 1 failed</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUITE_NAME} = Robot Tests.Login</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUITE_RESOURCES} = D:/workspaces/python/monkeyladder/test-robot/resources</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUITE_ROBOT_TEST_DIR} = D:/workspaces/python/monkeyladder/test-robot</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUITE_SOURCE} = D:\workspaces\python\monkeyladder\test-robot\testcases\login.txt</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUITE_STATUS} = FAIL</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUITE_TESTCASES} = D:/workspaces/python/monkeyladder/test-robot/testcases</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUPERUSER_NAME} = Justin Garbutt</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUPERUSER_PASSWORD} = admin1</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${SUPERUSER_USERNAME} = jagarbut</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${TEMPDIR} = c:\users\jagarbut\appdata\local\temp</msg>
+<msg timestamp="20120707 15:01:41.069" level="INFO">${TEST_URL} = http://localhost:8000/</msg>
+<msg timestamp="20120707 15:01:41.070" level="INFO">${True} = True</msg>
+<status status="PASS" endtime="20120707 15:01:41.070" starttime="20120707 15:01:41.066"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Close All Browsers" timeout="">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20120707 15:01:41.118" starttime="20120707 15:01:41.070"></status>
+</kw>
+<status status="PASS" endtime="20120707 15:01:41.118" starttime="20120707 15:01:41.065"></status>
+</kw>
+<doc></doc>
+<status status="FAIL" endtime="20120707 15:01:41.119" starttime="20120707 15:01:30.201"></status>
+</suite>
+<doc></doc>
+<status status="FAIL" endtime="20120707 15:01:41.120" starttime="20120707 15:01:30.184"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
+</total>
+<tag>
+<stat info="" links="" doc="" combined="" pass="0" fail="1">test</stat>
+</tag>
+<suite>
+<stat fail="1" pass="0" id="s1" name="Robot Tests">Robot Tests</stat>
+<stat fail="1" pass="0" id="s1-s1" name="Login">Robot Tests.Login</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20120707 15:01:41.059" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: WebDriverException: Message: u'Could not take screenshot of current page - [Exception... "Component returned failure code: 0x8007000e (NS_ERROR_OUT_OF_MEMORY) [nsIDOMHTMLCanvasElement.getContext]"  nsresult: "0x8007000e (NS_ERROR_OUT_OF_MEMORY)"  location: "JS frame :: file:///c:/users/jagarbut/appdata/local/temp/tmpbrc7o5/webdriver-py-profilecopy/extensions/fxdriver@googlecode.com/components/driver_component.js :: &lt;TOP_LEVEL&gt; :: line 6205"  data: no]' </msg>
+</errors>
+</robot>

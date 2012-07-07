@@ -45,10 +45,12 @@ for user in USERS:
     user_model.set_password(USERS[user]['password'])
     user_model.save()
 
-points_ladder = Ladder(name='Points Ping Pong', rungs=25, is_private=True)
+admin = User.objects.get(pk=1)
+
+points_ladder = Ladder(name='Points Ping Pong', rungs=25, is_private=True, created_by=admin)
 points_ladder.save()
 
-other_ladder = Ladder(name='Other Ladder', rungs=10)
+other_ladder = Ladder(name='Other Ladder', rungs=10, created_by=admin)
 other_ladder.save()
 
 watcher = Watcher(ladder=points_ladder, user=User.objects.filter(username='random-user')[0])
