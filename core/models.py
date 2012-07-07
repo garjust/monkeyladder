@@ -29,15 +29,9 @@ class Player(models.Model):
     ladder = models.ForeignKey(Ladder)
     user = models.ForeignKey(User)
     rank = models.IntegerField()
-    
-    def name(self):
-        full_name = self.user.get_full_name()
-        if full_name:
-            return full_name
-        return self.user.username
 
     def __unicode__(self):
-        return self.name()
+        return self.user.get_profile().name()
 
 class Watcher(models.Model):
     ladder = models.ForeignKey(Ladder)

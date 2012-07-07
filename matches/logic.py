@@ -1,5 +1,4 @@
 from matches.models import Match, MatchPlayer
-from core.logic import get_best_name
 
 import logging
 logger = logging.getLogger('monkeyladder')
@@ -35,7 +34,7 @@ class MatchCreator(object):
         
     def _validate_players(self, user, player_names, *players):
         logger.debug("Validating players: {}".format(players))
-        if get_best_name(user) not in players:
+        if user.get_profile().name() not in players:
             raise AssertionError("Cannot create match on the behalf of other players")
         for player in players:
             if players.count(player) != 1:
@@ -48,7 +47,7 @@ class MatchCreator(object):
     def _get_player_names(self, ladder):
         player_names = {}
         for player in ladder.ranking():
-            player_names[player.name()] = player.user
+            player_names[player.user.get_profile().name()] = player.user
         return player_names
     
     def _create_match(self, ladder, players, player_names):

@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
-from core.logic import LadderContext
+from core.logic import get_ladder_context
 from core.models import Ladder
 
 from matches.logic import MatchCreator, RankingAlgorithm
@@ -34,7 +34,7 @@ def _create_match(request, ladder):
         messages['site_error_message'] = str(e)
         messages['error_message'] = str(e)
     return render_to_response('ladders/ladder.html',
-        LadderContext().get(ladder, messages),
+        get_ladder_context(ladder, messages),
         context_instance=RequestContext(request)
     )
     

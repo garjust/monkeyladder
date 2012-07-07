@@ -6,15 +6,14 @@ from django.http import HttpResponseForbidden
 from django.contrib.admin.models import User
 from core.models import Ladder, Player, Watcher
 
-from core.logic import LadderContext, LadderAccessPermission
+from core.logic import get_ladder_context, has_ladder_permission
 
 @login_required(login_url="/accounts/login")
 def create(request):
     newest_ladders = Ladder.objects.filter(is_private=False).order_by('-created')[:10]
     private_ladders = []
     if request.user.is_authenticated():
-        permissioner = LadderAccessPermission(request.user)
-        private_ladders = filter(lambda l: permissioner.has_permission(l), Ladder.objects.filter(is_private=True).order_by('-created'))
+        private_ladders = filter(lambda l: has_ladder_permission(request.user, l), Ladder.objects.filter(is_private=True).order_by('-created'))
     return render_to_response(
         'ladders/home.html',
         {'newest_ladders': newest_ladders, 'private_ladders': private_ladders, 'navbar_active': 'home'},
@@ -24,12 +23,11 @@ def create(request):
 def ladder(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     if ladder.is_private:
-        permissioner = LadderAccessPermission(request.user)
-        if not permissioner.has_permission(ladder):
+        if not has_ladder_permission(request.user, ladder):
             return HttpResponseForbidden()
     return render_to_response(
         'ladders/ladder.html',
-        LadderContext().get(ladder),
+        get_ladder_context(ladder),
         context_instance=RequestContext(request),
     )
     
