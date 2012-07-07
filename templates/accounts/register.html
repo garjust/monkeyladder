@@ -35,7 +35,7 @@
 	        {% if form.success %}
 				<div id="register-form-success">Account created successfully</div>
 			{% endif %}
-	            <form method="post" action="/accounts/register">{% csrf_token %}
+	            <form method="post" action="/accounts/register/">{% csrf_token %}
 	                <table>
 	                    <tr id="register-form-username">
 	                        <td class="monkey-form-label">{{ form.username.label_tag }}</td>

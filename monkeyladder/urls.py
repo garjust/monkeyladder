@@ -4,11 +4,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('django.views.generic.simple',
-    url(r'^$', 'redirect_to', {'url': '/home'}),
+    url(r'^$', 'redirect_to', {'url': '/home/'}),
 )
 
 urlpatterns += patterns('',
-    url(r'^home$', 'monkeyladder.views.home'),
+    url(r'^home/$', 'monkeyladder.views.home'),
     url(r'^ladders/', include('core.urls')),
     url(r'^ladders/', include('matches.urls')),
     url(r'^accounts/', include('accounts.urls')),
