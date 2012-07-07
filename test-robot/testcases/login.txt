@@ -1,0 +1,9 @@
+*** Settings ***
+Resource    ${SUITE_ROBOT_TEST_DIR}/include.txt
+
+Suite Teardown    End Suite
+
+*** Testcases ***
+Successfully Login As Super User
+    [Tags]    test
+    Successful Login Flow    ${SUPERUSER_USERNAME}    ${SUPERUSER_PASSWORD}    ${SUPERUSER_NAME}

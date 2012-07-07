@@ -5,7 +5,7 @@ urlpatterns = patterns('django.views.generic.simple',
 )
 
 urlpatterns += patterns('core.views',
-    url(r'^home$', 'home'),
+    url(r'^create$', 'create'),
     url(r'^watched$', 'watched'),
     url(r'^climbing$', 'climbing'),
     url(r'^(?P<ladder_id>\d+)/$', 'ladder'),

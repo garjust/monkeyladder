@@ -1,0 +1,6 @@
+*** Settings ***
+Resource    login_keywords.txt
+Resource    navbar_keywords.txt
+Resource    safe_selenium_keywords.txt
+Resource    suite_setup_keywords.txt
+Resource    test_setup_keywords.txt

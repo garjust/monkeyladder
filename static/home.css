@@ -1,0 +1,51 @@
+#home-register-link-span,
+#public-ladder-feed-span,
+#watched-ladder-feed-span,
+#create-ladder-span {
+    height: 200px;
+}
+
+#home-register-link-span a {
+    font-size: 125%;
+}
+
+#home-register-link-span div {
+    text-align: center;
+    margin-top: 76px;
+    height: 48px;
+}
+
+#create-ladder-span div {
+    text-align: center;
+    margin-top: 67.5px;
+    height: 65px;
+}
+
+#create-ladder-span a {
+    font-size: 300%;
+}
+
+.btn-primary {
+    background-color: #66a366;
+    *background-color: #66a366;
+    background-image: -ms-linear-gradient(top, #267d26, #66a366);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#267d26), to(#66a366));
+    background-image: -webkit-linear-gradient(top, #267d26, #66a366);
+    background-image: -o-linear-gradient(top, #267d26, #66a366);
+    background-image: -moz-linear-gradient(top, #267d26, #66a366);
+    background-image: linear-gradient(top, #267d26, #66a366);
+    background-repeat: repeat-x;
+    border-color: #66a366 #66a366 #003580;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#267d26', endColorstr='#66a366', GradientType=0);
+    filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+    background-color: #66a366;
+    *background-color: #004ab3;
+}

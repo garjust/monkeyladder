@@ -9,15 +9,21 @@ class Ladder(models.Model):
     rungs = models.IntegerField()
     is_private = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now())
+    created_by = models.ForeignKey(User)
 
     def ranking(self):
         return self.player_set.filter().order_by('rank')
 
-    def match_feed(self, order='-match_date'):
-        return self.match_set.filter().order_by(order)[:5]
+    def match_feed(self, order='-match_date', size=5):
+        return self.match_set.filter().order_by(order)[:size]
 
     def __unicode__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+        super(Ladder, self).save(*args, **kwargs)
 
 class Player(models.Model):
     ladder = models.ForeignKey(Ladder)

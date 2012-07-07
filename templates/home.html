@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="home-page" class="container">
+	<div class="row">
+		<div id="create-ladder-span" class="span6">
+		    <div><a id="create-ladder-link" class="btn btn-primary btn-large" href="/ladders/create">Create Ladder</a></div>
+		</div>
+		<div id="public-ladder-feed-span" class="span{{ public_ladder_feed_size|default:'3' }}">
+			{% include "ladders/public_ladder_feed.html" %}
+		</div>
+	{% if user.is_authenticated %}
+		<div id="watched-ladder-feed-span" class="span{{ watched_ladder_feed_size|default:'3' }}">
+        {% include "ladders/watched_ladder_feed.html" %}
+        </div>
+    {% else %}
+		<div id="home-register-link-span" class="span3">
+		    <div><a id="home-register-link" class="btn btn-large" href="/accounts/register">Sign Up</a></div>
+		</div>
+	{% endif %}
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+*** Variables ***
+${LOGIN_PAGE}=    xpath=//div[@id='login-page']
+
+${LOGIN_USERNAME_FIELD}=    xpath=//input[@id='id_username']
+${LOGIN_PASSWORD_FIELD}=    xpath=//input[@id='id_password']
+${LOGIN_BUTTON}=    xpath=//input[@id='login-button']
+
+*** Keywords ***
+Should Be On Login Page
+    Wait Until Page Contains Element    ${LOGIN_PAGE}    error=Page should have been login page
+
+Login
+    [Arguments]    ${username}    ${password}
+    Should Be On Login Page
+    Enter Username    ${username}
+    Enter Password    ${password}
+    Click Login Button
+    Wait Until Page Contains    Logged in as    error=Should have shown logged in as in navbar
+
+Enter Username
+    [Arguments]    ${username}
+    Safe Input Text    ${LOGIN_USERNAME_FIELD}    ${username}    error=Failed to input username
+
+Enter Password
+    [Arguments]    ${password}
+    Safe Input Text    ${LOGIN_PASSWORD_FIELD}    ${password}    error=Failed to input password
+
+Click Login Button
+    Safe Click Element    ${LOGIN_BUTTON}    error=Failed to click login button
+
+Should Be Logged In As
+    [Arguments]    ${name}
+    Wait Until Page Contains    Logged in as ${name}    error=Should have been logged in as '${name}'

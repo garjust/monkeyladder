@@ -1,0 +1,9 @@
+*** Keywords ***
+Successful Login Flow
+    [Arguments]    ${username}    ${password}    ${name}
+    Start Browser Session
+    Go To Login
+    Login    ${username}    ${password}
+    Should Be Logged In As    ${name}
+    Logout
+    Close Browser

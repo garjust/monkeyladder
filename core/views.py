@@ -8,15 +8,8 @@ from core.models import Ladder, Player, Watcher
 
 from core.logic import LadderContext, LadderAccessPermission
 
-def splash(request):
-    ladder_feed = Ladder.objects.all()
-    return render_to_response(
-        'ladders/splash.html',
-        {'ladder_feed': ladder_feed},
-        context_instance=RequestContext(request),
-    )
-
-def home(request):
+@login_required(login_url="/accounts/login")
+def create(request):
     newest_ladders = Ladder.objects.filter(is_private=False).order_by('-created')[:10]
     private_ladders = []
     if request.user.is_authenticated():
@@ -54,7 +47,7 @@ def watched(request):
     watchers = Watcher.objects.filter(user=User.objects.filter(pk=request.user.id))
     return render_to_response(
         'ladders/watched.html',
-        {'watchers': watchers, 'navbar_active': 'watched'},
+        {'watchers': watchers, 'navbar_active': 'watching'},
         context_instance=RequestContext(request),
     )
 

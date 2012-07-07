@@ -1,0 +1,11 @@
+*** Keywords ***
+Begin Test
+    No Operation
+
+End Test
+    No Operation
+
+Start Browser Session
+    [Arguments]    ${url}=${TEST_URL}
+    Open Browser    ${url}    browser=firefox
+    Maximize Browser Window
