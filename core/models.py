@@ -4,36 +4,61 @@ from django.utils import timezone
 
 from django.contrib.auth.models import User
 
-class Ladder(models.Model):
-    name = models.CharField(max_length=50)
-    rungs = models.IntegerField()
-    is_private = models.BooleanField(default=False)
-    created = models.DateTimeField(default=timezone.now())
-    created_by = models.ForeignKey(User)
+LADDER_TYPES = (
+    ('BASIC', 'Basic'),
+    ('LEADERBOARD', 'Leaderboard')
+)
 
-    def ranking(self):
-        return self.player_set.filter().order_by('rank')
-
-    def match_feed(self, order='-match_date', size=5):
-        return self.match_set.filter().order_by(order)[:size]
-
-    def __unicode__(self):
-        return self.name
+class DatedModel(models.Model):
+    created = models.DateTimeField()
+    created_by = models.ForeignKey(User, null=True, related_name='%(app_label)s_%(class)s_creator')
     
     def save(self, *args, **kwargs):
         if not self.id:
             self.created = timezone.now()
-        super(Ladder, self).save(*args, **kwargs)
+        super(DatedModel, self).save(*args, **kwargs)
+        
+    class Meta:
+        abstract = True
 
-class Player(models.Model):
-    ladder = models.ForeignKey(Ladder)
-    user = models.ForeignKey(User)
-    rank = models.IntegerField()
+class Ladder(DatedModel):
+    name = models.CharField(max_length=50)
+    rungs = models.IntegerField()
+    is_private = models.BooleanField(default=False)
+    
+    TYPES = LADDER_TYPES
+    type = models.CharField(max_length=50, choices=TYPES, default='BASIC', editable=False)
+
+    def ranking(self):
+        return self.ranked_set.filter().order_by('rank')
+    
+    @models.permalink
+    def get_absolute_url(self):
+        return ('core.views.ladder', (), {
+            'ladder_id': self.id
+        })
 
     def __unicode__(self):
-        return self.user.get_profile().name()
+        return self.name
+        
+class Ranked(DatedModel):
+    ladder = models.ForeignKey(Ladder)
+    rank = models.IntegerField()
+    
+    TYPES = LADDER_TYPES
+    type = models.CharField(max_length=50, choices=TYPES, default='BASIC', editable=False)
 
-class Watcher(models.Model):
+    def __unicode__(self):
+        return str(self.rank)
+        
+class Favorite(DatedModel):
+    ladder = models.ForeignKey(Ladder)
+    user = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return self.ladder
+
+class Watcher(DatedModel):
     ladder = models.ForeignKey(Ladder)
     user = models.ForeignKey(User)
 

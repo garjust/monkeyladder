@@ -14,7 +14,7 @@
             {% for player in ladder.ranking %}
                 <tr class="ladder-rank-table-row">
                     <td>{{ player.rank }}</td>
-                    <td>{{ player }}</td>
+                    <td>{{ player.player }}</td>
                 </tr>
             {% empty %}
             	<tr class="ladder-rank-table-row">

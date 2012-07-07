@@ -1,0 +1,172 @@
+[
+    {
+        "model": "core.ranked",
+        "pk": 1,
+        "fields": {
+            "ladder": 1,
+            "rank": 1,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 1,
+        "fields": {
+            "user": 1
+        }
+    },
+    {
+        "model": "core.ranked",
+        "pk": 2,
+        "fields": {
+            "ladder": 1,
+            "rank": 2,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 2,
+        "fields": {
+            "user": 2
+        }
+    },
+    {
+        "model": "core.ranked",
+        "pk": 3,
+        "fields": {
+            "ladder": 1,
+            "rank": 3,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 3,
+        "fields": {
+            "user": 3
+        }
+    },
+    {
+        "model": "core.ranked",
+        "pk": 4,
+        "fields": {
+            "ladder": 1,
+            "rank": 4,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 4,
+        "fields": {
+            "user": 4
+        }
+    },
+    {
+        "model": "core.ranked",
+        "pk": 5,
+        "fields": {
+            "ladder": 1,
+            "rank": 5,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 5,
+        "fields": {
+            "user": 5
+        }
+    },
+    {
+        "model": "core.ranked",
+        "pk": 6,
+        "fields": {
+            "ladder": 1,
+            "rank": 6,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 6,
+        "fields": {
+            "user": 6
+        }
+    },
+    {
+        "model": "core.ranked",
+        "pk": 7,
+        "fields": {
+            "ladder": 1,
+            "rank": 7,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 7,
+        "fields": {
+            "user": 7
+        }
+    },
+    {
+        "model": "core.ranked",
+        "pk": 8,
+        "fields": {
+            "ladder": 2,
+            "rank": 1,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 8,
+        "fields": {
+            "user": 1
+        }
+    },
+    {
+        "model": "core.ranked",
+        "pk": 9,
+        "fields": {
+            "ladder": 2,
+            "rank": 2,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 9,
+        "fields": {
+            "user": 6
+        }
+    },
+    {
+        "model": "core.ranked",
+        "pk": 10,
+        "fields": {
+            "ladder": 2,
+            "rank": 3,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "matches.player",
+        "pk": 10,
+        "fields": {
+            "user": 7
+        }
+    }
+]

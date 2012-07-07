@@ -1,0 +1,211 @@
+[
+    {
+        "model": "core.ladder",
+        "pk": 1,
+        "fields": {
+            "name": "Points Ping Pong",
+            "rungs": 25,
+            "is_private": true,
+            "type": "LEADERBOARD",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.ladder",
+        "pk": 2,
+        "fields": {
+            "name": "Other Ladder",
+            "rungs": 10,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 1,
+        "fields": {
+            "ladder": 1,
+            "user": 1,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 2,
+        "fields": {
+            "ladder": 1,
+            "user": 2,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 3,
+        "fields": {
+            "ladder": 1,
+            "user": 3,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 4,
+        "fields": {
+            "ladder": 1,
+            "user": 4,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 5,
+        "fields": {
+            "ladder": 1,
+            "user": 5,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 6,
+        "fields": {
+            "ladder": 1,
+            "user": 6,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 7,
+        "fields": {
+            "ladder": 1,
+            "user": 7,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 8,
+        "fields": {
+            "ladder": 2,
+            "user": 6,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 9,
+        "fields": {
+            "ladder": 2,
+            "user": 7,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.favorite",
+        "pk": 10,
+        "fields": {
+            "ladder": 2,
+            "user": 8,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 1,
+        "fields": {
+            "ladder": 1,
+            "user": 1,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 2,
+        "fields": {
+            "ladder": 1,
+            "user": 2,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 3,
+        "fields": {
+            "ladder": 1,
+            "user": 3,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 4,
+        "fields": {
+            "ladder": 1,
+            "user": 4,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 5,
+        "fields": {
+            "ladder": 1,
+            "user": 5,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 6,
+        "fields": {
+            "ladder": 1,
+            "user": 6,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 7,
+        "fields": {
+            "ladder": 1,
+            "user": 7,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 8,
+        "fields": {
+            "ladder": 2,
+            "user": 1,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 9,
+        "fields": {
+            "ladder": 2,
+            "user": 6,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 10,
+        "fields": {
+            "ladder": 2,
+            "user": 7,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.watcher",
+        "pk": 11,
+        "fields": {
+            "ladder": 2,
+            "user": 8,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    }
+]

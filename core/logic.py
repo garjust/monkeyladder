@@ -7,9 +7,10 @@ def get_autocomplete_list(ladder):
     """
     Returns a list of names of players on the given ladder
     """
-    players = ladder.player_set.order_by('rank')
+    rankeds = ladder.ranked_set.order_by('rank')
     names = []
-    for player in players:
+    for ranked in rankeds:
+        player = ranked.player
         names.append(player.user.get_profile().name())
     return _format_names_for_injection(names)
 
@@ -20,10 +21,10 @@ def _format_names_for_injection(names):
     return ','.join(map(lambda n: '"{}"'.format(n), names))
         
 def has_ladder_permission(user, ladder):
-    return user.is_authenticated() and (len(ladder.player_set.filter(user=user)) != 0 or len(ladder.watcher_set.filter(user=user)) != 0)
+    return user.is_authenticated() and (len(ladder.watcher_set.filter(user=user)) != 0)
         
 def get_ladder_context(ladder, *partial_contexts):
-    context = {'navbar_active': 'ladder', 'ladder': ladder, 'player_names': get_autocomplete_list(ladder), 'match_feed': ladder.match_feed()}
+    context = {'navbar_active': 'ladder', 'ladder': ladder, 'player_names': get_autocomplete_list(ladder), 'match_feed': None}
     for partial_context in partial_contexts:
         context.update(partial_context)
     return context

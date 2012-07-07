@@ -4,7 +4,8 @@ from django.template import RequestContext
 from django.http import HttpResponseForbidden
 
 from django.contrib.admin.models import User
-from core.models import Ladder, Player, Watcher
+from matches.models import Player
+from core.models import Ladder, Ranked, Watcher
 
 from core.logic import get_ladder_context, has_ladder_permission
 

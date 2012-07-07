@@ -1,8 +1,8 @@
-from core.models import Ladder, Player, Watcher
+from core.models import Ladder, Ranked, Watcher
 from django.contrib import admin
 
-class PlayerInline(admin.TabularInline):
-    model = Player
+class RankedInline(admin.TabularInline):
+    model = Ranked
     extra = 1
 
 class WatcherInline(admin.TabularInline):
@@ -13,7 +13,7 @@ class LadderAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name', 'rungs', 'is_private']}),
     ]
-    inlines = [PlayerInline, WatcherInline]
+    inlines = [RankedInline, WatcherInline]
     list_display = ('name', 'rungs', 'is_private', 'created')
     list_filter = ['is_private', 'created']
     search_fields = ['name']

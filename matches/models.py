@@ -2,7 +2,18 @@ from django.db import models
 from django.utils import timezone
 
 from django.contrib.auth.models import User
-from core.models import Ladder, Player
+from core.models import Ladder, Ranked, LADDER_TYPES
+
+class Player(Ranked):
+    user = models.ForeignKey(User)
+
+    def __unicode__(self):
+        return self.user.get_profile().name()
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.type = LADDER_TYPES['LEADERBOARD']
+        super(Player, self).save(*args, **kwargs)
 
 class Match(models.Model):
     ladder = models.ForeignKey(Ladder)
