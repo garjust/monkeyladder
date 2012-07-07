@@ -6,6 +6,7 @@ from django.contrib.auth.views import auth_logout
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^$', 'core.views.splash'),
     url(r'^ladders/', include('core.urls')),
     url(r'^ladders/', include('matches.urls')),
     url(r'^accounts/', include('accounts.urls')),

@@ -8,6 +8,14 @@ from core.models import Ladder, Player, Watcher
 
 from core.logic import LadderContext, LadderAccessPermission
 
+def splash(request):
+    ladder_feed = Ladder.objects.all()
+    return render_to_response(
+        'ladders/splash.html',
+        {'ladder_feed': ladder_feed},
+        context_instance=RequestContext(request),
+    )
+
 def home(request):
     newest_ladders = Ladder.objects.filter(is_private=False).order_by('-created')[:10]
     private_ladders = []

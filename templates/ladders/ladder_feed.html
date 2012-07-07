@@ -1,5 +1,9 @@
 <div>
-	<ul>
-		<li>LADDER1</li>
+	<ul style="list-style: none; font-size: 150%;">
+	{% for ladder in ladder_feed %}
+		<li><a href="/ladders/{{ ladder.id }}">{{ ladder }}</a></li>
+	{% empty %}
+		<li>No Ladders</li>
+	{% endfor %}
 	</ul>
 </div>

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style type="text/css">
+	#create-ladder-span {
+		height: 300px;
+		text-align: center;
+	}
+	
+	#create-ladder-span button {
+		margin-top: auto;
+		margin-bottom: auto;
+		font-size: 300%;
+	}
+	
+	#wrapper {
+		display: table;
+	}
+	
+	#cell {
+		display: table-cell;
+		vertical-align: middle;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div id="create-ladder-span" class="span6">
+			<div class="wrapper"><div class="cell">
+				<div><button class="btn btn-large">Create Ladder</button></div>
+			</div></div>
+		</div>
+		<div class="span6">
+			{% include "ladders/ladder_feed.html" %}
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -6,7 +6,7 @@ from core.models import Ladder, Player
 
 class Match(models.Model):
     ladder = models.ForeignKey(Ladder)
-    match_date = models.DateTimeField(default=timezone.now())
+    match_date = models.DateTimeField()#auto_now_add=True)
 
     def winner(self):
         return self.matchplayer_set.filter().order_by('score')[1]
