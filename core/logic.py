@@ -34,3 +34,6 @@ def favorite_ladder_feed(user, order='-created', size=25):
     """
     if user.is_authenticated():
         return map(lambda f: f.ladder, user.favorite_set.all().order_by(order)[:size])
+    
+def ladder_watchers(ladder, order='-created', size=100):
+    return ladder.watcher_set.order_by(order)[:size]

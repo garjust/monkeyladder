@@ -14,7 +14,7 @@ class LadderAdmin(admin.ModelAdmin):
         (None, {'fields': ['name', 'rungs', 'is_private']}),
     ]
     inlines = [RankedInline, WatcherInline]
-    list_display = ('name', 'rungs', 'is_private', 'created')
+    list_display = ('name', 'type', 'rungs', 'is_private', 'created')
     list_filter = ['is_private', 'created']
     search_fields = ['name']
     date_hierarchy = 'created'

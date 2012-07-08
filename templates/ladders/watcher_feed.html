@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="span{{ watcher_feed_size|default:'3' }} page-header muted">
+        <h2>{{ ladder.name }} Watchers</h2>
+    </div>
+</div>
+{% for watcher in watcher_feed %}
+<div class="row">
+    <div class="span{{ watcher_feed_size|default:'3' }}">
+        <h3>{{ watcher }}</h3>
+    </div>
+</div>
+{% empty %}
+<div class="row">
+    <div class="span{{ watcher_feed_size|default:'3' }}">
+        <h3>{{ watcher_feed_empty|default:'No one is watching this ladder' }}</h3>
+    </div>
+</div>
+{% endfor %}

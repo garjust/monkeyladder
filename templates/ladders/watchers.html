@@ -2,26 +2,6 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
-        {% if error_message %}<div>{{ error_message }}</div>{% endif %}
-    </div>
-    <div class="row">
-        <div class="span6 page-header muted">
-            <h2>{{ ladder }}&nbsp;Watchers</h2>
-        </div>
-    </div>
-    {% for watcher in watchers %}
-    <div class="row">
-        <div class="span6">
-            <h3>{{ watcher }}</h3>
-        </div>
-    </div>
-    {% empty %}
-    <div class="row">
-        <div class="span6">
-            <h3>No Watchers</h3>
-        </div>
-    </div>
-    {% endfor %}
+    {% include "ladders/watcher_feed.html" with watcher_feed_size=12  %}
 </div>
 {% endblock %}

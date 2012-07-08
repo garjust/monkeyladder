@@ -17,8 +17,9 @@
             <div class="nav-collapse">
                 <ul class="nav nav-padded-left">
                     <li><a id="nav-ladder-link" href="{{ ladder.get_absolute_url }}">{{ ladder.name }}</a></li>
-                    <li><a id="nav-matches-link" href="/ladders/{{ ladder.id }}/matches/">Matches</a></li>
                     <li><a id="nav-watchers-link" href="/ladders/{{ ladder.id }}/watchers/">Watchers</a></li>
+                    <li><a id="nav-matches-link" href="/ladders/{{ ladder.id }}/matches/">Matches</a></li>
+                    {% block special_ladder_nav_links %}{% endblock %}
                 </ul>
             </div>
         {% endif %}
