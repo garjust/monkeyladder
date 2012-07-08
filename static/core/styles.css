@@ -1,0 +1,63 @@
+.ladder-rank-table-row {
+    font-size: 150%;
+}
+
+.match-entry {
+    /* display: none; */
+}
+
+#match-entry-span .error {
+    text-align: center;
+    color: red;
+    font-style: italic;
+    font-size: 120%;
+}
+
+#match-entry-span .success {
+    text-align: center;
+    color: green;
+    font-style: italic;
+    font-size: 120%;
+}
+
+#match-entry-form {
+    margin: 40px auto auto auto; 
+    width: 400px;
+    border: 1px solid #ccc;
+}
+
+#match-entry-form > form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#match-entry-table {
+    width: 100%;
+}
+
+td.match-player-entry {
+    padding-left: 10%;
+}
+
+td.match-score-entry {
+    padding-right: 10%;
+}
+
+#match-entry-form-submit {
+    width: 280px;
+    margin: 5px 5px 5px 5px;
+    text-align: center;
+}
+
+#match-entry-form-submit > input {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#match-feed {
+    margin: 20px 20px 20px 20px;
+}
+
+#match-feed ul {
+    list-style: none;
+}
