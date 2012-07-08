@@ -43,14 +43,14 @@ class Ranked(DatedModel):
     type = models.CharField(max_length=50, choices=TYPES, default='BASIC', editable=False)
 
     def __unicode__(self):
-        return str(self.rank)
+        return str(self.info)
         
 class Favorite(DatedModel):
     ladder = models.ForeignKey(Ladder)
     user = models.ForeignKey(User)
 
     def __unicode__(self):
-        return self.ladder
+        return self.ladder.name
 
 class Watcher(DatedModel):
     ladder = models.ForeignKey(Ladder)

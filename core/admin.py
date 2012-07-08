@@ -1,19 +1,32 @@
-from core.models import Ladder, Ranked, Watcher
+from core.models import Ladder, Ranked, Watcher, Favorite
 from django.contrib import admin
 
 class RankedInline(admin.TabularInline):
     model = Ranked
     extra = 1
+    fieldsets = [
+        (None, {'fields': ['rank', 'info']}),
+    ]
 
 class WatcherInline(admin.TabularInline):
     model = Watcher
-    extra = 1
+    extra = 0
+    fieldsets = [
+        (None, {'fields': ['user']}),
+    ]
+    
+class FavoriteInline(admin.TabularInline):
+    model = Favorite
+    extra = 0
+    fieldsets = [
+        (None, {'fields': ['user']}),
+    ]
 
 class LadderAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name', 'rungs', 'is_private']}),
     ]
-    inlines = [RankedInline, WatcherInline]
+    inlines = [RankedInline, WatcherInline, FavoriteInline]
     list_display = ('name', 'type', 'rungs', 'is_private', 'created')
     list_filter = ['is_private', 'created']
     search_fields = ['name']
