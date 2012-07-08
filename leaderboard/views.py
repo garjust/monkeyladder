@@ -9,7 +9,7 @@ from leaderboard.models import Match
 
 def leaderboard(request, ladder):
     return render_to_response(
-        'matches/ladder.html',
+        'leaderboard/ladder.html',
         get_ladder_context(ladder),
         context_instance=RequestContext(request),
     )
@@ -22,7 +22,7 @@ def matches(request, ladder_id):
     
 def _view_matches(request, ladder):
     matches = ladder.match_set.filter().order_by('-match_date')
-    return render_to_response('matches/match_history.html',
+    return render_to_response('leaderboard/match_history.html',
         {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches},
         context_instance=RequestContext(request)
     )
@@ -39,7 +39,7 @@ def _create_match(request, ladder):
     except AssertionError as e:
         messages['site_error_message'] = str(e)
         messages['error_message'] = str(e)
-    return render_to_response('matches/ladder.html',
+    return render_to_response('leaderboard/ladder.html',
         get_ladder_context(ladder, messages),
         context_instance=RequestContext(request)
     )
@@ -52,16 +52,7 @@ def match(request, ladder_id, match_id):
     return _view_match(request, ladder, match)
 
 def _view_match(request, ladder, match):
-    return render_to_response('matches/match.html',
-        {'ladder': ladder, 'match': match},
-        context_instance=RequestContext(request)
-    )
-
-@login_required(login_url="/accounts/login")
-def _create_comment(request, ladder, match):
-    user = request.user
-    comment = (request.POST['comment'])
-    return render_to_response('matches/match.html',
+    return render_to_response('leaderboard/match.html',
         {'ladder': ladder, 'match': match},
         context_instance=RequestContext(request)
     )
