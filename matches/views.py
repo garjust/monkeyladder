@@ -2,11 +2,17 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
-from core.logic import get_ladder_context
 from core.models import Ladder
 
-from matches.logic import MatchCreator, RankingAlgorithm
+from matches.logic import MatchCreator, RankingAlgorithm, get_ladder_context
 from matches.models import Match
+
+def leaderboard(request, ladder):
+    return render_to_response(
+        'ladders/ladder.html',
+        get_ladder_context(ladder),
+        context_instance=RequestContext(request),
+    )
 
 def matches(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)

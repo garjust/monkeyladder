@@ -17,7 +17,7 @@
         {% if ladder %}
             <div class="nav-collapse">
                 <ul class="nav nav-padded-left">
-                    <li><a id="nav-ladder-link" href="/ladders/{{ ladder.id }}/">{{ ladder.name }}</a></li>
+                    <li><a id="nav-ladder-link" href="{{ ladder.get_absolute_url }}">{{ ladder.name }}</a></li>
                     <li><a id="nav-matches-link" href="/ladders/{{ ladder.id }}/matches/">Matches</a></li>
                     <li><a id="nav-watchers-link" href="/ladders/{{ ladder.id }}/watchers/">Watchers</a></li>
                 </ul>

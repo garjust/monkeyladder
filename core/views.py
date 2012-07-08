@@ -7,7 +7,19 @@ from django.contrib.admin.models import User
 from matches.models import Player
 from core.models import Ladder, Ranked, Watcher
 
-from core.logic import get_ladder_context, has_ladder_permission
+from core.logic import has_ladder_permission
+
+from matches.views import leaderboard
+
+def ladder(request, ladder_id):
+    ladder = get_object_or_404(Ladder, pk=ladder_id)
+    if ladder.is_private:
+        if not has_ladder_permission(request.user, ladder):
+            return HttpResponseForbidden()
+    if ladder.type == 'BASIC':
+        pass
+    elif ladder.type == 'LEADERBOARD':
+        return leaderboard(request, ladder)
 
 @login_required(login_url="/accounts/login")
 def create(request):
@@ -18,17 +30,6 @@ def create(request):
     return render_to_response(
         'ladders/home.html',
         {'newest_ladders': newest_ladders, 'private_ladders': private_ladders, 'navbar_active': 'home'},
-        context_instance=RequestContext(request),
-    )
-
-def ladder(request, ladder_id):
-    ladder = get_object_or_404(Ladder, pk=ladder_id)
-    if ladder.is_private:
-        if not has_ladder_permission(request.user, ladder):
-            return HttpResponseForbidden()
-    return render_to_response(
-        'ladders/ladder.html',
-        get_ladder_context(ladder),
         context_instance=RequestContext(request),
     )
     

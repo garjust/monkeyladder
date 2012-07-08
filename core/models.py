@@ -44,6 +44,7 @@ class Ladder(DatedModel):
 class Ranked(DatedModel):
     ladder = models.ForeignKey(Ladder)
     rank = models.IntegerField()
+    info = models.CharField(max_length=50, null=True)
     
     TYPES = LADDER_TYPES
     type = models.CharField(max_length=50, choices=TYPES, default='BASIC', editable=False)
