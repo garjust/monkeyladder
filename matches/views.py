@@ -39,7 +39,7 @@ def _create_match(request, ladder):
     except AssertionError as e:
         messages['site_error_message'] = str(e)
         messages['error_message'] = str(e)
-    return render_to_response('core/ladder.html',
+    return render_to_response('matches/ladder.html',
         get_ladder_context(ladder, messages),
         context_instance=RequestContext(request)
     )

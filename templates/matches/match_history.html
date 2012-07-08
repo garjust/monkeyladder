@@ -1,34 +1,56 @@
 {% extends "base.html" %}
 
+{% load humanize %}
+
 {% block head %}
 <script type="text/javascript">
-    $(function() {
-        $( "#matches-accordion" ).accordion({ animated: 'drop', active: false, event: 'mouseover' });
-    });
+	$(function() {
+	    $(".match-entry").bind("click", function(event) {
+	    	$("#match-detail > div").css("display", "none")
+	    	$("#" + event.currentTarget.id + "-detail").css("display", "block")
+	    })
+	});
 </script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
-        {% if error_message %}<div>{{ error_message }}</div>{% endif %}
-    </div>
-    <div class="row">
         <div class="span6">
             <div class="page-header muted">
                 <h2>{{ ladder }}&nbsp;Matches</h2>
             </div>
-            <div id="matches-accordion" class="ui-accordian ui-widget ui-accordian-icons">
-                {% for match in matches %}
-                <h3><a href="#">{{ match.winner }} vs {{ match.loser }}</a></h3>
-                <div>Match was played at {{ match.match_date }}</div>
-                {% empty %}
-                <h3><a href="#">No Matches</a></h3>
-                <div>Go play a match!</div>
-                {% endfor %}
+            <div>
+                <table class="table">
+                    <thead>
+                        <th>Match</th>
+                        <th>Date</th>
+                    </thead>
+                    <tbody>
+                    {% for match in matches %}
+	                   <tr id="match-entry-{{ match.id }}" class="match-entry">
+	                       <td>{{ match }}</td>
+	                       <td>Match was played {{ match.match_date|naturaltime }}</td>
+	                   </tr>      
+	                {% empty %}
+	                   <td>No matches</td>
+	                   <td>-</td>
+	                {% endfor %}
+                    </tbody>
+                </table>
             </div>
             <div id="matches-pager">
-                <button>More</button>
+                <a href="#" class="btn btn-medium">More</a>
+            </div>
+        </div>
+        <div class="span6">
+            <div id="match-detail">
+	        {% for match in matches %}
+	            <div id="match-entry-{{ match.id }}-detail" style="display: none">
+	               <h2>{{ match }}</h2>
+	               <h3>{{ match.match_date|naturaltime }}</h3>
+	            </div>      
+	        {% endfor %}
             </div>
         </div>
     </div>
