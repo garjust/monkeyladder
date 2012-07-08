@@ -8,3 +8,20 @@ div.container {
 	padding-right: 20px;
 	background-color: #fff;
 }
+
+#server-error-page,
+#not-found-error-page {
+	text-align: center;
+}
+
+#server-error-page img,
+#server-error-page p,
+#not-found-error-page img,
+#not-found-error-page p {
+	font-size: 110%;
+}
+
+#server-error-page img,
+#not-found-error-page img {
+    margin-top: 20px;
+}
