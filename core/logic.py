@@ -1,8 +1,16 @@
+from django.shortcuts import get_object_or_404
+
 from core.models import Ladder
 
 import logging
 logger = logging.getLogger('monkeyladder')
-        
+
+def get_ladder_or_404(*args, **kwargs):
+    """
+    Returns a ladder or a 404 response
+    """
+    return get_object_or_404(Ladder, *args, **kwargs)
+    
 def has_ladder_permission(user, ladder):
     """
     Determines if a user has permission to view a ladder
@@ -36,4 +44,7 @@ def favorite_ladder_feed(user, order='-created', size=25):
         return map(lambda f: f.ladder, user.favorite_set.all().order_by(order)[:size])
     
 def ladder_watchers(ladder, order='-created', size=100):
+    """
+    Returns a list of watchers for the given ladder
+    """
     return ladder.watcher_set.order_by(order)[:size]
