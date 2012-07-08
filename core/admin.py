@@ -1,5 +1,6 @@
-from core.models import Ladder, Ranked, Watcher, Favorite
 from django.contrib import admin
+
+from core.models import Ladder, Ranked, Watcher, Favorite
 
 class RankedInline(admin.TabularInline):
     model = Ranked

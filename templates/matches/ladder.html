@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script type="text/javascript">
+    $(function() {
+        var playerNames = [{% autoescape off %}{{ player_names }}{% endautoescape %}];
+        $(".player-name-autocomplete").autocomplete({
+            source: playerNames, delay: 50
+        });
+    });
+    
+    $(function() {
+        function toggleMatchEntry() {
+            $(".match-entry").toggle('drop', {"direction": "right"}, 500);
+        };
+
+        $("#match-entry-toggle-button").click(function() {
+            toggleMatchEntry();
+            return false;
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="ladder-page" class="container">
+    <div class="row">
+        <div class="span6">
+        {% include "matches/ladder_display.html" %}
+        </div>
+        <div class="span6">
+            <div class="row">
+                <div id="match-entry-span">
+                {% include "matches/match_entry_form.html" %}
+                </div>
+            </div>
+            <div class="row">
+                <div id="match-feed">
+                {% include "matches/match_feed.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

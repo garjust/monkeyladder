@@ -9,7 +9,7 @@ from matches.models import Match
 
 def leaderboard(request, ladder):
     return render_to_response(
-        'core/ladder.html',
+        'matches/ladder.html',
         get_ladder_context(ladder),
         context_instance=RequestContext(request),
     )

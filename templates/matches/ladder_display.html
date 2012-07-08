@@ -8,13 +8,13 @@
         <table class="table table-striped">
             <thead>
                 <th>Rank</th>
-                <th>Info</th>
+                <th>Name</th>
             </thead>
             <tbody>
             {% for ranked in ladder.ranking %}
                 <tr class="ladder-rank-table-row">
                     <td>{{ ranked.rank }}</td>
-                    <td>{{ ranked.info }}</td>
+                    <td>{{ ranked.player }}</td>
                 </tr>
             {% endfor %}
             </tbody>
