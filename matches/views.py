@@ -9,7 +9,7 @@ from matches.models import Match
 
 def leaderboard(request, ladder):
     return render_to_response(
-        'ladders/ladder.html',
+        'core/ladder.html',
         get_ladder_context(ladder),
         context_instance=RequestContext(request),
     )
@@ -39,7 +39,7 @@ def _create_match(request, ladder):
     except AssertionError as e:
         messages['site_error_message'] = str(e)
         messages['error_message'] = str(e)
-    return render_to_response('ladders/ladder.html',
+    return render_to_response('core/ladder.html',
         get_ladder_context(ladder, messages),
         context_instance=RequestContext(request)
     )
