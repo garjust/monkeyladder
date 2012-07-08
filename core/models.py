@@ -1,25 +1,13 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
-from django.utils import timezone
 
-from django.contrib.auth.models import User
+from datedmodels.models import DatedModel
 
 LADDER_TYPES = (
     ('BASIC', 'Basic'),
     ('LEADERBOARD', 'Leaderboard')
 )
-
-class DatedModel(models.Model):
-    created = models.DateTimeField()
-    created_by = models.ForeignKey(User, null=True, related_name='%(app_label)s_%(class)s_creator')
-    
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.created = timezone.now()
-        super(DatedModel, self).save(*args, **kwargs)
-        
-    class Meta:
-        abstract = True
 
 class Ladder(DatedModel):
     name = models.CharField(max_length=50)
@@ -40,6 +28,11 @@ class Ladder(DatedModel):
 
     def __unicode__(self):
         return self.name
+    
+    class Meta:
+        permissions = (
+            ('admin', "Can administrate the ladder"),
+        )
         
 class Ranked(DatedModel):
     ladder = models.ForeignKey(Ladder)
@@ -64,17 +57,20 @@ class Watcher(DatedModel):
     user = models.ForeignKey(User)
 
     def __unicode__(self):
-        return self.user.get_full_name()
-    
+        return self.user.get_profile().name()
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    paddle = models.CharField(max_length=300, null=True, blank=True)
+    description = models.CharField(max_length=500, null=True, blank=True)
     
     def name(self):
         full_name = self.user.get_full_name()
         if full_name:
             return full_name
         return self.user.username
+    
+    def __unicode__(self):
+        return "{}'s Profile".format(self.name())
     
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

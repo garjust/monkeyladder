@@ -4,6 +4,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", "..")).replace
 
 ROOT_URLCONF = 'monkeyladder.urls'
 LOGIN_REDIRECT_URL = '/home'
+LOGIN_URL = '/accounts/login/'
 
 AUTH_PROFILE_MODULE = 'core.UserProfile'
 
@@ -38,7 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.comments',
+    'accounts',
     'core',
+    'datedmodels',
     'matches',
 )
 

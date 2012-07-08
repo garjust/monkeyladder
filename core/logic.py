@@ -11,7 +11,7 @@ def get_ladder_or_404(*args, **kwargs):
     """
     return get_object_or_404(Ladder, *args, **kwargs)
     
-def has_ladder_permission(user, ladder):
+def can_view_ladder(user, ladder):
     """
     Determines if a user has permission to view a ladder
     """
