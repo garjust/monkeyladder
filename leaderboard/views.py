@@ -4,8 +4,8 @@ from django.template import RequestContext
 
 from core.models import Ladder
 
-from matches.logic import MatchCreator, RankingAlgorithm, get_ladder_context
-from matches.models import Match
+from leaderboard.logic import MatchCreator, RankingAlgorithm, get_ladder_context
+from leaderboard.models import Match
 
 def leaderboard(request, ladder):
     return render_to_response(

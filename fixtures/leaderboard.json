@@ -10,7 +10,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 1,
         "fields": {
             "user": 1
@@ -27,7 +27,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 2,
         "fields": {
             "user": 2
@@ -44,7 +44,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 3,
         "fields": {
             "user": 3
@@ -61,7 +61,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 4,
         "fields": {
             "user": 4
@@ -78,7 +78,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 5,
         "fields": {
             "user": 5
@@ -95,7 +95,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 6,
         "fields": {
             "user": 6
@@ -112,7 +112,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 7,
         "fields": {
             "user": 7
@@ -129,7 +129,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 8,
         "fields": {
             "user": 1
@@ -146,7 +146,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 9,
         "fields": {
             "user": 6
@@ -163,7 +163,7 @@
         }
     },
     {
-        "model": "matches.player",
+        "model": "leaderboard.player",
         "pk": 10,
         "fields": {
             "user": 7

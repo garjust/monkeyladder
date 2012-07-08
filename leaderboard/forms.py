@@ -1,7 +1,6 @@
 from django.contrib.auth.forms import forms, _
 
-from core.logic import get_best_name
-from matches.models import Match, MatchPlayer
+from leaderboard.models import Match, MatchPlayer
 
 class MatchCreationForm(forms.Form):
     """

@@ -8,7 +8,7 @@ if __name__ == "__main__":
     from django.core.management import execute_from_command_line
 
 
-    fixtures = ['fixtures/core.json', 'fixtures/matches.json']
+    fixtures = ['fixtures/core.json', 'fixtures/leaderboard.json']
     if len(sys.argv) > 1:
         if sys.argv[1] == "newdb":
             import killdb

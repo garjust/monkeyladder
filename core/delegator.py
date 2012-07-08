@@ -1,4 +1,4 @@
-from matches.views import leaderboard
+from leaderboard.views import leaderboard
 
 def ladder_template_delegator(request, ladder):
     """

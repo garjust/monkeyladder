@@ -1,5 +1,5 @@
 from django.contrib import admin
-from matches.models import Match, MatchPlayer
+from leaderboard.models import Match, MatchPlayer
 
 class PlayerInline(admin.TabularInline):
     model = MatchPlayer

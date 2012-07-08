@@ -43,7 +43,7 @@ INSTALLED_APPS = (
     'accounts',
     'core',
     'datedmodels',
-    'matches',
+    'leaderboard',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

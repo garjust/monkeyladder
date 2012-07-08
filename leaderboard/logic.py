@@ -1,4 +1,4 @@
-from matches.models import Match, MatchPlayer
+from leaderboard.models import Match, MatchPlayer
 
 import logging
 logger = logging.getLogger('monkeyladder')
