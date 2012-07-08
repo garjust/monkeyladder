@@ -3,6 +3,13 @@ from matches.models import Match, MatchPlayer
 import logging
 logger = logging.getLogger('monkeyladder')
 
+def climbing_ladder_feed(user, order='-created', size=5):
+    """
+    Returns a ladder feed of the users climbing ladders
+    """
+    if user.is_authenticated():
+        return map(lambda p: p.ladder, user.player_set.all().order_by(order)[:size])
+
 def get_autocomplete_list(ladder):
     """
     Returns a list of names of players on the given ladder

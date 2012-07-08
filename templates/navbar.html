@@ -6,12 +6,11 @@
 <div id="navbar" class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <div class="span2 brand">Monkeyladder</div>
+            <div class="span2 brand">monkeyladder</div>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><a id="nav-home-link" href="/home/">Home</a></li>
-                    {% if request.user.is_authenticated %}<li><a id="nav-watching-link" href="/ladders/watched/">Watching</a></li>{% endif %}
-                    {% if request.user.is_authenticated %}<li><a id="nav-climbing-link" href="/ladders/climbing/">Climbing</a></li>{% endif %}
+                    {% if request.user.is_authenticated %}<li><a id="nav-activity-link" href="/ladders/activity/">Activity</a></li>{% endif %}
                 </ul>
             </div>
         {% if ladder %}

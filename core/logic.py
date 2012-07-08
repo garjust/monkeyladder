@@ -9,11 +9,17 @@ def has_ladder_permission(user, ladder):
     """
     return not ladder.is_private or (user.is_authenticated() and (len(ladder.watcher_set.filter(user=user)) != 0))
     
-def public_ladder_feed(order='-created', size=5):
+def public_ladder_feed(user=None, order='-created', size=5):
     """
     Returns a ladder feed with only public ladders
+    
+    If a user is supplied, any ladders watched by the user are excluded
     """
-    return Ladder.objects.filter(is_private=False).order_by(order)[:size]
+    ladders = Ladder.objects.filter(is_private=False).order_by(order)[:size]
+    if user and user.is_authenticated:
+        watched = watched_ladder_feed(user)
+        ladders = filter(lambda l: l not in watched, ladders)
+    return ladders
 
 def watched_ladder_feed(user, order='-created', size=5):
     """

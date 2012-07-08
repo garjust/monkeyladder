@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="span{{ ladder_feed_size|default:'3' }} page-header muted">
+        <h2>{{ ladder_feed_name|default:'Ladder Feed' }}</h2>
+    </div>
+</div>
+{% for ladder in ladder_feed %}
+<div class="row">
+    <div class="span{{ ladder_feed_size|default:'3' }}">
+        <h3><a href="/ladders/{{ ladder.id }}/">{{ ladder.name }}</a></h3>
+    </div>
+</div>
+{% empty %}
+<div class="row">
+    <div class="span{{ ladder_feed_size|default:'3' }}">
+        <h3>{{ ladder_feed_empty|default:'No ladders available' }}</h3>
+    </div>
+</div>
+{% endfor %}

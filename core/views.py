@@ -7,7 +7,8 @@ from django.contrib.admin.models import User
 from matches.models import Player
 from core.models import Ladder, Ranked, Watcher
 
-from core.logic import has_ladder_permission
+from core.logic import has_ladder_permission, watched_ladder_feed, favorite_ladder_feed, public_ladder_feed
+    
 
 from matches.views import leaderboard
 
@@ -42,20 +43,16 @@ def watchers(request, ladder_id):
         context_instance=RequestContext(request),
     )
     
-@login_required(login_url='/accounts/login/')
-def watched(request):
-    watchers = Watcher.objects.filter(user=User.objects.filter(pk=request.user.id))
+@login_required(login_url='/accounts/login')
+def activity(request):
+    public = public_ladder_feed(request.user, size=25)
+    watching = watched_ladder_feed(request.user, size=25)
+    favorites = favorite_ladder_feed(request.user, size=25)
     return render_to_response(
-        'ladders/watched.html',
-        {'watchers': watchers, 'navbar_active': 'watching'},
-        context_instance=RequestContext(request),
-    )
-
-@login_required(login_url='/accounts/login/')
-def climbing(request):
-    players = Player.objects.filter(user=User.objects.filter(pk=request.user.id))
-    return render_to_response(
-        'ladders/climbing.html',
-        {'players': players, 'navbar_active': 'climbing'},
+        'ladders/activity.html',
+        {
+            'watched_ladder_feed': watching, 'favorite_ladder_feed': favorites, 'public_ladder_feed': public, 
+            'ladder_feed_size': 4, 'navbar_active': 'activity'
+        },
         context_instance=RequestContext(request),
     )
