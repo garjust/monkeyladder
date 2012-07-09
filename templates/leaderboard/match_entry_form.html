@@ -41,17 +41,17 @@
 	    	<input class="btn btn-large" type="submit" value="Submit Match" />
 	    </div>   
 	</form>
-	{% if success_message %}
+	{% if form.success %}
 		<div id="match-created-success" class="success">
 			<div>
-				<p>{{ success_message }}</p>
+				<p>{{ form.success }}</p>
 			</div>
 		</div>
 	{% endif %}
-	{% if error_message %}
+	{% if form.errors %}
 		<div id="site-error" class="error">
 			<div>
-				<p>{{ error_message }}</p>
+				<p>{{ form.errors }}</p>
 			</div>
 		</div>
 	{% endif %}

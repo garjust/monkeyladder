@@ -35,7 +35,7 @@ def _create_match(request, ladder):
     if form.is_valid():
         match = form.save(commit=True)
         form = SimpleMatchCreationForm()
-        form.success = True
+        form.success = "Match was created successfully"
         adjust_rankings(match)
     return leaderboard(request, ladder, form=form)
     #return HttpResponseRedirect(reverse('core.views.ladder', kwargs={'form': form}))
