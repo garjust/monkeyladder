@@ -4,6 +4,12 @@ from leaderboard.models import Match, Player
 import logging
 logger = logging.getLogger('monkeyladder')
 
+def get_match_feed(ladder, order='-created', size=5):
+    """
+    Returns a match feed for the specified ladder
+    """
+    return Match.objects.filter(ladder=ladder).order_by(order)[:size]
+
 def climbing_ladder_feed(user, order='-created', size=5):
     """
     Returns a ladder feed of the ladders the user is climbing
@@ -29,66 +35,10 @@ def _format_names_for_injection(names):
     return ','.join(map(lambda n: '"{}"'.format(n), names))
 
 def get_ladder_context(ladder, *partial_contexts):
-    context = {'navbar_active': 'ladder', 'ladder': ladder, 'player_names': get_autocomplete_list(ladder), 'match_feed': None}
+    context = {'navbar_active': 'ladder', 'ladder': ladder, 'player_names': get_autocomplete_list(ladder), 'match_feed': get_match_feed(ladder)}
     for partial_context in partial_contexts:
         context.update(partial_context)
     return context
-
-class MatchCreator(object):
-    """
-    Class to create a match for a ladder and associated records from player name, score tuples
-    
-    ie create(('player1', 2), ('player2', 3))
-    """
-    
-    def __init__(self, ladder, *args, **kwargs):
-        object.__init__(self, *args, **kwargs)
-        self.ladder = ladder
-        
-    def create(self, user, *players):
-        logger.debug("Creating a match with: {}".format(players))
-        self._validate_scores(*map(lambda p: p[1], players))
-        player_names = self._get_player_names(self.ladder)
-        self._validate_players(user, player_names, *map(lambda p: p[0], players))
-        return self._create_match(self.ladder, players, player_names)
-    
-    def _validate_scores(self, *scores):
-        logger.debug("Validating scores: {}".format(scores))
-        try:
-            for score in scores:
-                if int(score) < 0:
-                    logger.error("A score was negative")
-                    raise AssertionError("Scores must be positive integers")
-        except:
-            logger.error("A score was incorrect")
-            raise AssertionError("Scores must be positive integers")
-        
-    def _validate_players(self, user, player_names, *players):
-        logger.debug("Validating players: {}".format(players))
-        if user.get_profile().name() not in players:
-            raise AssertionError("Cannot create match on the behalf of other players")
-        for player in players:
-            if players.count(player) != 1:
-                logger.error("Match has the same player more than once")
-                raise AssertionError("Players must be unique")
-            if player not in player_names:
-                logger.error("A player was not on the ladder")
-                raise AssertionError("Players must be on the ladder")
-    
-    def _get_player_names(self, ladder):
-        player_names = {}
-        for ranked in ladder.ranking():
-            player_names[ranked.player.user.get_profile().name()] = ranked.player.user
-        return player_names
-    
-    def _create_match(self, ladder, players, player_names):
-        if players[0][1] >= players[1][1]:
-            match = Match(ladder=ladder, winner=player_names[players[0][0]], winner_score=players[0][1], loser=player_names[players[1][0]], loser_score=players[1][1])
-        else:
-            match = Match(ladder=ladder, winner=player_names[players[1][0]], winner_score=players[1][1], loser=player_names[players[0][0]], loser_score=players[0][1])
-        match.save()
-        logger.debug("Created a match: {}".format(match))
-        return match
     
 def get_ladder_player_dictionary(ladder):
         player_dictionary = {}

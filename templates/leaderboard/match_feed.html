@@ -1,9 +1,18 @@
-<div>
-	<ul>Match Feed
-	{% for match in match_feed %}
-		<li>{{ match }}</li>
-	{% empty %}
-		<li>Match feed was empty</li>
-	{% endfor %}
-	</ul
+<div class="row">
+    <div class="span{{ match_feed_size|default:'6' }} page-header muted">
+        <h2>{{ match_feed_name|default:'Recent Matches' }}</h2>
+    </div>
 </div>
+{% for match in match_feed %}
+<div class="row">
+    <div class="span{{ match_feed_size|default:'6' }}">
+        <h3><a href="/ladders/{{ ladder.id }}/matches/?match={{ match.id }}">{{ match }}</a></h3>
+    </div>
+</div>
+{% empty %}
+<div class="row">
+    <div class="span{{ match_feed_size|default:'6' }}">
+        <h3>{{ match_feed_empty|default:'No matches available' }}</h3>
+    </div>
+</div>
+{% endfor %}
