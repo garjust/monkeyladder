@@ -1,8 +1,8 @@
 from django.db import models
-from django.utils import timezone
 
 from django.contrib.auth.models import User
 from core.models import Ladder, Ranked, LADDER_TYPES
+from datedmodels.models import DatedModel
 
 class Player(Ranked):
     user = models.ForeignKey(User)
@@ -15,39 +15,23 @@ class Player(Ranked):
             self.type = LADDER_TYPES['LEADERBOARD']
         super(Player, self).save(*args, **kwargs)
 
-class Match(models.Model):
+class Match(DatedModel):
     ladder = models.ForeignKey(Ladder)
-    match_date = models.DateTimeField()
-
-    def winner(self):
-        return self.matchplayer_set.filter().order_by('score')[1]
-    
-    def loser(self):
-        return self.matchplayer_set.filter().order_by('score')[0]
-    
-    def comments(self, order='-created'):
-        return self.comment_set.filter().order_by(order) 
+    winner = models.ForeignKey(User, related_name='%(app_label)s_%(class)s_won_match')
+    winner_score = models.PositiveIntegerField()
+    loser = models.ForeignKey(User, related_name='%(app_label)s_%(class)s_lost_match')
+    loser_score = models.PositiveIntegerField()
 
     def __unicode__(self):
-        return "{} vs {}".format(self.winner(), self.loser())
+        return "{} ({}) vs {} ({})".format(self.winner.get_profile().name(), self.winner_score, self.loser.get_profile().name(), self.loser_score)
     
     class Meta:
         verbose_name_plural = "Matches"
-        
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.match_date = timezone.now()
-        super(Match, self).save(*args, **kwargs)
-
-class MatchPlayer(models.Model):
-    match = models.ForeignKey(Match)
-    user = models.ForeignKey(User)
-    score = models.IntegerField()
     
-    def player(self):
-        return Player.objects.filter(ladder=self.match.ladder, user=self.user)[0]
-
+class Game(DatedModel):
+    match = models.ForeignKey(Match)
+    winner_score = models.PositiveIntegerField(null=True)
+    loser_score = models.PositiveIntegerField(null=True)
+    
     def __unicode__(self):
-        if self.user.get_full_name():
-            return "{} ({})".format(self.user.get_full_name(), self.score)
-        return "{} ({})".format(self.user.username, self.score)
+        return "{} ({}) vs {} ({}) Game".format(self.match.winner, self.winner_score, self.match.loser, self.loser_score)

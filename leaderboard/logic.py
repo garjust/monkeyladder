@@ -1,11 +1,11 @@
-from leaderboard.models import Match, MatchPlayer
+from leaderboard.models import Match, Player
 
 import logging
 logger = logging.getLogger('monkeyladder')
 
 def climbing_ladder_feed(user, order='-created', size=5):
     """
-    Returns a ladder feed of the users climbing ladders
+    Returns a ladder feed of the ladders the user is climbing
     """
     if user.is_authenticated():
         return map(lambda p: p.ladder, user.player_set.all().order_by(order)[:size])
@@ -81,45 +81,39 @@ class MatchCreator(object):
         return player_names
     
     def _create_match(self, ladder, players, player_names):
-        match = Match(ladder=ladder)
+        if players[0][1] >= players[1][1]:
+            match = Match(ladder=ladder, winner=player_names[players[0][0]], winner_score=players[0][1], loser=player_names[players[1][0]], loser_score=players[1][1])
+        else:
+            match = Match(ladder=ladder, winner=player_names[players[1][0]], winner_score=players[1][1], loser=player_names[players[0][0]], loser_score=players[0][1])
         match.save()
-        for player in players:
-            match_player = MatchPlayer(match=match, user=player_names[player[0]], score=player[1])
-            match_player.save()
-            logger.debug("Created a match player: {}".format(match_player))
         logger.debug("Created a match: {}".format(match))
         return match
     
-class RankingAlgorithm(object):
-    
-    def __init__(self, *args, **kwargs):
-        object.__init__(self, *args, **kwargs)
-    
-    def adjust_rankings(self, match):
-        winner = match.winner().player()
-        loser = match.loser().player()
-        players = list(match.ladder.ranking())
-        rank_diff = winner.rank - loser.rank
-        if rank_diff <= 0:
-            print "No change"
-        elif rank_diff <= 2:
-            print "Players are close, doing swap"
-            loser_old_rank = loser.rank
-            loser.rank = winner.rank
-            winner.rank = loser_old_rank
-        else:
-            print "Players are far, each move one towards each other"
-            below_loser = players[players.index(loser) + 1]
-            below_loser_rank = below_loser.rank
-            below_loser.rank = loser.rank
-            loser.rank = below_loser_rank
-    
-            above_winner = players[players.index(winner) - 1]
-            above_winner_rank = above_winner.rank
-            above_winner.rank = winner.rank
-            winner.rank =above_winner_rank
-            
-            above_winner.save()
-            below_loser.save()
-        winner.save()
-        loser.save()
+def adjust_rankings(match):
+    winner = Player.objects.get(ladder=match.ladder, user=match.winner)
+    loser = Player.objects.get(ladder=match.ladder, user=match.loser)
+    players = list(match.ladder.ranking())
+    rank_diff = winner.rank - loser.rank
+    if rank_diff <= 0:
+        print "No change"
+    elif rank_diff <= 2:
+        print "Players are close, doing swap"
+        loser_old_rank = loser.rank
+        loser.rank = winner.rank
+        winner.rank = loser_old_rank
+    else:
+        print "Players are far, each move one towards each other"
+        below_loser = players[players.index(loser) + 1]
+        below_loser_rank = below_loser.rank
+        below_loser.rank = loser.rank
+        loser.rank = below_loser_rank
+
+        above_winner = players[players.index(winner) - 1]
+        above_winner_rank = above_winner.rank
+        above_winner.rank = winner.rank
+        winner.rank =above_winner_rank
+        
+        above_winner.save()
+        below_loser.save()
+    winner.save()
+    loser.save()

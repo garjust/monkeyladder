@@ -30,10 +30,10 @@
                     {% for match in matches %}
 	                   <tr id="match-entry-{{ match.id }}" class="match-entry">
 	                       <td>{{ match }}</td>
-	                       <td>Match was played {{ match.match_date|naturaltime }}</td>
+	                       <td>Played {{ match.created|naturaltime }}</td>
 	                   </tr>      
 	                {% empty %}
-	                   <td>No matches</td>
+	                   <td>-</td>
 	                   <td>-</td>
 	                {% endfor %}
                     </tbody>
@@ -48,7 +48,7 @@
 	        {% for match in matches %}
 	            <div id="match-entry-{{ match.id }}-detail" style="display: none">
 	               <h2>{{ match }}</h2>
-	               <h3>{{ match.match_date|naturaltime }}</h3>
+	               <h3>{{ match.created|naturaltime }}</h3>
 	            </div>      
 	        {% endfor %}
             </div>

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from leaderboard.models import Match, MatchPlayer
+from leaderboard.models import Match, Game
 
-class PlayerInline(admin.TabularInline):
-    model = MatchPlayer
+class GameInline(admin.TabularInline):
+    model = Game
     extra = 0
     
     def has_add_permission(self, request):
@@ -13,12 +13,12 @@ class PlayerInline(admin.TabularInline):
 
 class MatchAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['ladder', 'match_date']})
+        (None, {'fields': ['ladder', 'created']})
     ]
-    inlines = [PlayerInline]
-    list_display = ('__unicode__', 'ladder', 'match_date')
-    list_filter = ['ladder', 'match_date']
-    date_hierarchy = 'match_date'
+    inlines = [GameInline]
+    list_display = ('__unicode__', 'ladder', 'created')
+    list_filter = ['ladder', 'created']
+    date_hierarchy = 'created'
     
     def has_add_permission(self, request):
         return False
