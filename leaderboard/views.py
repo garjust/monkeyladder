@@ -4,6 +4,7 @@ from django.template import RequestContext
 
 from core.models import Ladder
 
+from leaderboard.forms import SimpleMatchCreationForm
 from leaderboard.logic import MatchCreator, get_ladder_context, adjust_rankings
 from leaderboard.models import Match
 

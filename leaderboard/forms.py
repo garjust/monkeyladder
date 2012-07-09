@@ -1,23 +1,43 @@
 from django.contrib.auth.forms import forms, _
 
-from leaderboard.models import Match, MatchPlayer
+from core.logic import get_ladder_or_404
+from leaderboard.logic import get_ladder_player_dictionary
+from leaderboard.models import Match
 
-class MatchCreationForm(forms.Form):
+class SimpleMatchCreationForm(forms.Form):
     """
-    A form that creates a match
+    A form that creates a match without game information
     """
     error_messages = {
         'invalid_scores': _("Scores must be positive integers"),
-        'password_mismatch': _("The two password fields didn't match."),
+        'invalid_player': _("Players must be on the ladder"),
     }
         
     player_one = forms.CharField(label=_("Player One"), max_length=30)
     player_two = forms.CharField(label=_("Player TWo"), max_length=30)
     player_one_score = forms.IntegerField(label=_("Score"))
     player_two_score = forms.IntegerField(label=_("Score"))
+    ladder_id = forms.IntegerField(label=_("Hidden ladder id field"))
     
     def clean_player_one(self):
+        ladder = get_ladder_or_404(pk=self.ladder_id)
         player_one = self.cleaned_data['player_one']
+        player_dictionary = get_ladder_player_dictionary(ladder)
+        for player in player_dictionary:
+            if player_one == player:
+                self.cleaned_data['player_one'] = player_dictionary[player]
+                return player_dictionary[player]
+        raise forms.ValidationError(self.error_messages['invalid_player'])
+    
+    def clean_player_two(self):
+        ladder = get_ladder_or_404(pk=self.ladder_id)
+        player_two = self.cleaned_data['player_two']
+        player_dictionary = get_ladder_player_dictionary(ladder)
+        for player in player_dictionary:
+            if player_two == player:
+                self.cleaned_data['player_two'] = player_dictionary[player]
+                return player_dictionary[player]
+        raise forms.ValidationError(self.error_messages['invalid_player'])
     
     def clean_player_one_score(self):
         score = self.cleaned_data['player_one_score']
@@ -32,26 +52,14 @@ class MatchCreationForm(forms.Form):
         return score
 
     def save(self, ladder):
-        match = Match(ladder=ladder).save()
-        MatchPlayer(match=match, user=self.cleaned_data['player_one'], score=self.cleaned_data['player_one_score']).save()
-        MatchPlayer(match=match, user=self.cleaned_data['player_two'], score=self.cleaned_data['player_two_score']).save()        
+        if self.cleaned_data['player_one_score'] >= self.cleaned_data['player_two_score']:
+            winner = 'one'
+            loser = 'two'
+        else:
+            winner = 'two'
+            loser = 'one'
+        match = Match(ladder=ladder, 
+            winner=self.cleaned_data[winner], winner_score=self.cleaned_data['{}_score'].format(winner),
+            loser=self.cleaned_data[loser], loser_score=self.cleaned_data['{}_score'].format(loser)
+        ).save()   
         return match
-'''
-    def _validate_players(self, user, player_names, *players):
-        logger.debug("Validating players: {}".format(players))
-        if get_best_name(user) not in players:
-            raise AssertionError("Cannot create match on the behalf of other players")
-        for player in players:
-            if players.count(player) != 1:
-                logger.error("Match has the same player more than once")
-                raise AssertionError("Players must be unique")
-            if player not in player_names:
-                logger.error("A player was not on the ladder")
-                raise AssertionError("Players must be on the ladder")
-    
-    def _get_player_names(self, ladder):
-        player_names = {}
-        for player in ladder.ranking():
-            player_names[player.name()] = player.user
-        return player_names
-'''

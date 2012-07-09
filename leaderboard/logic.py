@@ -89,6 +89,12 @@ class MatchCreator(object):
         logger.debug("Created a match: {}".format(match))
         return match
     
+def get_ladder_player_dictionary(self, ladder):
+        player_dictionary = {}
+        for ranked in ladder.ranking():
+            player_dictionary[ranked.player.user.get_profile().name()] = ranked.player.user
+        return player_dictionary
+  
 def adjust_rankings(match):
     winner = Player.objects.get(ladder=match.ladder, user=match.winner)
     loser = Player.objects.get(ladder=match.ladder, user=match.loser)
