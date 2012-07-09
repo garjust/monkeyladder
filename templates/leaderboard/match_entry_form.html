@@ -1,29 +1,42 @@
+<script type="text/javascript">
+	$(function() {
+	    $("#id_ladder_id").attr("value", {{ ladder.id }});
+	    $("#id_ladder_id").css("display", "none");
+	    $("#id_player_one_score").addClass("input-mini")
+	    $("#id_player_two_score").addClass("input-mini")
+	    $("#id_player_one").addClass("player-name-autocomplete")
+	    $("#id_player_two").addClass("player-name-autocomplete")
+	});
+	$(function() {
+        $(".player-name-autocomplete").autocomplete({
+            source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], delay: 50
+        });
+    });
+</script>
+
 <div id="match-entry-form">
 	<form class="" action="/ladders/{{ ladder.id }}/matches/" method="post">{% csrf_token %}
 	    <table id="match-entry-table">
 	        <tbody>
 	            <tr>
 	                <td id="match-first-player" class="match-player-entry">
-	                	<label for="match-first-player-name-input">Player One</label>
-	                    <input id="match-first-player-name-input" class="player-name-autocomplete" type="text" name="match-first-player-name"/>
+	                	{{ form.player_one.label_tag }}{{ form.player_one }}
 	                </td>
 	                <td class="match-score-entry">
-	                	<label for="match-first-player-score-input">Score</label>
-	                	<input id="match-first-player-score-input" class="input-mini" type="text" name="match-first-player-score"/>
+	                   {{ form.player_one_score.label_tag }}{{ form.player_one_score }}
 	                </td>
 	            </tr>
 	            <tr>
 	                <td id="match-second-player" class="match-player-entry">
-	                	<label for="match-second-player-name-input">Player Two</label>
-	                    <input id="match-second-player-name-input" class="player-name-autocomplete" type="text" name="match-second-player-name"/>
+	                	{{ form.player_two.label_tag }}{{ form.player_two }}
 	                </td>
 	                <td class="match-score-entry">
-	                	<label for="match-second-player-score-input">Score</label>
-	                	<input id="match-second-player-score-input" class="input-mini" type="text" name="match-second-player-score"/>
+	                	{{ form.player_two_score.label_tag }}{{ form.player_two_score }}
 	                </td>
 	            </tr>
 	        </tbody>
 	    </table>
+	    {{ form.ladder_id }}
 	    <div id="match-entry-form-submit">
 	    	<input class="btn btn-large" type="submit" value="Submit Match" />
 	    </div>   

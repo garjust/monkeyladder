@@ -1,14 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-<script type="text/javascript">
-    $(function() {
-        var playerNames = [{% autoescape off %}{{ player_names }}{% endautoescape %}];
-        $(".player-name-autocomplete").autocomplete({
-            source: playerNames, delay: 50
-        });
-    });
-    
+<script type="text/javascript">  
     $(function() {
         function toggleMatchEntry() {
             $(".match-entry").toggle('drop', {"direction": "right"}, 500);

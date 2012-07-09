@@ -14,13 +14,13 @@ class SimpleMatchCreationForm(forms.Form):
     }
         
     player_one = forms.CharField(label=_("Player One"), max_length=30)
-    player_two = forms.CharField(label=_("Player TWo"), max_length=30)
+    player_two = forms.CharField(label=_("Player Two"), max_length=30)
     player_one_score = forms.IntegerField(label=_("Score"))
     player_two_score = forms.IntegerField(label=_("Score"))
     ladder_id = forms.IntegerField(label=_("Hidden ladder id field"))
     
     def clean_player_one(self):
-        ladder = get_ladder_or_404(pk=self.ladder_id)
+        ladder = get_ladder_or_404(pk=self.cleaned_data['ladder_id'])
         player_one = self.cleaned_data['player_one']
         player_dictionary = get_ladder_player_dictionary(ladder)
         for player in player_dictionary:
