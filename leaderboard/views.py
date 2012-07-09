@@ -7,13 +7,11 @@ from django.template import RequestContext
 from core.models import Ladder
 
 from leaderboard.forms import SimpleMatchCreationForm
-from leaderboard.logic import MatchCreator, get_ladder_context, adjust_rankings
+from leaderboard.logic import get_ladder_context, adjust_rankings
 from leaderboard.models import Match
 
-def leaderboard(request, ladder, **kwargs):
-    if 'form' in kwargs:
-        form = kwargs['form']
-    else:
+def leaderboard(request, ladder, form=None):
+    if not form:
         form = SimpleMatchCreationForm()
     return render_to_response(
         'leaderboard/ladder.html',
@@ -38,11 +36,9 @@ def _create_match(request, ladder):
         match = form.save(commit=True)
         form = SimpleMatchCreationForm()
         form.success = True
-    #return render_to_response('leaderboard/register.html',
-    #    {'form': form},
-    #    context_instance=RequestContext(request)
-    #)
-    return HttpResponseRedirect(reverse('core.views.ladder', kwargs={'form': form}))
+        adjust_rankings(match)
+    return leaderboard(request, ladder, form=form)
+    #return HttpResponseRedirect(reverse('core.views.ladder', kwargs={'form': form}))
     
 def match(request, ladder_id, match_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)

@@ -1,3 +1,4 @@
+from core.models import Ranked
 from leaderboard.models import Match, Player
 
 import logging
@@ -89,15 +90,15 @@ class MatchCreator(object):
         logger.debug("Created a match: {}".format(match))
         return match
     
-def get_ladder_player_dictionary(self, ladder):
+def get_ladder_player_dictionary(ladder):
         player_dictionary = {}
         for ranked in ladder.ranking():
             player_dictionary[ranked.player.user.get_profile().name()] = ranked.player.user
         return player_dictionary
   
 def adjust_rankings(match):
-    winner = Player.objects.get(ladder=match.ladder, user=match.winner)
-    loser = Player.objects.get(ladder=match.ladder, user=match.loser)
+    winner = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.winner, ladder=match.ladder).rank)
+    loser = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.loser, ladder=match.ladder).rank)
     players = list(match.ladder.ranking())
     rank_diff = winner.rank - loser.rank
     if rank_diff <= 0:

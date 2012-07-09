@@ -13,11 +13,14 @@ class SimpleMatchCreationForm(forms.Form):
         'invalid_player': _("Players must be on the ladder"),
     }
         
+    ladder_id = forms.IntegerField(label=_("Hidden ladder id field"))
     player_one = forms.CharField(label=_("Player One"), max_length=30)
     player_two = forms.CharField(label=_("Player Two"), max_length=30)
     player_one_score = forms.IntegerField(label=_("Score"))
     player_two_score = forms.IntegerField(label=_("Score"))
-    ladder_id = forms.IntegerField(label=_("Hidden ladder id field"))
+    
+    def clean_ladder_id(self):
+        return self.cleaned_data['ladder_id']
     
     def clean_player_one(self):
         ladder = get_ladder_or_404(pk=self.cleaned_data['ladder_id'])
@@ -30,7 +33,7 @@ class SimpleMatchCreationForm(forms.Form):
         raise forms.ValidationError(self.error_messages['invalid_player'])
     
     def clean_player_two(self):
-        ladder = get_ladder_or_404(pk=self.ladder_id)
+        ladder = get_ladder_or_404(pk=self.cleaned_data['ladder_id'])
         player_two = self.cleaned_data['player_two']
         player_dictionary = get_ladder_player_dictionary(ladder)
         for player in player_dictionary:
@@ -51,15 +54,16 @@ class SimpleMatchCreationForm(forms.Form):
             raise forms.ValidationError(self.error_messages['invalid_scores'])
         return score
 
-    def save(self, ladder):
+    def save(self, commit=False):
         if self.cleaned_data['player_one_score'] >= self.cleaned_data['player_two_score']:
-            winner = 'one'
-            loser = 'two'
+            winner = 'player_one'
+            loser = 'player_two'
         else:
-            winner = 'two'
-            loser = 'one'
-        match = Match(ladder=ladder, 
-            winner=self.cleaned_data[winner], winner_score=self.cleaned_data['{}_score'].format(winner),
-            loser=self.cleaned_data[loser], loser_score=self.cleaned_data['{}_score'].format(loser)
-        ).save()   
+            winner = 'player_two'
+            loser = 'player_one'
+        match = Match(ladder=get_ladder_or_404(pk=self.cleaned_data['ladder_id']), 
+            winner=self.cleaned_data[winner], winner_score=self.cleaned_data['{}_score'.format(winner)],
+            loser=self.cleaned_data[loser], loser_score=self.cleaned_data['{}_score'.format(loser)]
+        )
+        match.save()  
         return match
