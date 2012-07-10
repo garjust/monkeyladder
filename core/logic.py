@@ -29,7 +29,7 @@ def public_ladder_feed(user=None, order='-created', size=5):
         ladders = filter(lambda l: l not in watched, ladders)
     return ladders
 
-def watched_ladder_feed(user, order='-created', size=5):
+def watched_ladder_feed(user, order='-created', size=25):
     """
     Returns a ladder feed of the users watched ladders
     """

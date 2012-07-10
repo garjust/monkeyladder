@@ -1,13 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 
 from core.models import Ladder
+from core.logic import get_ladder_or_404
 
 from leaderboard.forms import SimpleMatchCreationForm
-from leaderboard.logic import get_ladder_context, adjust_rankings
+from leaderboard import logic
 from leaderboard.models import Match
 
 def leaderboard(request, ladder, form=None):
@@ -15,7 +14,7 @@ def leaderboard(request, ladder, form=None):
         form = SimpleMatchCreationForm()
     return render_to_response(
         'leaderboard/ladder.html',
-        get_ladder_context(ladder, {'form': form}),
+        logic.get_ladder_context(ladder, {'form': form}),
         context_instance=RequestContext(request),
     )
 
@@ -34,15 +33,11 @@ def _create_match(request, ladder):
     form = SimpleMatchCreationForm(request.POST)
     if form.is_valid():
         match = form.save(commit=True)
-        #next = form.cleaned_data['next']
         form = SimpleMatchCreationForm()
         form.success = "Match was created successfully"
-        #form.next = next
-        #form.cleaned_data['next'] = next
-        adjust_rankings(match)
+        logic.adjust_rankings(match)
     return leaderboard(request, ladder, form=form)
-    #return HttpResponseRedirect(form.cleaned_data['next'])
-    
+
 def match(request, ladder_id, match_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     match = get_object_or_404(Match, pk=match_id)
@@ -50,4 +45,18 @@ def match(request, ladder_id, match_id):
         {'ladder': ladder, 'match': match},
         context_instance=RequestContext(request)
     )
-    
+
+def ajax_match_creation(request, ladder_id):
+    form = SimpleMatchCreationForm(request.POST)
+    other_data = {}
+    if form.is_valid():
+        match = form.save(commit=True)
+        other_data['success'] = "Match was created successfully"
+        logic.adjust_rankings(match)
+    else:
+        other_data['error'] = form.errors
+    return form.json(other_data) #JSON RESPONSE
+
+def ajax_match_feed(request, ladder_id):
+    match_feed = logic.get_match_feed(get_ladder_or_404(ladder_id))
+    # return matchfeed as JSON

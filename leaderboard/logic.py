@@ -39,13 +39,43 @@ def get_ladder_context(ladder, *partial_contexts):
     for partial_context in partial_contexts:
         context.update(partial_context)
     return context
-    
+
 def get_ladder_player_dictionary(ladder):
         player_dictionary = {}
         for ranked in ladder.ranking():
             player_dictionary[ranked.player.user.get_profile().name()] = ranked.player.user
         return player_dictionary
-  
+
+def inverse_match(match):
+    return Match(ladder=match.ladder,
+        winner=match.loser, winner_score=match.loser_score,
+        loser=match.winner, loser_score=match.winner_score,
+        created=match.created, ranking_change=match.ranking_change
+    )
+
+def delete_match(match):
+    pass
+
+class RankingAdjuster(object):
+
+    ALGORITHMS = ['take_and_cascade', 'pull']
+
+    def __init__(self, algorithm, *args, **kwargs):
+        object.__init__(self, *args, **kwargs)
+        self.algorithm = getattr(self, algorithm)
+
+    def adjust(self, match, algorithm=None):
+        if algorithm:
+            getattr(self, algorithm)(match)
+        else:
+            self.algorithm(match)
+
+    def take_and_cascade(self, match):
+        pass
+
+    def pull(self, match):
+        pass
+
 def adjust_rankings(match):
     if not match.ranking_change:
         return
@@ -70,8 +100,8 @@ def adjust_rankings(match):
         above_winner = players[players.index(winner) - 1]
         above_winner_rank = above_winner.rank
         above_winner.rank = winner.rank
-        winner.rank =above_winner_rank
-        
+        winner.rank = above_winner_rank
+
         above_winner.save()
         below_loser.save()
     winner.save()

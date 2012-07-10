@@ -1,22 +1,14 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
 
-from matches.logic import RankingAlgorithm
+from leaderboard import logic
 
-class RankingAlgorithmTest(TestCase):
+class AdjustRankingsTest(TestCase):
     
     def setUp(self):
-        self.fixture = RankingAlgorithm()
+        self.fixture = logic.adjust_rankings
     
-    def test_adjust_ranking(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
+    def test_simple_swap(self):
+        fixtures = ['fixtures/core', 'fixtures/leaderboard']
+        
         self.assertEqual(1 + 1, 2)
         raise AssertionError()
