@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from django.utils import simplejson
 
 from core.models import Ladder
 from core.logic import get_ladder_or_404
@@ -48,15 +50,15 @@ def match(request, ladder_id, match_id):
 
 def ajax_match_creation(request, ladder_id):
     form = SimpleMatchCreationForm(request.POST)
-    other_data = {}
+    messages = {}
     if form.is_valid():
         match = form.save(commit=True)
-        other_data['success'] = "Match was created successfully"
+        messages['success'] = "Match was created successfully"
         logic.adjust_rankings(match)
     else:
-        other_data['error'] = form.errors
-    return form.json(other_data) #JSON RESPONSE
+        messages['error'] = form.errors
+    return HttpResponse(simplejson.dumps(messages), mimetype='application/javascript')
 
 def ajax_match_feed(request, ladder_id):
     match_feed = logic.get_match_feed(get_ladder_or_404(ladder_id))
-    # return matchfeed as JSON
+    return HttpResponse(simplejson.dumps(match_feed), mimetype='application/javascript')

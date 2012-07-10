@@ -78,28 +78,3 @@ class SimpleMatchCreationForm(forms.Form):
         }
         json.update(other_data)
         return json
-
-class AdvancedMatchCreationForm(SimpleMatchCreationForm):
-    """
-    A form that creates a match with game information
-    """
-    super.error_messages += {
-        'invalid_game_scores': _("Game scores must make sense"),
-    }
-
-    #NEED VARAIABLE SCORS GORFOR EACH GAMEHERES
-
-    def save(self, commit=False):
-        if self.cleaned_data['player_one_score'] >= self.cleaned_data['player_two_score']:
-            winner = 'player_one'
-            loser = 'player_two'
-        else:
-            winner = 'player_two'
-            loser = 'player_one'
-        ranking_change = not self.cleaned_data['player_one_score'] == self.cleaned_data['player_two_score']
-        match = Match(ladder=get_ladder_or_404(pk=self.cleaned_data['ladder_id']), ranking_change=ranking_change,
-            winner=self.cleaned_data[winner], winner_score=self.cleaned_data['{}_score'.format(winner)],
-            loser=self.cleaned_data[loser], loser_score=self.cleaned_data['{}_score'.format(loser)]
-        )
-        match.save()
-        return match
