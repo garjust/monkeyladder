@@ -1,6 +1,6 @@
 from leaderboard.views import leaderboard
 
-def ladder_template_delegator(request, ladder, **kwargs):
+def ladder_template_delegator(request, ladder):
     """
     Delegates rendering of a ladder based on the ladders type
     """
@@ -8,4 +8,4 @@ def ladder_template_delegator(request, ladder, **kwargs):
         'BASIC': leaderboard,
         'LEADERBOARD': leaderboard,
     }
-    return FUNCTION_MAPPING[ladder.type](request, ladder, **kwargs)
+    return FUNCTION_MAPPING[ladder.type](request, ladder)

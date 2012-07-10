@@ -34,11 +34,14 @@ def _create_match(request, ladder):
     form = SimpleMatchCreationForm(request.POST)
     if form.is_valid():
         match = form.save(commit=True)
+        next = form.cleaned_data['next']
         form = SimpleMatchCreationForm()
         form.success = "Match was created successfully"
+        form.next = next
+        form.cleaned_data['next'] = next
         adjust_rankings(match)
-    return leaderboard(request, ladder, form=form)
-    #return HttpResponseRedirect(reverse('core.views.ladder', kwargs={'form': form}))
+    #return leaderboard(request, ladder, form=form)
+    return HttpResponseRedirect(form.cleaned_data['next'])
     
 def match(request, ladder_id, match_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)

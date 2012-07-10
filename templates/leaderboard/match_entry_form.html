@@ -36,6 +36,7 @@
 	        </tbody>
 	    </table>
 	    {{ form.ladder_id }}
+	    <input type="hidden" name="next" value="{{ request.path }}"/>
 	    <div id="match-entry-form-submit">
 	    	<input class="btn btn-large" type="submit" value="Submit Match" />
 	    </div>   

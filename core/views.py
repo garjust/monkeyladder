@@ -19,11 +19,11 @@ def activity(request):
         context_instance=RequestContext(request),
     )
 
-def ladder(request, ladder_id, **kwargs):
+def ladder(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     if ladder.is_private and not logic.can_view_ladder(request.user, ladder):
         return HttpResponseForbidden()
-    return ladder_template_delegator(request, ladder, **kwargs)
+    return ladder_template_delegator(request, ladder)
 
 @login_required
 def create(request):
