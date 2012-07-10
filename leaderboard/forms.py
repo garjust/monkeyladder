@@ -13,7 +13,7 @@ class SimpleMatchCreationForm(forms.Form):
         'invalid_player': _("Players must be on the ladder"),
     }
         
-    ladder_id = forms.IntegerField(label=_("Hidden ladder id field"))
+    ladder_id = forms.IntegerField(label=_("Hidden ladder id field"), show_hidden_initial=True)
     player_one = forms.CharField(label=_("Player One"), max_length=30)
     player_two = forms.CharField(label=_("Player Two"), max_length=30)
     player_one_score = forms.IntegerField(label=_("Score"))
