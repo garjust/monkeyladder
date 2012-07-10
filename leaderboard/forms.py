@@ -61,7 +61,8 @@ class SimpleMatchCreationForm(forms.Form):
         else:
             winner = 'player_two'
             loser = 'player_one'
-        match = Match(ladder=get_ladder_or_404(pk=self.cleaned_data['ladder_id']), 
+        ranking_change = not self.cleaned_data['player_one_score'] == self.cleaned_data['player_two_score']
+        match = Match(ladder=get_ladder_or_404(pk=self.cleaned_data['ladder_id']), ranking_change=ranking_change,
             winner=self.cleaned_data[winner], winner_score=self.cleaned_data['{}_score'.format(winner)],
             loser=self.cleaned_data[loser], loser_score=self.cleaned_data['{}_score'.format(loser)]
         )

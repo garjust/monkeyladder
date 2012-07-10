@@ -47,6 +47,8 @@ def get_ladder_player_dictionary(ladder):
         return player_dictionary
   
 def adjust_rankings(match):
+    if not match.ranking_change:
+        return
     winner = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.winner, ladder=match.ladder).rank)
     loser = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.loser, ladder=match.ladder).rank)
     players = list(match.ladder.ranking())

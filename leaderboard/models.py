@@ -21,6 +21,7 @@ class Match(DatedModel):
     winner_score = models.PositiveIntegerField()
     loser = models.ForeignKey(User, related_name='%(app_label)s_%(class)s_lost_match')
     loser_score = models.PositiveIntegerField()
+    ranking_change = models.BooleanField()
 
     def __unicode__(self):
         return "{} ({}) vs {} ({})".format(self.winner.get_profile().name(), self.winner_score, self.loser.get_profile().name(), self.loser_score)
