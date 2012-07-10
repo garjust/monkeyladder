@@ -1,5 +1,7 @@
 import os
 
+VERSION_NUMBER = "0.5.0"
+
 PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", "..")).replace("\\", "/")
 
 ROOT_URLCONF = 'monkeyladder.urls'
@@ -49,6 +51,7 @@ INSTALLED_APPS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.auth.context_processors.auth',
+    'monkeyladder.context_processors.version_number',
 )
 
 STATICFILES_FINDERS = (
