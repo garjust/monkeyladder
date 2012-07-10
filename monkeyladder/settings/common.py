@@ -1,11 +1,11 @@
 import os
 
-VERSION_NUMBER = "0.5.0"
+VERSION_NUMBER = "0.3.12"
 
 PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", "..")).replace("\\", "/")
 
 ROOT_URLCONF = 'monkeyladder.urls'
-LOGIN_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/accounts/profile'
 LOGIN_URL = '/accounts/login/'
 
 AUTH_PROFILE_MODULE = 'core.UserProfile'

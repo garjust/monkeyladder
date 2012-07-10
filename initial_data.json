@@ -9,7 +9,7 @@
           "is_superuser": true, 
           "is_staff": true,  
           "password": "pbkdf2_sha256$10000$kGjKNA0EHk2p$+LGj502F1KBm8upb+6w+S2BROj8UY59nN5SQS9Jhyqc=", 
-          "email": "admin@monkeyladder.test.com",
+          "email": "admin@test.monkeyladder.com",
           "date_joined": "2012-06-20T10:00:00Z",
           "last_login": "2012-06-20T16:00:00Z"
         }
@@ -20,7 +20,7 @@
         "fields": {
           "username": "the_tan",  
           "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@monkeyladder.test.com",
+          "email": "user@test.monkeyladder.com",
           "date_joined": "2012-06-20T12:00:00Z",
           "last_login": "2012-06-20T16:00:00Z"
         }
@@ -33,7 +33,7 @@
           "first_name": "Vlad",
           "last_name": "Keith",
           "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@monkeyladder.test.com",
+          "email": "user@test.monkeyladder.com",
           "date_joined": "2012-06-20T12:00:00Z",
           "last_login": "2012-06-20T16:00:00Z"
         }
@@ -46,7 +46,7 @@
           "first_name": "Mike",
           "last_name": "Sapporo",
           "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@monkeyladder.test.com",
+          "email": "user@test.monkeyladder.com",
           "date_joined": "2012-06-20T12:00:00Z",
           "last_login": "2012-06-20T16:00:00Z"
         }
@@ -59,7 +59,7 @@
           "first_name": "Nicky",
           "last_name": "Steam",
           "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@monkeyladder.test.com",
+          "email": "user@test.monkeyladder.com",
           "date_joined": "2012-06-20T12:00:00Z",
           "last_login": "2012-06-20T16:00:00Z"
         }
@@ -71,7 +71,7 @@
           "username": "waffle",
           "first_name": "Momo",  
           "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@monkeyladder.test.com",
+          "email": "user@test.monkeyladder.com",
           "date_joined": "2012-06-20T12:00:00Z",
           "last_login": "2012-06-20T16:00:00Z"
         }
@@ -83,7 +83,7 @@
           "username": "mikey",
           "last_name": "aedy",  
           "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@monkeyladder.test.com",
+          "email": "user@test.monkeyladder.com",
           "date_joined": "2012-06-20T12:00:00Z",
           "last_login": "2012-06-20T16:00:00Z"
         }
@@ -96,7 +96,7 @@
           "first_name": "User",
           "last_name": "A",
           "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@monkeyladder.test.com",
+          "email": "user@test.monkeyladder.com",
           "date_joined": "2012-06-20T12:00:00Z",
           "last_login": "2012-06-20T16:00:00Z"
         }
