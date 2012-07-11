@@ -48,7 +48,7 @@ def match(request, ladder_id, match_id):
         context_instance=RequestContext(request)
     )
 
-def ajax_match_creation(request, ladder_id):
+def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     if request.POST:
         form = SimpleMatchCreationForm(request.POST)
