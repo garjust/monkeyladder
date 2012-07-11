@@ -42,18 +42,6 @@ class SimpleMatchCreationForm(forms.Form):
                 return player_dictionary[player]
         raise forms.ValidationError(self.error_messages['invalid_player'])
 
-    def clean_player_one_score(self):
-        score = self.cleaned_data['player_one_score']
-        if score < 0:
-            raise forms.ValidationError(self.error_messages['invalid_scores'])
-        return score
-
-    def clean_player_two_score(self):
-        score = self.cleaned_data['player_two_score']
-        if score < 0:
-            raise forms.ValidationError(self.error_messages['invalid_scores'])
-        return score
-
     def save(self, commit=False):
         if self.cleaned_data['player_one_score'] >= self.cleaned_data['player_two_score']:
             winner = 'player_one'

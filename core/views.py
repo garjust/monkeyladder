@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from core import logic
-from core.delegator import ladder_template_delegator
+from core.delegator import ladder_template_delegator, ladder_ajax_delegator
 
 @login_required
 def activity(request):
@@ -24,6 +24,10 @@ def ladder(request, ladder_id):
     if ladder.is_private and not logic.can_view_ladder(request.user, ladder):
         return HttpResponseForbidden()
     return ladder_template_delegator(request, ladder)
+
+def ajax_ladder_display(request, ladder_id):
+    ladder = logic.get_ladder_or_404(pk=ladder_id)
+    return ladder_ajax_delegator(request, ladder)
 
 @login_required
 def create(request):
