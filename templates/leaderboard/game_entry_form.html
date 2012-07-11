@@ -1,23 +1,17 @@
 <div id="match-entry-form">
-    <form class="" action="/ladders/{{ ladder.id }}/matches/create/" method="post">{% csrf_token %}
+    <form class="" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/" method="post">{% csrf_token %}
         <table id="match-entry-table">
             <tbody>
+            {% for game_number in range form.number_of_games %} 
                 <tr>
-                    <td id="match-first-player" class="match-player-entry">
-                        {{ form.player_one.label_tag }}{{ form.player_one }}
+                    <td id="game-{{ game_number }}-first-player-score" class="match-player-entry">
+                    {{ form.playey_one_score }}
                     </td>
-                    <td class="match-score-entry">
-                       {{ form.player_one_score.label_tag }}{{ form.player_one_score }}
+                    <td id="game-{{ game_number }}-second-player-score" class="match-score-entry">
+                    {{ form.player_one_score }}
                     </td>
                 </tr>
-                <tr>
-                    <td id="match-second-player" class="match-player-entry">
-                        {{ form.player_two.label_tag }}{{ form.player_two }}
-                    </td>
-                    <td class="match-score-entry">
-                        {{ form.player_two_score.label_tag }}{{ form.player_two_score }}
-                    </td>
-                </tr>
+            {% endfor %}
             </tbody>
         </table>
         {{ form.ladder_id }}
@@ -51,16 +45,16 @@
         source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], delay: 50
     });
     console.log("asdasd")
-    $(function() {
-        var form = $("#match-entry-form > form");
-        form.submit(function(e) {
-            $("#match-entry-form-submit > input").attr('disabled', true)
-            $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
-                $("#match-entry-form-submit > input").attr('disabled', false)
-                $("#ladder-display-span").load("latest/")
-                $("#match-feed-span").load("matches/feed/")
-            });
-            e.preventDefault(); 
-        });
-    });
+	$(function() {
+	    var form = $("#match-entry-form > form");
+	    form.submit(function(e) {
+	        $("#match-entry-form-submit > input").attr('disabled', true)
+	        $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
+	            $("#match-entry-form-submit > input").attr('disabled', false)
+	            $("#ladder-display-span").load("content/ladder_display/")
+	            $("#match-feed-span").load("leaderboard/content/match_feed/")
+	        });
+	        e.preventDefault(); 
+	    });
+	});
 </script>

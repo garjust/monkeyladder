@@ -13,13 +13,13 @@ class Ladder(DatedModel):
     name = models.CharField(max_length=50)
     rungs = models.IntegerField()
     is_private = models.BooleanField(default=False)
-    
+
     TYPES = LADDER_TYPES
     type = models.CharField(max_length=50, choices=TYPES, default='BASIC', editable=False)
 
     def ranking(self):
         return self.ranked_set.filter().order_by('rank')
-    
+
     @models.permalink
     def get_absolute_url(self):
         return ('core.views.ladder', (), {
@@ -28,23 +28,18 @@ class Ladder(DatedModel):
 
     def __unicode__(self):
         return self.name
-    
-    class Meta:
-        permissions = (
-            ('admin', "Can administrate the ladder"),
-        )
-        
+
 class Ranked(DatedModel):
     ladder = models.ForeignKey(Ladder)
     rank = models.IntegerField()
     info = models.CharField(max_length=50, null=True)
-    
+
     TYPES = LADDER_TYPES
     type = models.CharField(max_length=50, choices=TYPES, default='BASIC', editable=False)
 
     def __unicode__(self):
         return str(self.info)
-        
+
 class Favorite(DatedModel):
     ladder = models.ForeignKey(Ladder)
     user = models.ForeignKey(User)
@@ -59,19 +54,26 @@ class Watcher(DatedModel):
     def __unicode__(self):
         return self.user.get_profile().name()
 
+    class Meta:
+        permissions = (
+            ('admin', "Grants all permissions for the watchers ladder"),
+            ('delete', "Can delete the watchers ladder"),
+            ('edit_ranks', "Can edit the ranking of the watchers ladder"),
+        )
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     description = models.CharField(max_length=500, null=True, blank=True)
-    
+
     def name(self):
         full_name = self.user.get_full_name()
         if full_name:
             return full_name
         return self.user.username
-    
+
     def __unicode__(self):
         return "{}'s Profile".format(self.name())
-    
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)

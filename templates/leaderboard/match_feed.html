@@ -8,7 +8,7 @@
 {% for match in match_feed %}
 <div class="row">
     <div class="span{{ match_feed_size|default:'6' }}">
-        <h3><a href="/ladders/{{ ladder.id }}/matches/?match={{ match.id }}">{{ match }}</a> {{ match.created|naturaltime }}</h3>
+        <h3><a href="/ladders/{{ ladder.id }}/leaderboard/matches/?id={{ match.id }}">{{ match }}</a> {{ match.created|naturaltime }}</h3>
     </div>
 </div>
 {% empty %}
