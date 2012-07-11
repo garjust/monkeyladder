@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response, render, redirect
 from django.template import RequestContext
 from django.utils import simplejson
 
@@ -49,16 +49,20 @@ def match(request, ladder_id, match_id):
     )
 
 def ajax_match_creation(request, ladder_id):
-    form = SimpleMatchCreationForm(request.POST)
-    messages = {}
-    if form.is_valid():
-        match = form.save(commit=True)
-        messages['success'] = "Match was created successfully"
-        logic.adjust_rankings(match)
+    ladder = get_ladder_or_404(pk=ladder_id)
+    if request.POST:
+        form = SimpleMatchCreationForm(request.POST)
+        if form.is_valid():
+            match = form.save(commit=True)
+            form.success = "Match was created successfully"
+            logic.adjust_rankings(match)
+            if request.is_ajax():
+                return render(request, 'leaderboard/match_entry_form.html', {'ladder': ladder})
+            return redirect('ladders/{}'.format(ladder_id))
     else:
-        messages['error'] = form.errors
-    return HttpResponse(simplejson.dumps(messages), mimetype='application/javascript')
+        form = SimpleMatchCreationForm()
+    return render(request, 'leaderboard/match_entry_form.html', {'form': form, 'ladder': ladder})
 
 def ajax_match_feed(request, ladder_id):
-    match_feed = logic.get_match_feed(get_ladder_or_404(ladder_id))
+    match_feed = logic.get_match_feed(get_ladder_or_404(pk=ladder_id))
     return HttpResponse(simplejson.dumps(match_feed), mimetype='application/javascript')
