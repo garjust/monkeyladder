@@ -8,6 +8,6 @@ urlpatterns += patterns('core.views',
     url(r'^activity/$', 'activity'),
     url(r'^create/$', 'create'),
     url(r'^(?P<ladder_id>\d+)/$', 'ladder'),
-    url(r'^(?P<ladder_id>\d+)/latest/$', 'ajax_ladder_display'),
+    url(r'^(?P<ladder_id>\d+)/content/ladder_display/$', 'ladder_display_content', name='ladder_display'),
     url(r'^(?P<ladder_id>\d+)/watchers/$', 'watchers'),
 )

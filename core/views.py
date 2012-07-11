@@ -11,9 +11,9 @@ def activity(request):
     return render_to_response(
         'core/activity.html',
         {
-            'watched_ladder_feed': logic.watched_ladder_feed(request.user, size=25), 
-            'favorite_ladder_feed': logic.favorite_ladder_feed(request.user, size=25), 
-            'public_ladder_feed': logic.public_ladder_feed(request.user, size=25), 
+            'watched_ladder_feed': logic.watched_ladder_feed(request.user, size=25),
+            'favorite_ladder_feed': logic.favorite_ladder_feed(request.user, size=25),
+            'public_ladder_feed': logic.public_ladder_feed(request.user, size=25),
             'ladder_feed_size': 4, 'navbar_active': 'activity'
         },
         context_instance=RequestContext(request),
@@ -25,7 +25,7 @@ def ladder(request, ladder_id):
         return HttpResponseForbidden()
     return ladder_template_delegator(request, ladder)
 
-def ajax_ladder_display(request, ladder_id):
+def ladder_display_content(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     return ladder_ajax_delegator(request, ladder)
 
@@ -38,7 +38,7 @@ def create(request):
         {'form': None},
         context_instance=RequestContext(request),
     )
-    
+
 def watchers(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     return render_to_response(

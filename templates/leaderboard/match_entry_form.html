@@ -57,7 +57,7 @@
 	        $("#match-entry-form-submit > input").attr('disabled', true)
 	        $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
 	            $("#match-entry-form-submit > input").attr('disabled', false)
-	            $("#ladder-display-span").load("latest/")
+	            $("#ladder-display-span").load("content/ladder_display/")
 	            $("#match-feed-span").load("leaderboard/content/match_feed/")
 	        });
 	        e.preventDefault(); 
