@@ -54,10 +54,11 @@ def ajax_match_creation(request, ladder_id):
         form = SimpleMatchCreationForm(request.POST)
         if form.is_valid():
             match = form.save(commit=True)
+            form = SimpleMatchCreationForm()
             form.success = "Match was created successfully"
             logic.adjust_rankings(match)
             if request.is_ajax():
-                return render(request, 'leaderboard/match_entry_form.html', {'ladder': ladder})
+                return render(request, 'leaderboard/match_entry_form.html', {'form': form, 'ladder': ladder})
             return redirect('ladders/{}'.format(ladder_id))
     else:
         form = SimpleMatchCreationForm()
