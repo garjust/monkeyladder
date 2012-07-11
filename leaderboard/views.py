@@ -7,7 +7,6 @@ from core.logic import get_ladder_or_404
 
 from leaderboard.forms import MatchCreationForm
 from leaderboard import logic
-from leaderboard.models import Match
 
 def leaderboard(request, ladder, form=None):
     if not form:
@@ -26,14 +25,6 @@ def matches(request, ladder_id):
         context_instance=RequestContext(request)
     )
 
-def match(request, ladder_id, match_id):
-    ladder = get_object_or_404(Ladder, pk=ladder_id)
-    match = get_object_or_404(Match, pk=match_id)
-    return render_to_response('leaderboard/match.html',
-        {'ladder': ladder, 'match': match},
-        context_instance=RequestContext(request)
-    )
-    
 @login_required(login_url="/accounts/login")
 def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
@@ -54,6 +45,6 @@ def create_match(request, ladder_id):
 def ajax_ladder_display(request, ladder):
     return render(request, 'leaderboard/ladder_display.html', {'ladder': ladder})
 
-def ajax_match_feed(request, ladder_id):
+def match_feed_content(request, ladder_id):
     match_feed = logic.get_match_feed(get_ladder_or_404(pk=ladder_id))
     return render(request, 'leaderboard/match_feed.html', {'match_feed': match_feed})
