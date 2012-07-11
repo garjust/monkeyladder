@@ -33,6 +33,7 @@ class Game(DatedModel):
     match = models.ForeignKey(Match)
     winner_score = models.PositiveIntegerField(null=True)
     loser_score = models.PositiveIntegerField(null=True)
+    game_number = models.PositiveIntegerField(null=True)
     
     def __unicode__(self):
         return "{} ({}) vs {} ({}) Game".format(self.match.winner, self.winner_score, self.match.loser, self.loser_score)

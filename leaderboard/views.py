@@ -5,13 +5,13 @@ from django.template import RequestContext
 from core.models import Ladder
 from core.logic import get_ladder_or_404
 
-from leaderboard.forms import SimpleMatchCreationForm
+from leaderboard.forms import MatchCreationForm
 from leaderboard import logic
 from leaderboard.models import Match
 
 def leaderboard(request, ladder, form=None):
     if not form:
-        form = SimpleMatchCreationForm()
+        form = MatchCreationForm()
     return render_to_response(
         'leaderboard/ladder.html',
         logic.get_ladder_context(ladder, {'form': form}),
@@ -38,17 +38,17 @@ def match(request, ladder_id, match_id):
 def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     if request.POST:
-        form = SimpleMatchCreationForm(request.POST)
+        form = MatchCreationForm(request.POST)
         if form.is_valid():
             match = form.save(commit=True)
-            form = SimpleMatchCreationForm()
+            form = MatchCreationForm()
             form.success = "Match was created successfully"
             logic.adjust_rankings(match)
             if request.is_ajax():
                 return render(request, 'leaderboard/match_entry_form.html', {'form': form, 'ladder': ladder})
             return redirect('ladders/{}'.format(ladder_id))
     else:
-        form = SimpleMatchCreationForm()
+        form = MatchCreationForm()
     return render(request, 'leaderboard/match_entry_form.html', {'form': form, 'ladder': ladder})
 
 def ajax_ladder_display(request, ladder):

@@ -4,7 +4,7 @@ from core.logic import get_ladder_or_404
 from leaderboard.logic import get_ladder_player_dictionary
 from leaderboard.models import Match
 
-class SimpleMatchCreationForm(forms.Form):
+class MatchCreationForm(forms.Form):
     """
     A form that creates a match without game information
     """
@@ -57,12 +57,22 @@ class SimpleMatchCreationForm(forms.Form):
         match.save()
         return match
 
-    def json(self, other_data={}):
-        json = {
-            'player_one': self.cleaned_data['player_one'],
-            'player_two': self.cleaned_data['player_two'],
-            'player_one_score': self.cleaned_data['player_one_score'],
-            'player_two_Score': self.cleaned_data['player_two_score'],
-        }
-        json.update(other_data)
-        return json
+class GamesCreationForm(forms.Form):
+    """
+    A form that creates the games for a match
+    """
+    error_messages = {
+        'invalid_scores': _("Scores must be positive integers"),
+        'invalid_score_sum': _("Scores for games must make sense")
+    }
+    
+    def __init__(self, match, *args, **kwargs):
+        forms.Form.__init__(self, *args, **kwargs)
+        self._match = match
+        self._number_of_games = match.winner_score + match.loser_score
+        for i in range(self._number_of_games):
+            setattr(self, 'game_{}_player_one_score'.format(i), forms.IntegerField(min_value=0))
+            setattr(self, 'game_{}_player_two_score'.format(i), forms.IntegerField(min_value=0))
+
+    def save(self, commit=False):
+        print "SAVING GAMES"
