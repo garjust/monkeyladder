@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, HttpResponseNotAllowed
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 
 from core import logic
 from core.delegator import ladder_template_delegator, ladder_ajax_delegator
+from core.forms import LadderCreationForm
 
 @login_required
 def activity(request):
@@ -29,15 +30,16 @@ def ladder_display_content(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     return ladder_ajax_delegator(request, ladder)
 
+def ladder_creation_form_content(request):
+    form = LadderCreationForm()
+    return render(request, 'core/ladder_creation_form.html', {'form': form})
+
 @login_required
 def create(request):
-    if request.POST:
-        return HttpResponseNotAllowed()
-    return render_to_response(
-        'core/create.html',
-        {'form': None},
-        context_instance=RequestContext(request),
-    )
+    form = LadderCreationForm()
+    #if request.POST:
+    #    return HttpResponseNotAllowed()
+    return render(request, 'core/create.html', {'form': form})
 
 def watchers(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)

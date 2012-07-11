@@ -50,7 +50,6 @@
     $(".player-name-autocomplete").autocomplete({
         source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], delay: 50
     });
-    console.log("asdasd")
 	$(function() {
 	    var form = $("#match-entry-form > form");
 	    form.submit(function(e) {
