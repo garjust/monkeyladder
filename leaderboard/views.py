@@ -20,8 +20,9 @@ def leaderboard(request, ladder, form=None):
 def matches(request, ladder_id):
     ladder = get_object_or_404(Ladder, pk=ladder_id)
     matches = ladder.match_set.filter().order_by('-created')
+    match_id = request.GET.get('id', None)
     return render_to_response('leaderboard/match_history.html',
-        {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches},
+        {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches, 'match_id': match_id},
         context_instance=RequestContext(request)
     )
 

@@ -56,8 +56,6 @@ class Watcher(DatedModel):
 
     class Meta:
         permissions = (
-            ('admin', "Grants all permissions for the watchers ladder"),
-            ('delete', "Can delete the watchers ladder"),
             ('edit_ranks', "Can edit the ranking of the watchers ladder"),
         )
 

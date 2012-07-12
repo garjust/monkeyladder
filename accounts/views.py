@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 
 from accounts.forms import ExtendedUserCreationForm
+from core.models import Ladder
+from leaderboard.logic import get_players_match_feed
 
 def register(request):
     if request.POST:
@@ -25,10 +27,7 @@ def _do_registration(request):
 
 @login_required(login_url="/accounts/login")
 def profile(request):
-    return render_to_response('accounts/profile.html',
-        {},
-        context_instance=RequestContext(request)
-    )
+    return render(request, 'accounts/profile.html', {'recent_matches': get_players_match_feed(request.user, Ladder.objects.get(pk=1))})
     
 @login_required(login_url="/accounts/login")
 def edit_profile(request):

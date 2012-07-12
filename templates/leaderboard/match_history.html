@@ -10,9 +10,11 @@
 	    	$("#" + event.currentTarget.id + "-detail").css("display", "block")
 	    })
 	});
-// 	{% if request.GET "id" %}
-	
-// 	{% endif %}
+	{% if match_id %}
+	$(function() {
+		$("#match-entry-{{ match_id }}-detail").css("display", "block")
+	})
+	{% endif %}
 </script>
 {% endblock %}
 

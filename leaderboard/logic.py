@@ -10,6 +10,12 @@ def get_match_feed(ladder, order='-created', size=5):
     """
     return Match.objects.filter(ladder=ladder).order_by(order)[:size]
 
+def get_players_match_feed(user, ladder, order='-created', size=5):
+    """
+    Returns a match feed for the specified ladder with only matches with the given user
+    """
+    return (Match.objects.filter(ladder=ladder, winner=user) | Match.objects.filter(ladder=ladder, loser=user)).order_by(order)[:size]
+
 def climbing_ladder_feed(user, order='-created', size=5):
     """
     Returns a ladder feed of the ladders the user is climbing

@@ -15,8 +15,8 @@ class LadderCreationForm(forms.Form):
     user_id = forms.IntegerField(label=_("User Id"), widget=forms.HiddenInput, min_value=1)
     name = forms.CharField(label=_("Ladder Name"))
     rungs = forms.IntegerField(label=_("Rungs"), min_value=1)
-    is_private = forms.BooleanField(label=_("Private"))
-    type = forms.ChoiceField(label=_("Type"), widget=forms.Select(choices=('BASIC', 'LEADEBOARD',)))
+    is_private = forms.BooleanField(label=_("Private"), required=False)
+    type = forms.ChoiceField(label=_("Type"), choices=Ladder.TYPES, widget=forms.Select)
 
     def clean_user_id(self):
         user = User.objects.get(pk=self.cleaned_data['user_id'])
@@ -27,6 +27,7 @@ class LadderCreationForm(forms.Form):
     def clean_rungs(self):
         if self.cleaned_data['rungs'] > 100:
             raise forms.ValidationError(self.error_messages['too_many_rungs'])
+        return self.cleaned_data['rungs']
 
     def save(self, commit=False):
         ladder = Ladder(name=self.cleaned_data['name'],
