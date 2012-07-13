@@ -6,7 +6,7 @@
 <div id="navbar" class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <div class="span2 brand">monkeyladder</div>
+            <div id="navbar-brand" class="span2 brand">monkeyladder</div>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><a id="nav-home-link" href="/home/">Home</a></li>
@@ -17,8 +17,8 @@
             <div class="nav-collapse">
                 <ul class="nav nav-padded-left">
                     <li><a id="nav-ladder-link" href="{{ ladder.get_absolute_url }}">{{ ladder.name }}</a></li>
-                    <li><a id="nav-watchers-link" href="/ladders/{{ ladder.id }}/watchers/">Watchers</a></li>
-                    <li><a id="nav-matches-link" href="/ladders/{{ ladder.id }}/leaderboard/matches/">Matches</a></li>
+                    <li><a id="nav-watchers-link" href="{{ ladder.get_absolute_url }}watchers/">Watchers</a></li>
+                    <li><a id="nav-matches-link" href="{{ ladder.get_absolute_url }}leaderboard/matches/">Matches</a></li>
                     {% block special_ladder_nav_links %}{% endblock %}
                 </ul>
             </div>

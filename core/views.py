@@ -10,7 +10,7 @@ from core.forms import LadderCreationForm
 @login_required
 def activity(request):
     return render_to_response(
-        'core/activity.html',
+        'core/full/activity.html',
         {
             'watched_ladder_feed': logic.watched_ladder_feed(request.user, size=25),
             'favorite_ladder_feed': logic.favorite_ladder_feed(request.user, size=25),
@@ -44,12 +44,12 @@ def create(request):
             return redirect('/ladders/{}'.format(ladder.id))
     else:
         form = LadderCreationForm()
-    return render(request, 'core/create.html', {'form': form})
+    return render(request, 'core/full/create.html', {'form': form})
 
 def watchers(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     return render_to_response(
-        'core/watchers.html',
+        'core/full/watchers.html',
         {'navbar_active': 'watchers', 'ladder': ladder, 'watcher_feed': logic.ladder_watchers(ladder)},
         context_instance=RequestContext(request),
     )
