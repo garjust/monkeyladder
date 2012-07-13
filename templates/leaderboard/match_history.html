@@ -54,6 +54,9 @@
 	            <div id="match-entry-{{ match.id }}-detail" style="display: none">
 	               <h2>{{ match }}</h2>
 	               <h3>{{ match.created|naturaltime }}</h3>
+	               {% for game in match.games %}
+	               <h4>{{ game }}</h4>
+	               {% endfor %}
 	            </div>      
 	        {% endfor %}
             </div>

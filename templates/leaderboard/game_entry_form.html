@@ -2,13 +2,10 @@
     <form class="" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/" method="post">{% csrf_token %}
         <table id="match-entry-table">
             <tbody>
-            {% for game_number in range form.number_of_games %} 
+            {% for game in form.games %} 
                 <tr>
                     <td id="game-{{ game_number }}-first-player-score" class="match-player-entry">
-                    {{ form.player_one_score }}
-                    </td>
-                    <td id="game-{{ game_number }}-second-player-score" class="match-score-entry">
-                    {{ form.player_one_score }}
+                    {{ game }}
                     </td>
                 </tr>
             {% endfor %}

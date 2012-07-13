@@ -9,7 +9,7 @@ class Player(Ranked):
 
     def __unicode__(self):
         return self.user.get_profile().name()
-    
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.type = LADDER_TYPES['LEADERBOARD']
@@ -23,17 +23,20 @@ class Match(DatedModel):
     loser_score = models.PositiveIntegerField()
     ranking_change = models.BooleanField()
 
+    def games(self):
+        return Game.objects.filter(match=self)
+
     def __unicode__(self):
         return "{} ({}) vs {} ({})".format(self.winner.get_profile().name(), self.winner_score, self.loser.get_profile().name(), self.loser_score)
-    
+
     class Meta:
         verbose_name_plural = "Matches"
-    
+
 class Game(DatedModel):
     match = models.ForeignKey(Match)
-    winner_score = models.PositiveIntegerField(null=True)
-    loser_score = models.PositiveIntegerField(null=True)
-    game_number = models.PositiveIntegerField(null=True)
-    
+    winner_score = models.PositiveIntegerField()
+    loser_score = models.PositiveIntegerField()
+    game_number = models.PositiveIntegerField()
+
     def __unicode__(self):
-        return "{} ({}) vs {} ({}) Game".format(self.match.winner, self.winner_score, self.match.loser, self.loser_score)
+        return "{} ({}) {} ({})".format(self.match.winner.get_profile().name(), self.winner_score, self.match.loser.get_profile().name(), self.loser_score)
