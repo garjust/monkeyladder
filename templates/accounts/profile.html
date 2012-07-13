@@ -40,7 +40,8 @@
 				<table class="table">
 				{% for ladder in ladders %}
 					<tr>
-						<td><a href="/ladders/{{ ladder.id }}">{{ ladder }}</a></td>
+						<td>{{ ladder }}</td>
+						<td><a class="btn" href="/ladders/{{ ladder.id }}">View</a></td>
 					</tr>
 				{% empty %}
 					<tr>
@@ -59,6 +60,7 @@
 						<tr>
 							<td>{{ match }}</td>
 							<td>{{ match.created|naturaltime }}</td>
+							<td><a class="btn" href="/ladders/{{ match.ladder.id }}/leaderboard/matches/?id={{ match.id }}">View</a></td>
 						</tr>
 					</tr>
 				{% empty %}

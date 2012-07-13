@@ -4,6 +4,8 @@ from django.template import RequestContext
 
 from accounts.forms import ExtendedUserCreationForm
 from core.models import Ladder
+from leaderboard.views import leaderboard
+from leaderboard.models import Player
 from leaderboard.logic import get_players_match_feed
 
 def register(request):
@@ -13,7 +15,7 @@ def register(request):
         {'form': ExtendedUserCreationForm()},
         context_instance=RequestContext(request)
     )
-    
+
 def _do_registration(request):
     form = ExtendedUserCreationForm(request.POST)
     if form.is_valid():
@@ -27,8 +29,8 @@ def _do_registration(request):
 
 @login_required(login_url="/accounts/login")
 def profile(request):
-    return render(request, 'accounts/profile.html', {'recent_matches': get_players_match_feed(request.user, Ladder.objects.get(pk=1))})
-    
+    return render(request, 'accounts/profile.html', {'recent_matches': get_players_match_feed(request.user, Ladder.objects.get(pk=1)), 'ladders': map(lambda p: p.ladder, Player.objects.filter(user=request.user))})
+
 @login_required(login_url="/accounts/login")
 def edit_profile(request):
     return render_to_response('accounts/edit_profile.html',
