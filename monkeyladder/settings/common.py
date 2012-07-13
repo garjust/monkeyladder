@@ -1,6 +1,6 @@
 import os
 
-VERSION_NUMBER = "0.3.12"
+VERSION_NUMBER = "0.4.0"
 
 PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", "..")).replace("\\", "/")
 
