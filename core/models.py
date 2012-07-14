@@ -42,6 +42,9 @@ class Ranked(DatedModel):
 
     def __unicode__(self):
         return str(self.info)
+    
+    class Meta:
+        unique_together = ('ladder', 'rank')
 
 class Favorite(DatedModel):
     ladder = models.ForeignKey(Ladder)
@@ -49,6 +52,9 @@ class Favorite(DatedModel):
 
     def __unicode__(self):
         return self.ladder.name
+    
+    class Meta:
+        unique_together = ('ladder', 'user')
 
 class Watcher(DatedModel):
     ladder = models.ForeignKey(Ladder)
@@ -62,6 +68,9 @@ class Watcher(DatedModel):
 
     def __unicode__(self):
         return self.user.get_profile().name()
+    
+    class Meta:
+        unique_together = ('ladder', 'user')
 
 class LadderPermission(DatedModel):
     ladder = models.ForeignKey(Ladder)
@@ -69,6 +78,9 @@ class LadderPermission(DatedModel):
 
     TYPES = LADDER_PERMISSION_TYPES
     type = models.CharField(max_length=50, choices=TYPES)
+    
+    class Meta:
+        unique_together = ('ladder', 'watcher')
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

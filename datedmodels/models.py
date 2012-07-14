@@ -9,10 +9,12 @@ class DatedModel(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.created = timezone.now()
-        super(DatedModel, self).save(*args, **kwargs)
+        return super(DatedModel, self).save(*args, **kwargs)
         
     class Meta:
         abstract = True
+        get_latest_by = 'created'
+        ordering = ['-created']
         
 class UpdatedModel(DatedModel):
     last_updated = models.DateTimeField()
@@ -21,7 +23,9 @@ class UpdatedModel(DatedModel):
     def save(self, *args, **kwargs):
         if not self.id:
             self.last_updated = timezone.now()
-        super(UpdatedModel, self).save(*args, **kwargs)
+        return super(UpdatedModel, self).save(*args, **kwargs)
         
     class Meta:
         abstract = True
+        get_latest_by = 'last_updated'
+        ordering = ['-last_updated']

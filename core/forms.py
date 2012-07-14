@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import forms, _
-
 from django.contrib.auth.models import User
-from core.models import Ladder, Watcher
+
+from core.models import Ladder, Watcher, LadderPermission
 
 class LadderCreationForm(forms.Form):
     """
@@ -29,13 +29,15 @@ class LadderCreationForm(forms.Form):
             raise forms.ValidationError(self.error_messages['too_many_rungs'])
         return self.cleaned_data['rungs']
 
-    def save(self, commit=False):
+    def save(self):
         ladder = Ladder(name=self.cleaned_data['name'],
             rungs=self.cleaned_data['rungs'],
             is_private=self.cleaned_data['is_private'],
             type=self.cleaned_data['type']
         )
         ladder.save()
-        ladder_admin = Watcher(ladder=ladder, user=self.cleaned_data['user_id'])
-        ladder_admin.save()
-        return ladder, ladder_admin
+        watcher = Watcher(ladder=ladder, user=self.cleaned_data['user_id'])
+        watcher.save()
+        watcher_permission = LadderPermission(ladder=ladder, watcher=watcher, type='ADMIN')
+        watcher_permission.save()
+        return ladder

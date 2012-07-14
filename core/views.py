@@ -1,9 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from core.models import LadderPermission
-from core import logic
-from core import delegator
+from core import delegator, logic
 from core.forms import LadderCreationForm
 
 @login_required
@@ -23,12 +21,9 @@ def create_ladder(request):
     if request.POST:
         form = LadderCreationForm(request.POST)
         if form.is_valid():
-            ladder, ladder_admin = form.save(commit=True)
-            ladder_admin.admin = True
-            perm = LadderPermission(ladder=ladder, watcher=ladder_admin, type='ADMIN')
-            perm.save()
+            ladder = form.save()
             form = LadderCreationForm()
-            return redirect('/ladders/{}'.format(ladder.id))
+            return redirect(ladder)
     else:
         form = LadderCreationForm()
     return render(request, 'core/full/create.html', {'form': form})
