@@ -14,8 +14,8 @@
 	            {% for watcher in watcher_feed %}
 		            <tr>
 		                <td>{{ watcher }}</td>
-		                <td>{% if watcher.admin %}<i class="icon-ok"/>{% endif %}</td>
-		                <td>{% if watcher.moderator %}<i class="icon-ok"/>{% else %}<i class="icon-remove"/>{% endif %}</td>
+		                <td>{% if watcher.admin %}<i class="icon-ok"/>{% else %}<i class="icon-remove"/>{% endif %}</td>
+		                <td>{% if watcher.mod %}<i class="icon-ok"/>{% else %}<i class="icon-remove"/>{% endif %}</td>
 		            </tr>
 	         	{% empty %}
 		            <td>-</td>

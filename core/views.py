@@ -3,6 +3,7 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import render_to_response, render, redirect
 from django.template import RequestContext
 
+from core.models import LadderPermission
 from core import logic
 from core.delegator import ladder_template_delegator, ladder_ajax_delegator
 from core.forms import LadderCreationForm
@@ -41,7 +42,8 @@ def create(request):
         if form.is_valid():
             ladder, ladder_admin = form.save(commit=True)
             ladder_admin.admin = True
-            ladder_admin.save()
+            perm = LadderPermission(ladder=ladder, watcher=ladder_admin, type='ADMIN')
+            perm.save()
             form = LadderCreationForm()
             return redirect('/ladders/{}'.format(ladder.id))
     else:

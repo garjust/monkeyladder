@@ -9,6 +9,11 @@ LADDER_TYPES = (
     ('LEADERBOARD', 'Leaderboard')
 )
 
+LADDER_PERMISSION_TYPES = (
+    ('ADMIN', 'Administrator'),
+    ('MOD', 'Moderator'),
+)
+
 class Ladder(DatedModel):
     name = models.CharField(max_length=50)
     rungs = models.IntegerField()
@@ -50,16 +55,22 @@ class Favorite(DatedModel):
 class Watcher(DatedModel):
     ladder = models.ForeignKey(Ladder)
     user = models.ForeignKey(User)
-    admin = models.BooleanField()
-    moderator = models.BooleanField()
+
+    def admin(self):
+        return self.ladderpermission_set.get(type='ADMIN')
+
+    def mod(self):
+        return self.ladderpermission_set.get(type='MOD')
 
     def __unicode__(self):
         return self.user.get_profile().name()
 
-    class Meta:
-        permissions = (
-            ('admin', "Can administrate the watched ladder"),
-        )
+class LadderPermission(DatedModel):
+    ladder = models.ForeignKey(Ladder)
+    watcher = models.ForeignKey(Watcher)
+
+    TYPES = LADDER_PERMISSION_TYPES
+    type = models.CharField(max_length=50, choices=TYPES)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
