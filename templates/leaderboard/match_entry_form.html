@@ -73,20 +73,30 @@
             </div>
         </div>
     {% endif %}
+        <div id="forbidden" class="error">
+            <div>
+                <p>Forbidden</p>
+            </div>
+        </div>
 </div>
 <script type="text/javascript">
     $("#id_ladder_id").attr("value", {{ ladder.id }});
     $(".player-name-autocomplete").autocomplete({
         source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], delay: 50
     });
+    $("#forbidden").hide()
 	$(function() {
 	    var form = $("#match-entry-form > form");
 	    form.submit(function(e) {
 	        $("#match-entry-form-submit > input").attr('disabled', true)
 	        $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
 	            $("#match-entry-form-submit > input").attr('disabled', false)
-	            $("#ladder-display-span").load("content/ladder_display/")
-	            $("#match-feed-span").load("leaderboard/content/match_feed/")
+	            if (responseStatus == "error") {
+	            	$("#forbidden").show()
+	            } else {
+	                $("#ladder-display-span").load("content/ladder_display/")
+	                $("#match-feed-span").load("leaderboard/content/match_feed/")
+	            }
 	        });
 	        e.preventDefault(); 
 	    });
