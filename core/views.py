@@ -40,6 +40,8 @@ def create(request):
         form = LadderCreationForm(request.POST)
         if form.is_valid():
             ladder, ladder_admin = form.save(commit=True)
+            ladder_admin.admin = True
+            ladder_admin.save()
             form = LadderCreationForm()
             return redirect('/ladders/{}'.format(ladder.id))
     else:

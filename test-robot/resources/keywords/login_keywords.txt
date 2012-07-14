@@ -1,21 +1,29 @@
 *** Variables ***
-${LOGIN_PAGE}=    xpath=//div[@id='login-page']
+${LOGIN_PAGE}=    //div[@id='login-page']
 
-${LOGIN_USERNAME_FIELD}=    xpath=//input[@id='id_username']
-${LOGIN_PASSWORD_FIELD}=    xpath=//input[@id='id_password']
-${LOGIN_BUTTON}=    xpath=//input[@id='login-button']
+${LOGIN_USERNAME_FIELD}=    //input[@id='id_username']
+${LOGIN_PASSWORD_FIELD}=    //input[@id='id_password']
+${LOGIN_BUTTON}=    //input[@id='login-button']
+
+${LOGIN_REGISTER_LINK}=    //a[@id='']
 
 *** Keywords ***
 Should Be On Login Page
     Wait Until Page Contains Element    ${LOGIN_PAGE}    error=Page should have been login page
 
+Should Be Logged In As
+    [Arguments]    ${name}
+    Wait Until Page Contains    Logged in as ${name}    error=Should have been logged in as '${name}'
+
+Should Not Be Logged In
+    Page Should Not Contain    Logged in as
+
 Login
-    [Arguments]    ${username}    ${password}
+    [Arguments]    ${username}    ${password}=password
     Should Be On Login Page
     Enter Username    ${username}
     Enter Password    ${password}
     Click Login Button
-    Wait Until Page Contains    Logged in as    error=Should have shown logged in as in navbar
 
 Enter Username
     [Arguments]    ${username}
@@ -27,7 +35,3 @@ Enter Password
 
 Click Login Button
     Safe Click Element    ${LOGIN_BUTTON}    error=Failed to click login button
-
-Should Be Logged In As
-    [Arguments]    ${name}
-    Wait Until Page Contains    Logged in as ${name}    error=Should have been logged in as '${name}'

@@ -13,9 +13,9 @@ class WatcherInline(admin.TabularInline):
     model = Watcher
     extra = 0
     fieldsets = [
-        (None, {'fields': ['user']}),
+        (None, {'fields': ['user', 'admin', 'moderator']}),
     ]
-    
+
 class FavoriteInline(admin.TabularInline):
     model = Favorite
     extra = 0

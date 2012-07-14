@@ -50,13 +50,15 @@ class Favorite(DatedModel):
 class Watcher(DatedModel):
     ladder = models.ForeignKey(Ladder)
     user = models.ForeignKey(User)
+    admin = models.BooleanField()
+    moderator = models.BooleanField()
 
     def __unicode__(self):
         return self.user.get_profile().name()
 
     class Meta:
         permissions = (
-            ('edit_ranks', "Can edit the ranking of the watchers ladder"),
+            ('admin', "Can administrate the watched ladder"),
         )
 
 class UserProfile(models.Model):

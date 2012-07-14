@@ -3,7 +3,13 @@ Resource    ${SUITE_ROBOT_TEST_DIR}/include.txt
 
 Suite Teardown    End Suite
 
+Force Tags    login
+
 *** Testcases ***
 Successfully Login As Super User
-    [Tags]    test
+    [Tags]    user_super    sanity    smoke
     Successful Login Flow    ${SUPERUSER_USERNAME}    ${SUPERUSER_PASSWORD}    ${SUPERUSER_NAME}
+
+Successfully Login As Regular User
+    [Tags]    user_regular
+    Successful Login Flow    ${FULLNAME_USERNAME}    ${FULLNAME_PASSWORD}    ${FULLNAME_NAME}

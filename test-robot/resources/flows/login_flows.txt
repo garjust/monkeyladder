@@ -3,7 +3,15 @@ Successful Login Flow
     [Arguments]    ${username}    ${password}    ${name}
     Start Browser Session
     Go To Login
+    Should Not Be Logged In
     Login    ${username}    ${password}
     Should Be Logged In As    ${name}
     Logout
+    Close Browser
+
+Failed Login Flow
+    [Arguments]    ${username}    ${password}
+    Start Browser Session
+    Go To Login
+    Login    ${username}    ${password}
     Close Browser
