@@ -4,6 +4,7 @@ from django.template import RequestContext
 
 from core.models import Ladder
 from core.logic import get_ladder_or_404
+from accounts.decorators import login_required_forbidden
 
 from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm
 from leaderboard import logic
@@ -29,7 +30,7 @@ def matches(request, ladder_id):
         context_instance=RequestContext(request)
     )
 
-@login_required(login_url="/accounts/login")
+@login_required_forbidden
 def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     if request.POST:

@@ -10,7 +10,7 @@ def ladder_template_delegator(request, ladder):
     }
     return FUNCTION_MAPPING[ladder.type](request, ladder)
 
-def ladder_ajax_delegator(request, ladder):
+def ladder_content_delegator(request, ladder):
     """
     Delegates rendering of a ladder based on the ladders type
     """
