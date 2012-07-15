@@ -92,6 +92,10 @@ class UserProfile(models.Model):
         if full_name:
             return full_name
         return self.user.username
+    
+    @models.permalink
+    def get_absolute_url(self):
+        return ('view_profile', (), {'user_id': self.user.id})
 
     def __unicode__(self):
         return "{}'s Profile".format(self.name())

@@ -29,7 +29,7 @@
                 	{% if not request.user.is_authenticated %}
                     	<li class="session-link"><a id="nav-login-link" href="/accounts/login/">Log In</a></li>
                 	{% else %}
-                		<li class="session-link"><a id="nav-profile-link" href="/accounts/profile/">Logged in as {{ request.user.get_full_name }}</a></li>
+                		<li class="session-link"><a id="nav-profile-link" href="{{ request.user.get_profile.get_absolute_url }}">Logged in as {{ request.user.get_full_name }}</a></li>
                    		<li class="session-link"><a id="nav-logout-link" href="/accounts/logout/">Log Out</a></li>
                 	{% endif %}
                     	<li class="admin-link"><a id="nav-admin-link" href="/admin/">Administration</a></li>
