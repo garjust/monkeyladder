@@ -4,19 +4,19 @@
 <script type="text/javascript">
 	$(function() {
 		var errorFields = [
-			{% if form.errors.username %}"username",{% endif %}
-		    {% if form.errors.password1 %}"password1",{% endif %}
-		    {% if form.errors.password2 %}"password2",{% endif %}
-		    {% if form.errors.email %}"email",{% endif %}
-		    {% if form.errors.first_name %}"first-name",{% endif %}
-		    {% if form.errors.last_name %}"last-name",{% endif %}
+			{% if register_form.errors.username %}"username",{% endif %}
+		    {% if register_form.errors.password1 %}"password1",{% endif %}
+		    {% if register_form.errors.password2 %}"password2",{% endif %}
+		    {% if register_form.errors.email %}"email",{% endif %}
+		    {% if register_form.errors.first_name %}"first-name",{% endif %}
+		    {% if register_form.errors.last_name %}"last-name",{% endif %}
 		]
 		for (var i = 0; i < errorFields.length; i++) {
 			$("#register-form-"+errorFields[i]).css("background-color", "#FF8C8C") 
 			$("#register-form-"+errorFields[i]+"-error").position({of: $("#register-form-"+errorFields[i]), my: "left center", at: "right center"});
 		}
 	});
-	{% if form.success %}
+	{% if register_form.success %}
 	$(document).ready(function() { $(".monkey-form-div").css("background-color", "#8CD1A3") })
 	{% endif %}
 </script>
@@ -32,34 +32,34 @@
 	<div class="row">
 	    <div class="span12 monkey-form-span">
 	        <div class="monkey-form-div">
-	        {% if form.success %}
+	        {% if register_form.success %}
 				<div id="register-form-success">Account created successfully</div>
 			{% endif %}
 	            <form method="post" action="/accounts/register/">{% csrf_token %}
 	                <table>
 	                    <tr id="register-form-username">
-	                        <td class="monkey-form-label">{{ form.username.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ form.username }}</td>
+	                        <td class="monkey-form-label">{{ register_form.username.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ register_form.username }}</td>
 	                    </tr>
 	                    <tr id="register-form-password1">
-	                        <td class="monkey-form-label">{{ form.password1.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ form.password1 }}</td>
+	                        <td class="monkey-form-label">{{ register_form.password1.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ register_form.password1 }}</td>
 	                    </tr>
 	                    <tr id="register-form-password2">
-	                        <td class="monkey-form-label">{{ form.password2.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ form.password2 }}</td>       
+	                        <td class="monkey-form-label">{{ register_form.password2.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ register_form.password2 }}</td>       
 	                    </tr>
 	                    <tr id="register-form-email">
-	                        <td class="monkey-form-label">{{ form.email.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ form.email }}</td>
+	                        <td class="monkey-form-label">{{ register_form.email.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ register_form.email }}</td>
 	                    </tr>
 	                    <tr id="register-form-first-name">
-	                        <td class="monkey-form-label">{{ form.first_name.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ form.first_name }}</td>
+	                        <td class="monkey-form-label">{{ register_form.first_name.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ register_form.first_name }}</td>
 	                    </tr>
 	                    <tr id="register-form-last-name">
-	                        <td class="monkey-form-label">{{ form.last_name.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ form.last_name }}</td>
+	                        <td class="monkey-form-label">{{ register_form.last_name.label_tag }}</td>
+	                        <td class="monkey-form-input">{{ register_form.last_name }}</td>
 	                    </tr>
 	                </table>
 					<div class="monkey-form-submit-div">
@@ -72,22 +72,22 @@
 	    </div>
 	</div>
 </div>
-{% if form.errors.username %}
-<div id="register-form-username-error" class="position-absolute register-form-error">{{ form.errors.username|removetags:"ul li" }}</div>
+{% if register_form.errors.username %}
+<div id="register-form-username-error" class="position-absolute register-form-error">{{ register_form.errors.username|removetags:"ul li" }}</div>
 {% endif %}
-{% if form.errors.password1 %}
-<div id="register-form-password1-error" class="position-absolute register-form-error">{{ form.errors.password1|removetags:"ul li" }}</div>
+{% if register_form.errors.password1 %}
+<div id="register-form-password1-error" class="position-absolute register-form-error">{{ register_form.errors.password1|removetags:"ul li" }}</div>
 {% endif %}
-{% if form.errors.password2 %}
-<div id="register-form-password2-error" class="position-absolute register-form-error">{{ form.errors.password2|removetags:"ul li" }}</div>
+{% if register_form.errors.password2 %}
+<div id="register-form-password2-error" class="position-absolute register-form-error">{{ register_form.errors.password2|removetags:"ul li" }}</div>
 {% endif %}
-{% if form.errors.email %}
-<div id="register-form-email-error" class="position-absolute register-form-error">{{ form.errors.email|removetags:"ul li" }}</div>
+{% if register_form.errors.email %}
+<div id="register-form-email-error" class="position-absolute register-form-error">{{ register_form.errors.email|removetags:"ul li" }}</div>
 {% endif %}
-{% if form.errors.first_name %}
-<div id="register-form-first-name-error" class="position-absolute register-form-error">{{ form.errors.first_name|removetags:"ul li" }}</div>
+{% if register_form.errors.first_name %}
+<div id="register-form-first-name-error" class="position-absolute register-form-error">{{ register_form.errors.first_name|removetags:"ul li" }}</div>
 {% endif %}
-{% if form.errors.last_name %}
-<div id="register-form-last-name-error" class="position-absolute register-form-error">{{ form.errors.last_name|removetags:"ul li" }}</div>
+{% if register_form.errors.last_name %}
+<div id="register-form-last-name-error" class="position-absolute register-form-error">{{ register_form.errors.last_name|removetags:"ul li" }}</div>
 {% endif %}
 {% endblock %}

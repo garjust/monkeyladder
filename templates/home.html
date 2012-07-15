@@ -6,18 +6,25 @@
 		<div id="create-ladder-span" class="span6">
 		    <div><a id="create-ladder-link" class="btn btn-primary btn-large" href="/ladders/create">Create Ladder</a></div>
 		</div>
-		<div id="public-ladder-feed-span" class="span{{ public_ladder_feed_size|default:'3' }}">
-			{% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" %}
-		</div>
 	{% if user.is_authenticated %}
-		<div id="watched-ladder-feed-span" class="span{{ watched_ladder_feed_size|default:'3' }}">
+	    <div id="public-ladder-feed-span" class="span3">
+            {% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" %}
+        </div>
+		<div id="watched-ladder-feed-span" class="span3">
         {% include "core/content/ladder_feed.html" with ladder_feed=watched_ladder_feed ladder_feed_name="Watched Ladders" %}
         </div>
     {% else %}
-		<div id="home-register-link-span" class="span3">
-		    <div><a id="home-register-link" class="btn btn-large" href="/accounts/register">Sign Up</a></div>
-		</div>
+        <div id="public-ladder-feed-span" class="span6">
+            {% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" ladder_feed_size="6" %}
+        </div>
 	{% endif %}
 	</div>
+	{% if not user.is_authenticated %}
+	<div class="row">
+	    <div id="home-register-link-span" class="span12">
+            <div><a id="home-register-link" class="btn btn-large" href="/accounts/register/">Sign Up</a>&nbsp;<a class="btn btn-large" href="/accounts/login/">Log In</a></div>
+        </div>
+	</div>
+	{% endif %}
 </div>
 {% endblock %}
