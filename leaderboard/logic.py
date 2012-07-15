@@ -40,17 +40,14 @@ def _format_names_for_injection(names):
     """
     return ','.join(map(lambda n: '"{}"'.format(n), names))
 
-def get_ladder_context(ladder, *partial_contexts):
-    context = {'navbar_active': 'ladder', 'ladder': ladder, 'player_names': get_autocomplete_list(ladder), 'match_feed': get_match_feed(ladder)}
-    for partial_context in partial_contexts:
-        context.update(partial_context)
-    return context
-
 def get_ladder_player_dictionary(ladder):
-        player_dictionary = {}
-        for ranked in ladder.ranking():
-            player_dictionary[ranked.player.user.get_profile().name()] = ranked.player.user
-        return player_dictionary
+    """
+    Returns a dictionary with the names of a ladders players as keys and the user instance as values
+    """
+    player_dictionary = {}
+    for ranked in ladder.ranking():
+        player_dictionary[ranked.player.user.get_profile().name()] = ranked.player.user
+    return player_dictionary
 
 def inverse_match(match):
     return Match(ladder=match.ladder,
@@ -64,6 +61,7 @@ def delete_match(match):
 
 SWAP_RANGE = 2
 ADVANCEMENT_RANKS = 2
+AUTO_TAKE_FIRST = True
 
 def adjust_rankings(match):
     if not match.ranking_change:
@@ -81,7 +79,9 @@ def adjust_rankings(match):
         winner.save()
         loser.save()
     else:
-        if rank_diff <= ADVANCEMENT_RANKS:
+        if AUTO_TAKE_FIRST and loser.rank == 1:
+            adjustment = rank_diff + 1
+        elif rank_diff <= ADVANCEMENT_RANKS:
             adjustment = rank_diff + 1
         else:
             adjustment = ADVANCEMENT_RANKS + 1
