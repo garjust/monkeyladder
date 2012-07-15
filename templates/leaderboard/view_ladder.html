@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% load comments %}
-
 {% block head %}
 <script type="text/javascript">  
     $(function() {
@@ -27,24 +25,11 @@
 	            </div>
             </div>
             <div class="row">
-                <div class="span6">
-                {% get_comment_form for ladder as comment_form %}
-				<table>
-				  <form action="{% comment_form_target %}" method="post">
-				    {% csrf_token %}
-				    {{ comment_form }}
-				    <tr>
-				      <td colspan="2">
-				        <input type="submit" name="submit" value="Post">
-				        <input type="submit" name="preview" value="Preview">
-				      </td>
-				    </tr>
-				  </form>
-				</table>
+                <div id="ladder-comment-span" class="span6">
+                {% include "core/content/comments.html" with commentable=ladder %}
                 </div>
             </div>
         </div>
-        
         <div class="span6">
             <div class="row">
                 <div id="match-entry-span" class="span6">
