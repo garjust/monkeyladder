@@ -6,6 +6,10 @@
     /* display: none; */
 }
 
+#ladder-edit-link {
+	position: absolute;
+}
+
 #match-entry-span .error {
     text-align: center;
     color: red;

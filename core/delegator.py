@@ -6,17 +6,20 @@ import leaderboard.views
 VIEW = 'view'
 CONTENT = 'content'
 WATCHERS = 'watchers'
+EDIT = 'edit'
 
 FUNCTION_MAPPING = {
     'BASIC': {
         VIEW: core.views.view_ladder,
         CONTENT: leaderboard.views.ajax_ladder_display,
         WATCHERS: core.views.view_ladder_watchers,
+        EDIT: leaderboard.views.edit_ladder,
     },
     'LEADERBOARD': {
         VIEW: leaderboard.views.view_ladder,
         CONTENT: leaderboard.views.ajax_ladder_display,
         WATCHERS: core.views.view_ladder_watchers,
+        EDIT: leaderboard.views.edit_ladder,
     }
 }
 
@@ -40,3 +43,10 @@ def delegate_watchers_view(request, ladder_id):
     """
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     return FUNCTION_MAPPING[ladder.type][WATCHERS](request, ladder_id)
+
+def delegate_ladder_edit(request, ladder_id):
+    """
+    Delegates editing of a ladder
+    """
+    ladder = logic.get_ladder_or_404(pk=ladder_id)
+    return FUNCTION_MAPPING[ladder.type][EDIT](request, ladder_id)

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import forms, _
 from django.contrib.auth.models import User
 
-from core.models import Ladder, Watcher, LadderPermission
+from core.models import Ladder, Watcher
 
 class LadderCreationForm(forms.Form):
     """
@@ -39,6 +39,6 @@ class LadderCreationForm(forms.Form):
         ladder.save()
         watcher = Watcher(ladder=ladder, user=self.cleaned_data['user_id'])
         watcher.save()
-        watcher_permission = LadderPermission(ladder=ladder, watcher=watcher, type='ADMIN')
-        watcher_permission.save()
+        watcher.ladderpermission.type = 'ADMIN'
+        watcher.ladderpermission.save()
         return ladder

@@ -11,6 +11,7 @@ LADDER_TYPES = (
 LADDER_PERMISSION_TYPES = (
     ('ADMIN', 'Administrator'),
     ('MOD', 'Moderator'),
+    ('NORM', 'Normal'),
 )
 
 class Ladder(DatedModel):
@@ -25,7 +26,8 @@ class Ladder(DatedModel):
         return self.ranked_set.filter().order_by('rank')
     
     def watcher(self, user):
-        return self.watcher_set.get(user=user)
+        if user.is_authenticated():
+            return self.watcher_set.get(user=user)
 
     #@models.permalink
     def get_absolute_url(self):
@@ -61,10 +63,13 @@ class Watcher(DatedModel):
     user = models.ForeignKey(User)
 
     def admin(self):
-        return self.ladderpermission_set.get(type='ADMIN')
+        return self.ladderpermission.type == 'ADMIN'
 
     def mod(self):
-        return self.ladderpermission_set.get(type='MOD')
+        return self.ladderpermission.type == 'MOD'
+    
+    def norm(self):
+        return self.ladderpermission.type == 'NORM'
 
     def __unicode__(self):
         return self.user.get_profile().name()
@@ -73,11 +78,12 @@ class Watcher(DatedModel):
         unique_together = ('ladder', 'user')
 
 class LadderPermission(DatedModel):
-    ladder = models.ForeignKey(Ladder)
-    watcher = models.ForeignKey(Watcher)
+    watcher = models.OneToOneField(Watcher)
 
     TYPES = LADDER_PERMISSION_TYPES
-    type = models.CharField(max_length=50, choices=TYPES)
-    
-    class Meta:
-        unique_together = ('ladder', 'watcher')
+    type = models.CharField(max_length=50, choices=TYPES, default='NORM')
+
+def create_ladder_permission(sender, instance, created, **kwargs):
+    if created:
+        LadderPermission.objects.create(watcher=instance)
+models.signals.post_save.connect(create_ladder_permission, sender=Watcher)

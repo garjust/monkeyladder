@@ -104,3 +104,14 @@ class LadderWatchersTest(TestCase):
         watchers = self.fixture(ladder)
         for watcher in Watcher.objects.filter(ladder=ladder):
             self.assertIn(watcher, watchers)
+            
+class LadderModelTest(TestCase):
+    fixtures = ['fixtures/core']
+    
+    def setUp(self):
+        pass
+
+    def test_watchers(self):
+        user = User.objects.get(pk=1)
+        ladder = Ladder.objects.get(pk=1)
+        watcher = ladder.watcher(user)

@@ -13,14 +13,24 @@ def view_ladder(request, ladder_id, form=None):
         form = MatchCreationForm()
     if games:
         form = AdvancedMatchCreationForm(int(games))
+    if request.user.is_authenticated():
+        admin = ladder.watcher(request.user).admin()
+    else: 
+        admin = None
     return render(request, 'leaderboard/view_ladder.html', {
         'navbar_active': 'ladder', 
         'ladder': ladder, 
         'player_names': logic.get_autocomplete_list(ladder), 
         'match_feed': logic.get_match_feed(ladder), 
         'form': form, 
-        'games': games
+        'games': games,
+        'admin': admin,
     })
+    
+
+def edit_ladder(request, ladder_id):
+    ladder = get_ladder_or_404(pk=ladder_id)
+    return render(request, 'leaderboard/content/ladder_edit.html', {'ladder': ladder})
 
 def matches(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)

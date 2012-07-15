@@ -16,6 +16,7 @@
         "fields": {
             "name": "Other Ladder",
             "rungs": 10,
+            "type": "LEADERBOARD",
             "created": "2012-06-20T10:00:00Z"
         }
     },
@@ -205,6 +206,24 @@
         "fields": {
             "ladder": 2,
             "user": 8,
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.ladderpermission",
+        "pk": 1,
+        "fields": {
+            "watcher": 1,
+            "type": "ADMIN",
+            "created": "2012-06-20T10:00:00Z"
+        }
+    },
+    {
+        "model": "core.ladderpermission",
+        "pk": 8,
+        "fields": {
+            "watcher": 8,
+            "type": "ADMIN",
             "created": "2012-06-20T10:00:00Z"
         }
     }

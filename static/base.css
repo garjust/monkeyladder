@@ -29,3 +29,7 @@ div.container {
 .small-header {
 	border-bottom: 1px solid #dddddd;
 }
+
+.absolute {
+	position: absolute;
+}
