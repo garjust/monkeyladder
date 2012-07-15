@@ -62,25 +62,8 @@ def inverse_match(match):
 def delete_match(match):
     pass
 
-class RankingAdjuster(object):
-
-    ALGORITHMS = ['take_and_cascade', 'pull']
-
-    def __init__(self, algorithm, *args, **kwargs):
-        object.__init__(self, *args, **kwargs)
-        self.algorithm = getattr(self, algorithm)
-
-    def adjust(self, match, algorithm=None):
-        if algorithm:
-            getattr(self, algorithm)(match)
-        else:
-            self.algorithm(match)
-
-    def take_and_cascade(self, match):
-        pass
-
-    def pull(self, match):
-        pass
+SWAP_RANGE = 2
+ADVANCEMENT_RANKS = 2
 
 def adjust_rankings(match):
     if not match.ranking_change:
@@ -90,25 +73,22 @@ def adjust_rankings(match):
     players = list(match.ladder.ranking())
     rank_diff = winner.rank - loser.rank
     if rank_diff <= 0:
-        print "No change"
-    elif rank_diff <= 2:
-        print "Players are close, doing swap"
+        pass
+    elif rank_diff <= SWAP_RANGE:
         loser_old_rank = loser.rank
         loser.rank = winner.rank
         winner.rank = loser_old_rank
+        winner.save()
+        loser.save()
     else:
-        print "Players are far, each move one towards each other"
-        below_loser = players[players.index(loser) + 1]
-        below_loser_rank = below_loser.rank
-        below_loser.rank = loser.rank
-        loser.rank = below_loser_rank
-
-        above_winner = players[players.index(winner) - 1]
-        above_winner_rank = above_winner.rank
-        above_winner.rank = winner.rank
-        winner.rank = above_winner_rank
-
-        above_winner.save()
-        below_loser.save()
-    winner.save()
-    loser.save()
+        if rank_diff <= ADVANCEMENT_RANKS:
+            adjustment = rank_diff + 1
+        else:
+            adjustment = ADVANCEMENT_RANKS + 1
+        player_slice = players[winner.rank-adjustment:winner.rank]
+        player_slice[-1].rank = player_slice[0].rank
+        player_slice[-1].save()
+        player_slice = player_slice[:-1]
+        for player in player_slice:
+            player.rank += 1
+            player.save()
