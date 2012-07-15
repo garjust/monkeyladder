@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% load humanize %}
-
 {% block content %}
 <div id="profile-page" class="container">
 	<div class="row">
@@ -10,52 +8,16 @@
 	        	<h2>{{ user.get_profile.name }}'s Profile</h2>
 	        </div>
 	    </div>
-		<div class="span6">	        
-	        <div>
-	        	<table class="table	">
-	        		<tr>
-			        	<td>Username</td>
-			        	<td>{{ user.username }}</td>
-			    	</tr>
-			    	<tr>
-			        	<td>First Name</td>
-			        	<td>{{ user.first_name }}</td>
-	        		</tr>
-	        		<tr>
-			        	<td>Last Name</td>
-			        	<td>{{ user.last_name }}</td>
-	        		</tr>
-	        		<tr>
-			        	<td>Email</td>
-			        	<td>{{ user.email}}</td>
-	        		</tr>
-	        	</table>
-	        </div>
-	    </div>
+	    <div class="span6">
+		{% include "accounts/content/user_info.html" %}
+		</div>
 	</div>
 	<div class="row">
 		<div class="span6">
-			{% include "core/content/watched_feed.html" %}
+		{% include "core/content/watched_feed.html" %}
 		</div>
 		<div class="span6">
-			<div>
-				<h3 class="small-header">Recent Matches</h3>
-				<table class="table">
-				{% for match in recent_matches %}
-					<tr>
-						<tr>
-							<td>{{ match }}</td>
-							<td>{{ match.created|naturaltime }}</td>
-							<td><a class="btn" href="/ladders/{{ match.ladder.id }}/leaderboard/matches/?id={{ match.id }}">View</a></td>
-						</tr>
-					</tr>
-				{% empty %}
-					<tr>
-						<td>No Matches</td>
-					</tr>
-				{% endfor %}
-				</table>
-			</div>
+		{% include "leaderboard/content/player_match_feed.html" %}
 		</div>
 	</div>
 </div>

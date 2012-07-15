@@ -13,14 +13,14 @@ def view_ladder(request, ladder_id, form=None):
         form = MatchCreationForm()
     if games:
         form = AdvancedMatchCreationForm(int(games))
-    return render(request, 'leaderboard/full/ladder.html',
+    return render(request, 'leaderboard/ladder.html',
         logic.get_ladder_context(ladder, {'form': form, 'games': games}))
 
 def matches(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     matches = ladder.match_set.filter().order_by('-created')
     match_id = request.GET.get('id', None)
-    return render(request, 'leaderboard/full/match_history.html',
+    return render(request, 'leaderboard/match_history.html',
         {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches, 'match_id': match_id}
     )
 
@@ -38,15 +38,15 @@ def create_match(request, ladder_id):
             form.success = "Match was created successfully"
             logic.adjust_rankings(match)
             if request.is_ajax():
-                return render(request, 'leaderboard/match_entry_form.html', {'form': form, 'ladder': ladder, 'new_match': match})
+                return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder, 'new_match': match})
             return redirect('ladders/{}'.format(ladder_id))
     else:
         form = MatchCreationForm()
-    return render(request, 'leaderboard/match_entry_form.html', {'form': form, 'ladder': ladder})
+    return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder})
 
 def ajax_ladder_display(request, ladder):
-    return render(request, 'leaderboard/ladder_display.html', {'ladder': ladder})
+    return render(request, 'leaderboard/content/ladder_display.html', {'ladder': ladder})
 
 def match_feed_content(request, ladder_id):
     match_feed = logic.get_match_feed(get_ladder_or_404(pk=ladder_id))
-    return render(request, 'leaderboard/match_feed.html', {'match_feed': match_feed})
+    return render(request, 'leaderboard/content/match_feed.html', {'match_feed': match_feed})

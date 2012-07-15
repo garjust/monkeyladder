@@ -1,0 +1,24 @@
+{% load humanize %}
+
+<div class="row">
+	<div class="span6">
+	    <div>
+	        <h3 class="small-header">Recent Matches</h3>
+	        <table class="table">
+	        {% for match in recent_matches %}
+	            <tr>
+	                <tr>
+	                    <td>{{ match }}</td>
+	                    <td>{{ match.created|naturaltime }}</td>
+	                    <td><a class="btn" href="/ladders/{{ match.ladder.id }}/leaderboard/matches/?id={{ match.id }}">View</a></td>
+	                </tr>
+	            </tr>
+	        {% empty %}
+	            <tr>
+	                <td>No Matches</td>
+	            </tr>
+	        {% endfor %}
+	        </table>
+	    </div>
+	</div>
+</div>
