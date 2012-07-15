@@ -3,8 +3,7 @@ from django.shortcuts import render
 
 from accounts import logic
 from accounts.forms import ExtendedUserCreationForm
-from core.models import Ladder
-from leaderboard.models import Player
+from core.models import Ladder, Watcher
 from leaderboard.logic import get_players_match_feed
 
 def register(request):
@@ -25,7 +24,7 @@ def view_profile(request, user_id):
     return render(request, 'accounts/view_profile.html', {
         'user': user, 
         'recent_matches': get_players_match_feed(user, Ladder.objects.get(pk=1)), 
-        'ladders': map(lambda p: p.ladder, Player.objects.filter(user=user))
+        'watched_feed': map(lambda l: (l, l.watcher(user)), map(lambda p: p.ladder, Watcher.objects.filter(user=user))),
     })
 
 @login_required(login_url="/accounts/login")

@@ -35,21 +35,7 @@
 	</div>
 	<div class="row">
 		<div class="span6">
-			<div>
-				<h3>Ladders</h3>
-				<table class="table">
-				{% for ladder in ladders %}
-					<tr>
-						<td>{{ ladder }}</td>
-						<td><a class="btn" href="/ladders/{{ ladder.id }}">View</a></td>
-					</tr>
-				{% empty %}
-					<tr>
-						<td>No Ladders</td>
-					</tr>
-				{% endfor %}
-				</table>
-			</div>
+			{% include "core/content/watched_feed.html" %}
 		</div>
 		<div class="span6">
 			<div>

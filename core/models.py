@@ -23,6 +23,9 @@ class Ladder(DatedModel):
 
     def ranking(self):
         return self.ranked_set.filter().order_by('rank')
+    
+    def watcher(self, user):
+        return self.watcher_set.get(user=user)
 
     #@models.permalink
     def get_absolute_url(self):

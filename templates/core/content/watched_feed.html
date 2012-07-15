@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="span{{ feed_size|default:'6' }}">
+        <div>
+            <h3>Watched Ladders</h2>
+            <table class="table">
+                <thead>
+                    <th>Ladder</th>
+                    <th>Admin</th>
+                    <th>Moderator</th>
+                </thead>
+                <tbody>
+                {% for ladder, watcher in watched_feed %}
+                    <tr>
+                        <td>{{ ladder }}</td>
+                        <td>{% if watcher.admin %}<i class="icon-ok"/>{% endif %}</td>
+                        <td>{% if watcher.mod %}<i class="icon-ok"/>{% endif %}</td>
+                    </tr>
+                {% empty %}
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
