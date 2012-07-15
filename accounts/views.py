@@ -4,7 +4,6 @@ from django.template import RequestContext
 
 from accounts.forms import ExtendedUserCreationForm
 from core.models import Ladder
-from leaderboard.views import leaderboard
 from leaderboard.models import Player
 from leaderboard.logic import get_players_match_feed
 

@@ -4,13 +4,13 @@
 <div id="home-page" class="container">
     <div class="row">
         <div id="favorite-ladder-feed-span" class="span{{ ladder_feed_size|default:'3' }}">
-        {% include "core/ladder_feed.html" with ladder_feed=favorite_ladder_feed ladder_feed_name="Favorite Ladders" %}
+        {% include "core/content/ladder_feed.html" with ladder_feed=favorite_ladder_feed ladder_feed_name="Favorite Ladders" %}
         </div>
         <div id="watched-ladder-feed-span" class="span{{ ladder_feed_size|default:'3' }}">
-        {% include "core/ladder_feed.html" with ladder_feed=watched_ladder_feed ladder_feed_name="Watched Ladders" %}
+        {% include "core/content/ladder_feed.html" with ladder_feed=watched_ladder_feed ladder_feed_name="Watched Ladders" %}
         </div>
         <div id="public-ladder-feed-span" class="span{{ ladder_feed_size|default:'3' }}">
-        {% include "core/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" %}
+        {% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" %}
         </div>
     </div>
 </div>

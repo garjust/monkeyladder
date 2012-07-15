@@ -7,11 +7,11 @@
 		    <div><a id="create-ladder-link" class="btn btn-primary btn-large" href="/ladders/create">Create Ladder</a></div>
 		</div>
 		<div id="public-ladder-feed-span" class="span{{ public_ladder_feed_size|default:'3' }}">
-			{% include "core/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" %}
+			{% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" %}
 		</div>
 	{% if user.is_authenticated %}
 		<div id="watched-ladder-feed-span" class="span{{ watched_ladder_feed_size|default:'3' }}">
-        {% include "core/ladder_feed.html" with ladder_feed=watched_ladder_feed ladder_feed_name="Watched Ladders" %}
+        {% include "core/content/ladder_feed.html" with ladder_feed=watched_ladder_feed ladder_feed_name="Watched Ladders" %}
         </div>
     {% else %}
 		<div id="home-register-link-span" class="span3">

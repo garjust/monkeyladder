@@ -1,33 +1,27 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render_to_response, render, redirect
-from django.template import RequestContext
+from django.shortcuts import render, redirect
 
-from core.models import Ladder
-from core.logic import get_ladder_or_404
 from accounts.decorators import login_required_forbidden
+from core.logic import get_ladder_or_404
 
 from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm
 from leaderboard import logic
 
-def leaderboard(request, ladder, form=None):
+def view_ladder(request, ladder_id, form=None):
+    ladder = get_ladder_or_404(pk=ladder_id)
     games = request.GET.get('games', None)
     if not form:
         form = MatchCreationForm()
     if games:
         form = AdvancedMatchCreationForm(int(games))
-    return render_to_response(
-        'leaderboard/full/ladder.html',
-        logic.get_ladder_context(ladder, {'form': form, 'games': games}),
-        context_instance=RequestContext(request),
-    )
+    return render(request, 'leaderboard/full/ladder.html',
+        logic.get_ladder_context(ladder, {'form': form, 'games': games}))
 
 def matches(request, ladder_id):
-    ladder = get_object_or_404(Ladder, pk=ladder_id)
+    ladder = get_ladder_or_404(pk=ladder_id)
     matches = ladder.match_set.filter().order_by('-created')
     match_id = request.GET.get('id', None)
-    return render_to_response('leaderboard/full/match_history.html',
-        {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches, 'match_id': match_id},
-        context_instance=RequestContext(request)
+    return render(request, 'leaderboard/full/match_history.html',
+        {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches, 'match_id': match_id}
     )
 
 @login_required_forbidden

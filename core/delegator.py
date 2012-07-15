@@ -1,27 +1,42 @@
-from leaderboard.views import leaderboard, ajax_ladder_display
+from core import logic
 
-TEMPLATE_KEY = 'template'
-CONTENT_KEY = 'content'
+import core.views
+import leaderboard.views
+
+VIEW = 'view'
+CONTENT = 'content'
+WATCHERS = 'watchers'
 
 FUNCTION_MAPPING = {
     'BASIC': {
-        TEMPLATE_KEY: leaderboard,
-        CONTENT_KEY: ajax_ladder_display
+        VIEW: core.views.view_ladder,
+        CONTENT: leaderboard.views.ajax_ladder_display,
+        WATCHERS: core.views.view_ladder_watchers,
     },
     'LEADERBOARD': {
-        TEMPLATE_KEY: leaderboard,
-        CONTENT_KEY: ajax_ladder_display            
+        VIEW: leaderboard.views.view_ladder,
+        CONTENT: leaderboard.views.ajax_ladder_display,
+        WATCHERS: core.views.view_ladder_watchers,
     }
 }
 
-def ladder_template_delegator(request, ladder):
+def delegate_ladder_view(request, ladder_id):
     """
-    Delegates rendering of a ladder based on the ladders type
+    Delegates rendering of a ladders page
     """
-    return FUNCTION_MAPPING[ladder.type][TEMPLATE_KEY](request, ladder)
+    ladder = logic.get_ladder_or_404(pk=ladder_id)
+    return FUNCTION_MAPPING[ladder.type][VIEW](request, ladder_id)
 
-def ladder_content_delegator(request, ladder):
+def delegate_ladder_content(request, ladder_id):
     """
-    Delegates rendering of a ladder based on the ladders type
+    Delegates rendering of a ladders content
     """
-    return FUNCTION_MAPPING[ladder.type][CONTENT_KEY](request, ladder)
+    ladder = logic.get_ladder_or_404(pk=ladder_id)
+    return FUNCTION_MAPPING[ladder.type][CONTENT](request, ladder_id)
+
+def delegate_watchers_view(request, ladder_id):
+    """
+    Delegates rendering of a ladders watchers page
+    """
+    ladder = logic.get_ladder_or_404(pk=ladder_id)
+    return FUNCTION_MAPPING[ladder.type][WATCHERS](request, ladder_id)

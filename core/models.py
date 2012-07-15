@@ -25,9 +25,10 @@ class Ladder(DatedModel):
     def ranking(self):
         return self.ranked_set.filter().order_by('rank')
 
-    @models.permalink
+    #@models.permalink
     def get_absolute_url(self):
-        return ('core.views.view_ladder', (), {'ladder_id': self.id})
+        #return ('view_ladder', (), {'ladder_id': self.id})
+        return '/ladders/{}/'.format(self.id)
 
     def __unicode__(self):
         return self.name
