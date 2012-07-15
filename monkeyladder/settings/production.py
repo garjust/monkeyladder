@@ -1,6 +1,6 @@
 from common import *
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -15,8 +15,12 @@ TIME_ZONE = 'America/Toronto'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/mnt/home/jgarbutt/db/monkeyladder.db',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'jagarbut',
+        'USER': 'jagarbut',
+        'PASSWORD': 'monkeyladderadmin',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
