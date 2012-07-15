@@ -30,7 +30,8 @@ class LadderCreationForm(forms.Form):
         return self.cleaned_data['rungs']
 
     def save(self):
-        ladder = Ladder(name=self.cleaned_data['name'],
+        ladder = Ladder(
+            name=self.cleaned_data['name'],
             rungs=self.cleaned_data['rungs'],
             is_private=self.cleaned_data['is_private'],
             type=self.cleaned_data['type']

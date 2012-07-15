@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.http import Http404
 from django.test import TestCase
 
@@ -30,6 +30,10 @@ class CanViewLadderTest(TestCase):
         
     def test_does_not_have_permission(self):
         user = User.objects.get(pk=8)
+        self.assertTrue(not self.fixture(user, self.ladder))
+        
+    def test_anonymous_user_does_not_have_permission(self):
+        user = AnonymousUser()
         self.assertTrue(not self.fixture(user, self.ladder))
 
 class PublicLadderFeedTest(TestCase):

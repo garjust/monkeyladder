@@ -17,7 +17,7 @@ def can_view_ladder(user, ladder):
     """
     return not ladder.is_private or (user.is_authenticated() and (len(ladder.watcher_set.filter(user=user)) != 0))
     
-def public_ladder_feed(user=None, order='-created', size=5):
+def public_ladder_feed(user=None, order='-created', size=25):
     """
     Returns a ladder feed with only public ladders
     

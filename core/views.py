@@ -6,9 +6,11 @@ from core.forms import LadderCreationForm
 
 @login_required
 def feeds(request):
-    return render(request, 'core/feeds.html', {
-         'watched_ladder_feed': logic.watched_ladder_feed(request.user, size=25), 'favorite_ladder_feed': logic.favorite_ladder_feed(request.user, size=25),
-         'public_ladder_feed': logic.public_ladder_feed(request.user, size=25), 'ladder_feed_size': 4, 'navbar_active': 'activity'})
+    return render(request, 'core/feeds.html', {'ladder_feed_size': 4, 'navbar_active': 'activity',
+        'watched_ladder_feed': logic.watched_ladder_feed(request.user, size=25), 
+        'favorite_ladder_feed': logic.favorite_ladder_feed(request.user, size=25),
+        'public_ladder_feed': logic.public_ladder_feed(request.user, size=25), 
+    })
 
 @login_required
 def create_ladder(request):
