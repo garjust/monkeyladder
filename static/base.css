@@ -25,3 +25,7 @@ div.container {
 #not-found-error-page img {
     margin-top: 20px;
 }
+
+.small-header {
+	border-bottom: 1px solid #dddddd;
+}
