@@ -3,7 +3,7 @@
 {% block content %}
 <div id="login-page" class="container">
 	<div class="row">
-	    <div class="span12 monkey-form-span">
+	    <div id="login-span" class="span12 monkey-form-span">
 	        <div class="monkey-form-div">
 	        {% if form.errors %}
 			<div>{{ form.errors|removetags:"ul li" }}</div>
@@ -24,8 +24,8 @@
 	                </div>
 	                <input type="hidden" name="next" value="{{ next }}"/>
 	            </form>
-	            <div id="register-link">
-					<a href="/accounts/register/">Click Here To Register</a>
+	            <div id="login-register-link-div">
+					<a id="login-register-link" href="/accounts/register/">Click Here To Register</a>
 				</div>
 	        </div>   
 	    </div>
