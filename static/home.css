@@ -1,13 +1,8 @@
-
 #create-ladder-span {
     height: 200px;
 }
 
-#home-register-link-span a {
-    font-size: 125%;
-}
-
-#home-register-link-span div {
+#home-accounts-span div {
     text-align: center;
 }
 

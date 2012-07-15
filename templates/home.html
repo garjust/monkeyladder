@@ -21,8 +21,11 @@
 	</div>
 	{% if not user.is_authenticated %}
 	<div class="row">
-	    <div id="home-register-link-span" class="span12">
-            <div><a id="home-register-link" class="btn btn-large" href="/accounts/register/">Sign Up</a>&nbsp;<a class="btn btn-large" href="/accounts/login/">Log In</a></div>
+	    <div id="home-accounts-span" class="span12">
+            <div>
+                <a id="home-register-link" class="btn btn-large" href="/accounts/register/">Sign Up</a>&nbsp;
+                <a id="home-login-link" class="btn btn-large" href="/accounts/login/">Log In</a>
+            </div>
         </div>
 	</div>
 	{% endif %}
