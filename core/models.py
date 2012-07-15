@@ -45,9 +45,6 @@ class Ranked(DatedModel):
 
     def __unicode__(self):
         return str(self.info)
-    
-    class Meta:
-        unique_together = ('ladder', 'rank')
 
 class Favorite(DatedModel):
     ladder = models.ForeignKey(Ladder)

@@ -44,7 +44,8 @@ def create_match(request, ladder_id):
         form = MatchCreationForm()
     return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder})
 
-def ajax_ladder_display(request, ladder):
+def ajax_ladder_display(request, ladder_id):
+    ladder = get_ladder_or_404(pk=ladder_id)
     return render(request, 'leaderboard/content/ladder_display.html', {'ladder': ladder})
 
 def match_feed_content(request, ladder_id):
