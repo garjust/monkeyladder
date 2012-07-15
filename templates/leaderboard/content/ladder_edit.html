@@ -21,6 +21,11 @@
 	            {% endfor %}
 	            </tbody>
 	        </table>
+	        <div style="display: none">
+	        {{ ladder_edit_form.name }}
+	        {{ ladder_edit_form.rungs }}
+	        {{ ladder_edit_form.is_private }}
+	        </div>
 	        <input id="ladder-save-link" class="btn btn-medium absolute" type="submit" value="Save" />
         </form>
         {% if ladder_edit_form.errors %}

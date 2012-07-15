@@ -53,22 +53,28 @@ class LadderEditForm(forms.Form):
     
     def __init__(self, ladder, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
-        self.fields['name'] = forms.CharField(initial=ladder.name, required=False)
-        self.fields['rungs'] = forms.IntegerField(initial=ladder.rungs, min_value=1, required=False)
-        self.fields['is_private'] = forms.BooleanField(initial=ladder.is_private, required=False)
+        self.fields['name'] = forms.CharField(initial=ladder.name)
+        self.fields['rungs'] = forms.IntegerField(initial=ladder.rungs, min_value=1)
+        self.fields['is_private'] = forms.BooleanField(initial=ladder.is_private)
         ladder_ranking = ladder.ranking()
         self.ranking = []
-        for ranked in ladder_ranking:
-            self.fields['rank_{}'.format(ranked.rank)] = forms.IntegerField(initial=ranked.rank, min_value=1, widget=forms.TextInput(attrs={'class': 'input-mini'}))
-            self.ranking.append({'ranked': ranked, 'field': self['rank_{}'.format(ranked.rank)]})
+        for i, ranked in enumerate(ladder_ranking):
+            self.fields['rank_{}'.format(i)] = forms.IntegerField(initial=ranked.rank, min_value=1, widget=forms.TextInput(attrs={'class': 'input-mini'}))
+            self.ranking.append({'ranked': ranked, 'field': self['rank_{}'.format(i)]})
             
     def ranked(self, values=False):
         if values:
             return map(lambda r: self.cleaned_data['rank_{}'.format(r['ranked'].rank)], self.ranking)
         return self.ranking
             
-#    def clean(self):
-#        return self.cleaned_data
+    def clean(self):
+        return self.cleaned_data
     
-    def save(self):
-        print "SAVED LADDER EDIT"
+    def save(self, ladder):
+        ladder.name = self.cleaned_data['name']
+        ladder.rungs = self.cleaned_data['rungs']
+        ladder.is_private = self.cleaned_data['is_private']
+        ladder.save()
+        for i, ranked in enumerate(ladder.ranking()):
+            ranked.rank = self.cleaned_data['rank_{}'.format(i)]
+            ranked.save()            

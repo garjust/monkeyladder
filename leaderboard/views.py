@@ -35,7 +35,7 @@ def edit_ladder(request, ladder_id):
     if request.POST:
         form = LadderEditForm(ladder, request.POST)
         if form.is_valid():
-            form.save()
+            form.save(ladder)
             return render(request, 'leaderboard/content/ladder_display.html', {'ladder': ladder, 'admin': admin})
         print "FORM INVALID:\n{}".format(form.errors)
     else:
