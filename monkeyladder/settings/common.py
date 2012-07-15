@@ -8,7 +8,7 @@ ROOT_URLCONF = 'monkeyladder.urls'
 LOGIN_REDIRECT_URL = '/home/'
 LOGIN_URL = '/accounts/login/'
 
-AUTH_PROFILE_MODULE = 'core.UserProfile'
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
