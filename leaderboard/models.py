@@ -12,7 +12,7 @@ class Player(Ranked):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.type = LADDER_TYPES['LEADERBOARD']
+            self.type = LADDER_TYPES[1]
         super(Player, self).save(*args, **kwargs)
 
 class Match(DatedModel):

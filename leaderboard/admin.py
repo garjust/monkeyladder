@@ -1,5 +1,5 @@
 from django.contrib import admin
-from leaderboard.models import Match, Game
+from leaderboard.models import Match, Game, Player
 
 class GameInline(admin.TabularInline):
     model = Game
@@ -22,5 +22,14 @@ class MatchAdmin(admin.ModelAdmin):
     
     def has_add_permission(self, request):
         return False
+    
+class PlayerAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['ladder', 'rank', 'user']})
+    ]
+    list_display = ('user', 'ladder', 'rank', 'created')
+    list_filter = ['user', 'created']
+    date_hierarchy = 'created'
 
 admin.site.register(Match, MatchAdmin)
+admin.site.register(Player, PlayerAdmin)
