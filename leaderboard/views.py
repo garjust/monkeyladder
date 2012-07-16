@@ -16,15 +16,15 @@ def view_ladder(request, ladder_id, form=None):
         form = AdvancedMatchCreationForm(int(games))
     admin = get_admin(request.user, ladder)
     return render(request, 'leaderboard/view_ladder.html', {
-        'navbar_active': 'ladder', 
-        'ladder': ladder, 
-        'player_names': logic.get_autocomplete_list(ladder), 
+        'navbar_active': 'ladder',
+        'ladder': ladder,
+        'player_names': logic.get_autocomplete_list(ladder),
         'match_feed': logic.get_match_feed(ladder),
-        'form': form, 
+        'form': form,
         'games': games,
         'admin': admin,
     })
-    
+
 def get_admin(user, ladder):
     if user.is_authenticated():
         return ladder.watcher(user).admin()

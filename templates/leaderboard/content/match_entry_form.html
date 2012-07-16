@@ -29,7 +29,7 @@
         </div>
     </form>
     {% else %}
-    <form class="" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/?games=3" method="post">{% csrf_token %}
+    <form class="" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/?games={{ games }}" method="post">{% csrf_token %}
         <table id="match-entry-table">
             <tbody>
                 <tr>
