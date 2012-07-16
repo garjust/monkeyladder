@@ -117,8 +117,8 @@ class AdvancedMatchCreationForm(BaseMatchCreationForm):
                 winner_score = game_score[0]
                 loser_score = game_score[1]
             else:
-                winner_score = game_score[0]
-                loser_score = game_score[1]
+                winner_score = game_score[1]
+                loser_score = game_score[0]
             game = Game(match=match, game_number=i,
                winner_score=winner_score, loser_score=loser_score
             )
