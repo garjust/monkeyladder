@@ -1,6 +1,6 @@
 import os
 
-VERSION_NUMBER = "0.0.8"
+VERSION_NUMBER = "1.0.0"
 
 PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", "..")).replace("\\", "/")
 
@@ -22,11 +22,11 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    '{}/static'.format(PROJECT_ROOT),
+    '%s/static' % PROJECT_ROOT,
 )
 
 TEMPLATE_DIRS = (
-    '{}/templates'.format(PROJECT_ROOT),
+    '%s/templates' % PROJECT_ROOT,
 )
 
 SECRET_KEY = 'y&amp;n8ww2nrpv9yemnvd9-y+v=5(n_t2q+m3+*19b#+qnfge*ygc'
