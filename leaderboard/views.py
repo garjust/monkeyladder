@@ -75,5 +75,6 @@ def ajax_ladder_display(request, ladder_id):
     return render(request, 'leaderboard/content/ladder_display.html', {'ladder': ladder})
 
 def match_feed_content(request, ladder_id):
-    match_feed = logic.get_match_feed(get_ladder_or_404(pk=ladder_id))
-    return render(request, 'leaderboard/content/match_feed.html', {'match_feed': match_feed})
+    ladder = get_ladder_or_404(pk=ladder_id)
+    match_feed = logic.get_match_feed(ladder)
+    return render(request, 'leaderboard/content/match_feed.html', {'match_feed': match_feed, 'ladder': ladder})
