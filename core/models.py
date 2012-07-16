@@ -64,12 +64,15 @@ class Watcher(DatedModel):
 
     def admin(self):
         return self.ladderpermission.type == 'ADMIN'
+    admin.boolean = True
 
     def mod(self):
         return self.ladderpermission.type == 'MOD'
+    mod.boolean = True
     
     def norm(self):
         return self.ladderpermission.type == 'NORM'
+    norm.boolean = True
 
     def __unicode__(self):
         return self.user.get_profile().name()
