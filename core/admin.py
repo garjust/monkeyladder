@@ -44,6 +44,9 @@ class FavoriteAdmin(admin.ModelAdmin):
 
 class LadderPermissionInline(admin.StackedInline):
     model = LadderPermission
+    fieldsets = [
+        (None, {'fields': ['type']}),
+    ]
     
     def has_delete_permission(self, request, obj=None):
         return False

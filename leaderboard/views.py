@@ -19,7 +19,7 @@ def view_ladder(request, ladder_id, form=None):
         'navbar_active': 'ladder', 
         'ladder': ladder, 
         'player_names': logic.get_autocomplete_list(ladder), 
-        'match_feed': logic.get_match_feed(ladder), 
+        'match_feed': logic.get_match_feed(ladder),
         'form': form, 
         'games': games,
         'admin': admin,
