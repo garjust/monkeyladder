@@ -37,10 +37,8 @@ class LadderCreationForm(forms.Form):
             type=self.cleaned_data['type']
         )
         ladder.save()
-        watcher = Watcher(ladder=ladder, user=self.cleaned_data['user_id'])
+        watcher = Watcher(ladder=ladder, user=self.cleaned_data['user_id'], type='ADMIN')
         watcher.save()
-        watcher.ladderpermission.type = 'ADMIN'
-        watcher.ladderpermission.save()
         return ladder
 
 class LadderEditForm(forms.Form):
@@ -50,7 +48,7 @@ class LadderEditForm(forms.Form):
     error_messages = {
         'invalid_ranks': _("Ranks be unique and consistent")
     }
-    
+
     def __init__(self, ladder, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
         self.fields['name'] = forms.CharField(initial=ladder.name)
@@ -61,15 +59,15 @@ class LadderEditForm(forms.Form):
         for i, ranked in enumerate(ladder_ranking):
             self.fields['rank_{}'.format(i)] = forms.IntegerField(initial=ranked.rank, min_value=1, widget=forms.TextInput(attrs={'class': 'input-mini'}))
             self.ranking.append({'ranked': ranked, 'field': self['rank_{}'.format(i)]})
-            
+
     def ranked(self, values=False):
         if values:
             return map(lambda r: self.cleaned_data['rank_{}'.format(r['ranked'].rank)], self.ranking)
         return self.ranking
-            
+
     def clean(self):
         return self.cleaned_data
-    
+
     def save(self, ladder):
         ladder.name = self.cleaned_data['name']
         ladder.rungs = self.cleaned_data['rungs']
@@ -77,4 +75,4 @@ class LadderEditForm(forms.Form):
         ladder.save()
         for i, ranked in enumerate(ladder.ranking()):
             ranked.rank = self.cleaned_data['rank_{}'.format(i)]
-            ranked.save()            
+            ranked.save()

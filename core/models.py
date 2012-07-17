@@ -24,7 +24,7 @@ class Ladder(DatedModel):
 
     def ranking(self):
         return self.ranked_set.filter().order_by('rank')
-    
+
     def watcher(self, user):
         if user.is_authenticated():
             return self.watcher_set.get(user=user)
@@ -54,7 +54,7 @@ class Favorite(DatedModel):
 
     def __unicode__(self):
         return self.ladder.name
-    
+
     class Meta:
         unique_together = ('ladder', 'user')
 
@@ -62,31 +62,23 @@ class Watcher(DatedModel):
     ladder = models.ForeignKey(Ladder)
     user = models.ForeignKey(User)
 
+    TYPES = LADDER_PERMISSION_TYPES
+    type = models.CharField(max_length=50, choices=TYPES, default='NORM')
+
     def admin(self):
-        return self.ladderpermission.type == 'ADMIN'
+        return self.type == 'ADMIN'
     admin.boolean = True
 
     def mod(self):
-        return self.ladderpermission.type == 'MOD'
+        return self.type == 'MOD'
     mod.boolean = True
-    
+
     def norm(self):
-        return self.ladderpermission.type == 'NORM'
+        return self.type == 'NORM'
     norm.boolean = True
 
     def __unicode__(self):
         return self.user.get_profile().name()
-    
+
     class Meta:
         unique_together = ('ladder', 'user')
-
-class LadderPermission(DatedModel):
-    watcher = models.OneToOneField(Watcher)
-
-    TYPES = LADDER_PERMISSION_TYPES
-    type = models.CharField(max_length=50, choices=TYPES, default='NORM')
-
-def create_ladder_permission(sender, instance, created, **kwargs):
-    if created:
-        LadderPermission.objects.create(watcher=instance)
-models.signals.post_save.connect(create_ladder_permission, sender=Watcher)

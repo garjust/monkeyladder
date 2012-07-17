@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Ladder, Ranked, Watcher, Favorite, LadderPermission
+from core.models import Ladder, Ranked, Watcher, Favorite
 
 class RankedInline(admin.TabularInline):
     model = Ranked
@@ -32,7 +32,7 @@ class LadderAdmin(admin.ModelAdmin):
     list_filter = ['is_private', 'created']
     search_fields = ['name']
     date_hierarchy = 'created'
-    
+
 class FavoriteAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['user', 'ladder']}),
@@ -40,23 +40,13 @@ class FavoriteAdmin(admin.ModelAdmin):
     list_display = ('user', 'ladder', 'created')
     list_filter = ['created']
     search_fields = ['user__username', 'user__first_name', 'user__last_name', 'ladder__name']
-    date_hierarchy = 'created'    
-
-class LadderPermissionInline(admin.StackedInline):
-    model = LadderPermission
-    fieldsets = [
-        (None, {'fields': ['type']}),
-    ]
-    
-    def has_delete_permission(self, request, obj=None):
-        return False
+    date_hierarchy = 'created'
 
 class WatcherAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['user', 'ladder']}),
+        (None, {'fields': ['user', 'ladder', 'type']}),
     ]
-    inlines = [LadderPermissionInline]
-    list_display = ('user', 'ladder', 'created', 'admin', 'mod', 'norm')
+    list_display = ('user', 'ladder', 'created', 'type')
     list_filter = ['ladder', 'created']
     search_fields = ['user__username', 'user__first_name', 'user__last_name', 'ladder__name']
     date_hierarchy = 'created'
