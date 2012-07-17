@@ -1,5 +1,5 @@
 from core.models import Ranked
-from leaderboard.models import Match, Player
+from leaderboard.models import Match, Player, RankingChange
 
 import logging
 logger = logging.getLogger('monkeyladder')
@@ -68,16 +68,20 @@ def adjust_rankings(match):
         return
     winner = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.winner, ladder=match.ladder).rank)
     loser = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.loser, ladder=match.ladder).rank)
+    ranking_change = RankingChange(match=match, winner_rank=winner.rank, loser_rank=loser.rank)
     players = list(match.ladder.ranking())
     rank_diff = winner.rank - loser.rank
     if rank_diff <= 0:
         pass
     elif rank_diff <= SWAP_RANGE:
+        ranking_change.winner_change = winner.rank - loser.rank
+        ranking_change.loser_change = -ranking_change.winner_change
         loser_old_rank = loser.rank
         loser.rank = winner.rank
         winner.rank = loser_old_rank
         winner.save()
         loser.save()
+        ranking_change.save()
     else:
         if AUTO_TAKE_FIRST and loser.rank == 1:
             adjustment = rank_diff + 1
@@ -85,10 +89,16 @@ def adjust_rankings(match):
             adjustment = rank_diff + 1
         else:
             adjustment = ADVANCEMENT_RANKS + 1
-        player_slice = players[winner.rank-adjustment:winner.rank]
+        ranking_change.winner_change = adjustment - 1
+        player_slice = players[winner.rank - adjustment:winner.rank]
         player_slice[-1].rank = player_slice[0].rank
         player_slice[-1].save()
         player_slice = player_slice[:-1]
+        if loser in player_slice:
+            ranking_change.loser_change = -1
+        else:
+            ranking_change.loser_change = 0
         for player in player_slice:
             player.rank += 1
             player.save()
+        ranking_change.save()

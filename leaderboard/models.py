@@ -40,3 +40,13 @@ class Game(DatedModel):
 
     def __unicode__(self):
         return "{} ({}) {} ({})".format(self.match.winner.get_profile().name(), self.winner_score, self.match.loser.get_profile().name(), self.loser_score)
+
+class RankingChange(DatedModel):
+    match = models.ForeignKey(Match)
+    winner_rank = models.IntegerField()
+    winner_change = models.IntegerField()
+    loser_rank = models.IntegerField()
+    loser_change = models.IntegerField()
+
+    def __unicode__(self):
+        return "%s +%s, %s %s" % (self.match.winner, self.winner_change, self.match.loser, self.loser_change)
