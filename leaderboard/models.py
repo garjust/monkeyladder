@@ -46,3 +46,6 @@ class MatchRankingChangeSet(RankingChangeSet):
 
     def __unicode__(self):
         return "%s (Match)" % super.__unicode__()
+    
+    class Meta:
+        db_table = 'leaderboard_match_ranking_change_set'

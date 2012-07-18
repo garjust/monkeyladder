@@ -51,9 +51,9 @@ class LadderEditForm(forms.Form):
 
     def __init__(self, ladder, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
-        self.fields['name'] = forms.CharField(initial=ladder.name)
-        self.fields['rungs'] = forms.IntegerField(initial=ladder.rungs, min_value=1)
-        self.fields['is_private'] = forms.BooleanField(initial=ladder.is_private)
+        self.fields['name'] = forms.CharField(initial=ladder.name, required=False)
+        self.fields['rungs'] = forms.IntegerField(initial=ladder.rungs, min_value=1, required=False)
+        self.fields['is_private'] = forms.BooleanField(initial=ladder.is_private, required=False)
         ladder_ranking = ladder.ranking()
         self.ranking = []
         for i, ranked in enumerate(ladder_ranking):

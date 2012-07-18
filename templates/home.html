@@ -4,7 +4,8 @@
 <div id="home-page" class="container">
 	<div class="row">
 		<div id="create-ladder-span" class="span6">
-		    <div><a id="create-ladder-link" class="btn btn-primary btn-large" href="/ladders/create">Create Ladder</a></div>
+		    {% comment %}<div><a id="create-ladder-link" class="btn btn-primary btn-large" href="/ladders/create">Create Ladder</a></div>{% endcomment %}
+		    <div><a id="create-ladder-link" class="btn btn-primary btn-large" href="/accounts/login/">Just Login As Usual</a></div>
 		</div>
 	{% if user.is_authenticated %}
 	    <div id="public-ladder-feed-span" class="span3">
