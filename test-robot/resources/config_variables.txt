@@ -1,10 +1,5 @@
 *** Variables ***
 ${TEST_URL}=    http://localhost:8000/
 
-${SUPERUSER_USERNAME}=    jagarbut
-${SUPERUSER_PASSWORD}=    admin1
-${SUPERUSER_NAME}=    Justin Garbutt
-
-${FULLNAME_USERNAME}=    vladman
-${FULLNAME_PASSWORD}=    password
-${FULLNAME_NAME}=    Vlad Keith
+*** Settings ***
+Variables    config_variables.py

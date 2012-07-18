@@ -3,7 +3,7 @@ Begin Test
     No Operation
 
 End Test
-    No Operation
+    Close All Browsers
 
 Start Browser Session
     [Arguments]    ${url}=${TEST_URL}

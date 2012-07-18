@@ -11,7 +11,7 @@ Force Tags    ladder    ladder_create
 *** Testcases ***
 Create A Public Basic Ladder
     [Tags]    ladder_public    ladder_type_basic
-    Create Python Dictionary And Set To    TEST_LADDER_CREATION_DATA
+    Create Dictionary And Set    TEST_LADDER_CREATION_DATA
     ...    name    public_basic
     ...    rungs    10
     ...    is_private    ${False}
@@ -20,4 +20,9 @@ Create A Public Basic Ladder
 
 Create A Public Leaderboard Ladder
     [Tags]    ladder_public    ladder_type_leaderboard
-    Successful Login Flow    ${FULLNAME_USERNAME}    ${FULLNAME_PASSWORD}    ${FULLNAME_NAME}
+    Create Dictionary And Set    TEST_LADDER_CREATION_DATA
+    ...    name    public_leaderboard
+    ...    rungs    10
+    ...    is_private    ${False}
+    ...    type    LEADERBOARD
+    Create Ladder Flow    SUPERUSER    ${TEST_LADDER_CREATION_DATA}

@@ -2,7 +2,7 @@ from robot_mixin.simple_mixin import SimpleMixin
 
 class _Dictionaries(SimpleMixin):
     """
-    Common keyword library
+    Keywords handling dictionary tasks
     """
     
     def __init__(self):
@@ -12,7 +12,10 @@ class _Dictionaries(SimpleMixin):
         return self._list_to_dictionary(keyvalues)
 
     def create_dictionary_and_set(self, variable, *keyvalues):
-        print "*WARN*%s" % variable
         dictionary = self._run("Create Dictionary", *keyvalues)
         self._set_variable(variable, dictionary)
         return dictionary
+
+    def append_random_string_to_dictionary_values(self, dictionary, *keys):
+        for key in keys:
+            dictionary[key] = '%s_%s' % (dictionary[key], 1010)

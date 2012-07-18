@@ -1,0 +1,4 @@
+*** Keywords ***
+Create Ladder Flow
+    [Arguments]    ${user}    ${ladder_creation_data}
+    Append Random String To Dictionary Values    ${ladder_creation_data}    name
