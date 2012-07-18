@@ -30,8 +30,8 @@ TIME_ZONE = 'America/Toronto'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'jagarbut',
-        'USER': 'jagarbut',
+        'NAME': 'jagarbut_ml_begins',
+        'USER': 'jagarbut_ml_begins',
         'PASSWORD': 'monkeyladderadmin',
         'HOST': '',
         'PORT': '',
