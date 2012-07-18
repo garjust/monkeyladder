@@ -1,7 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import User
-from core.models import Ladder, Ranked, RankingChangeSet, LADDER_TYPES
+from core.models import Ladder, Ranked, RankingChangeSet
 from datedmodels.models import DatedModel
 
 class Player(Ranked):
@@ -12,7 +12,7 @@ class Player(Ranked):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.type = LADDER_TYPES[1]
+            self.description = self.user.username
         super(Player, self).save(*args, **kwargs)
 
 class Match(DatedModel):
@@ -46,6 +46,6 @@ class MatchRankingChangeSet(RankingChangeSet):
 
     def __unicode__(self):
         return "%s (Match)" % super.__unicode__()
-    
+
     class Meta:
         db_table = 'leaderboard_match_ranking_change_set'

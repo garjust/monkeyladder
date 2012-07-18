@@ -1,12 +1,12 @@
 from django.contrib import admin
 
-from core.models import Ladder, Ranked, Watcher, Favorite
+from core.models import Ladder, Ranked, Watcher, Favorite, RankingChangeSet, RankingChange
 
 class RankedInline(admin.TabularInline):
     model = Ranked
     extra = 1
     fieldsets = [
-        (None, {'fields': ['rank', 'info']}),
+        (None, {'fields': ['rank', 'description']}),
     ]
 
 class WatcherInline(admin.TabularInline):
@@ -51,6 +51,16 @@ class WatcherAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'user__first_name', 'user__last_name', 'ladder__name']
     date_hierarchy = 'created'
 
+class RankingChangeInline(admin.TabularInline):
+    model = RankingChange
+
+class RankingChangeSetAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['ladder', 'change_date']})
+    ]
+    inlines = [RankingChangeInline]
+
 admin.site.register(Ladder, LadderAdmin)
 admin.site.register(Favorite, FavoriteAdmin)
 admin.site.register(Watcher, WatcherAdmin)
+admin.site.register(RankingChangeSet, RankingChangeSetAdmin)
