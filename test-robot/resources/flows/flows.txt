@@ -1,2 +1,3 @@
 *** Settings ***
+Resource    create_ladder_flows.txt
 Resource    login_flows.txt

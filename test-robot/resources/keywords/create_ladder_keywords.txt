@@ -1,0 +1,34 @@
+*** Keywords ***
+Click Home Page Create Ladder Button
+    Safe Click Element    xpath=//div[@id='fake123']    error=Failed to click home page ladder creation button
+
+Fill In Create Ladder Form
+    [Arguments]    ${create_ladder_form}
+    Enter Ladder Name    ${create_ladder_form['name']}
+    Enter Ladder Rungs    ${create_ladder_form['rungs']}
+    Select Ladder Privacy    ${create_ladder_form['is_private']}
+    Select Ladder Type    ${create_ladder_form['type']}
+
+Enter Ladder Name
+    [Arguments]    ${name}
+    Safe Input Text    //input[@id='id_name']    ${name}    error=Failed to enter ladder name
+    
+Enter Ladder Rungs
+    [Arguments]    ${rungs}
+    Safe Input Text    //input[@id='id_rungs']    ${name}    error=Failed to enter ladder rungs
+
+Select Ladder Privacy
+    [Arguments]    ${is_private}
+    Safe Select From List    //input[@id='id_is_private']    ${is_private}    error=Failed to choose ladder privacy
+
+Select Ladder Type
+    [Arguments]    ${type}
+    Safe Select From List    //select[@id='id_type']    ${type}    error=Failed to select ladder type
+
+Click Create Ladder Button
+    Safe Click Element    xpath=//div[@id='fake123']    error=Failed to click ladder creation button
+
+Complete Create Ladder Form
+    [Arguments]    ${create_ladder_form}
+    Fill In Create Ladder Form    ${create_ladder_form}
+    Click Create Ladder Button

@@ -1,4 +1,8 @@
 *** Keywords ***
 Create Ladder Flow
-    [Arguments]    ${user}    ${ladder_creation_data}
-    Append Random String To Dictionary Values    ${ladder_creation_data}    name
+    [Arguments]    ${user}    ${ladder_creation_form}
+    Start Browser Session
+    Login As    ${user}
+    Click Create Ladder Button
+    Append Random String To Dictionary Values    ${ladder_creation_form}    name
+    Complete Ladder Creation Form    ${ladder_creation_form}
