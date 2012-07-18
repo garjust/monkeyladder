@@ -2,8 +2,9 @@ __version__ = '1.0'
 
 from robot.libraries.BuiltIn import BuiltIn
 
+from _dictionaries import _Dictionaries
 
-class CommonLibrary(object):
+class CommonLibrary(_Dictionaries):
     """
     Common keyword library
     """
@@ -11,6 +12,3 @@ class CommonLibrary(object):
     
     def __init__(self):
         super(CommonLibrary, self).__init__()
-
-    def do_nothing(self):
-        pass

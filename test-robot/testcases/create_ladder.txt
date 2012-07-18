@@ -1,0 +1,23 @@
+*** Settings ***
+Resource    ${SUITE_ROBOT_TEST_DIR}/include.txt
+
+Suite Setup    Begin Suite
+Suite Teardown    End Suite
+Test Setup    Begin Test
+Test Teardown    End Test
+
+Force Tags    ladder    ladder_create
+
+*** Testcases ***
+Create A Public Basic Ladder
+    [Tags]    ladder_public    ladder_type_basic
+    Create Python Dictionary And Set To    TEST_LADDER_CREATION_DATA
+    ...    name    public_basic
+    ...    rungs    10
+    ...    is_private    ${False}
+    ...    type    BASIC
+    Create Ladder Flow    SUPERUSER    ${TEST_LADDER_CREATION_DATA}
+
+Create A Public Leaderboard Ladder
+    [Tags]    ladder_public    ladder_type_leaderboard
+    Successful Login Flow    ${FULLNAME_USERNAME}    ${FULLNAME_PASSWORD}    ${FULLNAME_NAME}
