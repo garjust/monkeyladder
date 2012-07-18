@@ -1,5 +1,5 @@
 from django.contrib import admin
-from leaderboard.models import Match, Game, Player, RankingChange
+from leaderboard.models import Match, Game, Player, MatchRankingChangeSet
 
 class GameInline(admin.TabularInline):
     model = Game
@@ -31,13 +31,11 @@ class PlayerAdmin(admin.ModelAdmin):
     list_filter = ['user', 'created']
     date_hierarchy = 'created'
 
-class RankingChangeAdmin(admin.ModelAdmin):
+class MatchRankingChangeSetAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['match', 'winner_rank', 'winner_change', 'loser_rank', 'loser_change']})
+        (None, {'fields': ['match', 'ladder']})
     ]
-    list_display = ('match', 'winner_rank', 'winner_change', 'loser_rank', 'loser_change')
-    search_fields = ('match__winner__first_name', 'match__loser__first_name', 'match__ladder__name')
 
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Player, PlayerAdmin)
-admin.site.register(RankingChange, RankingChangeAdmin)
+admin.site.register(MatchRankingChangeSet, MatchRankingChangeSetAdmin)

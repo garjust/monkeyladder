@@ -82,3 +82,19 @@ class Watcher(DatedModel):
 
     class Meta:
         unique_together = ('ladder', 'user')
+
+class RankingChangeSet(DatedModel):
+    ladder = models.ForeignKey(Ladder)
+    change_date = models.DateTimeField()
+
+    def __unicode__(self):
+        return "%s ranking change on %s" % (self.ladder, self.change_date)
+
+class RankingChange(DatedModel):
+    ranking_change_set = models.ForeignKey(RankingChangeSet)
+    ranked = models.ForeignKey(Ranked)
+    rank = models.PositiveIntegerField()
+    change = models.IntegerField()
+
+    def __unicode__(self):
+        return "%s moved %s rank(s)" % (self.ranked, self.change)
