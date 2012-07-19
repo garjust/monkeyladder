@@ -25,7 +25,7 @@ class MatchAdmin(admin.ModelAdmin):
 
 class PlayerAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['ladder', 'rank', 'user']})
+        (None, {'fields': ['ladder', 'rank', 'description', 'user']})
     ]
     list_display = ('user', 'ladder', 'rank', 'created')
     list_filter = ['user', 'created']

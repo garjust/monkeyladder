@@ -40,13 +40,10 @@ class Ladder(DatedModel):
 class Ranked(DatedModel):
     ladder = models.ForeignKey(Ladder)
     rank = models.IntegerField()
-    info = models.CharField(max_length=50, null=True, blank=True)
-
-    TYPES = LADDER_TYPES
-    type = models.CharField(max_length=50, choices=TYPES, default='BASIC', editable=False)
+    description = models.CharField(max_length=50)
 
     def __unicode__(self):
-        return str(self.rank)
+        return str(self.description)
 
 class Favorite(DatedModel):
     ladder = models.ForeignKey(Ladder)
@@ -88,8 +85,13 @@ class RankingChangeSet(DatedModel):
     change_date = models.DateTimeField()
 
     def __unicode__(self):
+<<<<<<< HEAD
         return "%s ranking change on %s" % (self.ladder, self.change_date.strftime('%Y-%m-%d %H:%M:%S'))
     
+=======
+        return "%s ranking change on %s" % (self.ladder, self.change_date)
+
+>>>>>>> ae136fab3fbcde55cfbdd120be5e253da93445d2
     class Meta:
         db_table = 'core_ranking_change_set'
 
@@ -101,6 +103,6 @@ class RankingChange(DatedModel):
 
     def __unicode__(self):
         return "%s moved %s rank(s)" % (self.ranked, self.change)
-    
+
     class Meta:
         db_table = 'core_ranking_change'

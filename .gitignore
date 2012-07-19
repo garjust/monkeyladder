@@ -3,6 +3,7 @@
 db/
 
 .idea/
-
 .project
 .pydevproject
+
+reports/

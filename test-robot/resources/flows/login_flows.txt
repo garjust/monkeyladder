@@ -1,17 +1,17 @@
 *** Keywords ***
 Successful Login Flow
-    [Arguments]    ${username}    ${password}    ${name}
+    [Arguments]    ${user}
     Start Browser Session
     Go To Login
     Should Not Be Logged In
-    Login    ${username}    ${password}
-    Should Be Logged In As    ${name}
+    Login As    ${user}
+    Should Be Logged In As    ${user}
     Logout
     Close Browser
 
 Failed Login Flow
-    [Arguments]    ${username}    ${password}
+    [Arguments]    ${user}
     Start Browser Session
     Go To Login
-    Login    ${username}    ${password}
+    Login As    ${user}
     Close Browser

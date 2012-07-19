@@ -12,11 +12,15 @@ Should Be On Login Page
     Wait Until Page Contains Element    ${LOGIN_PAGE}    error=Page should have been login page
 
 Should Be Logged In As
-    [Arguments]    ${name}
-    Wait Until Page Contains    Logged in as ${name}    error=Should have been logged in as '${name}'
+    [Arguments]    ${user}
+    Wait Until Page Contains    Logged in as ${user[2]}    error=Should have been logged in as '${user[2]}'
 
 Should Not Be Logged In
     Page Should Not Contain    Logged in as
+
+Login As
+    [Arguments]    ${user}
+    Login    ${user[0]}    ${user[1]}
 
 Login
     [Arguments]    ${username}    ${password}=password
