@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Ladder, Ranked, Watcher, Favorite
+from core.models import Ladder, Ranked, Watcher, Favorite, Rank
 
 class RankedInline(admin.TabularInline):
     model = Ranked
@@ -50,7 +50,7 @@ class WatcherAdmin(admin.ModelAdmin):
     list_filter = ['ladder', 'created']
     search_fields = ['user__username', 'user__first_name', 'user__last_name', 'ladder__name']
     date_hierarchy = 'created'
-
+    
 admin.site.register(Ladder, LadderAdmin)
 admin.site.register(Favorite, FavoriteAdmin)
 admin.site.register(Watcher, WatcherAdmin)

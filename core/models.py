@@ -88,7 +88,7 @@ class RankingChangeSet(DatedModel):
     change_date = models.DateTimeField()
 
     def __unicode__(self):
-        return "%s ranking change on %s" % (self.ladder, self.change_date)
+        return "%s ranking change on %s" % (self.ladder, self.change_date.strftime('%Y-%m-%d %H:%M:%S'))
     
     class Meta:
         db_table = 'core_ranking_change_set'
