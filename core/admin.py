@@ -26,6 +26,7 @@ class FavoriteInline(admin.TabularInline):
 class LadderAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name', 'rungs', 'is_private']}),
+        ('Meta', {'fields': ['created', 'created_by']})
     ]
     inlines = [RankedInline, WatcherInline, FavoriteInline]
     list_display = ('name', 'type', 'rungs', 'is_private', 'created')
@@ -53,12 +54,17 @@ class WatcherAdmin(admin.ModelAdmin):
     
 class RankingChangeInline(admin.TabularInline):
     model = RankingChange
+    extra = 0
 
 class RankingChangeSetAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['ladder', 'change_date']})
     ]
     inlines = [RankingChangeInline]
+    list_display = ('ladder', 'change_date')
+    list_filter = ['ladder', 'change_date']
+    search_fields = ['ladder', 'change_data']
+    date_hierarchy = 'change_date'
 
 admin.site.register(Ladder, LadderAdmin)
 admin.site.register(Favorite, FavoriteAdmin)

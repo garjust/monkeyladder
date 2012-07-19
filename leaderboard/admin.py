@@ -1,6 +1,8 @@
 from django.contrib import admin
 from leaderboard.models import Match, Game, Player, MatchRankingChangeSet
 
+from core.admin import RankingChangeInline
+
 class GameInline(admin.TabularInline):
     model = Game
     extra = 0
@@ -33,8 +35,13 @@ class PlayerAdmin(admin.ModelAdmin):
 
 class MatchRankingChangeSetAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['match', 'ladder']})
+        (None, {'fields': ['ladder', 'change_date', 'match']})
     ]
+    inlines = [RankingChangeInline]
+    list_display = ('match', 'ladder', 'change_date')
+    list_filter = ['ladder', 'change_date']
+    search_fields = ['ladder', 'change_data']
+    date_hierarchy = 'change_date'
 
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Player, PlayerAdmin)
