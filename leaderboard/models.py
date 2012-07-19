@@ -45,12 +45,7 @@ class MatchRankingChangeSet(RankingChangeSet):
     match = models.ForeignKey(Match)
 
     def __unicode__(self):
-<<<<<<< HEAD
         return "%s (Match)" % super(MatchRankingChangeSet, self).__unicode__()
-    
-=======
-        return "%s (Match)" % super.__unicode__()
 
->>>>>>> ae136fab3fbcde55cfbdd120be5e253da93445d2
     class Meta:
         db_table = 'leaderboard_match_ranking_change_set'
