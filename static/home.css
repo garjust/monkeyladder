@@ -13,7 +13,11 @@
 }
 
 #create-ladder-span a {
-    font-size: 300%;
+    font-size: 180%;
+}
+
+#create-ladder-span p {
+	font-size: 120%;
 }
 
 .btn-primary {
