@@ -18,7 +18,7 @@ STATIC_ROOT = '/home/jagarbut/webapps/django_static'
 STATIC_URL = 'http://monkeyladder.ca/static/'
 
 STATICFILES_DIRS = (
-    '/home/jagarbut/webapps/django/monkeyladder/static'
+    '/home/jagarbut/webapps/django/monkeyladder/static',
 )
 
 TEMPLATE_DIRS = (
