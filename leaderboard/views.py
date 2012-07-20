@@ -6,6 +6,7 @@ from core.forms import LadderEditForm
 
 from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm
 from leaderboard import logic
+from core.models import Watcher
 
 def view_ladder(request, ladder_id, form=None):
     ladder = get_ladder_or_404(pk=ladder_id)
@@ -14,6 +15,7 @@ def view_ladder(request, ladder_id, form=None):
         form = MatchCreationForm()
     if games:
         form = AdvancedMatchCreationForm(int(games))
+    watcher = get_watcher(request.user, ladder)
     admin = get_admin(request.user, ladder)
     return render(request, 'leaderboard/view_ladder.html', {
         'navbar_active': 'ladder',
@@ -23,11 +25,22 @@ def view_ladder(request, ladder_id, form=None):
         'form': form,
         'games': games,
         'admin': admin,
+        'watcher': watcher,
     })
+    
+def get_watcher(user, ladder):
+    if user.is_authenticated():
+        try:
+            return ladder.watcher(user)
+        except Watcher.DoesNotExist:
+            return False
 
 def get_admin(user, ladder):
     if user.is_authenticated():
-        return ladder.watcher(user).admin()
+        try:
+            return ladder.watcher(user).admin()
+        except Watcher.DoesNotExist:
+            return False
 
 def edit_ladder(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)

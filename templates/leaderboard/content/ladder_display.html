@@ -2,6 +2,7 @@
     <div class="span{{ ladder_display_size|default:'6' }} page-header muted">
         <h1 id="ladder-header">{{ ladder.name }}</h1>
         {% if admin %}<a id="ladder-edit-link" class="btn btn-medium" href="#">Edit</a>{% endif %}
+        {% comment %}{% if not watcher %}<a id="ladder-watch-link" class="btn btn-medium absolute" href="#">Watch</a>{% endif %}{% endcomment %}
     </div>
 </div>
 <div class="row">
@@ -25,10 +26,16 @@
 <script type="text/javascript">
     $(function() {
     	$("#ladder-edit-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});
+    	$("#ladder-watch-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});
     })
     $(function() {
         $("#ladder-edit-link").bind("click", function(e) {
         	$("#ladder-display-span").load("{{ ladder.get_absolute_url }}edit/")
+        })
+    });
+    $(function() {
+        $("#ladder-watch-link").bind("click", function(e) {
+            $("#ladder-display-span").load("{{ ladder.get_absolute_url }}watch/")
         })
     });
 </script>
