@@ -10,7 +10,7 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li><a id="nav-home-link" href="/home/">Home</a></li>
-                    {% if request.user.is_authenticated %}<li><a id="nav-activity-link" href="/ladders/activity/">Activity</a></li>{% endif %}
+                    {% if request.user.is_authenticated %}<li><a id="nav-feeds-link" href="/ladders/feeds/">Feeds</a></li>{% endif %}
                 </ul>
             </div>
         {% if ladder %}

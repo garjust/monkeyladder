@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns('django.views.generic.simple',
-    url(r'^$', 'redirect_to', {'url': '/ladders/activity/'}),
+    url(r'^$', 'redirect_to', {'url': '/ladders/feeds/'}),
 )
 
 urlpatterns += patterns('core.delegator',
@@ -13,6 +13,6 @@ urlpatterns += patterns('core.delegator',
 )
 
 urlpatterns += patterns('core.views',
-    url(r'^activity/$', 'feeds'),
+    url(r'^feeds/$', 'feeds'),
     url(r'^create/$', 'create_ladder', name='create_ladder'),    
 )
