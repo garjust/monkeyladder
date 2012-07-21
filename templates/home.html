@@ -3,33 +3,30 @@
 {% block content %}
 <div id="home-page" class="container">
 	<div class="row">
-		<div id="create-ladder-span" class="span6">
+		<div id="main-span" class="span6">
 		    <h2>Welcome to Monkeyladder</h2>
-		    <p>Hit the button below to make a ladder and keep track of those ping pong games.</p>
+		    <p>Hit the button below to make a ladder and keep track of those ping pong games</p>
 		    <p>(Or something else exciting)</p>
-	        <div id="home-accounts-span">
-	            <div>
-	            {% if not user.is_authenticated %}
-	                <a id="home-register-link" class="btn btn-large" href="/accounts/register/">Sign Up</a>&nbsp;&nbsp;
-	                <a id="home-login-link" class="btn btn-large" href="/accounts/login/">Log In</a>&nbsp;&nbsp;
-	            {% endif %}
-	               <a id="create-ladder-link" class="btn btn-primary btn-large" href="/ladders/create">Create Ladder</a>
-	            </div>
+	        <div>
+            {% if not user.is_authenticated %}
+                <a id="home-register-link" class="btn btn-large" href="/accounts/register/">Sign Up</a>
+                <a id="home-login-link" class="btn btn-large" href="/accounts/login/">Log In</a>
+            {% endif %}
+               <a id="create-ladder-link" class="btn btn-large btn-primary" href="/ladders/create">Create Ladder</a>
 	        </div>
 		</div>
 	{% if user.is_authenticated %}
 	    <div id="public-ladder-feed-span" class="span3">
-            {% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" %}
+        {% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" hide_watcher_count=1 %}
         </div>
 		<div id="watched-ladder-feed-span" class="span3">
-        {% include "core/content/ladder_feed.html" with ladder_feed=watched_ladder_feed ladder_feed_name="Watched Ladders" %}
+        {% include "core/content/ladder_feed.html" with ladder_feed=watched_ladder_feed ladder_feed_name="Watched Ladders" hide_watcher_count=1 %}
         </div>
     {% else %}
         <div id="public-ladder-feed-span" class="span6">
-            {% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" ladder_feed_size="6" %}
+            {% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" ladder_feed_size="6" hide_watcher_count=1 %}
         </div>
 	{% endif %}
 	</div>
-	
 </div>
 {% endblock %}

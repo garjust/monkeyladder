@@ -1,29 +1,26 @@
+#server-error-page,
+#not-found-error-page,
+#footer .container,
 body {
 	background-color: #eee;
 }
 
 div.container {
 	padding: 50px 20px 20px 20px;
-	padding-left: 20px;
-	padding-right: 20px;
 	background-color: #fff;
 }
 
-#server-error-page,
-#not-found-error-page {
+.error-page {
 	text-align: center;
 }
 
-#server-error-page img,
-#server-error-page p,
-#not-found-error-page img,
-#not-found-error-page p {
+.error-page img,
+.error-page p {
 	font-size: 110%;
 }
 
-#server-error-page img,
-#not-found-error-page img {
-    margin-top: 20px;
+.error-page img {
+    margin-top: 25px;
 }
 
 .small-header {
@@ -32,4 +29,21 @@ div.container {
 
 .absolute {
 	position: absolute;
+}
+
+.view-button-parent {
+	text-align: right;
+}
+
+.no-horizontal-lines-table td {
+	border-top-width: 0px;
+}
+
+.ladder-table {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+.table td {
+	vertical-align: middle;
 }

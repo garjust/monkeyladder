@@ -28,6 +28,9 @@ class Ladder(DatedModel):
     def watcher(self, user):
         if user.is_authenticated():
             return self.watcher_set.get(user=user)
+        
+    def watcher_count(self):
+        return self.watcher_set.count()
 
     #@models.permalink
     def get_absolute_url(self):

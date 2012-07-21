@@ -1,14 +1,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-    <title>{% block title %}Monkeyladder{% endblock %}</title>
-    {% include "styles.html" %}
-    {% include "js.html" %}
-    {% block head %}{% endblock %}
-</head>
-<body>
-    <div id="navbar-parent">{% include "navbar.html" %}</div>
-    <div id="content-parent">{% block content %}{% endblock %}</div>
-    <div id="footer-parent">{% include "footer.html" %}</div>
-</body>
+	<head>
+	    <title>{% block title %}Monkeyladder{% endblock %}</title>
+	    {% include "styles.html" %}
+	    {% include "js.html" %}
+	    {% block head %}{% endblock %}
+	</head>
+	<body>
+	    <div id="navbar-parent">{% block navbar %}{% include "navbar.html" %}{% endblock %}</div>
+	    <div id="content-parent">{% block content %}{% endblock %}</div>
+	    <div id="footer-parent">{% block footer %}{% include "footer.html" %}{% endblock %}</div>
+	</body>
 </html>

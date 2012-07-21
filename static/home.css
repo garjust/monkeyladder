@@ -1,25 +1,19 @@
-#create-ladder-span {
-    height: 200px;
-}
-
-#home-accounts-span div {
-    text-align: center;
-}
-
-#create-ladder-span div {
+#main-span div {
     text-align: center;
     margin-top: 67.5px;
     height: 65px;
 }
 
-#create-ladder-span a {
-    font-size: 180%;
+#main-span a {
+    font-size: 160%;
+    margin-right: 5px;
 }
 
-#create-ladder-span p {
+#main-span p {
 	font-size: 120%;
 }
 
+/*
 .btn-primary {
     background-color: #66a366;
     *background-color: #66a366;
@@ -44,3 +38,4 @@
     background-color: #66a366;
     *background-color: #004ab3;
 }
+*/

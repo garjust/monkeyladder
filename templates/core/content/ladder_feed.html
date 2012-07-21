@@ -3,16 +3,24 @@
         <h2>{{ ladder_feed_name|default:'Ladder Feed' }}</h2>
     </div>
 </div>
-{% for ladder in ladder_feed %}
 <div class="row">
     <div class="span{{ ladder_feed_size|default:'3' }}">
-        <h3><a href="/ladders/{{ ladder.id }}/">{{ ladder.name }}</a></h3>
+        <table class="table no-horizontal-lines-table ladder-table">
+            <tbody>
+		    {% for ladder in ladder_feed %}
+				<tr>
+				    <td>{{ ladder.name }}</td>
+				    {% if not hide_watcher_count %}<td>{{ ladder.watcher_count }}</td>{% endif %}
+				    <td class="view-button-parent" style="text-align: right"><a class="btn btn-small" href="{{ ladder.get_absolute_url }}">View</a></td>
+				</tr>
+	        {% empty %}
+			    <tr>
+			        <td>-</td>
+			        {% if not hide_watcher_count %}<td>-</td>{% endif %}
+			        <td>-</td>
+			    </tr>
+			{% endfor %}
+			</tbody>
+        </table>
     </div>
 </div>
-{% empty %}
-<div class="row">
-    <div class="span{{ ladder_feed_size|default:'3' }}">
-        <h3>{{ ladder_feed_empty|default:'No ladders available' }}</h3>
-    </div>
-</div>
-{% endfor %}

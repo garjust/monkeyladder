@@ -1,16 +1,16 @@
 <div id="footer">
-	<div id="footer-container" class="container">
+	<div class="container">
 	{% if site_error_message %}
-		<div id="site-error" class="row error">
-			<div class="span12">
+		<div id="site-error" class="row">
+			<div class="span{{ footer_size|default:'12' }}">
 				<p>{{ site_error_message }}</p>
 			</div>
 		</div>	
 	{% endif %}
 		<div id="author" class="row">
-			<div class="span12">
-			    <p>v{{ version_number|default:"-1" }} | <a href="https://bitbucket.org/garjust/monkeyladder/issues">Issues & Enhancements</a></p>
-				<p>&copy; 2012 Justin Garbutt</p>
+			<div class="span{{ footer_size|default:'12' }}">
+				<p>v{{ version_number|default:"-1" }} &copy; 2012 Justin Garbutt | <a href="https://bitbucket.org/garjust/monkeyladder/issues">Issues & Enhancements</a></p>
+				<p><a href="http://www.webfaction.com"><img src="/static/webfaction.png"></img></a></p>
 			</div>
 		</div>	
 	</div>
