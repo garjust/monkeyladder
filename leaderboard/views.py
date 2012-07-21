@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 from accounts.decorators import login_required_forbidden
 from core.logic import get_ladder_or_404
@@ -91,3 +92,9 @@ def match_feed_content(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     match_feed = logic.get_match_feed(ladder)
     return render(request, 'leaderboard/content/match_feed.html', {'match_feed': match_feed, 'ladder': ladder})
+
+@login_required
+def watch_ladder(request, ladder_id):
+    ladder = get_ladder_or_404(pk=ladder_id)
+    Watcher.objects.create(ladder=ladder, user=request.user)
+    return render(request, 'leaderboard/content/ladder_display.html', {'ladder': ladder})

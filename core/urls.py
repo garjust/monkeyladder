@@ -8,6 +8,7 @@ urlpatterns += patterns('core.delegator',
     url(r'^(?P<ladder_id>\d+)/$', 'delegate_ladder_view', name='view_ladder'),
     url(r'^(?P<ladder_id>\d+)/edit/$', 'delegate_ladder_edit', name='edit_ladder'),
     url(r'^(?P<ladder_id>\d+)/watchers/$', 'delegate_watchers_view', name='view_ladder_watchers'),
+    url(r'^(?P<ladder_id>\d+)/watch/$', 'delegate_watch_ladder', name='watch_ladder'),
     url(r'^(?P<ladder_id>\d+)/content/ladder_display/$', 'delegate_ladder_content', name='ladder_display_content'),             
 )
 

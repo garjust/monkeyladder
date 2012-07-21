@@ -7,12 +7,6 @@ class GameInline(admin.TabularInline):
     model = Game
     extra = 0
 
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
 class MatchAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['ladder', 'created']})
@@ -21,9 +15,6 @@ class MatchAdmin(admin.ModelAdmin):
     list_display = ('__unicode__', 'ladder', 'created')
     list_filter = ['ladder', 'created']
     date_hierarchy = 'created'
-
-    def has_add_permission(self, request):
-        return False
 
 class PlayerAdmin(admin.ModelAdmin):
     fieldsets = [
