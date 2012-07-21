@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% include "core/content/ladder_creation_form.html" %}
+<div id="login-page" class="container">
+    <div class="row">
+        <div id="login-span" class="span12 monkey-form-span">
+            <div class="monkey-form-div">
+            {% if form.errors %}
+            <div>{{ form.errors|removetags:"ul li" }}</div>
+            {% endif %}
+            {% include "core/content/ladder_creation_form.html" %}
+            </div>   
+        </div>
+    </div>
+</div>
 {% endblock %}
