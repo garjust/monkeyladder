@@ -1,10 +1,10 @@
-
+<div class="monkey-form-div">
     <form class="" action="/ladders/create/" method="post">{% csrf_token %}
         <table id="match-entry-table">
             <tbody>
                 <tr>
                     <td>{{ form.name.label_tag }}</td>
-                    <td>{{ form.name }}</td>
+                    <td {% if form.errors.name %}class="error"{% endif %}>{{ form.name }}</td>
                 </tr>
                 <tr>
                     <td>{{ form.rungs.label_tag }}</td>
@@ -40,7 +40,7 @@
             </div>
         </div>
     {% endif %}
-
+</div>
 <script type="text/javascript">
     $("#id_user_id").attr("value", {{ request.user.id }});
 </script>
