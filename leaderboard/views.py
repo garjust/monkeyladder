@@ -24,7 +24,6 @@ def view_ladder(request, ladder_id, form=None):
         'player_names': logic.get_autocomplete_list(ladder),
         'match_feed': logic.get_match_feed(ladder),
         'form': form,
-        'games': games,
         'admin': admin,
         'watcher': watcher,
     })
