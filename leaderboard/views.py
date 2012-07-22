@@ -28,7 +28,7 @@ def view_ladder(request, ladder_id, form=None):
         'admin': admin,
         'watcher': watcher,
     })
-    
+
 def get_watcher(user, ladder):
     if user.is_authenticated():
         try:

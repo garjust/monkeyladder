@@ -1,8 +1,8 @@
 <div class="row">
     <div class="span{{ feed_size|default:'6' }}">
-        <div>
-            <h3 class="">Watched Ladders</h2>
-            <table class="table centered-table horizontal-line-header-row-table">
+        <div class="well">
+            <h3 class="small-header">Watched Ladders</h2>
+            <table class="table centered-table">
                 <thead>
                     <th>Ladder</th>
                     <th>Admin</th>
@@ -15,7 +15,7 @@
                         <td>{{ ladder }}</td>
                         <td>{% if watcher.admin %}<i class="icon-ok"/>{% endif %}</td>
                         <td>{% if watcher.mod %}<i class="icon-ok"/>{% endif %}</td>
-                        <td class="view-button-parent"><a class="btn btn-small" href="{{ ladder.get_absolute_url }}">View</a></td>
+                        <td class="view-button-parent"><a class="btn" href="{{ ladder.get_absolute_url }}">View</a></td>
                     </tr>
                 {% empty %}
                     <td>-</td>

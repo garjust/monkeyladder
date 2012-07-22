@@ -43,15 +43,16 @@ table.no-horizontal-lines-table td {
 	border-top-width: 0px;
 }
 
-table.horizontal-line-header-row-table th {
-	border-top: 1px solid #dddddd;
-}
-
-.ladder-table {
+table.ladder-table {
 	font-size: 120%;
 	font-weight: bold;
 }
 
-.centered-table td {
+table.centered-table td {
 	vertical-align: middle;
+}
+
+.well .table tbody tr:hover td,
+.well .table tbody tr:hover th {
+  background-color: #ffffff;
 }
