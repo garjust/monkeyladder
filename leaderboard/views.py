@@ -75,7 +75,11 @@ def create_match(request, ladder_id):
             match = form.save(commit=True)
             logic.adjust_rankings(match)
             if request.is_ajax():
-                return render(request, 'leaderboard/content/match_entry_form.html', {'form': MatchCreationForm(ladder_id), 'ladder': ladder, 'new_match': match})
+                if request.GET.get('games', None):
+                    form = AdvancedMatchCreationForm(int(request.GET.get('games')), ladder_id)
+                else:
+                    form = MatchCreationForm(ladder_id)
+                return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder, 'new_match': match})
             return redirect('/ladders/{}'.format(ladder_id))
     else:
         form = MatchCreationForm(ladder_id)
