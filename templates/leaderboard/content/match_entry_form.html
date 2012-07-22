@@ -1,5 +1,5 @@
-<div class="monkey-form-div">    
-	{% if not games %}
+{% if not games %}
+<div class="monkey-form-div">
     <form id="match-entry-form" class="well" method="post" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/">{% csrf_token %}
         <fieldset>
 	        <div class="container-fluid">
@@ -21,40 +21,38 @@
             <a class="btn btn-large" href="/ladders/{{ ladder.id }}?games=3">Game Entry</a>
         </div>    
     </form>
-    
-    {% else %}
-    <form class="" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/?games={{ games }}" method="post">{% csrf_token %}
-        <table id="match-entry-table">
-            <tbody>
-                <tr>
-                    <td id="match-first-player" class="match-player-entry">
-                        {{ form.player_one.label_tag }}{{ form.player_one }}
-                    </td>
-                    <td id="match-second-player" class="match-player-entry">
-                        {{ form.player_two.label_tag }}{{ form.player_two }}
-                    </td>
-                </tr>
-                {% for game in form.games %}
-               	<tr>
-                   {% for score in game %}
-                   <td>{{ score }}</td>
-                   {% endfor %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {{ form.ladder_id }}
-        <input type="hidden" name="next" value="{{ request.path }}"/>
-        <div id="match-entry-form-submit">
-            <input class="btn btn-large" type="submit" value="Submit Match" />
-            <a href="/ladders/{{ ladder.id }}/" class="btn btn-large">Simple Entry</a>
-            <a href="/ladders/{{ ladder.id }}?games={{ games|add:"1" }}" class="btn btn-large">More Games</a>
-            <a href="/ladders/{{ ladder.id }}?games={{ games|add:"-1" }}" class="btn btn-large">Less Games</a>
-        </div>
-    </form>
-    {% endif %}
 </div>
+{% else %}
+<div class="monkey-form-div game-entry">
+    <form id="match-entry-form" class="well" method="post" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/?games={{ games }}">{% csrf_token %}
+        <fieldset>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                   <div id="id_player_one-group" class="span6">{{ form.player_one.label_tag }}{{ form.player_one }}</div>
+                   <div id="id_player_two-group" class="span6">{{ form.player_two.label_tag }}{{ form.player_two }}</div>
+                </div>
+                {% for player_one_score, player_two_score in form.games %}
+                <div class="row-fluid">
+                    <div class="span6">{{ player_one_score }}</div>
+                    <div class="span6">{{ player_two_score }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </fieldset>
+        <fieldset>
+            <input type="hidden" name="next" value="{{ request.path }}"/>
+        </fieldset>
+        <div class="monkey-form-actions">
+            <input id="match-entry-form-submit" class="btn btn-large" type="submit" value="Submit Match" />
+            <a class="btn btn-large" href="/ladders/{{ ladder.id }}/">Simple Entry</a>
+            <a class="btn btn-large" href="/ladders/{{ ladder.id }}?games={{ games|add:'1' }}">More</a>
+            <a class="btn btn-large" href="/ladders/{{ ladder.id }}?games={{ games|add:'-1' }}">Less</a>
+        </div>
+    </form> 
+</div>
+{% endif %}
 <script type="text/javascript">
+    //$(".player-name-autocomplete").addClass("input-medium")
 	$("#match-entry-span input").attr("autocomplete", "off")
 	$(".player-name-autocomplete").typeahead({
 	    source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], items: 10

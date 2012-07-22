@@ -15,7 +15,7 @@ def view_ladder(request, ladder_id, form=None):
     if not form:
         form = MatchCreationForm(ladder_id)
     if games:
-        form = AdvancedMatchCreationForm(int(games))
+        form = AdvancedMatchCreationForm(int(games), ladder_id)
     watcher = get_watcher(request.user, ladder)
     admin = get_admin(request.user, ladder)
     return render(request, 'leaderboard/view_ladder.html', {

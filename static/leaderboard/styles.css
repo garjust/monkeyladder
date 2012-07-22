@@ -18,6 +18,10 @@
     border: none;
 }
 
+#match-entry-span .monkey-form-div.game-entry {
+	width: 500px;
+}
+
 #match-entry-span .container-fluid {
 	padding-left: 0px;
 	padding-right: 0px;
@@ -32,6 +36,7 @@
 }
 
 #match-entry-span .span8,
+#match-entry-span .span6,
 #match-entry-span .span4 {
 	padding: 5px;
 	margin-bottom: 5px;
