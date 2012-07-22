@@ -16,7 +16,6 @@ def view_ladder(request, ladder_id, form=None):
         form = MatchCreationForm(ladder_id)
     if games:
         form = AdvancedMatchCreationForm(int(games), ladder_id)
-    watcher = get_watcher(request.user, ladder)
     admin = get_admin(request.user, ladder)
     return render(request, 'leaderboard/view_ladder.html', {
         'navbar_active': 'ladder',
@@ -25,15 +24,17 @@ def view_ladder(request, ladder_id, form=None):
         'match_feed': logic.get_match_feed(ladder),
         'form': form,
         'admin': admin,
-        'watcher': watcher,
+        'not_watching': is_watching(request.user, ladder),
     })
 
-def get_watcher(user, ladder):
+def is_watching(user, ladder):
     if user.is_authenticated():
         try:
-            return ladder.watcher(user)
-        except Watcher.DoesNotExist:
+            w = ladder.watcher(user)
             return False
+        except Watcher.DoesNotExist:
+            pass
+    return True
 
 def get_admin(user, ladder):
     if user.is_authenticated():
