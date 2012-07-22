@@ -1,17 +1,3 @@
- .monkey-form-span .error {
-	text-align: center;
-	color: red;
-	font-style: italic;
-	font-size: 120%;
-}
-
-.monkey-form-span .success {
-	text-align: center;
-	color: green;
-	font-style: italic;
-	font-size: 120%;
-}
-
 .monkey-form-div {
 	width: 600px;
 	margin: 40px auto auto auto; 
@@ -19,52 +5,48 @@
 	background-color: #fff;
 }
 
-.monkey-form-div form {
-	margin-top: 10px;
-	margin-bottom: 10px;
+.monkey-form-div .form-error {
+    background-color: #ff8c8c;
 }
 
-.monkey-form-div table {
-	width: 100%;
+.monkey-form-div .control-group {
+    margin: 5px 0px;
+    padding: 5px 0px;
 }
 
-.monkey-form-div td {
-	padding-right: 10px;
-	padding-left: 10px;
+.monkey-form-div input {
+    margin-bottom: 0px;
 }
 
-.monkey-form-submit-div {
-	margin: 5px 5px 5px 5px;
-	text-align: center;
-}
-
-.monkey-form-submit-div > input {
-	margin-left: auto;
-	margin-right: auto;
+.monkey-form-div label {
+    text-align: right;
 }
 
 .monkey-form-actions {
     text-align: center;
-    margin: 20px 0px 20px 0px;
+    padding: 10px 0px;
 }
 
-.monkey-form-div input {
-	margin-bottom: 0px;
-}
-
-.monkey-form-div label {
-	text-align: right;
-}
-
-.monkey-form-span .form-error {
-    background-color: #ff8c8c;
-}
-
-.monkey-form-span .control-group {
-	margin: 5px 0px;
-	padding: 5px 0px;
+.monkey-form-actions a,
+.monkey-form-actions input {
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .tooltip {
 	font-size: 140%;
+}
+
+.monkey-form-span .error {
+    text-align: center;
+    color: red;
+    font-style: italic;
+    font-size: 120%;
+}
+
+.monkey-form-span .success {
+    text-align: center;
+    color: green;
+    font-style: italic;
+    font-size: 120%;
 }

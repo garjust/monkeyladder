@@ -1,5 +1,5 @@
 <div class="monkey-form-div">
-    <form class="form-horizontal" style="" action="/ladders/create/" method="post">{% csrf_token %}
+    <form class="form-horizontal" action="/ladders/create/" method="post">{% csrf_token %}
         <fieldset>
             <div id="id_name-group" class="control-group">{{ form.name.label_tag }}
 	            <div class="controls">{{ form.name }}</div>

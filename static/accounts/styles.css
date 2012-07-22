@@ -1,18 +1,5 @@
-#login-page,
-#register-page {
-	background-color: #eee;
-}
- 
 #login-page .monkey-form-div {
-	width: 411px;
-}
-
-#login-page #login-register-link-div {
-	margin-top: 15px;
-	margin-bottom: 15px;
-	font-size: 110%;
-	font-family: cursive;
-	text-align: center;
+	width: 450px;
 }
 
 #register-page .monkey-form-div {
