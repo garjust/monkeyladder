@@ -26,6 +26,10 @@ class Match(DatedModel):
     def games(self):
         return Game.objects.filter(match=self)
 
+    #@models.permalink
+    def get_absolute_url(self):
+        return '/ladders/%s/leaderboard/matches/?id=%s' % (self.ladder.id, self.id)
+
     def __unicode__(self):
         return "{} ({}) vs {} ({})".format(self.winner.get_profile().name(), self.winner_score, self.loser.get_profile().name(), self.loser_score)
 
