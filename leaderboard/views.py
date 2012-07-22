@@ -13,7 +13,7 @@ def view_ladder(request, ladder_id, form=None):
     ladder = get_ladder_or_404(pk=ladder_id)
     games = request.GET.get('games', None)
     if not form:
-        form = MatchCreationForm()
+        form = MatchCreationForm(ladder_id)
     if games:
         form = AdvancedMatchCreationForm(int(games))
     watcher = get_watcher(request.user, ladder)
@@ -69,19 +69,17 @@ def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     if request.POST:
         if request.GET.get('games', None):
-            form = AdvancedMatchCreationForm(int(request.GET.get('games')), request.POST)
+            form = AdvancedMatchCreationForm(int(request.GET.get('games')), ladder_id, request.POST)
         else:
-            form = MatchCreationForm(request.POST)
+            form = MatchCreationForm(ladder_id, request.POST)
         if form.is_valid():
             match = form.save(commit=True)
-            form = MatchCreationForm()
-            form.success = "Match was created successfully"
             logic.adjust_rankings(match)
             if request.is_ajax():
-                return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder, 'new_match': match})
-            return redirect('ladders/{}'.format(ladder_id))
+                return render(request, 'leaderboard/content/match_entry_form.html', {'form': MatchCreationForm(ladder_id), 'ladder': ladder, 'new_match': match})
+            return redirect('/ladders/{}'.format(ladder_id))
     else:
-        form = MatchCreationForm()
+        form = MatchCreationForm(ladder_id)
     return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder})
 
 def ajax_ladder_display(request, ladder_id):

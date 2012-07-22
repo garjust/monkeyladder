@@ -8,16 +8,16 @@ class BaseMatchCreationForm(forms.Form):
     error_messages = {
         'invalid_player': _("Players must be on the ladder"),
     }
+    
+    def __init__(self, ladder_id, *args, **kwargs):
+        forms.Form.__init__(self, *args, **kwargs)
+        self.ladder_id = ladder_id
 
-    ladder_id = forms.IntegerField(label=_("Ladder Id"), widget=forms.HiddenInput, min_value=1)
     player_one = forms.CharField(label=_("Player One"), max_length=30, widget=forms.TextInput(attrs={'class': 'player-name-autocomplete'}))
     player_two = forms.CharField(label=_("Player Two"), max_length=30, widget=forms.TextInput(attrs={'class': 'player-name-autocomplete'}))
 
-    def clean_ladder_id(self):
-        return self.cleaned_data['ladder_id']
-
     def clean_player_one(self):
-        ladder = get_ladder_or_404(pk=self.cleaned_data['ladder_id'])
+        ladder = get_ladder_or_404(pk=self.ladder_id)
         player_one = self.cleaned_data['player_one']
         player_dictionary = get_ladder_player_dictionary(ladder)
         for player in player_dictionary:
@@ -27,7 +27,7 @@ class BaseMatchCreationForm(forms.Form):
         raise forms.ValidationError(self.error_messages['invalid_player'])
 
     def clean_player_two(self):
-        ladder = get_ladder_or_404(pk=self.cleaned_data['ladder_id'])
+        ladder = get_ladder_or_404(pk=self.ladder_id)
         player_two = self.cleaned_data['player_two']
         player_dictionary = get_ladder_player_dictionary(ladder)
         for player in player_dictionary:
@@ -40,7 +40,7 @@ class MatchCreationForm(BaseMatchCreationForm):
     """
     A form that creates a match without game information
     """
-
+        
     player_one_score = forms.IntegerField(label=_("Score"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
     player_two_score = forms.IntegerField(label=_("Score"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
 
@@ -52,7 +52,7 @@ class MatchCreationForm(BaseMatchCreationForm):
             winner = 'player_two'
             loser = 'player_one'
         ranking_change = not self.cleaned_data['player_one_score'] == self.cleaned_data['player_two_score']
-        match = Match(ladder=get_ladder_or_404(pk=self.cleaned_data['ladder_id']), ranking_change=ranking_change,
+        match = Match(ladder=get_ladder_or_404(pk=self.ladder_id), ranking_change=ranking_change,
             winner=self.cleaned_data[winner], winner_score=self.cleaned_data['{}_score'.format(winner)],
             loser=self.cleaned_data[loser], loser_score=self.cleaned_data['{}_score'.format(loser)]
         )
@@ -64,8 +64,8 @@ class AdvancedMatchCreationForm(BaseMatchCreationForm):
     A form that creates the a match with games
     """
 
-    def __init__(self, number_of_games, *args, **kwargs):
-        forms.Form.__init__(self, *args, **kwargs)
+    def __init__(self, number_of_games, ladder_id, *args, **kwargs):
+        BaseMatchCreationForm.__init__(self, ladder_id, *args, **kwargs)
         self.number_of_games = number_of_games
         for i in range(number_of_games):
             self.fields['game_{}_player_one_score'.format(i)] = forms.IntegerField(label=_("Game {} Player One Score".format(i)), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
@@ -105,7 +105,7 @@ class AdvancedMatchCreationForm(BaseMatchCreationForm):
             winner_score = player_two_games
             loser_score = player_one_games
         ranking_change = not player_one_games == player_two_games
-        match = Match(ladder=get_ladder_or_404(pk=self.cleaned_data['ladder_id']), ranking_change=ranking_change,
+        match = Match(ladder=get_ladder_or_404(pk=self.ladder_id), ranking_change=ranking_change,
             winner=self.cleaned_data[winner], winner_score=winner_score,
             loser=self.cleaned_data[loser], loser_score=loser_score
         )

@@ -1,0 +1,38 @@
+#match-entry-span .error {
+    text-align: center;
+    color: red;
+    font-style: italic;
+    font-size: 120%;
+}
+
+#match-entry-span .success {
+    text-align: center;
+    color: green;
+    font-style: italic;
+    font-size: 120%;
+}
+
+
+#match-entry-span .monkey-form-div {
+    width: 400px;
+    border: none;
+}
+
+#match-entry-span .container-fluid {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#match-entry-span label {
+	text-align: left;
+}
+
+#match-entry-span .well {
+	padding-bottom: 0px;
+}
+
+#match-entry-span .span8,
+#match-entry-span .span4 {
+	padding: 5px;
+	margin-bottom: 5px;
+}
