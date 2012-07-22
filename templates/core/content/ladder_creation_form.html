@@ -1,10 +1,10 @@
 <div class="monkey-form-div">
     <form class="form-horizontal" style="" action="/ladders/create/" method="post">{% csrf_token %}
         <fieldset>
-            <div class="control-group">{{ form.name.label_tag }}
+            <div id="id_name-group" class="control-group">{{ form.name.label_tag }}
 	            <div class="controls">{{ form.name }}</div>
             </div>
-            <div class="control-group">{{ form.rungs.label_tag }}
+            <div id="id_rungs-group" class="control-group">{{ form.rungs.label_tag }}
                 <div class="controls">{{ form.rungs }}</div>
             </div>
             <div class="control-group">{{ form.is_private.label_tag }}
@@ -19,18 +19,24 @@
             <input type="hidden" name="next" value="{{ request.path }}"/>
         </fieldset>     
         <div class="monkey-form-actions">
-            <input class="btn btn-large btn-success" type="submit" value="Create" />
+            <input class="btn btn-large" type="submit" value="Create" />
             <a class="btn btn-large" href="/home">Cancel</a>
         </div>   
     </form>
 </div>
 <script type="text/javascript">
-    $("#id_user_id").attr("value", {{ request.user.id }});
     $(".control-group label").addClass("control-label");
-    $("#id_name-error").position({of: $("#id_name"), my: "left center", at: "right center"});
-    $("#id_name-row").hover(function () {
-    	$("#id_name-error").show()
-    }, function () {
-    	$("#id_name-error").hide()
-    });
+    $(function () {
+    	function errorTooltip(id, content) {
+    		var group = $("#" + id)
+    		group.addClass("form-error")
+    		group.tooltip({
+    	        placement: "right", title: content
+    	    });
+    	}
+    	{% if form.errors.name %}errorTooltip("id_name-group", "{{ form.errors.name|removetags:'ul li'}}"){% endif %}
+    	{% if form.errors.rungs %}errorTooltip("id_rungs-group", "{{ form.errors.rungs|removetags:'ul li'}}"){% endif %}
+    	{% if form.errors.is_private %}errorTooltip("id_is_private-group", "{{ form.errors.is_private|removetags:'ul li'}}"){% endif %}
+    	{% if form.errors.type %}errorTooltip("id_type-group", "{{ form.errors.type|removetags:'ul li'}}"){% endif %}
+    })
 </script>
