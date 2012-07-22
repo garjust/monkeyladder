@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from accounts import logic
 from accounts.forms import ExtendedUserCreationForm
@@ -11,9 +11,7 @@ def register(request):
         form = ExtendedUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            form = ExtendedUserCreationForm()
-            form.success = True
-            return render(request, 'accounts/register.html', {'form': form, 'new_user': user})
+            return redirect("/home/")
     else:
         form = ExtendedUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})

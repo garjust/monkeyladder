@@ -35,12 +35,16 @@ div.container-dark {
 	position: absolute;
 }
 
-.view-button-parent {
+td.view-button-parent {
 	text-align: right;
 }
 
-.no-horizontal-lines-table td {
+table.no-horizontal-lines-table td {
 	border-top-width: 0px;
+}
+
+table.horizontal-line-header-row-table th {
+	border-top: 1px solid #dddddd;
 }
 
 .ladder-table {

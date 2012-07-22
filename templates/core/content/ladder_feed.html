@@ -11,7 +11,7 @@
 				<tr>
 				    <td>{{ ladder.name }}</td>
 				    {% if not hide_watcher_count %}<td>{{ ladder.watcher_count }}</td>{% endif %}
-				    <td class="view-button-parent" style="text-align: right"><a class="btn btn-small" href="{{ ladder.get_absolute_url }}">View</a></td>
+				    <td class="view-button-parent"><a class="btn btn-small" href="{{ ladder.get_absolute_url }}">View</a></td>
 				</tr>
 			{% endfor %}
 			</tbody>
