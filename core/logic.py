@@ -35,6 +35,7 @@ def watched_ladder_feed(user, order='-created', size=25):
     """
     if user.is_authenticated():
         return map(lambda w: w.ladder, user.watcher_set.all().order_by(order)[:size])
+    return []
 
 def favorite_ladder_feed(user, order='-created', size=25):
     """
@@ -42,6 +43,7 @@ def favorite_ladder_feed(user, order='-created', size=25):
     """
     if user.is_authenticated():
         return map(lambda f: f.ladder, user.favorite_set.all().order_by(order)[:size])
+    return []
     
 def ladder_watchers(ladder, order='-created', size=100):
     """

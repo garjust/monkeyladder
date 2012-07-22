@@ -13,6 +13,7 @@
 }
 
 .monkey-form-div {
+	width: 600px;
 	margin: 40px auto auto auto; 
 	border: 1px solid #ccc;
 	background-color: #fff;
@@ -28,7 +29,8 @@
 }
 
 .monkey-form-div td {
-	padding-left: 10%;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
 .monkey-form-submit-div {
@@ -39,4 +41,38 @@
 .monkey-form-submit-div > input {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.monkey-form-actions {
+    text-align: center;
+    margin: 20px 0px 20px 0px;
+}
+
+.monkey-form-div .form-error {
+	color: #b94a48;
+}
+
+.monkey-form-div .form-error input {
+    color: #b94a48;
+    border-color: #b94a48;
+    border-width: 1px;
+}
+
+.monkey-form-div .form-error input:focus {
+	border-color: #953b39;
+	-webkit-box-shadow: 0 0 6px #d59392;
+	   -moz-box-shadow: 0 0 6px #d59392;
+	        box-shadow: 0 0 6px #d59392;
+}
+
+.monkey-form-div input {
+	margin-bottom: 0px;
+}
+
+.monkey-form-div label {
+	text-align: right;
+}
+
+.monkey-form-inner-div {
+
 }

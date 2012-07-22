@@ -1,46 +1,36 @@
 <div class="monkey-form-div">
-    <form class="" action="/ladders/create/" method="post">{% csrf_token %}
-        <table id="match-entry-table">
-            <tbody>
-                <tr>
-                    <td>{{ form.name.label_tag }}</td>
-                    <td {% if form.errors.name %}class="error"{% endif %}>{{ form.name }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.rungs.label_tag }}</td>
-                    <td>{{ form.rungs }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.is_private.label_tag }}</td>
-                    <td>{{ form.is_private }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.type.label_tag }}</td>
-                    <td>{{ form.type }}</td>
-                </tr>
-            </tbody>
-        </table>
+    <form class="form-horizontal" style="" action="/ladders/create/" method="post">{% csrf_token %}
+        <fieldset>
+            <div class="control-group">{{ form.name.label_tag }}
+	            <div class="controls">{{ form.name }}</div>
+            </div>
+            <div class="control-group">{{ form.rungs.label_tag }}
+                <div class="controls">{{ form.rungs }}</div>
+            </div>
+            <div class="control-group">{{ form.is_private.label_tag }}
+                <div class="controls"><label class="checkbox">{{ form.is_private }}</label></div>
+            </div>
+            <div class="control-group">{{ form.type.label_tag }}
+                <div class="controls">{{ form.type }}</div>
+            </div>
+        </fieldset> 
+        <fieldset>
         {{ form.user_id }}
-        <input type="hidden" name="next" value="{{ request.path }}"/>
-        <div style="text-align: center;">
-            <input class="btn btn-large" type="submit" value="Create Ladder" />
+            <input type="hidden" name="next" value="{{ request.path }}"/>
+        </fieldset>     
+        <div class="monkey-form-actions">
+            <input class="btn btn-large btn-success" type="submit" value="Create" />
+            <a class="btn btn-large" href="/home">Cancel</a>
         </div>   
     </form>
-    {% if form.success %}
-        <div id="match-created-success" class="success">
-            <div>
-                <p>{{ form.success }}</p>
-            </div>
-        </div>
-    {% endif %}
-    {% if form.errors %}
-        <div id="site-error" class="error">
-            <div>
-                <p>{{ form.errors }}</p>
-            </div>
-        </div>
-    {% endif %}
 </div>
 <script type="text/javascript">
     $("#id_user_id").attr("value", {{ request.user.id }});
+    $(".control-group label").addClass("control-label");
+    $("#id_name-error").position({of: $("#id_name"), my: "left center", at: "right center"});
+    $("#id_name-row").hover(function () {
+    	$("#id_name-error").show()
+    }, function () {
+    	$("#id_name-error").hide()
+    });
 </script>

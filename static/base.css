@@ -10,6 +10,10 @@ div.container {
 	background-color: #fff;
 }
 
+div.container-dark {
+    background-color: #eee;
+}
+
 .error-page {
 	text-align: center;
 }
@@ -44,6 +48,6 @@ div.container {
 	font-weight: bold;
 }
 
-.table td {
+.centered-table td {
 	vertical-align: middle;
 }

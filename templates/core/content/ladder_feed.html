@@ -5,7 +5,7 @@
 </div>
 <div class="row ladder-feed-body">
     <div class="span{{ ladder_feed_size|default:'3' }}">
-        <table class="table no-horizontal-lines-table ladder-table">
+        <table class="table no-horizontal-lines-table ladder-table centered-table">
             <tbody>
 		    {% for ladder in ladder_feed %}
 				<tr>
@@ -13,12 +13,6 @@
 				    {% if not hide_watcher_count %}<td>{{ ladder.watcher_count }}</td>{% endif %}
 				    <td class="view-button-parent" style="text-align: right"><a class="btn btn-small" href="{{ ladder.get_absolute_url }}">View</a></td>
 				</tr>
-	        {% empty %}
-			    <tr>
-			        <td>-</td>
-			        {% if not hide_watcher_count %}<td>-</td>{% endif %}
-			        <td>-</td>
-			    </tr>
 			{% endfor %}
 			</tbody>
         </table>

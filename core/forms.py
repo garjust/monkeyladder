@@ -11,8 +11,11 @@ class LadderCreationForm(forms.Form):
         'too_many_rungs': _("Ladder can have a maximum 100 rungs"),
         'invalid_user': _("User does not exist"),
     }
-
-    user_id = forms.IntegerField(label=_("User Id"), widget=forms.HiddenInput, min_value=1)
+    
+    def __init__(self, user, *args, **kwargs):
+        forms.Form.__init__(self, *args, **kwargs)
+        self.fields['user_id'] = forms.IntegerField(label=_("User Id"), widget=forms.HiddenInput, min_value=1, initial=user.id)
+        
     name = forms.CharField(label=_("Ladder Name"))
     rungs = forms.IntegerField(label=_("Rungs"), min_value=1)
     is_private = forms.BooleanField(label=_("Private"), required=False)
