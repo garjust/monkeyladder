@@ -16,6 +16,7 @@
 			$("#register-form-"+errorFields[i]+"-error").position({of: $("#register-form-"+errorFields[i]), my: "left center", at: "right center"});
 		}
 	});
+	$(function () { $("#register-page input").attr("autocomplete", "off") });
 	{% if register_form.success %}
 	$(document).ready(function() { $(".monkey-form-div").css("background-color", "#8CD1A3") })
 	{% endif %}

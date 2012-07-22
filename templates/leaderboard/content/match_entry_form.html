@@ -81,8 +81,12 @@
 </div>
 <script type="text/javascript">
     $("#id_ladder_id").attr("value", {{ ladder.id }});
-    $(".player-name-autocomplete").autocomplete({
-        source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], delay: 50
+    $("#match-entry-table input").attr("autocomplete", "off")
+    //$(".player-name-autocomplete").autocomplete({
+    //    source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], delay: 50
+    //});
+    $(".player-name-autocomplete").typeahead({
+        source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], items: 10
     });
     $("#forbidden").hide()
     $(function() {
