@@ -13,10 +13,10 @@ def register(request):
             user = form.save()
             form = ExtendedUserCreationForm()
             form.success = True
-            return render(request, 'accounts/register.html', {'register_form': form, 'new_user': user})
+            return render(request, 'accounts/register.html', {'form': form, 'new_user': user})
     else:
         form = ExtendedUserCreationForm()
-    return render(request, 'accounts/register.html', {'register_form': form})
+    return render(request, 'accounts/register.html', {'form': form})
 
 @login_required(login_url="/accounts/login")
 def view_profile(request, user_id):

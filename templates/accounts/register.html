@@ -1,94 +1,60 @@
 {% extends "base.html" %}
 
-{% block head %}
-<script type="text/javascript">
-	$(function() {
-		var errorFields = [
-			{% if register_form.errors.username %}"username",{% endif %}
-		    {% if register_form.errors.password1 %}"password1",{% endif %}
-		    {% if register_form.errors.password2 %}"password2",{% endif %}
-		    {% if register_form.errors.email %}"email",{% endif %}
-		    {% if register_form.errors.first_name %}"first-name",{% endif %}
-		    {% if register_form.errors.last_name %}"last-name",{% endif %}
-		]
-		for (var i = 0; i < errorFields.length; i++) {
-			$("#register-form-"+errorFields[i]).css("background-color", "#FF8C8C") 
-			$("#register-form-"+errorFields[i]+"-error").position({of: $("#register-form-"+errorFields[i]), my: "left center", at: "right center"});
-		}
-	});
-	$(function () { $("#register-page input").attr("autocomplete", "off") });
-	{% if register_form.success %}
-	$(document).ready(function() { $(".monkey-form-div").css("background-color", "#8CD1A3") })
-	{% endif %}
-</script>
-<style type="text/css">
-	.position-absolute {
-		position: absolute;
-	}
-</style>
-{% endblock %}
-
 {% block content %}
-<div id="register-page" class="container">
+<div id="register-page" class="container container-dark">
 	<div class="row">
-	    <div class="span12 monkey-form-span">
+	    <div class="span12">
 	        <div class="monkey-form-div">
-	        {% if register_form.success %}
-				<div id="register-form-success">Account created successfully</div>
-			{% endif %}
-	            <form method="post" action="/accounts/register/">{% csrf_token %}
-	                <table>
-	                    <tr id="register-form-username">
-	                        <td class="monkey-form-label">{{ register_form.username.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ register_form.username }}</td>
-	                    </tr>
-	                    <tr id="register-form-password1">
-	                        <td class="monkey-form-label">{{ register_form.password1.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ register_form.password1 }}</td>
-	                    </tr>
-	                    <tr id="register-form-password2">
-	                        <td class="monkey-form-label">{{ register_form.password2.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ register_form.password2 }}</td>       
-	                    </tr>
-	                    <tr id="register-form-email">
-	                        <td class="monkey-form-label">{{ register_form.email.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ register_form.email }}</td>
-	                    </tr>
-	                    <tr id="register-form-first-name">
-	                        <td class="monkey-form-label">{{ register_form.first_name.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ register_form.first_name }}</td>
-	                    </tr>
-	                    <tr id="register-form-last-name">
-	                        <td class="monkey-form-label">{{ register_form.last_name.label_tag }}</td>
-	                        <td class="monkey-form-input">{{ register_form.last_name }}</td>
-	                    </tr>
-	                </table>
-					<div class="monkey-form-submit-div">
+	            <form class="form-horizontal" method="post" action="/accounts/register/">{% csrf_token %}
+                    <fieldset>
+                        <div id="id_username-group" class="control-group">{{ form.username.label_tag }}
+                           <div class="controls">{{ form.username }}</div>
+                        </div>
+                        <div id="id_password1-group" class="control-group">{{ form.password1.label_tag }}
+                           <div class="controls">{{ form.password1 }}</div>
+                        </div>
+                        <div id="id_password2-group" class="control-group">{{ form.password2.label_tag }}
+                           <div class="controls">{{ form.password2 }}</div>
+                        </div>
+                        <div id="id_email-group" class="control-group">{{ form.email.label_tag }}
+                           <div class="controls">{{ form.email }}</div>
+                        </div>
+                        <div id="id_first_name-group" class="control-group">{{ form.first_name.label_tag }}
+                           <div class="controls">{{ form.first_name }}</div>
+                        </div>
+                        <div id="id_last_name-group" class="control-group">{{ form.last_name.label_tag }}
+                           <div class="controls">{{ form.last_name }}</div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </fieldset>
+					<div class="monkey-form-actions">
 	                	<input class="btn btn-large" type="submit" value="Register" />
-	        
-	                </div>
-	                <input type="hidden" name="next" value="{{ next }}" />
+	                    <a class="btn btn-large" href="/home/">Cancel</a>
+	                </div> 
 	            </form>
 	        </div>
 	    </div>
 	</div>
 </div>
-{% if register_form.errors.username %}
-<div id="register-form-username-error" class="position-absolute register-form-error">{{ register_form.errors.username|removetags:"ul li" }}</div>
-{% endif %}
-{% if register_form.errors.password1 %}
-<div id="register-form-password1-error" class="position-absolute register-form-error">{{ register_form.errors.password1|removetags:"ul li" }}</div>
-{% endif %}
-{% if register_form.errors.password2 %}
-<div id="register-form-password2-error" class="position-absolute register-form-error">{{ register_form.errors.password2|removetags:"ul li" }}</div>
-{% endif %}
-{% if register_form.errors.email %}
-<div id="register-form-email-error" class="position-absolute register-form-error">{{ register_form.errors.email|removetags:"ul li" }}</div>
-{% endif %}
-{% if register_form.errors.first_name %}
-<div id="register-form-first-name-error" class="position-absolute register-form-error">{{ register_form.errors.first_name|removetags:"ul li" }}</div>
-{% endif %}
-{% if register_form.errors.last_name %}
-<div id="register-form-last-name-error" class="position-absolute register-form-error">{{ register_form.errors.last_name|removetags:"ul li" }}</div>
-{% endif %}
+<script type="text/javascript">
+    $(".control-group label").addClass("control-label");
+    $("#register-page input").attr("autocomplete", "off")
+    $(function () {
+        function errorTooltip(id, content) {
+            var group = $("#" + id)
+            group.addClass("form-error")
+            group.tooltip({
+                placement: "right", title: content
+            });
+        }
+        {% if form.errors.username %}errorTooltip("id_username-group", "{{ form.errors.username|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.password1 %}errorTooltip("id_password1-group", "{{ form.errors.password1|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.password2 %}errorTooltip("id_password2-group", "{{ form.errors.password2|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.email %}errorTooltip("id_email-group", "{{ form.errors.email|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.first_name %}errorTooltip("id_first_name-group", "{{ form.errors.first_name|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.last_name %}errorTooltip("id_last_name-group", "{{ form.errors.last_name|removetags:'ul li'}}"){% endif %}
+    })
+</script>
 {% endblock %}
