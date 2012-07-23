@@ -38,17 +38,3 @@
 .tooltip {
 	font-size: 140%;
 }
-
-.monkey-form-span .error {
-    text-align: center;
-    color: red;
-    font-style: italic;
-    font-size: 120%;
-}
-
-.monkey-form-span .success {
-    text-align: center;
-    color: green;
-    font-style: italic;
-    font-size: 120%;
-}

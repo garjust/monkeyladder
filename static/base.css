@@ -27,6 +27,21 @@ div.container-dark {
     margin-top: 25px;
 }
 
+.generic-error,
+.generic-success {
+	text-align: center;
+    font-size: 125%;
+    font-style: italic;
+}
+
+.generic-error {
+	color: red;
+}
+
+.generic-success {
+	color: green;
+}
+
 .small-header {
 	border-bottom: 1px solid #dddddd;
 }

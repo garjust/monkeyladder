@@ -16,7 +16,10 @@
 	                </fieldset>
 	                <fieldset>
 	                   <input type="hidden" name="next" value="{{ next }}"/>
-	                </fieldset>  
+	                </fieldset>
+	                {% if form.non_field_errors %} 
+	                <div class="generic-error">{{ form.non_field_errors|removetags:"ul li" }}</div>
+	                {% endif %}
 					<div class="monkey-form-actions">
 	                	<input id="login-button" class="btn btn-large" type="submit" value="Log In" />
 	                	<a id="register-button" class="btn btn-large" href="/accounts/register/">Register</a>
@@ -38,7 +41,6 @@
         }
         {% if form.errors.username %}errorTooltip("id_username-group", "{{ form.errors.username|removetags:'ul li'}}"){% endif %}
         {% if form.errors.password %}errorTooltip("id_password-group", "{{ form.errors.password|removetags:'ul li'}}"){% endif %}
-        {% if form.errors and not form.errors.username and not form.errors.password %}errorTooltip("login-fieldset-primary", "{{ form.errors|removetags:'ul li'}}"){% endif %}
     })
 </script>
 {% endblock %}
