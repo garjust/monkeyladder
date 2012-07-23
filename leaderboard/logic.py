@@ -61,7 +61,7 @@ def inverse_match(match):
 def delete_match(match):
     pass
 
-SWAP_RANGE = 2
+SWAP_RANGE = 0
 ADVANCEMENT_RANKS = 2
 AUTO_TAKE_FIRST = True
 
