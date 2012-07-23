@@ -6,7 +6,7 @@ from leaderboard.models import Match, Player, MatchRankingChangeSet
 import logging
 logger = logging.getLogger('monkeyladder')
 
-def get_match_feed(ladder, order='-created', size=5):
+def get_match_feed(ladder, order='-created', size=10):
     """
     Returns a match feed for the specified ladder
     """
