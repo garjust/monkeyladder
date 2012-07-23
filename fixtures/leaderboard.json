@@ -1,172 +1,107 @@
 [
-    {
-        "model": "core.ranked",
-        "pk": 1,
-        "fields": {
-            "ladder": 1,
-            "rank": 1,
-            "description": "jagarbut",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 1,
-        "fields": {
-            "user": 1
-        }
-    },
-    {
-        "model": "core.ranked",
-        "pk": 2,
-        "fields": {
-            "ladder": 1,
-            "rank": 2,
-            "description": "the_tan",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 2,
-        "fields": {
-            "user": 2
-        }
-    },
-    {
-        "model": "core.ranked",
-        "pk": 3,
-        "fields": {
-            "ladder": 1,
-            "rank": 3,
-            "description": "vladman",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 3,
-        "fields": {
-            "user": 3
-        }
-    },
-    {
-        "model": "core.ranked",
-        "pk": 4,
-        "fields": {
-            "ladder": 1,
-            "rank": 4,
-            "description": "mike.pettypiece",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 4,
-        "fields": {
-            "user": 4
-        }
-    },
-    {
-        "model": "core.ranked",
-        "pk": 5,
-        "fields": {
-            "ladder": 1,
-            "rank": 5,
-            "description": "coma",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 5,
-        "fields": {
-            "user": 5
-        }
-    },
-    {
-        "model": "core.ranked",
-        "pk": 6,
-        "fields": {
-            "ladder": 1,
-            "rank": 6,
-            "description": "waffle",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 6,
-        "fields": {
-            "user": 6
-        }
-    },
-    {
-        "model": "core.ranked",
-        "pk": 7,
-        "fields": {
-            "ladder": 1,
-            "rank": 7,
-            "description": "mikey",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 7,
-        "fields": {
-            "user": 7
-        }
-    },
-    {
-        "model": "core.ranked",
-        "pk": 8,
-        "fields": {
-            "ladder": 2,
-            "rank": 1,
-            "description": "jagarbut",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 8,
-        "fields": {
-            "user": 1
-        }
-    },
-    {
-        "model": "core.ranked",
-        "pk": 9,
-        "fields": {
-            "ladder": 2,
-            "rank": 2,
-            "description": "waffle",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 9,
-        "fields": {
-            "user": 6
-        }
-    },
-    {
-        "model": "core.ranked",
-        "pk": 10,
-        "fields": {
-            "ladder": 2,
-            "rank": 3,
-            "description": "mikey",
-            "created": "2012-06-20T10:00:00Z"
-        }
-    },
-    {
-        "model": "leaderboard.player",
-        "pk": 10,
-        "fields": {
-            "user": 7
-        }
+  {
+    "pk": 16, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 10
     }
+  }, 
+  {
+    "pk": 15, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 8
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 4
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 3
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 2
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 1
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 11
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 10
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 9
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 7
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 6
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 5
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 4
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 3
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 2
+    }
+  }
 ]
