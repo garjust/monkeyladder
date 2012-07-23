@@ -12,3 +12,10 @@ class CommonLibrary(_Dictionaries):
     
     def __init__(self):
         super(CommonLibrary, self).__init__()
+
+    def run_keyword_if_true(self, expression, *args, **kwargs):
+        if expression:
+            self._run(*args, **kwargs)
+
+    def run_keyword_if_false(self, expression, *args, **kwargs):
+        self.run_keyword_if_true(not expression, *args, **kwargs)

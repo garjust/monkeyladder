@@ -13,7 +13,10 @@ Should Be On Login Page
 
 Should Be Logged In As
     [Arguments]    ${user}
-    Wait Until Page Contains    Logged in as ${user[2]}    error=Should have been logged in as '${user[2]}'
+    Run Keyword If True   ${user[2]}
+    ...    Wait Until Page Contains    Logged in as ${user[2]}    error=Should have been logged in as '${user[2]}'
+    Run Keyword If False    ${user[2]}
+    ...    Wait Until Page Contains    Logged in as ${user[0]}    error=Should have been logged in as '${user[0]}'
 
 Should Not Be Logged In
     Page Should Not Contain    Logged in as

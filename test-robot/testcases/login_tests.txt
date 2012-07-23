@@ -8,8 +8,12 @@ Force Tags    login
 *** Testcases ***
 Successfully Login As Super User
     [Tags]    user_super    sanity    smoke
-    Successful Login Flow    ${GLOBAL_USERS['SUPERUSER']}
+    Successful Login Flow    ${DEFAULT_ADMIN}
 
 Successfully Login As Regular User
     [Tags]    user_regular
-    Successful Login Flow    ${GLOBAL_USERS['FULLNAME']}
+    Successful Login Flow    ${DEFAULT_USER}
+
+Successfully Login As No Name
+    [Tags]    user_noname
+    Successful Login Flow    ${GLOBAL_USERS['NONAME']}
