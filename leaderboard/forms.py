@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import forms, _
 
-from core.logic import get_ladder_or_404
+from core.logic import get_ladder_or_404, int_or_404
 from leaderboard.logic import get_ladder_player_dictionary
 from leaderboard.models import Match, Game
 
@@ -8,7 +8,7 @@ class BaseMatchCreationForm(forms.Form):
     error_messages = {
         'invalid_player': _("Players must be on the ladder"),
     }
-    
+
     def __init__(self, ladder_id, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
         self.ladder_id = ladder_id
@@ -40,7 +40,7 @@ class MatchCreationForm(BaseMatchCreationForm):
     """
     A form that creates a match without game information
     """
-        
+
     player_one_score = forms.IntegerField(label=_("Score"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
     player_two_score = forms.IntegerField(label=_("Score"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
 
@@ -66,8 +66,8 @@ class AdvancedMatchCreationForm(BaseMatchCreationForm):
 
     def __init__(self, number_of_games, ladder_id, *args, **kwargs):
         BaseMatchCreationForm.__init__(self, ladder_id, *args, **kwargs)
-        self.number_of_games = number_of_games
-        for i in range(number_of_games):
+        self.number_of_games = int_or_404(number_of_games)
+        for i in range(self.number_of_games):
             self.fields['game_{}_player_one_score'.format(i)] = forms.IntegerField(label=_("Game {} Player One Score".format(i)), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
             self.fields['game_{}_player_two_score'.format(i)] = forms.IntegerField(label=_("Game {} Player Two Score".format(i)), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
 

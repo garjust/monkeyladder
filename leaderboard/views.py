@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
 from accounts.decorators import login_required_forbidden
-from core.logic import get_ladder_or_404
+from core.logic import get_ladder_or_404, int_or_404
 from core.forms import LadderEditForm
 
 from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm
@@ -17,7 +17,7 @@ def view_ladder(request, ladder_id, form=None):
     if not form:
         form = MatchCreationForm(ladder_id)
     if games:
-        form = AdvancedMatchCreationForm(int(games), ladder_id)
+        form = AdvancedMatchCreationForm(games, ladder_id)
     admin = get_admin(request.user, ladder)
     return render(request, 'leaderboard/view_ladder.html', {
         'navbar_active': 'ladder',
@@ -70,6 +70,7 @@ def view_matches(request, ladder_id):
         matches = paginator.page(paginator.num_pages)
     match_id = request.GET.get('id', None)
     if match_id:
+        match_id = int_or_404(match_id)
         match = get_object_or_404(Match, pk=match_id)
         for page_number in range(1, paginator.num_pages + 1):
             page = paginator.page(page_number)
@@ -84,7 +85,7 @@ def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     if request.POST:
         if request.GET.get('games', None):
-            form = AdvancedMatchCreationForm(int(request.GET.get('games')), ladder_id, request.POST)
+            form = AdvancedMatchCreationForm(request.GET.get('games'), ladder_id, request.POST)
         else:
             form = MatchCreationForm(ladder_id, request.POST)
         if form.is_valid():
@@ -92,7 +93,7 @@ def create_match(request, ladder_id):
             logic.adjust_rankings(match)
             if request.is_ajax():
                 if request.GET.get('games', None):
-                    form = AdvancedMatchCreationForm(int(request.GET.get('games')), ladder_id)
+                    form = AdvancedMatchCreationForm(request.GET.get('games'), ladder_id)
                 else:
                     form = MatchCreationForm(ladder_id)
                 return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder, 'new_match': match})
