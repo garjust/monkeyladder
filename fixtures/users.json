@@ -100,5 +100,31 @@
           "date_joined": "2012-06-20T12:00:00Z",
           "last_login": "2012-06-20T16:00:00Z"
         }
+    },
+    {
+        "model": "auth.user", 
+        "pk": 9, 
+        "fields": {
+          "username": "user.b",
+          "first_name": "User",
+          "last_name": "B",
+          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+          "email": "user@test.monkeyladder.com",
+          "date_joined": "2012-06-20T12:00:00Z",
+          "last_login": "2012-06-20T16:00:00Z"
+        }
+    },
+    {
+        "model": "auth.user", 
+        "pk": 10, 
+        "fields": {
+          "username": "user.long",
+          "first_name": "User",
+          "last_name": "Longnameduserishappytoprovidetheirlongnametotestnamelength",
+          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+          "email": "user@test.monkeyladder.com",
+          "date_joined": "2012-06-20T12:00:00Z",
+          "last_login": "2012-06-20T16:00:00Z"
+        }
     }
 ]
