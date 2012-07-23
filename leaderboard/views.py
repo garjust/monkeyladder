@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
 from accounts.decorators import login_required_forbidden
@@ -7,6 +8,7 @@ from core.forms import LadderEditForm
 
 from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm
 from leaderboard import logic
+from leaderboard.models import Match
 from core.models import Watcher
 
 def view_ladder(request, ladder_id, form=None):
@@ -56,10 +58,23 @@ def edit_ladder(request, ladder_id):
         form = LadderEditForm(ladder)
     return render(request, 'leaderboard/content/ladder_edit.html', {'ladder': ladder, 'ladder_edit_form': form})
 
-def matches(request, ladder_id):
+def view_matches(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    matches = ladder.match_set.filter().order_by('-created')
+    paginator = Paginator(ladder.match_set.order_by('-created'), 10)
+    page_number = request.GET.get('page')
+    try:
+        matches = paginator.page(page_number)
+    except PageNotAnInteger:
+        matches = paginator.page(1)
+    except EmptyPage:
+        matches = paginator.page(paginator.num_pages)
     match_id = request.GET.get('id', None)
+    if match_id:
+        match = get_object_or_404(Match, pk=match_id)
+        for page_number in range(1, paginator.num_pages + 1):
+            page = paginator.page(page_number)
+            if match in page:
+                matches = page
     return render(request, 'leaderboard/view_matches.html',
         {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches, 'match_id': match_id}
     )

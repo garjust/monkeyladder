@@ -2,7 +2,7 @@
 ${NAV_BASE}=    //div[@id='navbar']
 
 ${NAV_HOME_LINK}=    //a[@id='nav-home-link']
-${NAV_ACTIVITY_LINK}=    //a[@id='nav-activity-link']
+${NAV_FEEDS_LINK}=    //a[@id='nav-feeds-link']
 
 ${NAV_LADDER_LINK}=    //a[@id='nav-ladder-link']
 ${NAV_WATCHERS_LINK}=    //a[@id='nav-watchers-link']

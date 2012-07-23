@@ -44,8 +44,11 @@
                     </tbody>
                 </table>
             </div>
-            <div id="matches-pager">
-                <a href="#" class="btn btn-medium">More</a>
+            <div class="pagination">
+                <ul>
+                    {% if matches.has_previous %}<li><a href="{{ ladder.get_absolute_url }}leaderboard/matches/?id=&page={{ matches.previous_page_number }}">Previous</a></li>{% endif %}
+                    {% if matches.has_next %}<li><a href="{{ ladder.get_absolute_url }}leaderboard/matches/?id=&page={{ matches.next_page_number }}">Next</a></li>{% endif %}
+                </ul>
             </div>
         </div>
         <div class="span6">
