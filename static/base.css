@@ -32,6 +32,8 @@ div.container-dark {
 	text-align: center;
     font-size: 125%;
     font-style: italic;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .generic-error {
