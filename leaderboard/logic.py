@@ -12,15 +12,45 @@ def get_match_feed(ladder, order='-created', size=10):
     """
     return Match.objects.filter(ladder=ladder).order_by(order)[:size]
 
-def get_players_match_feed(user, ladder, order='-created', size=5):
+def get_players_match_feed(user, ladder=None, order='-created', size=5):
     """
-    Returns a match feed for the specified ladder with only matches with the given user
+    Returns a match feed for the specified ladder and user
     """
-    return (Match.objects.filter(ladder=ladder, winner=user) | Match.objects.filter(ladder=ladder, loser=user)).order_by(order)[:size]
+    if ladder:
+        return (Match.objects.filter(ladder=ladder, winner=user) | Match.objects.filter(ladder=ladder, loser=user)).order_by(order)[:size]
+    return (Match.objects.filter(winner=user) | Match.objects.filter(loser=user)).order_by(order)[:size]
+
+def count_players_wins(user, ladder=None):
+    """
+    Returns the users total matches won.
+
+    If a ladder is supplied only that ladder will be considered
+    """
+    if ladder:
+        return Match.objects.filter(ladder=ladder, winner=user).count()
+    return Match.objects.filter(winner=user).count()
+
+def count_players_losses(user, ladder=None):
+    """
+    Returns the users total matches lost.
+
+    If a ladder is supplied only that ladder will be considered
+    """
+    if ladder:
+        return Match.objects.filter(ladder=ladder, loser=user).count()
+    return Match.objects.filter(loser=user).count()
+
+def count_players_matches(user, ladder=None):
+    """
+    Returns the users total matches played.
+
+    If a ladder is supplied only that ladder will be considered
+    """
+    return count_players_wins(user, ladder) + count_players_losses(user, ladder)
 
 def climbing_ladder_feed(user, order='-created', size=5):
     """
-    Returns a ladder feed of the ladders the user is climbing
+    Returns a ladder feed of the ladders the user is a player on
     """
     if user.is_authenticated():
         return map(lambda p: p.ladder, user.player_set.all().order_by(order)[:size])
