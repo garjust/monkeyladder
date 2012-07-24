@@ -21,6 +21,9 @@ Should Be Logged In As
 Should Not Be Logged In
     Page Should Not Contain    Logged in as
 
+Page Should Contain Invalid Credentials Error
+    Page Should Contain    Please enter a correct username and password. Note that both fields are case-sensitive.
+
 Login As
     [Arguments]    ${user}
     Login    ${user[0]}    ${user[1]}

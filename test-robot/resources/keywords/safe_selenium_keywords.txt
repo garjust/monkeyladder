@@ -19,3 +19,7 @@ Safe Select From List
     Wait Until Page Contains Element    ${listbox}    timeout=5    error=${error}
     Select From List    ${listbox}    ${selection}
 
+Safe Select Checkbox
+    [Arguments]    ${checkbox}    ${error}=${None}
+    Wait Until Page Contains Element    ${checkbox}    timeout=5    error=${error}
+    Select Checkbox    ${checkbox}

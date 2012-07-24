@@ -2,7 +2,7 @@
 Create Ladder Flow
     [Arguments]    ${user}    ${ladder_creation_form}
     Start Browser Session
+    Click Home Page Create Ladder Link
     Login As    ${user}
-    Click Create Ladder Button
     Append Random String To Dictionary Values    ${ladder_creation_form}    name
-    Complete Ladder Creation Form    ${ladder_creation_form}
+    Complete Create Ladder Form    ${ladder_creation_form}

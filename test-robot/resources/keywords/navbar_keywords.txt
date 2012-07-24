@@ -17,18 +17,21 @@ ${NAV_ADMIN_LINK}=    //a[@id='nav-admin-link']
 Page Should Contain Navbar
     Page Should Contain Element    ${NAV_BASE}
 
-Go To Login
+Click Navbar Login Button
     Safe Click Link    ${NAV_LOGIN_LINK}    error=Failed to click login link
     Should Be On Login Page
 
-Go To Profile
+Click Navbar Profile Button
     Safe Click Link    ${NAV_PROFILE_LINK}    error=Failed to click profile link
     Should Be On Profile Page
 
-Go To Admin
+Click Navbar Admin Button
     Safe Click Link    ${NAV_ADMIN_LINK}    error=Failed to click admin link
     Should Be On Admin Page
 
 Logout
-    Safe Click Link    ${NAV_LOGOUT_LINK}
+    Safe Click Link    ${NAV_LOGOUT_LINK}    error=Failed to click logout link
     Wait Until Page Contains Element    ${NAV_LOGIN_LINK}    error=Navbar should of had a login link
+
+Click Navbar Logout Button
+    Logout

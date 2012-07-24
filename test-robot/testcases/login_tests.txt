@@ -1,19 +1,37 @@
 *** Settings ***
 Resource    ${SUITE_ROBOT_TEST_DIR}/include.txt
-
-Suite Teardown    End Suite
-
 Force Tags    login
 
 *** Testcases ***
-Successfully Login As Super User
+Successfully login as admin
     [Tags]    user_super    sanity    smoke
     Successful Login Flow    ${DEFAULT_ADMIN}
 
-Successfully Login As Regular User
+Successfully login as regular user
     [Tags]    user_regular
     Successful Login Flow    ${DEFAULT_USER}
 
-Successfully Login As No Name
+Successfully login as no name
     [Tags]    user_noname
     Successful Login Flow    ${GLOBAL_USERS['NONAME']}
+
+Cannot login with invalid username
+    [Tags]    negative
+    Failed Login Flow    ${DEFAULT_BADUSERNAME}
+
+Cannot login with incorrect password
+    [Tags]    negative
+    Failed Login Flow    ${DEFAULT_BADPASSWORD}
+
+Login with blank fields should show errors
+    [Tags]    negative
+    Start Browser Session
+    Click Navbar Login Button
+    Enter Username    123456789
+    Click Login Button
+    Should Not Be Logged In
+    Enter Username    ${EMPTY}
+    Enter Password    123456789
+    Click Login Button
+    Should Not Be Logged In
+    Close Browser

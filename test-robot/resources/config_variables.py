@@ -14,3 +14,5 @@ GLOBAL_USERS = {
 
 DEFAULT_ADMIN = GLOBAL_USERS['ADMIN']
 DEFAULT_USER = GLOBAL_USERS['B']
+DEFAULT_BADUSERNAME = ('user.DNE', 'password', 'User DNE')
+DEFAULT_BADPASSWORD = ('user.a', 'wrongpassword', 'User A')

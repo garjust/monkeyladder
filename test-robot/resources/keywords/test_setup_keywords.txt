@@ -3,6 +3,7 @@ Begin Test
     No Operation
 
 End Test
+    Log Variables
     Close All Browsers
 
 Start Browser Session

@@ -2,7 +2,7 @@
 Successful Login Flow
     [Arguments]    ${user}
     Start Browser Session
-    Go To Login
+    Click Navbar Login Button
     Should Not Be Logged In
     Login As    ${user}
     Should Be Logged In As    ${user}
@@ -12,6 +12,8 @@ Successful Login Flow
 Failed Login Flow
     [Arguments]    ${user}
     Start Browser Session
-    Go To Login
+    Click Navbar Login Button
     Login As    ${user}
+    Page Should Contain Invalid Credentials Error
+    Should Not Be Logged In
     Close Browser
