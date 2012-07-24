@@ -1,3 +1,0 @@
-robotframework
-robotframework-Selenium2Library
--e git+git://github.com/garjust/robotframework-mixin.git#egg=robotframework-mixin

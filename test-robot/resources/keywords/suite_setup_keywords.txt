@@ -1,7 +1,0 @@
-*** Keywords ***
-Begin Suite
-    Log Variables
-
-End Suite
-    Log Variables
-    Close All Browsers

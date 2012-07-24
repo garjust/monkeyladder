@@ -1,8 +1,0 @@
-*** Keywords ***
-Should Be On Ladder Page
-    [Arguments]    ${name}
-    Page Should Contain Element    //h1[@id='ladder-header' and text()='${name}']
-
-Should Be On Watchers Page
-    [Arguments]    ${name}
-    Page Should Contain Element    //h2[text()='${name} Watchers']

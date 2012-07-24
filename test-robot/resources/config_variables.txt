@@ -1,5 +1,0 @@
-*** Variables ***
-${TEST_URL}=    http://localhost:8000/
-
-*** Settings ***
-Variables    config_variables.py

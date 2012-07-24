@@ -1,9 +1,0 @@
-*** Settings ***
-Library    Selenium2Library
-
-Library    CommonLibrary
-
-Resource    resources/flows/flows.txt
-Resource    resources/keywords/keywords.txt
-
-Resource    resources/config_variables.txt
