@@ -5,7 +5,6 @@ ${NAV_HOME_LINK}=    //a[@id='nav-home-link']
 ${NAV_FEEDS_LINK}=    //a[@id='nav-feeds-link']
 
 ${NAV_LADDER_LINK}=    //a[@id='nav-ladder-link']
-${NAV_WATCHERS_LINK}=    //a[@id='nav-watchers-link']
 ${NAV_MATCHES_LINK}=    //a[@id='nav-matches-link']
 
 ${NAV_LOGIN_LINK}=    //a[@id='nav-login-link']
@@ -28,6 +27,9 @@ Click Navbar Profile Button
 Click Navbar Admin Button
     Safe Click Link    ${NAV_ADMIN_LINK}    error=Failed to click admin link
     Should Be On Admin Page
+
+Click Navbar Watchers Button
+    Safe Click Link    //a[@id='nav-watchers-link']    error=Failed to click watchers link
 
 Logout
     Safe Click Link    ${NAV_LOGOUT_LINK}    error=Failed to click logout link

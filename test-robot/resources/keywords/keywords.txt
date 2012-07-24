@@ -1,5 +1,6 @@
 *** Settings ***
 Resource    create_ladder_keywords.txt
+Resource    ladder_keywords.txt
 Resource    login_keywords.txt
 Resource    navbar_keywords.txt
 Resource    safe_selenium_keywords.txt

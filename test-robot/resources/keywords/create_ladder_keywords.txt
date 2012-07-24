@@ -1,6 +1,6 @@
 *** Keywords ***
 Click Home Page Create Ladder Link
-    Safe Click Element    xpath=//a[@id='create-ladder-link']    error=Failed to click home page ladder creation button
+    Safe Click Element    //a[@id='create-ladder-link']    error=Failed to click home page ladder creation button
 
 Fill In Create Ladder Form
     [Arguments]    ${create_ladder_form}
@@ -26,7 +26,7 @@ Select Ladder Type
     Safe Select From List    //select[@id='id_type']    ${type}    error=Failed to select ladder type
 
 Click Create Ladder Button
-    Safe Click Element    xpath=//input[@id='create-ladder-submit']    error=Failed to click ladder creation button
+    Safe Click Element    //input[@id='create-ladder-submit']    error=Failed to click ladder creation button
 
 Complete Create Ladder Form
     [Arguments]    ${create_ladder_form}

@@ -6,3 +6,6 @@ Create Ladder Flow
     Login As    ${user}
     Append Random String To Dictionary Values    ${ladder_creation_form}    name
     Complete Create Ladder Form    ${ladder_creation_form}
+    Should Be On Ladder Page    ${ladder_creation_form['name']}
+    Click Navbar Watchers Button
+    Should Be On Watchers Page    ${ladder_creation_form['name']}
