@@ -18,7 +18,7 @@
                 <ul class="nav nav-padded-left">
                     <li><a id="nav-ladder-link" href="{{ ladder.get_absolute_url }}">{{ ladder.name }}</a></li>
                     <li><a id="nav-watchers-link" href="{{ ladder.get_absolute_url }}watchers/">Watchers</a></li>
-                    <li><a id="nav-matches-link" href="{{ ladder.get_absolute_url }}leaderboard/matches/">Matches</a></li>
+                    {% if ladder.is_leaderboard %}<li><a id="nav-matches-link" href="{{ ladder.get_absolute_url }}leaderboard/matches/">Matches</a></li>{% endif %}
                     {% block special_ladder_nav_links %}{% endblock %}
                 </ul>
             </div>

@@ -28,7 +28,10 @@ class Ladder(DatedModel):
     def watcher(self, user):
         if user.is_authenticated():
             return self.watcher_set.get(user=user)
-        
+
+    def is_leaderboard(self):
+        return self.type == 'LEADERBOARD'
+
     def watcher_count(self):
         return self.watcher_set.count()
 
