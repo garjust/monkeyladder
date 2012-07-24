@@ -9,50 +9,28 @@ from core.forms import LadderEditForm
 from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm
 from leaderboard import logic
 from leaderboard.models import Match
-from core.models import Watcher
 
-def view_ladder(request, ladder_id, form=None):
+def view_ladder(request, ladder_id, context={}, form=None):
     ladder = get_ladder_or_404(pk=ladder_id)
     games = request.GET.get('games', None)
     if not form:
         form = MatchCreationForm(ladder_id)
     if games:
         form = AdvancedMatchCreationForm(games, ladder_id)
-    admin = get_admin(request.user, ladder)
-    return render(request, 'leaderboard/view_ladder.html', {
-        'navbar_active': 'ladder',
-        'ladder': ladder,
+    context.update({
         'player_names': logic.get_autocomplete_list(ladder),
         'match_feed': logic.get_match_feed(ladder),
         'form': form,
-        'admin': admin,
-        'not_watching': is_watching(request.user, ladder),
     })
-
-def is_watching(user, ladder):
-    if user.is_authenticated():
-        try:
-            w = ladder.watcher(user)
-            return False
-        except Watcher.DoesNotExist:
-            pass
-    return True
-
-def get_admin(user, ladder):
-    if user.is_authenticated():
-        try:
-            return ladder.watcher(user).admin()
-        except Watcher.DoesNotExist:
-            return False
+    return render(request, 'leaderboard/view_ladder.html', context)
 
 def edit_ladder(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    admin = get_admin(request.user, ladder)
     if request.POST:
         form = LadderEditForm(ladder, request.POST)
         if form.is_valid():
             form.save(ladder)
-            return render(request, 'leaderboard/content/ladder_display.html', {'ladder': ladder, 'admin': admin})
+            return redirect(ladder)
         print "FORM INVALID:\n{}".format(form.errors)
     else:
         form = LadderEditForm(ladder)

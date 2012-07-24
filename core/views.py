@@ -25,11 +25,9 @@ def create_ladder(request):
         form = LadderCreationForm(request.user)
     return render(request, 'core/create_ladder.html', {'form': form})
 
-def view_ladder(request, ladder_id):
+def view_ladder(request, ladder_id, context={}):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
-    if not logic.can_view_ladder(request.user, ladder):
-        return redirect('/home')
-    return render(request, 'core/view_ladder.html', {'navbar_active': 'ladder', 'ladder': ladder})
+    return render(request, 'core/view_ladder.html', context)
 
 def view_ladder_watchers(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)

@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 
-from core.models import Ladder
+from core.models import Ladder, Watcher
 
 import logging
 logger = logging.getLogger('monkeyladder')
@@ -63,3 +63,13 @@ def ladder_watchers(ladder, order='-created', size=100):
     Returns a list of watchers for the given ladder
     """
     return ladder.watcher_set.order_by(order)[:size]
+
+def get_watcher(user, ladder):
+    """
+    Retrieves the watcher object associated with user and ladder or None if it does not exist
+    """
+    if user.is_authenticated():
+        try:
+            return ladder.watcher(user)
+        except Watcher.DoesNotExist:
+            pass
