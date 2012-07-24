@@ -2,7 +2,19 @@
 import os
 import sys
 
-from killdb import kill
+from monkeyladder.settings.development import DATABASES
+
+def kill():
+    for database in DATABASES:
+        database_file = DATABASES[database]['NAME']
+        if not database_file.endswith('monkeyladder.db'):
+            print "Bad File: {}".format(database_file)
+            continue
+        if not os.path.exists(database_file):
+            print "Target database does not exist: {}".format(database_file)
+            continue
+        print "Killing database: {}".format(database_file)
+        os.remove(database_file)
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "monkeyladder.settings.production")
