@@ -102,7 +102,7 @@ def create_match(request, ladder_id):
         form = MatchCreationForm(ladder_id)
     return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder})
 
-def ajax_ladder_display(request, ladder_id):
+def ladder_display_content(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     return render(request, 'leaderboard/content/ladder_display.html', {'ladder': ladder})
 
@@ -110,9 +110,3 @@ def match_feed_content(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     match_feed = logic.get_match_feed(ladder)
     return render(request, 'leaderboard/content/match_feed.html', {'match_feed': match_feed, 'ladder': ladder})
-
-@login_required
-def watch_ladder(request, ladder_id):
-    ladder = get_ladder_or_404(pk=ladder_id)
-    Watcher.objects.create(ladder=ladder, user=request.user)
-    return render(request, 'leaderboard/content/ladder_display.html', {'ladder': ladder})

@@ -12,17 +12,15 @@ WATCH = 'watch'
 FUNCTION_MAPPING = {
     'BASIC': {
         VIEW: core.views.view_ladder,
-        CONTENT: leaderboard.views.ajax_ladder_display,
+        CONTENT: leaderboard.views.ladder_display_content,
         WATCHERS: core.views.view_ladder_watchers,
         EDIT: leaderboard.views.edit_ladder,
-        WATCH: leaderboard.views.watch_ladder,
     },
     'LEADERBOARD': {
         VIEW: leaderboard.views.view_ladder,
-        CONTENT: leaderboard.views.ajax_ladder_display,
+        CONTENT: leaderboard.views.ladder_display_content,
         WATCHERS: core.views.view_ladder_watchers,
         EDIT: leaderboard.views.edit_ladder,
-        WATCH: leaderboard.views.watch_ladder,
     }
 }
 

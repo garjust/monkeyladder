@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from core import logic
 from core.forms import LadderCreationForm
 
+from core.models import Watcher
+
 @login_required
 def feeds(request):
     return render(request, 'core/feeds.html', {'ladder_feed_size': 4, 'navbar_active': 'feeds',
@@ -34,3 +36,10 @@ def view_ladder_watchers(request, ladder_id):
     if not logic.can_view_ladder(request.user, ladder):
         return redirect('/home')
     return render(request, 'core/view_ladder_watchers.html', {'navbar_active': 'watchers', 'ladder': ladder, 'watcher_feed': logic.ladder_watchers(ladder)})
+
+@login_required
+def watch_ladder(request, ladder_id):
+    ladder = logic.get_ladder_or_404(pk=ladder_id)
+    if logic.can_view_ladder(request.user, ladder):
+        Watcher.objects.create(ladder=ladder, user=request.user)
+    return redirect(ladder)
