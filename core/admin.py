@@ -66,6 +66,9 @@ class LadderConfigurationAdmin(admin.ModelAdmin):
     search_fields = ['key', 'ladder__name', 'ladder__type', 'value']
     date_hierarchy = 'created'
 
+    def has_change_permission(self, request, obj=None):
+        return not obj or obj.ladder
+
 admin.site.register(Ladder, LadderAdmin)
 admin.site.register(LadderConfiguration, LadderConfigurationAdmin)
 admin.site.register(Watcher, WatcherAdmin)

@@ -48,6 +48,39 @@
     }
   }, 
   {
+    "pk": 4, 
+    "model": "core.ladderconfiguration", 
+    "fields": {
+      "raw_value": "2", 
+      "ladder": 3, 
+      "key": 1, 
+      "created_by": null, 
+      "created": "2012-07-25T23:31:58.809Z"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "core.ladderconfiguration", 
+    "fields": {
+      "raw_value": "1", 
+      "ladder": 3, 
+      "key": 2, 
+      "created_by": null, 
+      "created": "2012-07-25T23:32:06.070Z"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "core.ladderconfiguration", 
+    "fields": {
+      "raw_value": "0", 
+      "ladder": 3, 
+      "key": 3, 
+      "created_by": null, 
+      "created": "2012-07-25T23:32:13.402Z"
+    }
+  }, 
+  {
     "pk": 22, 
     "model": "core.ranked", 
     "fields": {
@@ -354,379 +387,413 @@
       "created_by": null, 
       "created": "2012-07-23T22:12:27.106Z"
     }
-  },
+  }, 
   {
     "pk": 1, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.243Z", 
       "ladder": 4, 
-      "type": "NORM", 
-      "user": 2, 
+      "favorite": true, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.243Z"
+      "user": 2, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 2, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.243Z", 
       "ladder": 4, 
-      "type": "ADMIN", 
-      "user": 3, 
+      "favorite": true, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.243Z"
+      "user": 3, 
+      "type": "ADMIN"
     }
   }, 
   {
     "pk": 3, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.243Z", 
       "ladder": 4, 
-      "type": "NORM", 
-      "user": 4, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.243Z"
+      "user": 4, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 4, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.243Z", 
       "ladder": 4, 
-      "type": "NORM", 
-      "user": 5, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.243Z"
+      "user": 5, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 5, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.243Z", 
       "ladder": 4, 
-      "type": "MOD", 
-      "user": 6, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.243Z"
+      "user": 6, 
+      "type": "MOD"
     }
   }, 
   {
     "pk": 6, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.243Z", 
       "ladder": 4, 
-      "type": "NORM", 
-      "user": 7, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.243Z"
+      "user": 7, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 7, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.243Z", 
       "ladder": 4, 
-      "type": "NORM", 
-      "user": 8, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.243Z"
+      "user": 8, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 8, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.253Z", 
       "ladder": 4, 
-      "type": "NORM", 
-      "user": 9, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.253Z"
+      "user": 9, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 9, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.253Z", 
       "ladder": 4, 
-      "type": "NORM", 
-      "user": 10, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.253Z"
+      "user": 10, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 10, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:16:20.253Z", 
       "ladder": 4, 
-      "type": "NORM", 
-      "user": 11, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:16:20.253Z"
+      "user": 11, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 11, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:21:56.897Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 1, 
+      "favorite": true, 
       "created_by": null, 
-      "created": "2012-07-23T22:21:56.897Z"
+      "user": 1, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 12, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:21:56.897Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 2, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:21:56.897Z"
+      "user": 2, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 13, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:21:56.897Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 3, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:21:56.897Z"
+      "user": 3, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 14, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:21:56.897Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 4, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:21:56.897Z"
+      "user": 4, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 15, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:21:56.897Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 8, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:21:56.897Z"
+      "user": 8, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 16, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:21:56.897Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 10, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:21:56.897Z"
+      "user": 10, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 17, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:22:25.931Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 5, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:22:25.931Z"
+      "user": 5, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 18, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:22:25.931Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 6, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:22:25.931Z"
+      "user": 6, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 19, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:22:25.931Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 9, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:22:25.931Z"
+      "user": 9, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 20, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:22:25.931Z", 
       "ladder": 3, 
-      "type": "NORM", 
-      "user": 11, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:22:25.931Z"
+      "user": 11, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 21, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:22:57.787Z", 
       "ladder": 4, 
-      "type": "NORM", 
-      "user": 1, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:22:57.787Z"
+      "user": 1, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 22, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:27:30.678Z", 
       "ladder": 2, 
-      "type": "ADMIN", 
-      "user": 2, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:27:30.678Z"
+      "user": 2, 
+      "type": "ADMIN"
     }
   }, 
   {
     "pk": 23, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:27:30.678Z", 
       "ladder": 2, 
-      "type": "NORM", 
-      "user": 3, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:27:30.678Z"
+      "user": 3, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 24, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:27:30.678Z", 
       "ladder": 2, 
-      "type": "NORM", 
-      "user": 4, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:27:30.678Z"
+      "user": 4, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 25, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:27:30.678Z", 
       "ladder": 2, 
-      "type": "NORM", 
-      "user": 10, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:27:30.678Z"
+      "user": 10, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 26, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:27:30.678Z", 
       "ladder": 2, 
-      "type": "NORM", 
-      "user": 9, 
+      "favorite": true, 
       "created_by": null, 
-      "created": "2012-07-23T22:27:30.678Z"
+      "user": 9, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 27, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:27:30.678Z", 
       "ladder": 2, 
-      "type": "NORM", 
-      "user": 11, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:27:30.678Z"
+      "user": 11, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 28, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:27:30.678Z", 
       "ladder": 2, 
-      "type": "NORM", 
-      "user": 8, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:27:30.678Z"
+      "user": 8, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 29, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:29:31.827Z", 
       "ladder": 1, 
-      "type": "NORM", 
-      "user": 2, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:29:31.827Z"
+      "user": 2, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 30, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:29:31.827Z", 
       "ladder": 1, 
-      "type": "NORM", 
-      "user": 3, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:29:31.827Z"
+      "user": 3, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 31, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:29:31.827Z", 
       "ladder": 1, 
-      "type": "NORM", 
-      "user": 1, 
+      "favorite": false, 
       "created_by": null, 
-      "created": "2012-07-23T22:29:31.827Z"
+      "user": 1, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 32, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:29:31.827Z", 
       "ladder": 1, 
-      "type": "NORM", 
-      "user": 4, 
+      "favorite": true, 
       "created_by": null, 
-      "created": "2012-07-23T22:29:31.827Z"
+      "user": 4, 
+      "type": "NORM"
     }
   }, 
   {
     "pk": 33, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:29:31.827Z", 
       "ladder": 1, 
-      "type": "ADMIN", 
-      "user": 11, 
+      "favorite": true, 
       "created_by": null, 
-      "created": "2012-07-23T22:29:31.827Z"
+      "user": 11, 
+      "type": "ADMIN"
     }
   }, 
   {
     "pk": 34, 
     "model": "core.watcher", 
     "fields": {
+      "created": "2012-07-23T22:29:31.827Z", 
       "ladder": 1, 
-      "type": "MOD", 
-      "user": 10, 
+      "favorite": true, 
       "created_by": null, 
-      "created": "2012-07-23T22:29:31.827Z"
+      "user": 10, 
+      "type": "MOD"
     }
   }
 ]

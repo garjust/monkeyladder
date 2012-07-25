@@ -65,7 +65,7 @@ class LadderConfigurationKey(DatedModel):
         db_table = 'core_ladder_configuration_key'
 
 class LadderConfiguration(DatedModel):
-    ladder = models.ForeignKey(Ladder, null=True, blank=False)
+    ladder = models.ForeignKey(Ladder, null=True)
     key = models.ForeignKey(LadderConfigurationKey)
     raw_value = models.CharField(max_length=300)
 
