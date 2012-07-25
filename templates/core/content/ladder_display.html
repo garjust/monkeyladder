@@ -1,12 +1,13 @@
 <div class="row">
     <div class="span{{ ladder_display_size|default:'6' }} page-header muted">
         <h1 id="ladder-header">{{ ladder.name }}</h1>
-        {% if watcher and watcher.admin %}<a id="ladder-edit-link" class="btn btn-medium" href="#">Edit</a>{% endif %}
+        {% if not ladder_edit_form and watcher and watcher.admin %}<a id="ladder-edit-link" class="btn btn-medium" href="#">Edit</a>{% endif %}
         {% if not watcher %}<a id="ladder-watch-link" class="btn btn-medium absolute" href="{{ ladder.get_absolute_url}}watch/">Watch</a>{% endif %}
     </div>
 </div>
 <div class="row">
-    <div class="span{{ ladder_display_size|default:'6' }}">
+    <div class="span{{ ladder_display_size|default:'6' }} monkey-form-div-free">
+    {% if ladder_edit_form %}<form id="edit-ladder-form" action="/ladders/{{ ladder.id }}/edit/" method="post">{% csrf_token %}{% endif %}
         <table class="table table-striped centered-table">
             <thead>
                 <th>Rank</th>
@@ -14,21 +15,42 @@
             </thead>
             <tbody>
             {% block ladder_entries %}
-            {% for ranked in ladder.ranking %}
-                <tr class="ladder-rank-table-row">
-                    <td>{{ ranked.rank }}</td>
-                    <td>{{ ranked }}</td>
-                </tr>
-            {% endfor %}
+	            {% if ladder_edit_form %}
+	                {% for ranked in ladder_edit_form.ranked %}
+		            <tr class="ladder-rank-table-row">
+		                <td>{{ ranked.field }}</td>
+		                <td>{{ ranked.ranked.display }}</td>
+		            </tr>    
+	                {% endfor %}
+                {% else %}
+		            {% for ranked in ladder.ranking %}
+		            <tr class="ladder-rank-table-row">
+		                <td>{{ ranked.rank }}</td>
+		                <td>{{ ranked.display }}</td>
+		            </tr>
+	               {% endfor %}
+                {% endif %}           
             {% endblock %}
             </tbody>
         </table>
+        {% if ladder_edit_form %}
+        <div style="display: none">
+            {{ ladder_edit_form.name }}
+            {{ ladder_edit_form.rungs }}
+            {{ ladder_edit_form.is_private }}
+        </div>
+        <a id="ladder-cancel-link" class="btn btn-medium absolute" href="{{ ladder.get_absolute_url }}">Cancel</a>
+        <input id="ladder-save-link" class="btn btn-medium absolute" type="submit" value="Save" />
+        </form>
+        {% endif %}
     </div>
 </div>
 <script type="text/javascript">
     $(function() {
-        $("#ladder-edit-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});
-        $("#ladder-watch-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});
+        {% if not ladder_edit_form and watcher and watcher.admin %}$("#ladder-edit-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});{% endif %}
+        {% if not watcher %}$("#ladder-watch-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});{% endif %}
+        {% if ladder_edit_form %}$("#ladder-cancel-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});{% endif %}
+        {% if ladder_edit_form %}$("#ladder-save-link").position({of: $("#ladder-cancel-link"), my: "right center", at: "left center"});{% endif %}
     })
     $(function() {
         $("#ladder-edit-link").bind("click", function(e) {

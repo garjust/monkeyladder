@@ -35,6 +35,9 @@ class BaseMatchCreationForm(forms.Form):
                 self.cleaned_data['player_two'] = player_dictionary[player]
                 return player_dictionary[player]
         raise forms.ValidationError(self.error_messages['invalid_player'])
+    
+    def clean(self):
+        pass
 
 class MatchCreationForm(BaseMatchCreationForm):
     """

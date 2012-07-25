@@ -19,7 +19,11 @@ def view_ladder(request, ladder_id, context):
         'match_feed': logic.get_match_feed(ladder),
         'form': form,
     })
+    print context
     return render(request, 'leaderboard/view_ladder.html', context)
+
+def ladder_display_content(request, ladder_id, context):
+    return render(request, 'core/content/ladder_display.html', context)
 
 def view_matches(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
@@ -64,9 +68,6 @@ def create_match(request, ladder_id):
     else:
         form = MatchCreationForm(ladder_id)
     return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder})
-
-def ladder_display_content(request, ladder_id, context):
-    return render(request, 'leaderboard/content/ladder_display.html', context)
 
 def match_feed_content(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)

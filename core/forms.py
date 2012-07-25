@@ -1,7 +1,5 @@
 from django.contrib.auth.forms import forms, _
-from django.contrib.auth.models import User
 
-from accounts.logic import get_user_or_404
 from core.models import Ladder, Watcher
 
 class LadderCreationForm(forms.Form):
@@ -15,18 +13,12 @@ class LadderCreationForm(forms.Form):
 
     def __init__(self, user, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
-        self.fields['user_id'] = forms.IntegerField(label=_("User Id"), widget=forms.HiddenInput, min_value=1, initial=user.id)
+        self.user = user
 
     name = forms.CharField(label=_("Ladder Name"))
     rungs = forms.IntegerField(label=_("Rungs"), min_value=1)
     is_private = forms.BooleanField(label=_("Private"), required=False)
     type = forms.ChoiceField(label=_("Type"), choices=Ladder.TYPES, widget=forms.Select)
-
-    def clean_user_id(self):
-        user = User.objects.get(pk=self.cleaned_data['user_id'])
-        if not user:
-            raise forms.ValidationError(self.error_messages['invalid_user'])
-        return user
 
     def clean_rungs(self):
         if self.cleaned_data['rungs'] > 100:
@@ -39,9 +31,9 @@ class LadderCreationForm(forms.Form):
             rungs=self.cleaned_data['rungs'],
             is_private=self.cleaned_data['is_private'],
             type=self.cleaned_data['type'],
-            created_by=self.cleaned_data['user_id']
+            created_by=self.user
         )
-        Watcher.objects.create(ladder=ladder, user=self.cleaned_data['user_id'], type='ADMIN')
+        Watcher.objects.create(ladder=ladder, user=self.user, type='ADMIN')
         return ladder
 
 class LadderEditForm(forms.Form):

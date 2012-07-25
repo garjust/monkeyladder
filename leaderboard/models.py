@@ -6,6 +6,9 @@ from datedmodels.models import DatedModel
 
 class Player(Ranked):
     user = models.ForeignKey(User)
+    
+    def display(self):
+        return self.__unicode__()
 
     def __unicode__(self):
         return self.user.get_profile().name()

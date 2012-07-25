@@ -47,6 +47,11 @@ class Ranked(DatedModel):
     ladder = models.ForeignKey(Ladder)
     rank = models.IntegerField()
     description = models.CharField(max_length=50)
+    
+    def display(self):
+        if 'player' in dir(self):
+            return self.player.display()
+        return self.__unicode__()
 
     def __unicode__(self):
         return str(self.description)
