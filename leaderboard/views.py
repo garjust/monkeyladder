@@ -64,18 +64,18 @@ def create_match(request, ladder_id):
                 else:
                     form = MatchCreationForm(ladder)
                 return render(request, 'leaderboard/content/match_entry_form.html', {
-                    'player_names': ','.join(map(lambda n: '"%s"' % n, logic.get_ladder_players(ladder))),
+                    'player_names': logic.get_ladder_players_for_match_entry(ladder),
                     'form': form,
                     'ladder': ladder,
-                    'new_match': match
+                    'new_match': match,
                 })
             return redirect('/ladders/{}'.format(ladder_id))
     else:
         form = MatchCreationForm(ladder_id)
     return render(request, 'leaderboard/content/match_entry_form.html', {
-        'player_names': ','.join(map(lambda n: '"%s"' % n, logic.get_ladder_players(ladder))),
+        'player_names': logic.get_ladder_players_for_match_entry(ladder),
         'form': form,
-        'ladder': ladder
+        'ladder': ladder,
     })
 
 def match_feed_content(request, ladder_id):

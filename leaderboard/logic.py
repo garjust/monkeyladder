@@ -64,6 +64,12 @@ def get_ladder_players(ladder):
         player_dictionary[ranked.player.user.get_profile().name()] = ranked.player.user
     return player_dictionary
 
+def get_ladder_players_for_match_entry(ladder):
+    """
+    Returns a string of player names for use in javascript
+    """
+    return ','.join(map(lambda n: '"%s"' % n, get_ladder_players(ladder)))
+
 def inverse_match(match):
     return Match(ladder=match.ladder,
         winner=match.loser, winner_score=match.loser_score,
