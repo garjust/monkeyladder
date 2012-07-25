@@ -37,26 +37,30 @@ def public_ladder_feed(user=None, order='-created', size=25):
         ladders = filter(lambda l: l not in watched, ladders)
     return ladders
 
-def watched_ladder_feed(user, order='-created', size=25, include_watchers=False):
+def watched_ladder_feed(user, order='-created', size=25, include_watchers=False, filters={}):
     """
     Returns a ladder feed of the users watched ladders
 
     Optionally also returns the watcher object for each ladder
     """
     if user.is_authenticated():
-        watchers = user.watcher_set.all().order_by(order)[:size]
+        watchers = user.watcher_set.filter(**filters).order_by(order)[:size]
         if include_watchers:
             return map(lambda watcher: (watcher.ladder, watcher), watchers)
         return map(lambda watcher: watcher.ladder, watchers)
     return []
 
-def favorite_ladder_feed(user, order='-created', size=25):
+def nonfavorite_ladder_feed(user, order='-created', size=25, include_watchers=False):
     """
-    Returns a ladder feed of the users favorite ladders
+    Returns a ladder feed of the users watched ladders which are not favorites
     """
-    if user.is_authenticated():
-        return map(lambda f: f.ladder, user.favorite_set.all().order_by(order)[:size])
-    return []
+    return watched_ladder_feed(user, order=order, size=size, include_watchers=include_watchers, filters={'favorite': False})
+
+def favorite_ladder_feed(user, order='-created', size=25, include_watchers=False):
+    """
+    Returns a ladder feed of the users favorite watched ladders
+    """
+    return watched_ladder_feed(user, order=order, size=size, include_watchers=include_watchers, filters={'favorite': True})
 
 def ladder_watchers(ladder, order='-created', size=100):
     """

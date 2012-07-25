@@ -9,7 +9,7 @@ from core.models import Watcher
 @login_required
 def feeds(request):
     return render(request, 'core/feeds.html', {'ladder_feed_size': 4, 'navbar_active': 'feeds',
-        'watched_ladder_feed': logic.watched_ladder_feed(request.user, size=25),
+        'watched_ladder_feed': logic.nonfavorite_ladder_feed(request.user, size=25),
         'favorite_ladder_feed': logic.favorite_ladder_feed(request.user, size=25),
         'public_ladder_feed': logic.public_ladder_feed(request.user, size=25),
     })

@@ -47,7 +47,7 @@ class Ranked(DatedModel):
     ladder = models.ForeignKey(Ladder)
     rank = models.IntegerField()
     description = models.CharField(max_length=50)
-    
+
     def display(self):
         if 'player' in dir(self):
             return self.player.display()
@@ -56,19 +56,10 @@ class Ranked(DatedModel):
     def __unicode__(self):
         return str(self.description)
 
-class Favorite(DatedModel):
-    ladder = models.ForeignKey(Ladder)
-    user = models.ForeignKey(User)
-
-    def __unicode__(self):
-        return self.ladder.name
-
-    class Meta:
-        unique_together = ('ladder', 'user')
-
 class Watcher(DatedModel):
     ladder = models.ForeignKey(Ladder)
     user = models.ForeignKey(User)
+    favorite = models.BooleanField(default=False)
 
     TYPES = LADDER_PERMISSION_TYPES
     type = models.CharField(max_length=50, choices=TYPES, default='NORM')
