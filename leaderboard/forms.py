@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import forms, _
 
 from core.logic import get_ladder_or_404, int_or_404
-from leaderboard.logic import get_ladder_player_dictionary
+from leaderboard.logic import get_ladder_players
 from leaderboard.models import Match, Game
 
 class BaseMatchCreationForm(forms.Form):
@@ -18,7 +18,7 @@ class BaseMatchCreationForm(forms.Form):
 
     def clean_player_one(self):
         player_one = self.cleaned_data['player_one']
-        player_dictionary = get_ladder_player_dictionary(self.ladder)
+        player_dictionary = get_ladder_players(self.ladder)
         for player in player_dictionary:
             if player_one == player:
                 self.cleaned_data['player_one'] = player_dictionary[player]
@@ -27,13 +27,13 @@ class BaseMatchCreationForm(forms.Form):
 
     def clean_player_two(self):
         player_two = self.cleaned_data['player_two']
-        player_dictionary = get_ladder_player_dictionary(self.ladder)
+        player_dictionary = get_ladder_players(self.ladder)
         for player in player_dictionary:
             if player_two == player:
                 self.cleaned_data['player_two'] = player_dictionary[player]
                 return player_dictionary[player]
         raise forms.ValidationError(self.error_messages['invalid_player'])
-    
+
     def clean(self):
         return self.cleaned_data
 

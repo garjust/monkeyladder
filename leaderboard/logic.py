@@ -55,24 +55,7 @@ def climbing_ladder_feed(user, order='-created', size=5):
     if user.is_authenticated():
         return map(lambda p: p.ladder, user.player_set.all().order_by(order)[:size])
 
-def get_autocomplete_list(ladder):
-    """
-    Returns a list of names of players on the given ladder
-    """
-    rankeds = ladder.ranked_set.order_by('rank')
-    names = []
-    for ranked in rankeds:
-        player = ranked.player
-        names.append(player.user.get_profile().name())
-    return _format_names_for_injection(names)
-
-def _format_names_for_injection(names):
-    """
-    Formats the list of names into a string that can be injected into javascript
-    """
-    return ','.join(map(lambda n: '"{}"'.format(n), names))
-
-def get_ladder_player_dictionary(ladder):
+def get_ladder_players(ladder):
     """
     Returns a dictionary with the names of a ladders players as keys and the user instance as values
     """

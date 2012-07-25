@@ -15,7 +15,7 @@ def view_ladder(request, ladder_id, context):
     if games:
         form = AdvancedMatchCreationForm(games, ladder)
     context.update({
-        'player_names': logic.get_autocomplete_list(ladder),
+        'player_names': ','.join(map(lambda n: '"%s"' % n, logic.get_ladder_players(ladder))),
         'match_feed': logic.get_match_feed(ladder),
         'form': form,
     })
@@ -63,11 +63,20 @@ def create_match(request, ladder_id):
                     form = AdvancedMatchCreationForm(request.GET.get('games'), ladder)
                 else:
                     form = MatchCreationForm(ladder)
-                return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder, 'new_match': match})
+                return render(request, 'leaderboard/content/match_entry_form.html', {
+                    'player_names': ','.join(map(lambda n: '"%s"' % n, logic.get_ladder_players(ladder))),
+                    'form': form,
+                    'ladder': ladder,
+                    'new_match': match
+                })
             return redirect('/ladders/{}'.format(ladder_id))
     else:
         form = MatchCreationForm(ladder_id)
-    return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder})
+    return render(request, 'leaderboard/content/match_entry_form.html', {
+        'player_names': ','.join(map(lambda n: '"%s"' % n, logic.get_ladder_players(ladder))),
+        'form': form,
+        'ladder': ladder
+    })
 
 def match_feed_content(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
