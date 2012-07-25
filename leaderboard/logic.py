@@ -70,14 +70,7 @@ def get_ladder_players_for_match_entry(ladder):
     """
     return ','.join(map(lambda n: '"%s"' % n, get_ladder_players(ladder)))
 
-def inverse_match(match):
-    return Match(ladder=match.ladder,
-        winner=match.loser, winner_score=match.loser_score,
-        loser=match.winner, loser_score=match.winner_score,
-        created=match.created, ranking_change=match.ranking_change
-    )
-
-def delete_match(match):
+def remove_match(match):
     pass
 
 SWAP_RANGE = 0
