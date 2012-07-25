@@ -1,0 +1,59 @@
+[
+  {
+    "pk": 1,
+    "model": "core.ladderconfigurationkey",
+    "fields": {
+      "key": "leaderboard.swap_range",
+      "type": "INT",
+      "created": "2012-06-20T10:00:00Z"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "core.ladderconfigurationkey",
+    "fields": {
+      "key": "leaderboard.advancement_distance",
+      "type": "INT",
+      "created": "2012-06-20T10:00:00Z"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "core.ladderconfigurationkey",
+    "fields": {
+      "key": "leaderboard.auto_take_first",
+      "type": "BOOL",
+      "created": "2012-06-20T10:00:00Z"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "core.ladderconfiguration",
+    "fields": {
+      "ladder": null,
+      "key": 1,
+      "raw_value": "0",
+      "created": "2012-06-20T10:00:00Z"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "core.ladderconfiguration",
+    "fields": {
+      "ladder": null,
+      "key": 2,
+      "raw_value": "2",
+      "created": "2012-06-20T10:00:00Z"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "core.ladderconfiguration",
+    "fields": {
+      "ladder": null,
+      "key": 3,
+      "raw_value": "1",
+      "created": "2012-06-20T10:00:00Z"
+    }
+  }
+]

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Ladder, Ranked, Watcher, RankingChangeSet, RankingChange
+from core.models import Ladder, LadderConfiguration, Ranked, Watcher, RankingChangeSet, RankingChange
 
 class RankedInline(admin.TabularInline):
     model = Ranked
@@ -16,12 +16,19 @@ class WatcherInline(admin.TabularInline):
         (None, {'fields': ['user']}),
     ]
 
+class LadderConfigurationInline(admin.TabularInline):
+    model = LadderConfiguration
+    extra = 0
+    fieldsets = [
+        (None, {'fields': ['key', 'raw_value']}),
+    ]
+
 class LadderAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name', 'rungs', 'is_private']}),
         ('Meta', {'fields': ['created', 'created_by']})
     ]
-    inlines = [RankedInline, WatcherInline]
+    inlines = [RankedInline, LadderConfigurationInline, WatcherInline]
     list_display = ('name', 'type', 'rungs', 'is_private', 'created')
     list_filter = ['is_private', 'created']
     search_fields = ['name']
@@ -50,6 +57,16 @@ class RankingChangeSetAdmin(admin.ModelAdmin):
     search_fields = ['ladder', 'change_data']
     date_hierarchy = 'change_date'
 
+class LadderConfigurationAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['ladder', 'key', 'raw_value']})
+    ]
+    list_display = ('ladder', 'key', 'value', 'type')
+    list_filter = ['key', 'ladder', 'key__type']
+    search_fields = ['key', 'ladder__name', 'ladder__type', 'value']
+    date_hierarchy = 'created'
+
 admin.site.register(Ladder, LadderAdmin)
+admin.site.register(LadderConfiguration, LadderConfigurationAdmin)
 admin.site.register(Watcher, WatcherAdmin)
 admin.site.register(RankingChangeSet, RankingChangeSetAdmin)

@@ -8,6 +8,12 @@ LADDER_TYPES = (
     ('LEADERBOARD', 'Leaderboard')
 )
 
+LADDER_CONFIGURATION_TYPES = (
+    ('STR', 'String'),
+    ('INT', 'Integer'),
+    ('BOOL', 'Boolean'),
+)
+
 LADDER_PERMISSION_TYPES = (
     ('ADMIN', 'Administrator'),
     ('MOD', 'Moderator'),
@@ -35,6 +41,9 @@ class Ladder(DatedModel):
     def watcher_count(self):
         return self.watcher_set.count()
 
+    def favorite_count(self):
+        return self.watcher_set.filter(favorite=True).count()
+
     #@models.permalink
     def get_absolute_url(self):
         #return ('view_ladder', (), {'ladder_id': self.id})
@@ -42,6 +51,43 @@ class Ladder(DatedModel):
 
     def __unicode__(self):
         return self.name
+
+class LadderConfigurationKey(DatedModel):
+    key = models.CharField(max_length=50)
+
+    TYPES = LADDER_CONFIGURATION_TYPES
+    type = models.CharField(max_length=50, choices=TYPES)
+
+    def __unicode__(self):
+        return self.key
+
+    class Meta:
+        db_table = 'core_ladder_configuration_key'
+
+class LadderConfiguration(DatedModel):
+    ladder = models.ForeignKey(Ladder, null=True, blank=False)
+    key = models.ForeignKey(LadderConfigurationKey)
+    raw_value = models.CharField(max_length=300)
+
+    def type(self):
+        return self.key.type
+
+    def value(self):
+        try:
+            return {
+                'STR': str,
+                'INT': int,
+                'BOOL': lambda raw: bool(int(raw))
+            }[self.type()](self.raw_value)
+        except ValueError:
+            pass
+
+    def __unicode__(self):
+        return '%s=%s' % (self.key, self.value())
+
+    class Meta:
+        unique_together = ('ladder', 'key')
+        db_table = 'core_ladder_configuration'
 
 class Ranked(DatedModel):
     ladder = models.ForeignKey(Ladder)
