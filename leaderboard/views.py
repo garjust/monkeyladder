@@ -11,9 +11,9 @@ from leaderboard.models import Match
 def view_ladder(request, ladder_id, context):
     ladder = get_ladder_or_404(pk=ladder_id)
     games = request.GET.get('games', None)
-    form = MatchCreationForm(ladder_id)
+    form = MatchCreationForm(ladder)
     if games:
-        form = AdvancedMatchCreationForm(games, ladder_id)
+        form = AdvancedMatchCreationForm(games, ladder)
     context.update({
         'player_names': logic.get_autocomplete_list(ladder),
         'match_feed': logic.get_match_feed(ladder),
@@ -52,17 +52,17 @@ def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     if request.POST:
         if request.GET.get('games', None):
-            form = AdvancedMatchCreationForm(request.GET.get('games'), ladder_id, request.POST)
+            form = AdvancedMatchCreationForm(request.GET.get('games'), ladder, request.POST)
         else:
-            form = MatchCreationForm(ladder_id, request.POST)
+            form = MatchCreationForm(ladder, request.POST)
         if form.is_valid():
             match = form.save(commit=True)
             logic.adjust_rankings(match)
             if request.is_ajax():
                 if request.GET.get('games', None):
-                    form = AdvancedMatchCreationForm(request.GET.get('games'), ladder_id)
+                    form = AdvancedMatchCreationForm(request.GET.get('games'), ladder)
                 else:
-                    form = MatchCreationForm(ladder_id)
+                    form = MatchCreationForm(ladder)
                 return render(request, 'leaderboard/content/match_entry_form.html', {'form': form, 'ladder': ladder, 'new_match': match})
             return redirect('/ladders/{}'.format(ladder_id))
     else:
