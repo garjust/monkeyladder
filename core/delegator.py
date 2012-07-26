@@ -59,7 +59,7 @@ def delegate_watchers_view(request, ladder_id):
 
 def delegate_ladder_edit(request, ladder_id):
     """
-    Delegates editing of a ladder
+    Delegates configuration of a ladder
     """
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     if request.POST:
@@ -70,3 +70,6 @@ def delegate_ladder_edit(request, ladder_id):
     else:
         form = LadderRankingEditForm(ladder)
     return delegate_ladder_content(request, ladder_id, context={'ladder_edit_form': form})
+
+def delegate_ladder_config(request, ladder_id):
+    pass

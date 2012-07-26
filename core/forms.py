@@ -36,7 +36,7 @@ class LadderCreationForm(forms.Form):
         Watcher.objects.create(ladder=ladder, user=self.user, type='ADMIN')
         return ladder
 
-class LadderEditForm(forms.Form):
+class LadderConfigurationForm(forms.Form):
     """
     A form that edits an existing ladder
     """

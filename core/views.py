@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from core import logic
-from core.forms import LadderCreationForm
+from core.forms import LadderCreationForm, LadderRankingEditForm
 
 from core.models import Watcher
 

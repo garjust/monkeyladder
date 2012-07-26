@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import forms, _
 
 from core.logic import int_or_404
+from core.forms import LadderConfigurationForm
 from core.models import LadderConfiguration, LadderConfigurationKey
 from leaderboard.logic import get_ladder_players
 from leaderboard.models import Match, Game
@@ -128,7 +129,7 @@ class AdvancedMatchCreationForm(BaseMatchCreationForm):
             i += 1
         return match
 
-class LeaderboardConfigurationForm(forms.Form):
+class LeaderboardConfigurationForm(LadderConfigurationForm):
 
     def __init__(self, ladder, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
@@ -143,7 +144,7 @@ class LeaderboardConfigurationForm(forms.Form):
     swap_range = forms.IntegerField(label=_("Swap Range"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}), required=False)
     advancement_distance = forms.IntegerField(label=_("Advance Distance"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}), required=False)
     auto_take_first = forms.BooleanField(label=_("Automatically Take First"), required=False)
-    
+
     def clean_auto_take_first(self):
         return int(self.cleaned_data['auto_take_first'])
 
