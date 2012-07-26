@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 
-from core.models import Ladder, Watcher
+from core.models import Ladder, Watcher, LadderConfiguration, LadderConfigurationKey
 
 import logging
 logger = logging.getLogger('monkeyladder')
@@ -77,3 +77,10 @@ def get_watcher(user, ladder):
             return ladder.watcher(user)
         except Watcher.DoesNotExist:
             pass
+        
+def get_config(ladder, key):
+    config_key = LadderConfigurationKey.objects.get(key=key)
+    try:
+        return LadderConfiguration.objects.get(ladder=ladder, key=config_key).value()
+    except LadderConfiguration.DoesNotExist:
+        return LadderConfiguration.objects.get(ladder=None, key=config_key).value()

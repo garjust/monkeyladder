@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import forms, _
 
 from core.logic import int_or_404
+from core.models import LadderConfiguration, LadderConfigurationKey
 from leaderboard.logic import get_ladder_players
 from leaderboard.models import Match, Game
 
@@ -128,20 +129,30 @@ class AdvancedMatchCreationForm(BaseMatchCreationForm):
         return match
 
 class LeaderboardConfigurationForm(forms.Form):
-    error_messages = {
-        'invalid_player': _("Players must be on the ladder"),
-    }
 
     def __init__(self, ladder, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
         self.ladder = ladder
+        for key in ['swap_range', 'advancement_distance', 'auto_take_first']:
+            config_key = LadderConfigurationKey.objects.get(key='leaderboard.%s' % key)
+            try:
+                self.fields[key].initial = LadderConfiguration.objects.get(ladder=self.ladder, key=config_key).value()
+            except LadderConfiguration.DoesNotExist:
+                self.fields[key].initial = LadderConfiguration.objects.get(ladder=None, key=config_key).value()
 
-    swap_range = forms.IntegerField(label=_("Swap Range"), min_value=0)
-    advancement_distance = forms.IntegerField(label=_("Advance Distance"), min_value=0)
-    auto_take_first = forms.BooleanField(label=_("Automatically Take First"))
-
-    player_one = forms.CharField(label=_("Player One"), max_length=30, widget=forms.TextInput(attrs={'class': 'player-name-autocomplete'}))
-    player_two = forms.CharField(label=_("Player Two"), max_length=30, widget=forms.TextInput(attrs={'class': 'player-name-autocomplete'}))
+    swap_range = forms.IntegerField(label=_("Swap Range"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}), required=False)
+    advancement_distance = forms.IntegerField(label=_("Advance Distance"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}), required=False)
+    auto_take_first = forms.BooleanField(label=_("Automatically Take First"), required=False)
+    
+    def clean_auto_take_first(self):
+        return int(self.cleaned_data['auto_take_first'])
 
     def save(self):
-        pass
+        for key in ['swap_range', 'advancement_distance', 'auto_take_first']:
+            config_key = LadderConfigurationKey.objects.get(key='leaderboard.%s' % key)
+            try:
+                config = LadderConfiguration.objects.get(ladder=self.ladder, key=config_key)
+                config.raw_value = self.cleaned_data[key]
+            except LadderConfiguration.DoesNotExist:
+                config = LadderConfiguration(ladder=self.ladder, key=config_key, raw_value=self.cleaned_data[key])
+            config.save()

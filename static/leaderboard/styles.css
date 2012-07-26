@@ -12,7 +12,6 @@
     font-size: 120%;
 }
 
-
 #match-entry-span .monkey-form-div {
     width: 400px;
     border: none;
@@ -31,6 +30,7 @@
 	text-align: left;
 }
 
+#leaderboard-config-span .well,
 #match-entry-span .well {
 	padding-bottom: 0px;
 }
@@ -40,4 +40,9 @@
 #match-entry-span .span4 {
 	padding: 5px;
 	margin-bottom: 5px;
+}
+
+#leaderboard-config-span .monkey-form-div {
+    width: 300px;
+    border: none;
 }
