@@ -1,6 +1,7 @@
 from django.utils import timezone
 
 from core.models import Ranked, RankingChange
+from core.logic import get_config
 from leaderboard.models import Match, Player, MatchRankingChangeSet
 
 import logging
@@ -73,11 +74,11 @@ def get_ladder_players_for_match_entry(ladder):
 def remove_match(match):
     pass
 
-SWAP_RANGE = 0
-ADVANCEMENT_RANKS = 2
-AUTO_TAKE_FIRST = True
-
 def adjust_rankings(match):
+    SWAP_RANGE = get_config(match.ladder, 'leaderboard.swap_range')
+    ADVANCEMENT_RANKS = get_config(match.ladder, 'leaderboard.advancement_distance')
+    AUTO_TAKE_FIRST = get_config(match.ladder, 'leaderboard.auto_take_first')
+    
     if not match.ranking_change:
         return
     winner = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.winner, ladder=match.ladder).rank)
