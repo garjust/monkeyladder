@@ -53,7 +53,7 @@ class Ladder(DatedModel):
         return self.name
 
 class LadderConfigurationKey(DatedModel):
-    key = models.CharField(max_length=50)
+    key = models.CharField(max_length=50, unique=True)
 
     TYPES = LADDER_CONFIGURATION_TYPES
     type = models.CharField(max_length=50, choices=TYPES)
