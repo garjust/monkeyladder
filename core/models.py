@@ -95,12 +95,13 @@ class Ranked(DatedModel):
     description = models.CharField(max_length=50)
 
     def display(self):
-        if 'player' in dir(self):
+        try:
             return self.player.display()
-        return self.__unicode__()
+        except:
+            return self.__unicode__()
 
     def __unicode__(self):
-        return str(self.description)
+        return self.description
 
 class Watcher(DatedModel):
     ladder = models.ForeignKey(Ladder)
