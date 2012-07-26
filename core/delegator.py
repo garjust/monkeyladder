@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 
 from core import logic
-from core.forms import LadderEditForm
+from core.forms import LadderRankingEditForm
 import core.views
 import leaderboard.views
 
@@ -63,10 +63,10 @@ def delegate_ladder_edit(request, ladder_id):
     """
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     if request.POST:
-        form = LadderEditForm(ladder, request.POST)
+        form = LadderRankingEditForm(ladder, request.POST)
         if form.is_valid():
-            form.save(ladder)
+            form.save()
             return redirect(ladder)
     else:
-        form = LadderEditForm(ladder)
+        form = LadderRankingEditForm(ladder)
     return delegate_ladder_content(request, ladder_id, context={'ladder_edit_form': form})

@@ -34,11 +34,6 @@
             </tbody>
         </table>
         {% if ladder_edit_form %}
-        <div style="display: none">
-            {{ ladder_edit_form.name }}
-            {{ ladder_edit_form.rungs }}
-            {{ ladder_edit_form.is_private }}
-        </div>
         <a id="ladder-cancel-link" class="btn btn-medium absolute" href="{{ ladder.get_absolute_url }}">Cancel</a>
         <input id="ladder-save-link" class="btn btn-medium absolute" type="submit" value="Save" />
         </form>
