@@ -20,7 +20,7 @@
                     <li><a id="nav-watchers-link" href="{{ ladder.get_absolute_url }}watchers/">Watchers</a></li>
                     {% if ladder.is_leaderboard %}<li><a id="nav-matches-link" href="{{ ladder.get_absolute_url }}leaderboard/matches/">Matches</a></li>{% endif %}
                     
-        			{% if watcher and watcher.admin %}<li><a id="ladder-config-link" href="#">Configure</a></li>{% endif %}
+        			{% if watcher and watcher.admin %}<li><a id="nav-config-link" href="{{ ladder.get_absolute_url }}configure">Configure</a></li>{% endif %}
                     {% block special_ladder_nav_links %}{% endblock %}
                 </ul>
             </div>

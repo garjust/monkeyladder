@@ -5,15 +5,15 @@ urlpatterns = patterns('django.views.generic.simple',
 )
 
 urlpatterns += patterns('core.delegator',
-    url(r'^(?P<ladder_id>\d+)/$', 'delegate_ladder_view', name='view_ladder'),
-    url(r'^(?P<ladder_id>\d+)/configure/$', 'delegate_ladder_config', name='configure_ladder'),
-    url(r'^(?P<ladder_id>\d+)/edit/$', 'delegate_ladder_edit', name='edit_ladder'),
-    url(r'^(?P<ladder_id>\d+)/watchers/$', 'delegate_watchers_view', name='view_ladder_watchers'),
-    url(r'^(?P<ladder_id>\d+)/content/ladder_display/$', 'delegate_ladder_content', name='ladder_display_content'),
+    url(r'^(?P<ladder_id>\d+)/$', 'view_ladder', name='view_ladder'),
+    url(r'^(?P<ladder_id>\d+)/content/ladder_display/$', 'ladder_display', name='ladder_display_content'),
+    url(r'^(?P<ladder_id>\d+)/configure/$', 'configure_ladder', name='configure_ladder'),
 )
 
 urlpatterns += patterns('core.views',
     url(r'^feeds/$', 'feeds'),
     url(r'^create/$', 'create_ladder', name='create_ladder'),
+    url(r'^(?P<ladder_id>\d+)/edit/$', 'edit_ladder', name='edit_ladder'),
     url(r'^(?P<ladder_id>\d+)/watch/$', 'watch_ladder', name='watch_ladder'),
+    url(r'^(?P<ladder_id>\d+)/watchers/$', 'view_watchers', name='view_watchers'),
 )

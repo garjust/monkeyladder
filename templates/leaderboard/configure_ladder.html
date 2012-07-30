@@ -1,0 +1,30 @@
+{% extends "core/configure_ladder.html" %}
+
+{% block extra_config_fields %}
+<fieldset>
+   <div id="id_swap_range-group" class="control-group">{{ form.swap_range.label_tag }}
+       <div class="controls">{{ form.swap_range }}</div>
+   </div>
+   <div id="id_advancement_distance-group" class="control-group">{{ form.advancement_distance.label_tag }}
+       <div class="controls">{{ form.advancement_distance }}</div>
+   </div>
+   <div id="id_auto_take_first-group" class="control-group">{{ form.auto_take_first.label_tag }}
+       <div class="controls">{{ form.auto_take_first }}</div>
+   </div>
+</fieldset>
+<script type="text/javascript">
+    $(".control-group label").addClass("control-label");
+    $(function () {
+        function errorTooltip(id, content) {
+            var group = $("#" + id)
+            group.addClass("form-error")
+            group.tooltip({
+                placement: "right", title: content
+            });
+        }
+        {% if form.errors.swap_range %}errorTooltip("id_swap_range-group", "{{ form.errors.swap_range|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.advancement_distance %}errorTooltip("id_advancement_distance-group", "{{ form.errors.advancement_distance|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.auto_take_first %}errorTooltip("id_auto_take_first-group", "{{ form.errors.auto_take_first|removetags:'ul li'}}"){% endif %}
+    })
+</script>
+{% endblock %}

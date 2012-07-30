@@ -4,36 +4,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from accounts.decorators import login_required_forbidden
 from core.logic import get_ladder_or_404, int_or_404
 
-from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm, LeaderboardConfigurationForm
+from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm
 from leaderboard import logic
 from leaderboard.models import Match
-
-def view_ladder(request, ladder_id, context):
-    ladder = get_ladder_or_404(pk=ladder_id)
-    games = request.GET.get('games', None)
-    form = MatchCreationForm(ladder)
-    if games:
-        form = AdvancedMatchCreationForm(games, ladder)
-    context.update({
-        'player_names': ','.join(map(lambda n: '"%s"' % n, logic.get_ladder_players(ladder))),
-        'match_feed': logic.get_match_feed(ladder),
-        'form': form,
-        'leaderboard_config_form': LeaderboardConfigurationForm(ladder)
-    })
-    print context
-    return render(request, 'leaderboard/view_ladder.html', context)
-
-def ladder_display_content(request, ladder_id, context):
-    return render(request, 'core/content/ladder_display.html', context)
-
-def configure_ladder(request, ladder_id):
-    ladder = get_ladder_or_404(pk=ladder_id)
-    if request.POST:
-        form = LeaderboardConfigurationForm(ladder, request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(ladder)
-    return redirect(ladder)
 
 def view_matches(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)

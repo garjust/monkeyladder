@@ -31,13 +31,6 @@
             </div>
         </div>
         <div class="span6">
-            {% if watcher.admin %}
-            <div class="row">
-                <div id="leaderboard-config-span" class="span6">
-                {% include "leaderboard/content/leaderboard_config_form.html" with form=leaderboard_config_form %}
-                </div>
-            </div>
-            {% endif %}
             <div class="row">
                 <div id="match-entry-span" class="span6">
                 {% include "leaderboard/content/match_entry_form.html" %}

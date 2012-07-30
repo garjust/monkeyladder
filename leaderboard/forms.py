@@ -132,7 +132,7 @@ class AdvancedMatchCreationForm(BaseMatchCreationForm):
 class LeaderboardConfigurationForm(LadderConfigurationForm):
 
     def __init__(self, ladder, *args, **kwargs):
-        forms.Form.__init__(self, *args, **kwargs)
+        LadderConfigurationForm.__init__(self, ladder, *args, **kwargs)
         self.ladder = ladder
         for key in ['swap_range', 'advancement_distance', 'auto_take_first']:
             config_key = LadderConfigurationKey.objects.get(key='leaderboard.%s' % key)
@@ -141,14 +141,15 @@ class LeaderboardConfigurationForm(LadderConfigurationForm):
             except LadderConfiguration.DoesNotExist:
                 self.fields[key].initial = LadderConfiguration.objects.get(ladder=None, key=config_key).value()
 
-    swap_range = forms.IntegerField(label=_("Swap Range"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}), required=False)
-    advancement_distance = forms.IntegerField(label=_("Advance Distance"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}), required=False)
-    auto_take_first = forms.BooleanField(label=_("Automatically Take First"), required=False)
+    swap_range = forms.IntegerField(label=_("Swap Range"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
+    advancement_distance = forms.IntegerField(label=_("Advance Distance"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
+    auto_take_first = forms.BooleanField(label=_("Automatically Take First"))
 
     def clean_auto_take_first(self):
         return int(self.cleaned_data['auto_take_first'])
 
     def save(self):
+        super(LeaderboardConfigurationForm, self).save()
         for key in ['swap_range', 'advancement_distance', 'auto_take_first']:
             config_key = LadderConfigurationKey.objects.get(key='leaderboard.%s' % key)
             try:
