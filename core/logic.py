@@ -13,6 +13,15 @@ def int_or_404(value):
         raise Http404
     return value
 
+def get_base_ladder_context(request, ladder):
+    """
+    Returns the basic context all ladders need
+    """
+    return {
+        'ladder': ladder,
+        'watcher': get_watcher(request.user, ladder)
+    }
+
 def get_ladder_or_404(*args, **kwargs):
     """
     Returns a ladder or a 404 response
@@ -77,7 +86,7 @@ def get_watcher(user, ladder):
             return ladder.watcher(user)
         except Watcher.DoesNotExist:
             pass
-        
+
 def get_config(ladder, key):
     config_key = LadderConfigurationKey.objects.get(key=key)
     try:
