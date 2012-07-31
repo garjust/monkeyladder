@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from accounts.decorators import login_required_forbidden
-from core.logic import get_ladder_or_404, int_or_404
+from core.logic import get_ladder_or_404, int_or_404, get_base_ladder_context
 
 from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm
 from leaderboard import logic
@@ -26,9 +26,9 @@ def view_matches(request, ladder_id):
             page = paginator.page(page_number)
             if match in page:
                 matches = page
-    return render(request, 'leaderboard/view_matches.html',
-        {'navbar_active': 'matches', 'ladder': ladder, 'matches': matches, 'match_id': match_id}
-    )
+    context = get_base_ladder_context(request, ladder)
+    context.update({'navbar_active': 'matches', 'ladder': ladder, 'matches': matches, 'match_id': match_id})
+    return render(request, 'leaderboard/view_matches.html', context)
 
 @login_required_forbidden
 def create_match(request, ladder_id):

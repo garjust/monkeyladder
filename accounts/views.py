@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from accounts import logic
 from accounts.forms import ExtendedUserCreationForm
 from core.logic import watched_ladder_feed
-from leaderboard.logic import get_players_match_feed, count_players_matches, count_players_wins
+from leaderboard.logic import get_players_match_feed, count_players_matches, count_players_wins, calculate_players_game_win_percentage
 
 def register(request):
     if request.POST:
@@ -25,6 +25,7 @@ def view_profile(request, user_id):
         'watched_feed': watched_ladder_feed(user, include_watchers=True),
         'matches_won': count_players_wins(user),
         'matches_played': count_players_matches(user),
+        'game_win_percentage': calculate_players_game_win_percentage(user)
     })
 
 @login_required(login_url="/accounts/login")

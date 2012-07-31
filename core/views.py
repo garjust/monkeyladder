@@ -42,7 +42,9 @@ def view_watchers(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     if not logic.can_view_ladder(request.user, ladder):
         return redirect('/home')
-    return render(request, 'core/view_ladder_watchers.html', {'navbar_active': 'watchers', 'ladder': ladder, 'watcher_feed': logic.ladder_watchers(ladder)})
+    return render(request, 'core/view_ladder_watchers.html', logic.get_base_ladder_context(request, ladder, {
+        'navbar_active': 'watchers', 'watcher_feed': logic.ladder_watchers(ladder)
+    }))
 
 @login_required
 def watch_ladder(request, ladder_id):

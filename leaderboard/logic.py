@@ -49,6 +49,31 @@ def count_players_matches(user, ladder=None):
     """
     return count_players_wins(user, ladder) + count_players_losses(user, ladder)
 
+def count_players_games(user, ladder=None):
+    wins = 0
+    games = 0
+    if ladder:
+        for match in Match.objects.filter(ladder=ladder, winner=user):
+            wins += match.winner_score
+            games += match.winner_score + match.loser_score
+        for match in Match.objects.filter(ladder=ladder, loser=user):
+            wins += match.loser_score
+            games += match.winner_score + match.loser_score
+    else:
+        for match in Match.objects.filter(winner=user):
+            wins += match.winner_score
+            games += match.winner_score + match.loser_score
+        for match in Match.objects.filter(loser=user):
+            wins += match.loser_score
+            games += match.winner_score + match.loser_score
+    return wins, games
+    
+def calculate_players_game_win_percentage(user, ladder=None):
+    wins, games = count_players_games(user, ladder)
+    if games == 0:
+        return 0
+    return (float(wins) / float(games)) * 100
+
 def climbing_ladder_feed(user, order='-created', size=5):
     """
     Returns a ladder feed of the ladders the user is a player on
