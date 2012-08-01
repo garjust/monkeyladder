@@ -1,7 +1,5 @@
 import os
 
-from version import VERSION_NUMBER
-
 PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", "..")).replace("\\", "/")
 
 ROOT_URLCONF = 'monkeyladder.urls'
