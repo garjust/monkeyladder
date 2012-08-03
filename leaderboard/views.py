@@ -4,7 +4,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from accounts.decorators import login_required_forbidden
 from core.logic import get_ladder_or_404, int_or_404, get_base_ladder_context
 
-from leaderboard.forms import MatchCreationForm, GameCreationForm, get_match_form
+from leaderboard.contexts import get_leaderboard_ladder_context
+from leaderboard.forms import get_match_form
 from leaderboard import logic
 from leaderboard.models import Match
 
@@ -27,7 +28,7 @@ def view_matches(request, ladder_id):
             if match in page:
                 matches = page
     context = get_base_ladder_context(request, ladder)
-    context.update({'navbar_active': 'matches', 'ladder': ladder, 'matches': matches, 'match_id': match_id})
+    context.update({'navbar_active': 'matches', 'matches': matches, 'match_id': match_id})
     return render(request, 'leaderboard/view_matches.html', context)
 
 @login_required_forbidden
@@ -39,18 +40,10 @@ def create_match(request, ladder_id):
         logic.adjust_rankings(match)
         if request.is_ajax():
             form = get_match_form(ladder, games=request.GET.get('games'))
-            return render(request, 'leaderboard/content/match_entry_form.html', {
-                'player_names': logic.get_ladder_players_for_match_entry(ladder),
-                'form': form,
-                'ladder': ladder,
-                'new_match': match,
-            })
+            form.success = "Match created successfully"
+            return render(request, 'leaderboard/content/match_entry_form.html', get_leaderboard_ladder_context(request, ladder, form=form))
         return redirect('/ladders/{}'.format(ladder_id))
-    return render(request, 'leaderboard/content/match_entry_form.html', {
-        'player_names': logic.get_ladder_players_for_match_entry(ladder),
-        'form': form,
-        'ladder': ladder,
-    })
+    return render(request, 'leaderboard/content/match_entry_form.html', get_leaderboard_ladder_context(request, ladder, form=form))
 
 def match_feed_content(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)

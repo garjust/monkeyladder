@@ -1,11 +1,15 @@
 from leaderboard.forms import LeaderboardConfigurationForm, get_match_form
 from leaderboard import logic
+from core.logic import get_base_ladder_context
 
-def view_ladder_context(request, ladder):
+def get_leaderboard_ladder_context(request, ladder, form=None):
+    return get_base_ladder_context(request, ladder, extra=view_ladder_context(request, ladder, form))
+
+def view_ladder_context(request, ladder, form=None):
     return {
-        'player_names': ','.join(map(lambda n: '"%s"' % n, logic.get_ladder_players(ladder))),
+        'player_names': logic.get_ladder_players_for_match_entry(ladder),
         'match_feed': logic.get_match_feed(ladder),
-        'form': get_match_form(ladder, games=request.GET.get('games')),
+        'form': form if form else get_match_form(ladder, games=request.GET.get('games')),
     }
 
 def ladder_display_context(request, ladder):
