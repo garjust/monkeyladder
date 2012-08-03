@@ -34,12 +34,12 @@ def view_matches(request, ladder_id):
 @login_required_forbidden
 def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    form = get_match_form(ladder, post_dictionary=request.POST, games=request.GET.get('games'))
+    form = get_match_form(ladder, post_dictionary=request.POST, number_of_games=request.GET.get('games'))
     if form.is_valid():
         match = form.save()
         logic.adjust_rankings(match)
         if request.is_ajax():
-            form = get_match_form(ladder, games=request.GET.get('games'))
+            form = get_match_form(ladder, number_of_games=request.GET.get('games'))
             form.success = "Match created successfully"
             return render(request, 'leaderboard/content/match_entry_form.html', get_leaderboard_ladder_context(request, ladder, form=form))
         return redirect('/ladders/{}'.format(ladder_id))

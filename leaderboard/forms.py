@@ -6,11 +6,11 @@ from core.models import LadderConfiguration, LadderConfigurationKey
 from leaderboard.logic import get_ladder_players
 from leaderboard.models import Match, Game
 
-def get_match_form(ladder, post_dictionary=None, games=None):
+def get_match_form(ladder, post_dictionary=None, number_of_games=None):
     arguments = {'ladder': ladder}
     form_class = MatchCreationForm
-    if games:
-        arguments['number_of_games'] = games
+    if number_of_games:
+        arguments['number_of_games'] = number_of_games
         form_class = GameCreationForm
     if post_dictionary:
         return form_class(post_dictionary, **arguments)
