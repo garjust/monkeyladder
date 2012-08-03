@@ -40,4 +40,6 @@
         }
         {% if comment_form.errors.comment %}errorTooltip("id_comment-group", "{{ coment_form.errors.comment|removetags:'ul li'}}"){% endif %}
     })
+    $("#id_comment-group textarea").attr("rows", 4)
+    $("#id_comment-group textarea").attr("cols", 80)
 </script>
