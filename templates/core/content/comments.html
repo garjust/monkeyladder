@@ -8,26 +8,36 @@
 <div class="row">
     <div class="span6">
     {% get_comment_form for commentable as comment_form %}
-        <form action="{% comment_form_target %}" method="post">{% csrf_token %}
-            <table>
-                <thead>
-                    <th>{{ comment_form.comment.label }}</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ comment_form.comment }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div style="display: none;">{{ comment_form.honeypot }}</div>
+        <form class="form-horizontal" action="{% comment_form_target %}" method="post">{% csrf_token %}
+            <fieldset>
+            	<div id="id_comment-group" class="control-group">{{ comment_form.comment.label_tag }}
+                    <div class="controls">{{ comment_form.comment }}</div>
+            </fieldset>
+            <fieldset>
+            	<div style="display: none;">{{ comment_form.honeypot }}</div>
+            </fieldset>
+            <fieldset>
             {{ comment_form.content_type }}
             {{ comment_form.object_pk }}
             {{ comment_form.timestamp }}
             {{ comment_form.security_hash }}
-           <div>
-               <input type="submit" name="submit" value="Post">
-               <input type="submit" name="preview" value="Preview">
-           </div>
+            </fieldset>
+            <div class="monkey-form-actions">
+                <input class="btn" type="submit" name="submit" value="Post">
+            </div>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    $(".control-group label").addClass("control-label");
+    $(function () {
+        function errorTooltip(id, content) {
+            var group = $("#" + id)
+            group.addClass("form-error")
+            group.tooltip({
+                placement: "right", title: content
+            });
+        }
+        {% if comment_form.errors.comment %}errorTooltip("id_comment-group", "{{ coment_form.errors.comment|removetags:'ul li'}}"){% endif %}
+    })
+</script>
