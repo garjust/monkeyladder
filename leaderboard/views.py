@@ -36,7 +36,7 @@ def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     form = get_match_form(ladder, post_dictionary=request.POST, games=request.GET.get('games'))
     if form.is_valid():
-        match = form.save(commit=True)
+        match = form.save()
         logic.adjust_rankings(match)
         if request.is_ajax():
             form = get_match_form(ladder, games=request.GET.get('games'))

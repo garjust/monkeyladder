@@ -61,7 +61,7 @@ class MatchCreationForm(BaseMatchCreationForm):
     player_one_score = forms.IntegerField(label=_("Score"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
     player_two_score = forms.IntegerField(label=_("Score"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
 
-    def save(self, commit=False):
+    def save(self):
         if self.cleaned_data['player_one_score'] >= self.cleaned_data['player_two_score']:
             winner = 'player_one'
             loser = 'player_two'
@@ -107,7 +107,7 @@ class GameCreationForm(BaseMatchCreationForm):
                 player_two_games += 1
         return player_one_games, player_two_games
 
-    def save(self, commit=False):
+    def save(self):
         print "SAVING GAMES"
         game_scores = self.games(values=True)
         player_one_games, player_two_games = self.calculate_match_scores(game_scores)
