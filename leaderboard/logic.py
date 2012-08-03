@@ -67,7 +67,7 @@ def count_players_games(user, ladder=None):
             wins += match.loser_score
             games += match.winner_score + match.loser_score
     return wins, games
-    
+
 def calculate_players_game_win_percentage(user, ladder=None):
     wins, games = count_players_games(user, ladder)
     if games == 0:
@@ -103,7 +103,7 @@ def adjust_rankings(match):
     SWAP_RANGE = get_config(match.ladder, 'leaderboard.swap_range')
     ADVANCEMENT_RANKS = get_config(match.ladder, 'leaderboard.advancement_distance')
     AUTO_TAKE_FIRST = get_config(match.ladder, 'leaderboard.auto_take_first')
-    
+
     if not match.ranking_change:
         return
     winner = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.winner, ladder=match.ladder).rank)

@@ -6,14 +6,25 @@ from core.models import LadderConfiguration, LadderConfigurationKey
 from leaderboard.logic import get_ladder_players
 from leaderboard.models import Match, Game
 
+def get_match_form(ladder, post_dictionary=None, games=None):
+    arguments = {'ladder': ladder}
+    form_class = MatchCreationForm
+    if games:
+        arguments['number_of_games'] = games
+        form_class = GameCreationForm
+    if post_dictionary:
+        return form_class(post_dictionary, **arguments)
+    return form_class(**arguments)
+
 class BaseMatchCreationForm(forms.Form):
     error_messages = {
         'invalid_player': _("Players must be on the ladder"),
+        'same_players': _("Players must be different"),
     }
 
-    def __init__(self, ladder, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        self.ladder = kwargs.pop('ladder')
         forms.Form.__init__(self, *args, **kwargs)
-        self.ladder = ladder
 
     player_one = forms.CharField(label=_("Player One"), max_length=30, widget=forms.TextInput(attrs={'class': 'player-name-autocomplete'}))
     player_two = forms.CharField(label=_("Player Two"), max_length=30, widget=forms.TextInput(attrs={'class': 'player-name-autocomplete'}))
@@ -37,6 +48,9 @@ class BaseMatchCreationForm(forms.Form):
         raise forms.ValidationError(self.error_messages['invalid_player'])
 
     def clean(self):
+        if 'player_one' in self.cleaned_data and 'player_two' in self.cleaned_data:
+            if self.cleaned_data['player_one'] == self.cleaned_data['player_two']:
+                raise forms.ValidationError(self.error_messages['same_players'])
         return self.cleaned_data
 
 class MatchCreationForm(BaseMatchCreationForm):
@@ -62,14 +76,14 @@ class MatchCreationForm(BaseMatchCreationForm):
         match.save()
         return match
 
-class AdvancedMatchCreationForm(BaseMatchCreationForm):
+class GameCreationForm(BaseMatchCreationForm):
     """
     A form that creates the a match with games
     """
 
-    def __init__(self, number_of_games, ladder, *args, **kwargs):
-        BaseMatchCreationForm.__init__(self, ladder, *args, **kwargs)
-        self.number_of_games = int_or_404(number_of_games)
+    def __init__(self, *args, **kwargs):
+        self.number_of_games = int_or_404(kwargs.pop('number_of_games'))
+        BaseMatchCreationForm.__init__(self, *args, **kwargs)
         for i in range(self.number_of_games):
             self.fields['game_{}_player_one_score'.format(i)] = forms.IntegerField(label=_("Game {} Player One Score".format(i)), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
             self.fields['game_{}_player_two_score'.format(i)] = forms.IntegerField(label=_("Game {} Player Two Score".format(i)), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))

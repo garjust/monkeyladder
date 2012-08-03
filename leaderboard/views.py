@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from accounts.decorators import login_required_forbidden
 from core.logic import get_ladder_or_404, int_or_404, get_base_ladder_context
 
-from leaderboard.forms import MatchCreationForm, AdvancedMatchCreationForm
+from leaderboard.forms import MatchCreationForm, GameCreationForm, get_match_form
 from leaderboard import logic
 from leaderboard.models import Match
 
@@ -33,28 +33,19 @@ def view_matches(request, ladder_id):
 @login_required_forbidden
 def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    if request.POST:
-        if request.GET.get('games', None):
-            form = AdvancedMatchCreationForm(request.GET.get('games'), ladder, request.POST)
-        else:
-            form = MatchCreationForm(ladder, request.POST)
-        if form.is_valid():
-            match = form.save(commit=True)
-            logic.adjust_rankings(match)
-            if request.is_ajax():
-                if request.GET.get('games', None):
-                    form = AdvancedMatchCreationForm(request.GET.get('games'), ladder)
-                else:
-                    form = MatchCreationForm(ladder)
-                return render(request, 'leaderboard/content/match_entry_form.html', {
-                    'player_names': logic.get_ladder_players_for_match_entry(ladder),
-                    'form': form,
-                    'ladder': ladder,
-                    'new_match': match,
-                })
-            return redirect('/ladders/{}'.format(ladder_id))
-    else:
-        form = MatchCreationForm(ladder_id)
+    form = get_match_form(ladder, post_dictionary=request.POST, games=request.GET.get('games'))
+    if form.is_valid():
+        match = form.save(commit=True)
+        logic.adjust_rankings(match)
+        if request.is_ajax():
+            form = get_match_form(ladder, games=request.GET.get('games'))
+            return render(request, 'leaderboard/content/match_entry_form.html', {
+                'player_names': logic.get_ladder_players_for_match_entry(ladder),
+                'form': form,
+                'ladder': ladder,
+                'new_match': match,
+            })
+        return redirect('/ladders/{}'.format(ladder_id))
     return render(request, 'leaderboard/content/match_entry_form.html', {
         'player_names': logic.get_ladder_players_for_match_entry(ladder),
         'form': form,
