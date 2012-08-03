@@ -17,7 +17,7 @@ class UserProfile(models.Model):
         return ('view_profile', (), {'user_id': self.user.id})
 
     def __unicode__(self):
-        return "profile for %s" % self.name()
+        return "profile for %s" % self.username
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

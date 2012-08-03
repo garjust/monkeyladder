@@ -10,4 +10,3 @@ def login_required_forbidden(f):
         else:
             return f(request, *args, **kwargs)
     return decorated
-        
