@@ -9,7 +9,7 @@ def view_ladder_context(request, ladder, form=None):
     return {
         'player_names': logic.get_ladder_players_for_match_entry(ladder),
         'match_feed': logic.get_match_feed(ladder),
-        'form': form if form else get_match_form(ladder, games=request.GET.get('games')),
+        'form': form if form else get_match_form(ladder, number_of_games=request.GET.get('games')),
     }
 
 def ladder_display_context(request, ladder):

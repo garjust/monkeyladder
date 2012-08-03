@@ -1,5 +1,9 @@
 .ladder-rank-table-row {
-    font-size: 150%;
+    font-size: 135%;
+}
+
+.ladder-rank-table-row td.rank{
+	width: 20%;
 }
 
 #ladder-edit-link {

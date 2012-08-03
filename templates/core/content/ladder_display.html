@@ -9,23 +9,23 @@
     <div class="span{{ ladder_display_size|default:'6' }} monkey-form-div-free">
     {% if ladder_edit_form %}<form id="edit-ladder-form" action="/ladders/{{ ladder.id }}/edit/" method="post">{% csrf_token %}{% endif %}
         <table class="table table-striped centered-table">
+            {% block ladder_entries %}
             <thead>
                 <th>Rank</th>
                 <th>Name</th>
             </thead>
             <tbody>
-            {% block ladder_entries %}
 	            {% if ladder_edit_form %}
 	                {% for ranked in ladder_edit_form.ranked %}
 		            <tr class="ladder-rank-table-row">
-		                <td>{{ ranked.field }}</td>
+		                <td class="rank">{{ ranked.field }}</td>
 		                <td>{{ ranked.ranked.display }}</td>
 		            </tr>    
 	                {% endfor %}
                 {% else %}
 		            {% for ranked in ladder.ranking %}
 		            <tr class="ladder-rank-table-row">
-		                <td>{{ ranked.rank }}</td>
+		                <td class="rank">{{ ranked.rank }}</td>
 		                <td>{{ ranked.display }}</td>
 		            </tr>
 	               {% endfor %}

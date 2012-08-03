@@ -20,7 +20,7 @@ CONTEXTS = {
     },
     'LEADERBOARD' : {
         VIEW: {'context': leaderboard.contexts.view_ladder_context, 'template': 'leaderboard/view_ladder.html'},
-        CONTENT: {'context': leaderboard.contexts.ladder_display_context, 'template': 'core/content/ladder_display.html'},
+        CONTENT: {'context': leaderboard.contexts.ladder_display_context, 'template': 'leaderboard/content/ladder_display.html'},
         CONFIG: {'form': LeaderboardConfigurationForm, 'template': 'leaderboard/configure_ladder.html'},
     }
 }

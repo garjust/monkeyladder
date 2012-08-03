@@ -1,0 +1,27 @@
+{% extends "core/content/ladder_display.html" %}
+
+{% block ladder_entries %}
+<thead>
+    <th>Rank</th>
+    <th>Name</th>
+    <th></th>
+</thead>
+<tbody>
+ {% if ladder_edit_form %}
+     {% for ranked in ladder_edit_form.ranked %}
+  <tr class="ladder-rank-table-row">
+      <td class="rank">{{ ranked.field }}</td>
+      <td>{{ ranked.ranked.display }}</td>
+      <td class="view-button-parent"><a class="btn" href="{{ ranked.ranked.player.user.get_profile.get_absolute_url }}">Profile</a></td>
+  </tr>    
+     {% endfor %}
+    {% else %}
+  {% for ranked in ladder.ranking %}
+  <tr class="ladder-rank-table-row">
+      <td class="rank">{{ ranked.rank }}</td>
+      <td>{{ ranked.display }}</td>
+      <td class="view-button-parent"><a class="btn" href="{{ ranked.player.user.get_profile.get_absolute_url }}">Profile</a></td>
+  </tr>
+    {% endfor %}
+    {% endif %}           
+{% endblock %}
