@@ -156,7 +156,7 @@ class LeaderboardConfigurationForm(LadderConfigurationForm):
                 self.fields[key].initial = LadderConfiguration.objects.get(ladder=None, key=config_key).value()
 
     swap_range = forms.IntegerField(label=_("Swap Range"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
-    advancement_distance = forms.IntegerField(label=_("Advance Distance"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
+    advancement_distance = forms.IntegerField(label=_("Advance Distance"), min_value=1, widget=forms.TextInput(attrs={'class': 'input-mini'}))
     auto_take_first = forms.BooleanField(label=_("Automatically Take First"))
 
     def clean_auto_take_first(self):
