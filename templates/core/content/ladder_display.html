@@ -8,7 +8,7 @@
 <div class="row">
     <div class="span{{ ladder_display_size|default:'6' }} monkey-form-div-free">
     {% if ladder_edit_form %}<form id="edit-ladder-form" action="/ladders/{{ ladder.id }}/edit/" method="post">{% csrf_token %}{% endif %}
-        <table class="table table-striped centered-table">
+        <table class="table table-striped tbcentered-table">
             {% block ladder_entries %}
             <thead>
                 <th>Rank</th>

@@ -55,4 +55,10 @@ class ExtendedUserCreationFormTest(TestCase):
         self.new_user['password2'] = 'passWord'
         form = self.fixture(self.new_user)
         self.assertFalse(form.is_valid(), 'Form should not be valid')
-        self.assertTrue(form.errors.password2)
+        self.assertIn('password2', form.errors)
+        
+    def test_empty_fields_first_name(self):
+        del self.new_user['first_name']
+        form = self.fixture(self.new_user)
+        self.assertFalse(form.is_valid(), 'Form should not be valid')
+        self.assertIn('first_name', form.errors)
