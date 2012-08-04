@@ -3,9 +3,9 @@ from django.http import Http404
 from django.test import TestCase
 
 from core import logic
-from core.models import Ladder, Watcher, Favorite
+from core.models import Ladder, Watcher
 
-FIXTURES = ['fixtures/uers/', 'fixtures/core']
+FIXTURES = ['fixtures/users', 'fixtures/core']
 
 class GetLadderOr404Test(TestCase):
     fixtures = FIXTURES
@@ -75,22 +75,6 @@ class WatchedLadderFeedTest(TestCase):
         watchers = Watcher.objects.filter(user=self.user)
         for watcher in watchers:
             self.assertIn(watcher.ladder, feed)
-
-    def test_change_size_of_feed(self):
-        self.assertEqual(len(self.fixture(self.user, size=0)), 0)
-
-class FavoriteLadderFeedTest(TestCase):
-    fixtures = FIXTURES
-
-    def setUp(self):
-        self.fixture = logic.favorite_ladder_feed
-        self.user = User.objects.get(pk=1)
-
-    def test_feed_should_have_favorite_ladders(self):
-        feed = self.fixture(self.user)
-        favorites = Favorite.objects.filter(user=self.user)
-        for favorite in favorites:
-            self.assertIn(favorite.ladder, feed)
 
     def test_change_size_of_feed(self):
         self.assertEqual(len(self.fixture(self.user, size=0)), 0)
