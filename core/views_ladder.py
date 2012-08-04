@@ -29,8 +29,7 @@ def view_ladder(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     if not logic.can_view_ladder(request.user, ladder):
         return redirect('/home')
-    context = logic.get_base_ladder_context(request, ladder)
-    context.update({'navbar_active': 'ladder'})
+    context = logic.get_base_ladder_context(request, ladder, extra={'navbar_active': 'ladder'})
     context.update(CONTEXTS[ladder.type][VIEW]['context'](request, ladder))
     return render(request, CONTEXTS[ladder.type][VIEW]['template'], context)
 
@@ -38,7 +37,7 @@ def ladder_display(request, ladder_id, context={}):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     if not logic.can_view_ladder(request.user, ladder):
         return redirect('/home')
-    context.update(logic.get_base_ladder_context(request, ladder))
+    context = logic.get_base_ladder_context(request, ladder, extra=context)
     context.update(CONTEXTS[ladder.type][CONTENT]['context'](request, ladder))
     return render(request, CONTEXTS[ladder.type][CONTENT]['template'], context)
 
@@ -54,10 +53,5 @@ def configure_ladder(request, ladder_id):
             return redirect(ladder)
     else:
         form = form_class(ladder)
-    context = {
-        'navbar_active': 'config',
-        'ladder': ladder,
-        'watcher': logic.get_watcher(request.user, ladder),
-        'form': form,
-    }
+    context = logic.get_base_ladder_context(request, ladder, extra={'navbar_active': 'config', 'form': form})
     return render(request, CONTEXTS[ladder.type][CONFIG]['template'], context)
