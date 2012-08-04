@@ -2,10 +2,33 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.http import Http404
 from django.test import TestCase
 
-from core import logic
+from core import forms, logic
 from core.models import Ladder, Watcher
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
+
+class LadderCreationFormTest(TestCase):
+    fixtures = FIXTURES
+    
+    def setUp(self):
+        self.fixture = forms.LadderCreationForm
+        self.user = User.objects.get(pk=1)
+        self.new_ladder = {
+            'name': 'New ladder',
+            'rungs': '10',
+            'is_private': '0',
+            'type': 'LEADERBOARD',
+        }
+        
+    def test_success(self):
+        form = self.fixture(self.new_ladder)
+        form.is_valid()
+        self.assertTrue(form.is_valid())
+        self.assertFalse(Ladder.objects.filter(name='New Ladder'), 'Ladder should not exist')
+        ladder = form.save(self.user)
+        self.assertEquals(ladder.is_private, False, 'The new ladder is correct')
+        self.assertEquals(ladder.created_by, self.user, 'The new ladder was created by user passed in')
+        self.assertEquals(Watcher.objects.get(ladder=ladder, user=self.user).type, 'ADMIN', 'An admin watcher was created with the ladder and user')
 
 class GetLadderOr404Test(TestCase):
     fixtures = FIXTURES

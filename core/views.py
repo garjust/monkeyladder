@@ -18,12 +18,12 @@ def feeds(request):
 @login_required
 def create_ladder(request):
     if request.POST:
-        form = LadderCreationForm(request.user, request.POST)
+        form = LadderCreationForm(request.POST)
         if form.is_valid():
-            ladder = form.save()
+            ladder = form.save(request.user)
             return redirect(ladder)
     else:
-        form = LadderCreationForm(request.user)
+        form = LadderCreationForm()
     return render(request, 'core/create_ladder.html', {'form': form})
 
 @login_required

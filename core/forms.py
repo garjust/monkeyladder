@@ -11,9 +11,8 @@ class LadderCreationForm(forms.Form):
         'invalid_user': _("User does not exist"),
     }
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
-        self.user = user
 
     name = forms.CharField(label=_("Ladder Name"))
     rungs = forms.IntegerField(label=_("Rungs"), min_value=1)
@@ -25,15 +24,15 @@ class LadderCreationForm(forms.Form):
             raise forms.ValidationError(self.error_messages['too_many_rungs'])
         return self.cleaned_data['rungs']
 
-    def save(self):
+    def save(self, user):
         ladder = Ladder.objects.create(
             name=self.cleaned_data['name'],
             rungs=self.cleaned_data['rungs'],
             is_private=self.cleaned_data['is_private'],
             type=self.cleaned_data['type'],
-            created_by=self.user
+            created_by=user
         )
-        Watcher.objects.create(ladder=ladder, user=self.user, type='ADMIN')
+        Watcher.objects.create(ladder=ladder, user=user, type='ADMIN')
         return ladder
     
 class LadderRankingEditForm(forms.Form):
