@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 from core import logic
 from core.forms import LadderCreationForm, LadderRankingEditForm
-from core import delegator
+from core import views_ladder
 
 from core.models import Watcher
 
@@ -36,7 +36,7 @@ def edit_ladder(request, ladder_id):
             return redirect(ladder)
     else:
         form = LadderRankingEditForm(ladder)
-    return delegator.ladder_display(request, ladder_id, context={'ladder_edit_form': form})
+    return views_ladder.ladder_display(request, ladder_id, context={'ladder_edit_form': form})
 
 def view_watchers(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)

@@ -4,7 +4,7 @@ urlpatterns = patterns('django.views.generic.simple',
     url(r'^$', 'redirect_to', {'url': '/ladders/feeds/'}),
 )
 
-urlpatterns += patterns('core.delegator',
+urlpatterns += patterns('core.views_ladder',
     url(r'^(?P<ladder_id>\d+)/$', 'view_ladder', name='view_ladder'),
     url(r'^(?P<ladder_id>\d+)/content/ladder_display/$', 'ladder_display', name='ladder_display_content'),
     url(r'^(?P<ladder_id>\d+)/configure/$', 'configure_ladder', name='configure_ladder'),
