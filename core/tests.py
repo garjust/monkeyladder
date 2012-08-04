@@ -1,11 +1,38 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, AnonymousUser
-from django.http import Http404
+from django.http import Http404, HttpRequest, HttpResponseForbidden
 from django.test import TestCase
 
-from core import forms, logic
+from core import decorators, forms, logic
 from core.models import Ladder, Watcher
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
+
+@decorators.login_required_and_ladder_admin
+def login_required_and_ladder_admin_decorated(request, ladder_id):
+    return 4
+
+class LoginRequiredAndLadderAdminTest(TestCase):
+    fixtures = FIXTURES
+
+    def setUp(self):
+        self.request = HttpRequest()
+
+    def test_not_logged_in(self):
+        self.request.user = AnonymousUser()
+        self.assertTrue(isinstance(login_required_and_ladder_admin_decorated(self.request, 3), HttpResponseForbidden))
+
+    def test_logged_in_not_watching(self):
+        self.request.user = authenticate(username='user.admin', password='admin1')
+        self.assertTrue(isinstance(login_required_and_ladder_admin_decorated(self.request, 2), HttpResponseForbidden))
+
+    def test_logged_in_not_admin(self):
+        self.request.user = authenticate(username='user.admin', password='admin1')
+        self.assertTrue(isinstance(login_required_and_ladder_admin_decorated(self.request, 1), HttpResponseForbidden))
+
+    def test_logged_in_and_admin(self):
+        self.request.user = authenticate(username='user.admin', password='admin1')
+        self.assertEqual(login_required_and_ladder_admin_decorated(self.request, 3), 4)
 
 class LadderCreationFormTest(TestCase):
     fixtures = FIXTURES

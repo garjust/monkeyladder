@@ -1,10 +1,29 @@
-from django.contrib.auth.models import User
-from django.http import Http404
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User, AnonymousUser
+from django.http import Http404, HttpRequest, HttpResponseForbidden
 from django.test import TestCase
 
-from accounts import forms, logic
+from accounts import decorators, forms, logic
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
+
+@decorators.login_required_forbidden
+def login_requred_forbidden_decorated(request):
+    return 5
+
+class LoginRequiredForbiddenTest(TestCase):
+    fixtures = FIXTURES
+
+    def setUp(self):
+        self.request = HttpRequest()
+
+    def test_while_logged_in(self):
+        self.request.user = authenticate(username='user.admin', password='admin1')
+        self.assertEqual(login_requred_forbidden_decorated(self.request), 5)
+
+    def test_not_logged_in(self):
+        self.request.user = AnonymousUser()
+        self.assertTrue(isinstance(login_requred_forbidden_decorated(self.request), HttpResponseForbidden))
 
 class GetUserOr404Test(TestCase):
     fixtures = FIXTURES
@@ -56,7 +75,7 @@ class ExtendedUserCreationFormTest(TestCase):
         form = self.fixture(self.new_user)
         self.assertFalse(form.is_valid(), 'Form should not be valid')
         self.assertIn('password2', form.errors)
-        
+
     def test_empty_fields_first_name(self):
         del self.new_user['first_name']
         form = self.fixture(self.new_user)
