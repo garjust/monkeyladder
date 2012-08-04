@@ -34,7 +34,7 @@ class LadderCreationForm(forms.Form):
         )
         Watcher.objects.create(ladder=ladder, user=user, type='ADMIN')
         return ladder
-    
+
 class LadderRankingEditForm(forms.Form):
     """
     A form to edit the rankings of a ladder
@@ -63,7 +63,7 @@ class LadderRankingEditForm(forms.Form):
         for i, ranked in enumerate(self.ladder_ranking):
             ranked.rank = self.cleaned_data['rank_%s' % i]
             ranked.save()
-            
+
 class LadderConfigurationForm(forms.Form):
     """
     A form that edits an existing ladder
@@ -76,15 +76,17 @@ class LadderConfigurationForm(forms.Form):
         self.fields['rungs'].initial = ladder.rungs
         self.fields['is_private'].initial = ladder.is_private
 
-    name = forms.CharField()
-    rungs = forms.IntegerField(min_value=1)
+    name = forms.CharField(required=False)
+    rungs = forms.IntegerField(min_value=1, required=False)
     is_private = forms.BooleanField(required=False)
 
     def clean(self):
         return self.cleaned_data
 
     def save(self):
-        self.ladder.name = self.cleaned_data['name']
-        self.ladder.rungs = self.cleaned_data['rungs']
+        if self.cleaned_data['name']:
+            self.ladder.name = self.cleaned_data['name']
+        if self.cleaned_data['rungs']:
+            self.ladder.rungs = self.cleaned_data['rungs']
         self.ladder.is_private = self.cleaned_data['is_private']
         self.ladder.save()
