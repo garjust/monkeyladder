@@ -29,6 +29,16 @@ class LadderCreationFormTest(TestCase):
         self.assertEquals(ladder.is_private, False, 'The new ladder is correct')
         self.assertEquals(ladder.created_by, self.user, 'The new ladder was created by user passed in')
         self.assertEquals(Watcher.objects.get(ladder=ladder, user=self.user).type, 'ADMIN', 'An admin watcher was created with the ladder and user')
+        
+class LadderRankingEditFormTest(TestCase):
+    fixtures = FIXTURES
+    
+    def setUp(self):
+        self.fixture = LadderRankingEditForm
+        self.ladder = Ladder.objects.get(name='Public Basic')
+        
+    def test_success(self):
+        form = self.fixture(ladder)
 
 class GetLadderOr404Test(TestCase):
     fixtures = FIXTURES
