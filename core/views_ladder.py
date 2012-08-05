@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 
 from core import logic
+from core.decorators import can_view_ladder
 from core.forms import LadderConfigurationForm
 from leaderboard.forms import LeaderboardConfigurationForm
 
@@ -25,26 +26,23 @@ CONTEXTS = {
     }
 }
 
+@can_view_ladder
 def view_ladder(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
-    if not logic.can_view_ladder(request.user, ladder):
-        return redirect('/home')
     context = logic.get_base_ladder_context(request, ladder, extra={'navbar_active': 'ladder'})
     context.update(CONTEXTS[ladder.type][VIEW]['context'](request, ladder))
     return render(request, CONTEXTS[ladder.type][VIEW]['template'], context)
 
+@can_view_ladder
 def ladder_display(request, ladder_id, context={}):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
-    if not logic.can_view_ladder(request.user, ladder):
-        return redirect('/home')
     context = logic.get_base_ladder_context(request, ladder, extra=context)
     context.update(CONTEXTS[ladder.type][CONTENT]['context'](request, ladder))
     return render(request, CONTEXTS[ladder.type][CONTENT]['template'], context)
 
+@can_view_ladder
 def configure_ladder(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
-    if not logic.can_view_ladder(request.user, ladder):
-        return redirect('/home')
     form_class = CONTEXTS[ladder.type][CONFIG]['form']
     if request.POST:
         form = form_class(ladder, request.POST)

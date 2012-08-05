@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from core import logic
+from core.decorators import can_view_ladder
 from core.forms import LadderCreationForm, LadderRankingEditForm
 from core import views_ladder
 
@@ -38,17 +39,15 @@ def edit_ladder(request, ladder_id):
         form = LadderRankingEditForm(ladder)
     return views_ladder.ladder_display(request, ladder_id, context={'ladder_edit_form': form})
 
+@can_view_ladder
 def view_watchers(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
-    if not logic.can_view_ladder(request.user, ladder):
-        return redirect('/home')
     return render(request, 'core/view_ladder_watchers.html', logic.get_base_ladder_context(request, ladder, {
         'navbar_active': 'watchers', 'watcher_feed': logic.ladder_watchers(ladder)
     }))
 
-@login_required
+@can_view_ladder
 def watch_ladder(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
-    if logic.can_view_ladder(request.user, ladder):
-        Watcher.objects.create(ladder=ladder, user=request.user)
+    Watcher.objects.create(ladder=ladder, user=request.user)
     return redirect(ladder)

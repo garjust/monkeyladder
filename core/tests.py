@@ -38,10 +38,6 @@ class LoginRequiredAndLadderAdminTest(TestCase):
 def can_view_ladder_decorated(request, ladder_id):
     return 123
 
-@decorators.can_view_ladder(redirect_url='www.google.ca')
-def can_view_ladder_decorated_other_url(request, ladder_id):
-    return 321
-
 class CanViewLadderTest(TestCase):
     fixtures = FIXTURES
 
@@ -61,10 +57,13 @@ class CanViewLadderTest(TestCase):
         response = can_view_ladder_decorated(self.request, 3)
         self.assertEqual(response.get('location'), '/home/')
         
-    def test_redirect_to_other(self):
-        self.request.user = AnonymousUser()
-        response = can_view_ladder_decorated(self.request, 3)
-        self.assertEqual(response.get('location'), 'www.google.ca')
+    def test_user_not_watching_private_does_not_have_permission(self):
+        self.request.user = authenticate(username='user.d', password='password')
+        self.assertTrue(isinstance(can_view_ladder_decorated(self.request, 1), HttpResponseRedirect))
+        
+    def test_user_watching_private_has_permission(self):
+        self.request.user = authenticate(username='user.c', password='password')
+        self.assertEqual(can_view_ladder_decorated(self.request, 1), 123)
 
 class LadderCreationFormTest(TestCase):
     fixtures = FIXTURES
