@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, AnonymousUser
-from django.http import Http404, HttpRequest, HttpResponseForbidden
+from django.http import Http404, HttpRequest, HttpResponseForbidden, HttpResponseRedirect
 from django.test import TestCase
 
 from core import decorators, forms, logic
@@ -33,6 +33,38 @@ class LoginRequiredAndLadderAdminTest(TestCase):
     def test_logged_in_and_admin(self):
         self.request.user = authenticate(username='user.admin', password='admin1')
         self.assertEqual(login_required_and_ladder_admin_decorated(self.request, 3), 4)
+   
+@decorators.can_view_ladder     
+def can_view_ladder_decorated(request, ladder_id):
+    return 123
+
+@decorators.can_view_ladder(redirect_url='www.google.ca')
+def can_view_ladder_decorated_other_url(request, ladder_id):
+    return 321
+
+class CanViewLadderTest(TestCase):
+    fixtures = FIXTURES
+
+    def setUp(self):
+        self.request = HttpRequest()
+        
+    def test_anonymous_user_does_have_permission_for_public(self):
+        self.request.user = AnonymousUser()
+        self.assertEqual(can_view_ladder_decorated(self.request, 2), 123)
+
+    def test_anonymous_user_does_not_have_permission_for_private(self):
+        self.request.user = AnonymousUser()
+        self.assertTrue(isinstance(can_view_ladder_decorated(self.request, 3), HttpResponseRedirect))
+
+    def test_redirects_to_home_by_default(self):
+        self.request.user = AnonymousUser()
+        response = can_view_ladder_decorated(self.request, 3)
+        self.assertEqual(response.get('location'), '/home/')
+        
+    def test_redirect_to_other(self):
+        self.request.user = AnonymousUser()
+        response = can_view_ladder_decorated(self.request, 3)
+        self.assertEqual(response.get('location'), 'www.google.ca')
 
 class LadderCreationFormTest(TestCase):
     fixtures = FIXTURES
@@ -99,25 +131,6 @@ class GetLadderOr404Test(TestCase):
 
     def test_raise_404_if_ladder_dne(self):
         self.assertRaises(Http404, self.fixture, pk=99999)
-
-class CanViewLadderTest(TestCase):
-    fixtures = FIXTURES
-
-    def setUp(self):
-        self.fixture = logic.can_view_ladder
-        self.ladder = Ladder.objects.get(pk=1)
-
-    def test_does_have_permission(self):
-        user = User.objects.get(pk=1)
-        self.assertTrue(self.fixture(user, self.ladder))
-
-    def test_does_not_have_permission(self):
-        user = User.objects.get(pk=8)
-        self.assertTrue(not self.fixture(user, self.ladder))
-
-    def test_anonymous_user_does_not_have_permission(self):
-        user = AnonymousUser()
-        self.assertTrue(not self.fixture(user, self.ladder))
 
 class PublicLadderFeedTest(TestCase):
     fixtures = FIXTURES

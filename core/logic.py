@@ -30,12 +30,6 @@ def get_ladder_or_404(*args, **kwargs):
     """
     return get_object_or_404(Ladder, *args, **kwargs)
 
-def can_view_ladder(user, ladder):
-    """
-    Determines if a user has permission to view a ladder
-    """
-    return not ladder.is_private or (user.is_authenticated() and (len(ladder.watcher_set.filter(user=user)) != 0))
-
 def public_ladder_feed(user=None, order='-created', size=25):
     """
     Returns a ladder feed with only public ladders
