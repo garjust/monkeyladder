@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from core import logic
-from core.decorators import can_view_ladder
+from core.decorators import can_view_ladder, login_required_and_ladder_admin
 from core.forms import LadderCreationForm, LadderRankingEditForm
 from core import views_ladder
 
@@ -27,7 +27,7 @@ def create_ladder(request):
         form = LadderCreationForm()
     return render(request, 'core/create_ladder.html', {'form': form})
 
-@login_required
+@login_required_and_ladder_admin
 def edit_ladder(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     if request.POST:

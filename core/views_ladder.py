@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
 from core import logic
-from core.decorators import can_view_ladder
+from core.decorators import can_view_ladder, login_required_and_ladder_admin
 from core.forms import LadderConfigurationForm
 from leaderboard.forms import LeaderboardConfigurationForm
 
@@ -40,7 +40,7 @@ def ladder_display(request, ladder_id, context={}):
     context.update(CONTEXTS[ladder.type][CONTENT]['context'](request, ladder))
     return render(request, CONTEXTS[ladder.type][CONTENT]['template'], context)
 
-@can_view_ladder
+@login_required_and_ladder_admin
 def configure_ladder(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
     form_class = CONTEXTS[ladder.type][CONFIG]['form']
