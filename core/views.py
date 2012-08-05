@@ -1,12 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from core import logic
+from core import logic, views_ladder
 from core.decorators import can_view_ladder, login_required_and_ladder_admin
 from core.forms import LadderCreationForm, LadderRankingEditForm
-from core import views_ladder
-
-from core.models import Watcher
 
 @login_required
 def feeds(request):
@@ -49,5 +46,5 @@ def view_watchers(request, ladder_id):
 @can_view_ladder
 def watch_ladder(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
-    Watcher.objects.create(ladder=ladder, user=request.user)
+    logic.create_watcher(ladder, request.user, request.user)
     return redirect(ladder)

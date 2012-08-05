@@ -73,6 +73,12 @@ def ladder_watchers(ladder, order='-created', size=100):
     """
     return ladder.watcher_set.order_by(order)[:size]
 
+def create_watcher(ladder, user, created_by, watcher_type='NORMAL'):
+    """
+    Creates a watcher object
+    """
+    return Watcher.objects.create(ladder=ladder, user=user, type=watcher_type, created_by=created_by)
+
 def get_watcher(user, ladder):
     """
     Retrieves the watcher object associated with user and ladder or None if it does not exist

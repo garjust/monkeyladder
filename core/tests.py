@@ -23,12 +23,12 @@ class LoginRequiredAndLadderAdminTest(TestCase):
         self.assertTrue(isinstance(login_required_and_ladder_admin_decorated(self.request, 3), HttpResponseForbidden))
 
     def test_logged_in_not_watching(self):
-        self.request.user = authenticate(username='user.admin', password='admin1')
+        self.request.user = authenticate(username='user.d', password='password')
         self.assertTrue(isinstance(login_required_and_ladder_admin_decorated(self.request, 2), HttpResponseForbidden))
 
     def test_logged_in_not_admin(self):
-        self.request.user = authenticate(username='user.admin', password='admin1')
-        self.assertTrue(isinstance(login_required_and_ladder_admin_decorated(self.request, 1), HttpResponseForbidden))
+        self.request.user = authenticate(username='user.c', password='password')
+        self.assertTrue(isinstance(login_required_and_ladder_admin_decorated(self.request, 2), HttpResponseForbidden))
 
     def test_logged_in_and_admin(self):
         self.request.user = authenticate(username='user.admin', password='admin1')
@@ -96,7 +96,7 @@ class LadderRankingEditFormTest(TestCase):
         self.ladder = Ladder.objects.get(name='Public Basic')
 
     def test_success(self):
-        form = self.fixture(self.ladder)
+        self.assertTrue(False, 'NO TESTS HERE')
 
 class LadderConfigurationFormTest(TestCase):
     fixtures = FIXTURES
