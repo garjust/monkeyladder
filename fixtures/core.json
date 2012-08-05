@@ -637,7 +637,7 @@
       "favorite": false, 
       "created_by": null, 
       "user": 1, 
-      "type": "NORM"
+      "type": "ADMIN"
     }
   }, 
   {
@@ -757,7 +757,7 @@
       "favorite": false, 
       "created_by": null, 
       "user": 1, 
-      "type": "NORM"
+      "type": "ADMIN"
     }
   }, 
   {
@@ -794,6 +794,18 @@
       "created_by": null, 
       "user": 10, 
       "type": "MOD"
+    }
+  }, 
+  {
+    "pk": 35, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-08-05T02:55:49.372Z", 
+      "ladder": 2, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 1, 
+      "type": "ADMIN"
     }
   }
 ]
