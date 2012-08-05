@@ -7,6 +7,19 @@ from core.models import Ladder, Watcher
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
+class IntOr404Test(TestCase):
+    fixtures = FIXTURES
+    
+    def setUp(self):
+        self.fixture = logic.int_or_404
+        
+    def test_valid_int(self):
+        self.assertEqual(self.fixture("23"), 23)
+        
+    def test_raise_404_if_int_invalid(self):
+        with self.assertRaises(Http404):
+            self.fixture("sd")
+
 class GetLadderOr404Test(TestCase):
     fixtures = FIXTURES
 
