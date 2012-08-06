@@ -3,9 +3,8 @@ from django.shortcuts import redirect, render
 from core import logic
 from core.decorators import can_view_ladder, login_required_and_ladder_admin
 from core.forms import LadderConfigurationForm
-from leaderboard.forms import LeaderboardConfigurationForm
 
-import leaderboard.contexts
+import leaderboard
 
 VIEW = 'view'
 CONTENT = 'content'
@@ -22,7 +21,7 @@ CONTEXTS = {
     'LEADERBOARD' : {
         VIEW: {'context': leaderboard.contexts.view_ladder_context, 'template': 'leaderboard/view_ladder.html'},
         CONTENT: {'context': leaderboard.contexts.ladder_display_context, 'template': 'leaderboard/content/ladder_display.html'},
-        CONFIG: {'form': LeaderboardConfigurationForm, 'template': 'leaderboard/configure_ladder.html'},
+        CONFIG: {'form': leaderboard.forms.LeaderboardConfigurationForm, 'template': 'leaderboard/configure_ladder.html'},
     }
 }
 

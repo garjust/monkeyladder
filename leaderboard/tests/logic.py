@@ -13,3 +13,4 @@ class AdjustRankingsTest(TestCase):
     def test_simple_swap(self):
         self.assertEqual(1 + 1, 2)
         raise AssertionError()
+
