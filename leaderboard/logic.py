@@ -2,7 +2,7 @@ from django.utils import timezone
 
 from core.models import Ranked, RankingChange
 from core.logic import get_config
-from leaderboard.models import Match, Player, MatchRankingChangeSet
+from leaderboard.models import Match, Player, MatchRankingChangeSet, MatchPlayer, GamePlayer
 
 import logging
 logger = logging.getLogger('monkeyladder')
@@ -13,13 +13,14 @@ def get_match_feed(ladder, order='-created', size=10):
     """
     return Match.objects.filter(ladder=ladder).order_by(order)[:size]
 
-def get_players_match_feed(user, ladder=None, order='-created', size=5):
+def get_players_match_feed(user, ladder=None, order='-match__created', size=5):
     """
     Returns a match feed for the specified ladder and user
     """
+    query = MatchPlayer.objects.filter(user=user)
     if ladder:
-        return (Match.objects.filter(ladder=ladder, winner=user) | Match.objects.filter(ladder=ladder, loser=user)).order_by(order)[:size]
-    return (Match.objects.filter(winner=user) | Match.objects.filter(loser=user)).order_by(order)[:size]
+        return map(lambda p: p.match, query.filter(match__ladder=ladder).order_by(order)[:size])
+    return map(lambda p: p.match, query.order_by(order)[:size])
 
 def count_players_wins(user, ladder=None):
     """
@@ -28,8 +29,8 @@ def count_players_wins(user, ladder=None):
     If a ladder is supplied only that ladder will be considered
     """
     if ladder:
-        return Match.objects.filter(ladder=ladder, winner=user).count()
-    return Match.objects.filter(winner=user).count()
+        return len(filter(lambda p: p.match.winner() == p, MatchPlayer.objects.filter(match__ladder=ladder, user=user)))
+    return len(filter(lambda p: p.match.winner() == p, MatchPlayer.objects.filter(user=user)))
 
 def count_players_losses(user, ladder=None):
     """
@@ -38,8 +39,8 @@ def count_players_losses(user, ladder=None):
     If a ladder is supplied only that ladder will be considered
     """
     if ladder:
-        return Match.objects.filter(ladder=ladder, loser=user).count()
-    return Match.objects.filter(loser=user).count()
+        return len(filter(lambda p: p.match.loser() == p, MatchPlayer.objects.filter(match__ladder=ladder, user=user)))
+    return len(filter(lambda p: p.match.loser() == p, MatchPlayer.objects.filter(user=user)))
 
 def count_players_matches(user, ladder=None):
     """
@@ -53,19 +54,14 @@ def count_players_games(user, ladder=None):
     wins = 0
     games = 0
     if ladder:
-        for match in Match.objects.filter(ladder=ladder, winner=user):
-            wins += match.winner_score
-            games += match.winner_score + match.loser_score
-        for match in Match.objects.filter(ladder=ladder, loser=user):
-            wins += match.loser_score
-            games += match.winner_score + match.loser_score
+        match_players = MatchPlayer.objects.filter(match__ladder=ladder, user=user)
     else:
-        for match in Match.objects.filter(winner=user):
-            wins += match.winner_score
-            games += match.winner_score + match.loser_score
-        for match in Match.objects.filter(loser=user):
-            wins += match.loser_score
-            games += match.winner_score + match.loser_score
+        match_players = MatchPlayer.objects.filter(user=user)
+    for match_player in match_players:
+            if match_player.match.winner() == match_player:
+                wins += match_player.score
+            for other_match_player in match_player.match.matchplayer_set.all():
+                games += other_match_player.score
     return wins, games
 
 def calculate_players_game_win_percentage(user, ladder=None):
@@ -103,11 +99,11 @@ def adjust_rankings(match):
     SWAP_RANGE = get_config(match.ladder, 'leaderboard.swap_range')
     ADVANCEMENT_RANKS = get_config(match.ladder, 'leaderboard.advancement_distance')
     AUTO_TAKE_FIRST = get_config(match.ladder, 'leaderboard.auto_take_first')
-
     if not match.ranking_change:
         return
-    winner = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.winner, ladder=match.ladder).rank)
-    loser = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.loser, ladder=match.ladder).rank)
+
+    winner = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.winner().user, ladder=match.ladder).rank)
+    loser = Ranked.objects.get(ladder=match.ladder, rank=Player.objects.get(user=match.loser().user, ladder=match.ladder).rank)
     ranking_change_set = MatchRankingChangeSet(ladder=match.ladder, change_date=timezone.now(), match=match)
     players = list(match.ladder.ranking())
     rank_diff = winner.rank - loser.rank

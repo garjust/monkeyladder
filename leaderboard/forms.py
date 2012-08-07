@@ -4,7 +4,7 @@ from core.logic import int_or_404
 from core.forms import LadderConfigurationForm
 from core.models import LadderConfiguration, LadderConfigurationKey
 from leaderboard.logic import get_ladder_players
-from leaderboard.models import Match, Game
+from leaderboard.models import Match, Game, MatchPlayer, GamePlayer
 
 def get_match_form(ladder, post_dictionary=None, number_of_games=None):
     arguments = {'ladder': ladder}
@@ -62,18 +62,10 @@ class MatchCreationForm(BaseMatchCreationForm):
     player_two_score = forms.IntegerField(label=_("Score"), min_value=0, widget=forms.TextInput(attrs={'class': 'input-mini'}))
 
     def save(self):
-        if self.cleaned_data['player_one_score'] >= self.cleaned_data['player_two_score']:
-            winner = 'player_one'
-            loser = 'player_two'
-        else:
-            winner = 'player_two'
-            loser = 'player_one'
         ranking_change = not self.cleaned_data['player_one_score'] == self.cleaned_data['player_two_score']
-        match = Match(ladder=self.ladder, ranking_change=ranking_change,
-            winner=self.cleaned_data[winner], winner_score=self.cleaned_data['{}_score'.format(winner)],
-            loser=self.cleaned_data[loser], loser_score=self.cleaned_data['{}_score'.format(loser)]
-        )
-        match.save()
+        match = Match.objects.create(ladder=self.ladder, ranking_change=ranking_change)
+        MatchPlayer.objects.create(match=match, user=self.cleaned_data['player_one'], score=self.cleaned_data['player_one_score'])
+        MatchPlayer.objects.create(match=match, user=self.cleaned_data['player_two'], score=self.cleaned_data['player_two_score'])
         return match
 
 class GameCreationForm(BaseMatchCreationForm):
@@ -108,38 +100,17 @@ class GameCreationForm(BaseMatchCreationForm):
         return player_one_games, player_two_games
 
     def save(self):
-        print "SAVING GAMES"
         game_scores = self.games(values=True)
         player_one_games, player_two_games = self.calculate_match_scores(game_scores)
-        if player_one_games >= player_two_games:
-            winner = 'player_one'
-            loser = 'player_two'
-            winner_score = player_one_games
-            loser_score = player_two_games
-        else:
-            winner = 'player_two'
-            loser = 'player_one'
-            winner_score = player_two_games
-            loser_score = player_one_games
         ranking_change = not player_one_games == player_two_games
-        match = Match(ladder=self.ladder, ranking_change=ranking_change,
-            winner=self.cleaned_data[winner], winner_score=winner_score,
-            loser=self.cleaned_data[loser], loser_score=loser_score
-        )
-        match.save()
-        print "MATCH CREATED"
+        match = Match.objects.create(ladder=self.ladder, ranking_change=ranking_change)
+        player_one = MatchPlayer.objects.create(match=match, user=self.cleaned_data['player_one'], score=player_one_games)
+        player_two = MatchPlayer.objects.create(match=match, user=self.cleaned_data['player_two'], score=player_two_games)
         i = 1
-        for game_score in game_scores:
-            if winner == 'player_one':
-                winner_score = game_score[0]
-                loser_score = game_score[1]
-            else:
-                winner_score = game_score[1]
-                loser_score = game_score[0]
-            game = Game(match=match, game_number=i,
-               winner_score=winner_score, loser_score=loser_score
-            )
-            game.save()
+        for player_one_score, player_two_score in game_scores:
+            game = Game.objects.create(match=match, game_number=i)
+            GamePlayer.objects.create(game=game, player=player_one, score=player_one_score)
+            GamePlayer.objects.create(game=game, player=player_two, score=player_two_score)
             i += 1
         return match
 

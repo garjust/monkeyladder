@@ -6,7 +6,7 @@ from datedmodels.models import DatedModel
 
 class Player(Ranked):
     user = models.ForeignKey(User)
-    
+
     def display(self):
         return self.__unicode__()
 
@@ -20,33 +20,63 @@ class Player(Ranked):
 
 class Match(DatedModel):
     ladder = models.ForeignKey(Ladder)
-    winner = models.ForeignKey(User, related_name='%(app_label)s_%(class)s_won_match')
-    winner_score = models.PositiveIntegerField()
-    loser = models.ForeignKey(User, related_name='%(app_label)s_%(class)s_lost_match')
-    loser_score = models.PositiveIntegerField()
     ranking_change = models.BooleanField()
 
     def games(self):
-        return Game.objects.filter(match=self)
+        return self.game_set.all()
+
+    def winner(self):
+        return reduce(lambda l, r: l if l.score > r.score else r, self.matchplayer_set.all())
+
+    def loser(self):
+        return reduce(lambda l, r: l if l.score <= r.score else r, self.matchplayer_set.all())
 
     #@models.permalink
     def get_absolute_url(self):
         return '/ladders/%s/leaderboard/matches/?id=%s' % (self.ladder.id, self.id)
 
     def __unicode__(self):
-        return "{} ({}) vs {} ({})".format(self.winner.get_profile().name(), self.winner_score, self.loser.get_profile().name(), self.loser_score)
+        return "{} ({}) vs {} ({})".format(self.winner().user.get_profile().name(), self.winner().score, self.loser().user.get_profile().name(), self.loser().score)
 
     class Meta:
         verbose_name_plural = "Matches"
 
-class Game(DatedModel):
+class MatchPlayer(models.Model):
     match = models.ForeignKey(Match)
-    winner_score = models.PositiveIntegerField()
-    loser_score = models.PositiveIntegerField()
-    game_number = models.PositiveIntegerField()
+    user = models.ForeignKey(User)
+    score = models.PositiveIntegerField()
 
     def __unicode__(self):
-        return "{} ({}) {} ({})".format(self.match.winner.get_profile().name(), self.winner_score, self.match.loser.get_profile().name(), self.loser_score)
+        return '%s match player' % self.user.username
+
+    class Meta:
+        db_table = 'leaderboard_match_player'
+        unique_together = ('match', 'user')
+
+class Game(DatedModel):
+    match = models.ForeignKey(Match)
+    game_number = models.PositiveIntegerField()
+
+    def winner(self):
+        return reduce(lambda l, r: l if l.score > r.score else r, self.gameplayer_set.all())
+
+    def loser(self):
+        return reduce(lambda l, r: l if l.score <= r.score else r, self.gameplayer_set.all())
+
+    def __unicode__(self):
+        return "{} ({}) {} ({})".format(self.winner().player.user.get_profile().name(), self.winner().score, self.loser().player.user.get_profile().name(), self.loser().score)
+
+class GamePlayer(models.Model):
+    game = models.ForeignKey(Game)
+    player = models.ForeignKey(MatchPlayer)
+    score = models.PositiveIntegerField()
+
+    def __unicode__(self):
+        return '%s game player' % self.player.user.username
+
+    class Meta:
+        db_table = 'leaderboard_game_player'
+        unique_together = ('game', 'player')
 
 class MatchRankingChangeSet(RankingChangeSet):
     match = models.ForeignKey(Match)
