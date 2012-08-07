@@ -4,13 +4,12 @@ from leaderboard import logic
 
 FIXTURES = ['fixtures/users', 'fixtures/core', 'fixtures/leaderboard']
 
-class AdjustRankingsTest(TestCase):
+class GetMatchFeedTest(TestCase):
     fixtures = FIXTURES
 
     def setUp(self):
-        self.fixture = logic.adjust_rankings
+        self.fixutre = logic.get_match_feed
 
-    def test_simple_swap(self):
-        self.assertEqual(1 + 1, 2)
-        raise AssertionError()
+    def test_feed_should_have_ladders_matches(self):
+        raise Exception("FAIL")
 
