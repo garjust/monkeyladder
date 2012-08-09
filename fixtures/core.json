@@ -840,5 +840,575 @@
       "user": 1, 
       "type": "ADMIN"
     }
+  }, 
+  {
+    "pk": 1, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:34:00.446Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:34:00.449Z"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:34:11.961Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:34:11.963Z"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:34:40.394Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:34:40.397Z"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:35:04.510Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:35:04.513Z"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:35:20.376Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:35:20.379Z"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:35:34.699Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:35:34.700Z"
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:35:57.316Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:35:57.319Z"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:37:28.949Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:37:28.952Z"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:37:54.402Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:37:54.405Z"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:38:06.274Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:38:06.277Z"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:38:15.490Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:38:15.495Z"
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:38:26.223Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:38:26.228Z"
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:38:37.404Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:38:37.405Z"
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:38:52.311Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:38:52.313Z"
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "core.rankingchangeset", 
+    "fields": {
+      "change_date": "2012-08-09T01:39:22.836Z", 
+      "ladder": 4, 
+      "created_by": null, 
+      "created": "2012-08-09T01:39:22.839Z"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 1, 
+      "created": "2012-08-09T01:34:00.461Z", 
+      "rank": 8, 
+      "ranked": 9, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 1, 
+      "created": "2012-08-09T01:34:00.473Z", 
+      "rank": 6, 
+      "ranked": 6, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 1, 
+      "created": "2012-08-09T01:34:00.485Z", 
+      "rank": 7, 
+      "ranked": 8, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 2, 
+      "created": "2012-08-09T01:34:11.970Z", 
+      "rank": 8, 
+      "ranked": 8, 
+      "created_by": null, 
+      "change": -1
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 2, 
+      "created": "2012-08-09T01:34:11.973Z", 
+      "rank": 7, 
+      "ranked": 6, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 3, 
+      "created": "2012-08-09T01:34:40.406Z", 
+      "rank": 5, 
+      "ranked": 5, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 3, 
+      "created": "2012-08-09T01:34:40.410Z", 
+      "rank": 3, 
+      "ranked": 3, 
+      "created_by": null, 
+      "change": 2
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 4, 
+      "created": "2012-08-09T01:35:04.524Z", 
+      "rank": 6, 
+      "ranked": 9, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 4, 
+      "created": "2012-08-09T01:35:04.528Z", 
+      "rank": 4, 
+      "ranked": 4, 
+      "created_by": null, 
+      "change": 2
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 5, 
+      "created": "2012-08-09T01:35:20.391Z", 
+      "rank": 5, 
+      "ranked": 3, 
+      "created_by": null, 
+      "change": -4
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 5, 
+      "created": "2012-08-09T01:35:20.402Z", 
+      "rank": 1, 
+      "ranked": 1, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 5, 
+      "created": "2012-08-09T01:35:20.413Z", 
+      "rank": 2, 
+      "ranked": 2, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 5, 
+      "created": "2012-08-09T01:35:20.424Z", 
+      "rank": 3, 
+      "ranked": 5, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 14, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 5, 
+      "created": "2012-08-09T01:35:20.435Z", 
+      "rank": 4, 
+      "ranked": 9, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 6, 
+      "created": "2012-08-09T01:35:34.708Z", 
+      "rank": 9, 
+      "ranked": 10, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 6, 
+      "created": "2012-08-09T01:35:34.710Z", 
+      "rank": 7, 
+      "ranked": 8, 
+      "created_by": null, 
+      "change": 2
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 7, 
+      "created": "2012-08-09T01:35:57.330Z", 
+      "rank": 7, 
+      "ranked": 10, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 7, 
+      "created": "2012-08-09T01:35:57.334Z", 
+      "rank": 5, 
+      "ranked": 9, 
+      "created_by": null, 
+      "change": 2
+    }
+  }, 
+  {
+    "pk": 19, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 8, 
+      "created": "2012-08-09T01:37:28.963Z", 
+      "rank": 9, 
+      "ranked": 8, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 20, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 8, 
+      "created": "2012-08-09T01:37:28.967Z", 
+      "rank": 7, 
+      "ranked": 9, 
+      "created_by": null, 
+      "change": 2
+    }
+  }, 
+  {
+    "pk": 21, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 9, 
+      "created": "2012-08-09T01:37:54.416Z", 
+      "rank": 7, 
+      "ranked": 8, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 22, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 9, 
+      "created": "2012-08-09T01:37:54.420Z", 
+      "rank": 5, 
+      "ranked": 10, 
+      "created_by": null, 
+      "change": 2
+    }
+  }, 
+  {
+    "pk": 23, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 10, 
+      "created": "2012-08-09T01:38:06.288Z", 
+      "rank": 9, 
+      "ranked": 9, 
+      "created_by": null, 
+      "change": -1
+    }
+  }, 
+  {
+    "pk": 24, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 10, 
+      "created": "2012-08-09T01:38:06.291Z", 
+      "rank": 8, 
+      "ranked": 6, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 25, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 11, 
+      "created": "2012-08-09T01:38:15.513Z", 
+      "rank": 9, 
+      "ranked": 6, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 26, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 11, 
+      "created": "2012-08-09T01:38:15.519Z", 
+      "rank": 7, 
+      "ranked": 10, 
+      "created_by": null, 
+      "change": 2
+    }
+  }, 
+  {
+    "pk": 27, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 12, 
+      "created": "2012-08-09T01:38:26.246Z", 
+      "rank": 7, 
+      "ranked": 6, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 28, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 12, 
+      "created": "2012-08-09T01:38:26.251Z", 
+      "rank": 5, 
+      "ranked": 8, 
+      "created_by": null, 
+      "change": 2
+    }
+  }, 
+  {
+    "pk": 29, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 13, 
+      "created": "2012-08-09T01:38:37.414Z", 
+      "rank": 6, 
+      "ranked": 4, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 30, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 13, 
+      "created": "2012-08-09T01:38:37.423Z", 
+      "rank": 4, 
+      "ranked": 5, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 31, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 13, 
+      "created": "2012-08-09T01:38:37.431Z", 
+      "rank": 5, 
+      "ranked": 6, 
+      "created_by": null, 
+      "change": 1
+    }
+  }, 
+  {
+    "pk": 32, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 14, 
+      "created": "2012-08-09T01:38:52.320Z", 
+      "rank": 3, 
+      "ranked": 2, 
+      "created_by": null, 
+      "change": -2
+    }
+  }, 
+  {
+    "pk": 33, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 14, 
+      "created": "2012-08-09T01:38:52.323Z", 
+      "rank": 1, 
+      "ranked": 3, 
+      "created_by": null, 
+      "change": 2
+    }
+  }, 
+  {
+    "pk": 34, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 15, 
+      "created": "2012-08-09T01:39:22.851Z", 
+      "rank": 2, 
+      "ranked": 1, 
+      "created_by": null, 
+      "change": -1
+    }
+  }, 
+  {
+    "pk": 35, 
+    "model": "core.rankingchange", 
+    "fields": {
+      "ranking_change_set": 15, 
+      "created": "2012-08-09T01:39:22.855Z", 
+      "rank": 1, 
+      "ranked": 2, 
+      "created_by": null, 
+      "change": 1
+    }
   }
 ]
