@@ -138,6 +138,17 @@
     }
   }, 
   {
+    "pk": 34, 
+    "model": "core.ranked", 
+    "fields": {
+      "ladder": 3, 
+      "description": "user.noname", 
+      "rank": 7, 
+      "created_by": null, 
+      "created": "2012-08-09T23:19:46.982Z"
+    }
+  }, 
+  {
     "pk": 33, 
     "model": "core.ranked", 
     "fields": {

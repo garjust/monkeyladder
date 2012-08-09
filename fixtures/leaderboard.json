@@ -1,5 +1,12 @@
 [
   {
+    "pk": 34, 
+    "model": "leaderboard.player", 
+    "fields": {
+      "user": 11
+    }
+  }, 
+  {
     "pk": 33, 
     "model": "leaderboard.player", 
     "fields": {

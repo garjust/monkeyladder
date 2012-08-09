@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+from core.models import Ladder
 from leaderboard import logic
 from leaderboard.models import Match, MatchPlayer
 
@@ -131,3 +132,9 @@ class GetLadderPlayersTest(TestCase):
 
     def setUp(self):
         self.fixture = logic.get_ladder_players
+
+    def test_get_ladder_players(self):
+        players = self.fixture(Ladder.objects.get(pk=3))
+        self.assertEqual(type(players), dict)
+        self.assertEqual(players['User Longnameduserishappytoprovidetheirlongnametotestnamelength'], User.objects.get(pk=8))
+        self.assertEqual(players['user.noname'], User.objects.get(pk=11))
