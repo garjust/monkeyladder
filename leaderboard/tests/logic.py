@@ -128,3 +128,6 @@ class CalculatePlayersGameWinPercentage(TestCase):
 
 class GetLadderPlayersTest(TestCase):
     fixtures = FIXTURES
+
+    def setUp(self):
+        self.fixture = logic.get_ladder_players
