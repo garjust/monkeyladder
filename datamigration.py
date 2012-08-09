@@ -16,7 +16,7 @@ def migrate(target='fixtures'):
     save_fixture('%s/users.json' % target, 'auth.User')
     save_fixture('%s/core.json' % target, 'core', '-e', 'core.LadderConfigurationKey')
     save_fixture('%s/leaderboard.json' % target, 'leaderboard')
-    save_fixture('%s/comments.json' % target, 'comments')
+    #ssave_fixture('%s/comments.json' % target, 'comments')
 
 if __name__ == "__main__":
     migrate()

@@ -84,7 +84,7 @@
     "pk": 4, 
     "model": "core.ladderconfiguration", 
     "fields": {
-      "raw_value": "2", 
+      "raw_value": "0", 
       "ladder": 3, 
       "key": 1, 
       "created_by": null, 
