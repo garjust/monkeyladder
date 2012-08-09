@@ -1,144 +1,200 @@
 [
-    {
-        "model": "auth.user", 
-        "pk": 1, 
-        "fields": {
-          "username": "user.admin", 
-          "first_name": "User", 
-          "last_name": "Admin", 
-          "is_superuser": true, 
-          "is_staff": true,  
-          "password": "pbkdf2_sha256$10000$kGjKNA0EHk2p$+LGj502F1KBm8upb+6w+S2BROj8UY59nN5SQS9Jhyqc=", 
-          "email": "admin@test.monkeyladder.com",
-          "date_joined": "2012-06-20T10:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 2, 
-        "fields": {
-          "username": "user.a",
-          "first_name": "User",
-          "last_name": "A",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@test.monkeyladder.com",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 3, 
-        "fields": {
-          "username": "user.b",
-          "first_name": "User",
-          "last_name": "B",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@test.monkeyladder.com",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 4, 
-        "fields": {
-          "username": "user.c",
-          "first_name": "User",
-          "last_name": "C",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@test.monkeyladder.com",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 5, 
-        "fields": {
-          "username": "user.d",
-          "first_name": "User",
-          "last_name": "D",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@test.monkeyladder.com",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 6, 
-        "fields": {
-          "username": "user.e",
-          "first_name": "User",
-          "last_name": "E",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@test.monkeyladder.com",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 7, 
-        "fields": {
-          "username": "user.f",
-          "first_name": "User",
-          "last_name": "F",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@test.monkeyladder.com",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 8, 
-        "fields": {
-          "username": "user.long",
-          "first_name": "User",
-          "last_name": "Longnameduserishappytoprovidetheirlongnametotestnamelength",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@test.monkeyladder.com",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 9, 
-        "fields": {
-          "username": "user.short",
-          "first_name": "u",
-          "last_name": "s",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@test.monkeyladder.com",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 10, 
-        "fields": {
-          "username": "user.noemail",
-          "first_name": "User",
-          "last_name": "No Email",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
-    },
-    {
-        "model": "auth.user", 
-        "pk": 11, 
-        "fields": {
-          "username": "user.noname",
-          "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
-          "email": "user@test.monkeyladder.com",
-          "date_joined": "2012-06-20T12:00:00Z",
-          "last_login": "2012-06-20T16:00:00Z"
-        }
+  {
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.admin", 
+      "first_name": "User", 
+      "last_name": "Admin", 
+      "is_active": true, 
+      "is_superuser": true, 
+      "is_staff": true, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$kGjKNA0EHk2p$+LGj502F1KBm8upb+6w+S2BROj8UY59nN5SQS9Jhyqc=", 
+      "email": "admin@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T10:00:00Z"
     }
+  }, 
+  {
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.a", 
+      "first_name": "User", 
+      "last_name": "A", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "user@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.b", 
+      "first_name": "User", 
+      "last_name": "B", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "user@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.c", 
+      "first_name": "User", 
+      "last_name": "C", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "user@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.d", 
+      "first_name": "User", 
+      "last_name": "D", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "user@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.e", 
+      "first_name": "User", 
+      "last_name": "E", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "user@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }, 
+  {
+    "pk": 7, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.f", 
+      "first_name": "User", 
+      "last_name": "F", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "user@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }, 
+  {
+    "pk": 8, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.long", 
+      "first_name": "User", 
+      "last_name": "Longnameduserishappytoprovidetheirlongnametotestnamelength", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "user@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.short", 
+      "first_name": "u", 
+      "last_name": "s", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "user@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.noemail", 
+      "first_name": "User", 
+      "last_name": "No Email", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "user.noname", 
+      "first_name": "", 
+      "last_name": "", 
+      "is_active": true, 
+      "is_superuser": false, 
+      "is_staff": false, 
+      "last_login": "2012-06-20T16:00:00Z", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "pbkdf2_sha256$10000$Njp86YOpGRXf$iVE84iVXCUmlodUjVFumke2polx6E2uJ0JMTEq55qFI=", 
+      "email": "user@test.monkeyladder.com", 
+      "date_joined": "2012-06-20T12:00:00Z"
+    }
+  }
 ]

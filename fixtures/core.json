@@ -48,6 +48,39 @@
     }
   }, 
   {
+    "pk": 1, 
+    "model": "core.ladderconfiguration", 
+    "fields": {
+      "raw_value": "2", 
+      "ladder": null, 
+      "key": 1, 
+      "created_by": null, 
+      "created": "2012-06-20T10:00:00Z"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "core.ladderconfiguration", 
+    "fields": {
+      "raw_value": "2", 
+      "ladder": null, 
+      "key": 2, 
+      "created_by": null, 
+      "created": "2012-06-20T10:00:00Z"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "core.ladderconfiguration", 
+    "fields": {
+      "raw_value": "1", 
+      "ladder": null, 
+      "key": 3, 
+      "created_by": null, 
+      "created": "2012-06-20T10:00:00Z"
+    }
+  }, 
+  {
     "pk": 4, 
     "model": "core.ladderconfiguration", 
     "fields": {
