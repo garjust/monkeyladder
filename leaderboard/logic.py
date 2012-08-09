@@ -53,6 +53,13 @@ def count_players_matches(user, ladder=None):
     """
     return count_players_wins(user, ladder) + count_players_losses(user, ladder)
 
+def calculate_players_match_win_percentage(user, ladder=None):
+    wins = count_players_wins(user, ladder)
+    matches = count_players_matches(user, ladder)
+    if matches == 0:
+        return 0
+    return (float(wins) / float(matches)) * 100
+
 def count_players_games(user, ladder=None):
     wins = 0
     games = 0
