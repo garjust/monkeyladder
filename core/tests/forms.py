@@ -36,9 +36,6 @@ class LadderRankingEditFormTest(TestCase):
         self.fixture = forms.LadderRankingEditForm
         self.ladder = Ladder.objects.get(name='Public Basic')
 
-    def test_success(self):
-        self.assertTrue(False, 'NO TESTS HERE')
-
 class LadderConfigurationFormTest(TestCase):
     fixtures = FIXTURES
 
