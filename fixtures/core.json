@@ -295,7 +295,7 @@
     "fields": {
       "ladder": 4, 
       "description": "user.noname", 
-      "rank": 10, 
+      "rank": 9, 
       "created_by": null, 
       "created": "2012-07-23T22:14:58.160Z"
     }
@@ -306,7 +306,7 @@
     "fields": {
       "ladder": 4, 
       "description": "user.noemail", 
-      "rank": 9, 
+      "rank": 8, 
       "created_by": null, 
       "created": "2012-07-23T22:14:47.059Z"
     }
@@ -317,7 +317,7 @@
     "fields": {
       "ladder": 4, 
       "description": "user.short", 
-      "rank": 8, 
+      "rank": 7, 
       "created_by": null, 
       "created": "2012-07-23T22:14:37.397Z"
     }
