@@ -1,5 +1,17 @@
 [
   {
+    "pk": 6, 
+    "model": "core.ladder", 
+    "fields": {
+      "rungs": 5, 
+      "name": "No Players Leaderboard", 
+      "created": "2012-08-09T22:02:06Z", 
+      "created_by": 1, 
+      "type": "LEADERBOARD", 
+      "is_private": true
+    }
+  }, 
+  {
     "pk": 5, 
     "model": "core.ladder", 
     "fields": {
@@ -954,6 +966,66 @@
       "favorite": false, 
       "created_by": null, 
       "user": 5, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 41, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-08-09T22:02:06.070Z", 
+      "ladder": 6, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 1, 
+      "type": "ADMIN"
+    }
+  }, 
+  {
+    "pk": 42, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-08-09T22:02:28.244Z", 
+      "ladder": 6, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 10, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 43, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-08-09T22:02:28.244Z", 
+      "ladder": 6, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 7, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 44, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-08-09T22:02:28.244Z", 
+      "ladder": 6, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 4, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 45, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-08-09T22:02:28.244Z", 
+      "ladder": 6, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 3, 
       "type": "NORM"
     }
   }, 

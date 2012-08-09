@@ -125,3 +125,6 @@ class CalculatePlayersGameWinPercentage(TestCase):
 
     def test_with_player_with_no_games(self):
         self.assertEqual(self.fixture(self.no_matches), 0)
+
+class GetLadderPlayersTest(TestCase):
+    fixtures = FIXTURES

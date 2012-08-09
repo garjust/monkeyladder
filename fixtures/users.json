@@ -9,7 +9,7 @@
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2012-08-09T01:40:44.992Z", 
+      "last_login": "2012-08-09T12:49:07.134Z", 
       "groups": [], 
       "user_permissions": [], 
       "password": "pbkdf2_sha256$10000$kGjKNA0EHk2p$+LGj502F1KBm8upb+6w+S2BROj8UY59nN5SQS9Jhyqc=", 
