@@ -19,19 +19,22 @@ class GetMatchFeedTest(TestCase):
         self.assertTrue(Match.objects.filter(ladder=2).count() == 0)
         self.assertEqual(len(self.fixture(2)), 0)
 
-    def test_match_feed_with_ladder(self):
-        matches = self.fixture(ladder=4)
-        self.assertEqual(len(matches), 10)
-        for match in matches:
-            self.assertEqual(match.ladder.id, 4)
+    def test_get_match_feed_with_ladder(self):
+        self.assertEqual(len(self.fixture(4, size=100)), 17)
 
-    def test_match_feed_with_user(self):
+class GetPlayersMatchFeedTest(TestCase):
+    fixtures = FIXTURES
+
+    def setUp(self):
+        self.fixture = logic.get_players_match_feed
+
+    def test_players_match_feed(self):
         matches = self.fixture(user=10)
-        self.assertEqual(len(matches), 5)
+        self.assertEqual(len(matches), 6)
         for match in matches:
             self.assertEquals(len(MatchPlayer.objects.filter(match=match, user=10)), 1)
 
-    def test_match_feed_with_ladder_and_user(self):
+    def test_players_match_feed_with_ladder(self):
         matches = self.fixture(ladder=4, user=10)
         self.assertEqual(len(matches), 5)
         for match in matches:

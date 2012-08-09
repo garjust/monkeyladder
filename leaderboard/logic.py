@@ -7,19 +7,22 @@ from leaderboard.models import Match, Player, MatchRankingChangeSet, MatchPlayer
 import logging
 logger = logging.getLogger('monkeyladder')
 
-def get_match_feed(ladder, order='-created', size=10):
+def get_match_feed(ladder=None, order='-created', size=10):
     """
     Returns a match feed for the specified ladder
     """
-    return Match.objects.filter(ladder=ladder).order_by(order)[:size]
+    query = Match.objects.all()
+    if ladder:
+        query = query.filter(ladder=ladder)
+    return query.order_by(order)[:size]
 
-def get_players_match_feed(user, ladder=None, order='-match__created', size=5):
+def get_players_match_feed(user, ladder=None, order='-match__created', size=10):
     """
     Returns a match feed for the specified ladder and user
     """
     query = MatchPlayer.objects.filter(user=user)
     if ladder:
-        return map(lambda p: p.match, query.filter(match__ladder=ladder).order_by(order)[:size])
+        query = query.filter(match__ladder=ladder)
     return map(lambda p: p.match, query.order_by(order)[:size])
 
 def count_players_wins(user, ladder=None):
