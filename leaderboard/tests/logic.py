@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 from leaderboard import logic
@@ -40,3 +41,17 @@ class GetPlayersMatchFeedTest(TestCase):
         for match in matches:
             self.assertEqual(match.ladder.id, 4)
             self.assertEquals(len(MatchPlayer.objects.filter(match=match, user=10)), 1)
+
+class CountPlayerWinsTest(TestCase):
+    fixtures = FIXTURES
+
+    def setUp(self):
+        self.fixture = logic.count_players_wins
+        self.has_matches = User.objects.get(pk=10)
+        self.no_matches = User.objects.get(pk=1)
+
+    def test_with_player_who_has_played(self):
+        self.assertEqual(self.fixture(self.has_matches), 4)
+
+    def test_with_player_with_no_games(self):
+        self.assertEqual(self.fixture(self.no_matches), 0)
