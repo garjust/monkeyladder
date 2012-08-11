@@ -30,19 +30,17 @@ class BaseMatchCreationForm(forms.Form):
     player_two = forms.CharField(label=_("Player Two"), max_length=30, widget=forms.TextInput(attrs={'class': 'player-name-autocomplete'}))
 
     def clean_player_one(self):
-        player_one = self.cleaned_data['player_one']
         player_dictionary = get_ladder_players(self.ladder)
         for player in player_dictionary:
-            if player_one == player:
+            if self.cleaned_data['player_one'] == player:
                 self.cleaned_data['player_one'] = player_dictionary[player]
                 return player_dictionary[player]
         raise forms.ValidationError(self.error_messages['invalid_player'])
 
     def clean_player_two(self):
-        player_two = self.cleaned_data['player_two']
         player_dictionary = get_ladder_players(self.ladder)
         for player in player_dictionary:
-            if player_two == player:
+            if self.cleaned_data['player_two'] == player:
                 self.cleaned_data['player_two'] = player_dictionary[player]
                 return player_dictionary[player]
         raise forms.ValidationError(self.error_messages['invalid_player'])
