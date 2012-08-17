@@ -4,6 +4,7 @@
 	        <h3 class="">Match Statistics</h3>
 	        <table class="table centered-table">
 	        	<tbody>
+	        		{% comment %}
 		            <tr>
 	                    <td>Matches Won</td>
 	                    <td>{{ matches_won }}</td>
@@ -12,6 +13,7 @@
 	                    <td>Matches Played</td>
 	                    <td>{{ matches_played }}</td>
 		            </tr>
+		            {% endcomment %}
 		            <tr>
 		            	<td>Match Win Percentage</td>
 		            	<td>{% if match_win_percentage %}{{ match_win_percentage|floatformat }}&#37;{% else %}-{% endif %}</td>

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="span6">         
 	    <div>
-	        <table class="table ">
+	        <table class="table">
 	            <tr>
 	                <td>Username</td>
 	                <td>{{ user.username }}</td>
@@ -14,10 +14,12 @@
 	                <td>Last Name</td>
 	                <td>{{ user.last_name }}</td>
 	            </tr>
+	            {% comment %}
 	            <tr>
 	                <td>Email</td>
 	                <td>*CENSORED*</td>
 	            </tr>
+	            {% endcomment %}
 	        </table>
 	    </div>
 	</div>
