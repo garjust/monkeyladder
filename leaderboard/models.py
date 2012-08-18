@@ -66,6 +66,9 @@ class Game(DatedModel):
     def __unicode__(self):
         return "{} ({}) {} ({})".format(self.winner().player.user.get_profile().name(), self.winner().score, self.loser().player.user.get_profile().name(), self.loser().score)
 
+    class Meta:
+        ordering = ['game_number']
+
 class GamePlayer(models.Model):
     game = models.ForeignKey(Game)
     player = models.ForeignKey(MatchPlayer)
