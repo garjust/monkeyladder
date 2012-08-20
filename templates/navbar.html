@@ -17,7 +17,6 @@
             <div class="nav-collapse">
                 <ul class="nav nav-padded-left">
                     <li><a id="nav-ladder-link" href="{{ ladder.get_absolute_url }}">{{ ladder.name }}</a></li>
-                    <li><a id="nav-watchers-link" href="{{ ladder.get_absolute_url }}watchers/">Watchers</a></li>
                     {% if ladder.is_leaderboard %}<li><a id="nav-matches-link" href="{{ ladder.get_absolute_url }}leaderboard/matches/">Matches</a></li>{% endif %}
                     
         			{% if watcher and watcher.admin %}<li><a id="nav-config-link" href="{{ ladder.get_absolute_url }}configure">Configure</a></li>{% endif %}
