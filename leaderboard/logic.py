@@ -102,7 +102,18 @@ def get_ladder_players_for_match_entry(ladder):
     """
     return ','.join(map(lambda n: '"%s"' % n, get_ladder_players(ladder)))
 
-def remove_match(match):
+
+def get_ranking_change(match):
+    configuration = get_config(match.ladder,
+        'leaderboard.swap_range',
+        'leaderboard.advancement_distance',
+        'leaderboard.auto_take_first'
+    )
+    if not match.ranking_change:
+        return
+    ranking_change_set = MatchRankingChangeSet.objects.create(ladder=match.ladder, change_date=timezone.now(), match=match)
+
+def apply_ranking_change(ranking_change):
     pass
 
 def adjust_rankings(match):

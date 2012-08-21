@@ -89,9 +89,23 @@ def get_watcher(user, ladder):
         except Watcher.DoesNotExist:
             pass
 
-def get_config(ladder, key):
+def _get_single_config(ladder, key):
+    """
+    Retrieves the value of the configuration key for the given ladder
+
+    If the ladder specified does not have a configration for the key the default is used
+    """
     config_key = LadderConfigurationKey.objects.get(key=key)
     try:
         return LadderConfiguration.objects.get(ladder=ladder, key=config_key).value()
     except LadderConfiguration.DoesNotExist:
         return LadderConfiguration.objects.get(ladder=None, key=config_key).value()
+
+def get_config(ladder, key, *keys):
+    config = _get_single_config(ladder, key)
+    if keys:
+        config = {key: config}
+        for key in keys:
+            config[key] = _get_single_config(ladder, key)
+#        map(lambda key: config.update({key: _get_single_config(ladder, key)}), keys)
+    return config
