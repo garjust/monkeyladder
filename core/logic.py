@@ -42,7 +42,7 @@ def public_ladder_feed(user=None, order='-created', size=25):
         ladders = filter(lambda l: l not in watched, ladders)
     return ladders
 
-def watched_ladder_feed(user, order='-created', size=25, include_watchers=False, filters={}):
+def watched_ladder_feed(user, order='-created', size=25, include_watchers=False, **filters):
     """
     Returns a ladder feed of the users watched ladders
 
@@ -51,21 +51,21 @@ def watched_ladder_feed(user, order='-created', size=25, include_watchers=False,
     if user.is_authenticated():
         watchers = user.watcher_set.filter(**filters).order_by(order)[:size]
         if include_watchers:
-            return map(lambda watcher: (watcher.ladder, watcher), watchers)
-        return map(lambda watcher: watcher.ladder, watchers)
+            return [(watcher.ladder, watcher) for watcher in watchers]
+        return [watcher.ladder for watcher in watchers]
     return []
 
 def nonfavorite_ladder_feed(user, order='-created', size=25, include_watchers=False):
     """
     Returns a ladder feed of the users watched ladders which are not favorites
     """
-    return watched_ladder_feed(user, order=order, size=size, include_watchers=include_watchers, filters={'favorite': False})
+    return watched_ladder_feed(user, order=order, size=size, include_watchers=include_watchers, favorite=False)
 
 def favorite_ladder_feed(user, order='-created', size=25, include_watchers=False):
     """
     Returns a ladder feed of the users favorite watched ladders
     """
-    return watched_ladder_feed(user, order=order, size=size, include_watchers=include_watchers, filters={'favorite': True})
+    return watched_ladder_feed(user, order=order, size=size, include_watchers=include_watchers, favorite=True)
 
 def ladder_watchers(ladder, order='-created', size=100):
     """
@@ -90,22 +90,27 @@ def get_watcher(user, ladder):
             pass
 
 def _get_single_config(ladder, key):
+    config_key = LadderConfigurationKey.objects.get(key=key)
+    try:
+        config = LadderConfiguration.objects.get(ladder=ladder, key=config_key)
+    except LadderConfiguration.DoesNotExist:
+        config = LadderConfiguration.objects.get(ladder=None, key=config_key)
+    return config.value()
+
+def _put_single_config(ladder, key, dictionary=None):
     """
     Retrieves the value of the configuration key for the given ladder
 
     If the ladder specified does not have a configration for the key the default is used
     """
-    config_key = LadderConfigurationKey.objects.get(key=key)
-    try:
-        return LadderConfiguration.objects.get(ladder=ladder, key=config_key).value()
-    except LadderConfiguration.DoesNotExist:
-        return LadderConfiguration.objects.get(ladder=None, key=config_key).value()
+    if not dictionary:
+        dictionary = {}
+    dictionary[key] = _get_single_config(ladder, key)
+    return dictionary
 
 def get_config(ladder, key, *keys):
-    config = _get_single_config(ladder, key)
-    if keys:
-        config = {key: config}
-        for key in keys:
-            config[key] = _get_single_config(ladder, key)
-#        map(lambda key: config.update({key: _get_single_config(ladder, key)}), keys)
-    return config
+#    config = {key: _get_single_config(ladder, key)}
+#    for key in keys:
+#        config[key] = _get_single_config(ladder, key)
+    config = reduce(lambda dictionary, key: _put_single_config(ladder, key, dictionary), keys, _put_single_config(ladder, key))
+    return config[key] if len(config) == 1 else config
