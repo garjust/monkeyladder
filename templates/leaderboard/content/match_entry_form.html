@@ -24,6 +24,7 @@
             <a class="btn btn-large" href="/ladders/{{ ladder.id }}?games=3">Game Entry</a>
         </div>
         {% if form.success %}<div class="generic-success">Match created successfully</div>{% endif %}
+        <div id="forbidden-error" class="error">Match failed to submit. {% if not request.user.is_authenticated %}Please log in.{% endif %}</div>
     </form>
 </div>
 {% else %}
@@ -56,10 +57,12 @@
             <a class="btn btn-large" href="/ladders/{{ ladder.id }}?games={{ form.number_of_games|add:'-1' }}">Less</a>
         </div>
         {% if form.success %}<div class="success">Match created successfully</div>{% endif %}
+        <div id="forbidden-error">Match failed to submit. Logged in?</div>
     </form> 
 </div>
 {% endif %}
 <script type="text/javascript">
+	$("#forbidden-error").hide()
 	$("#match-entry-span input").attr("autocomplete", "off")
 	$(".player-name-autocomplete").typeahead({
 	    source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], items: 10
@@ -84,6 +87,7 @@
 	        $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
 	            $("#match-entry-form-submit").attr('disabled', false)
 	            if (responseStatus == "error") {
+	            	$("#forbidden-error").show()
 	            } else {
 	                $("#ladder-display-span").load("content/ladder_display/")
 	                $("#match-feed-span").load("leaderboard/content/match_feed/")
