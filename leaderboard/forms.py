@@ -3,7 +3,7 @@ from django.contrib.auth.forms import forms, _
 from core.logic import int_or_404
 from core.forms import LadderConfigurationForm
 from core.models import LadderConfiguration, LadderConfigurationKey
-from leaderboard.logic import get_ladder_players
+from leaderboard.logic.rankings import get_ladder_players
 from leaderboard.models import Match, Game, MatchPlayer, GamePlayer
 
 def get_match_form(ladder, post_dictionary=None, number_of_games=None):

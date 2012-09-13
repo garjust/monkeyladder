@@ -37,7 +37,7 @@ def create_match(request, ladder_id):
     form = get_match_form(ladder, post_dictionary=request.POST, number_of_games=request.GET.get('games'))
     if form.is_valid():
         match = form.save()
-        logic.adjust_rankings(match)
+        logic.rankings.adjust_rankings(match)
         if request.is_ajax():
             form = get_match_form(ladder, number_of_games=request.GET.get('games'))
             form.success = "Match created successfully"
@@ -47,5 +47,5 @@ def create_match(request, ladder_id):
 
 def match_feed_content(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    match_feed = logic.get_match_feed(ladder)
+    match_feed = logic.feeds.get_match_feed(ladder)
     return render(request, 'leaderboard/content/match_feed.html', {'match_feed': match_feed, 'ladder': ladder})

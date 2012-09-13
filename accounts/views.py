@@ -4,8 +4,9 @@ from django.shortcuts import render, redirect
 from accounts import logic
 from accounts.forms import ExtendedUserCreationForm
 from core.logic import watched_ladder_feed
-from leaderboard.logic import get_players_match_feed, count_players_matches, count_players_wins, calculate_players_game_win_percentage, \
+from leaderboard.logic.stats import count_players_matches, count_players_wins, calculate_players_game_win_percentage, \
     calculate_players_match_win_percentage
+from leaderboard.logic.feeds import get_players_match_feed
 
 def register(request):
     if request.POST:

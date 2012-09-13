@@ -7,8 +7,8 @@ def get_leaderboard_ladder_context(request, ladder, form=None):
 
 def view_ladder_context(request, ladder, form=None):
     return {
-        'player_names': logic.get_ladder_players_for_match_entry(ladder),
-        'match_feed': logic.get_match_feed(ladder),
+        'player_names': logic.rankings.get_ladder_players_for_match_entry(ladder),
+        'match_feed': logic.feeds.get_match_feed(ladder),
         'form': form if form else get_match_form(ladder, number_of_games=request.GET.get('games')),
     }
 
