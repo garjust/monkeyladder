@@ -12,9 +12,14 @@
   <tr class="ladder-rank-table-row">
       <td class="rank">{{ ranked.field }}</td>
       <td>{{ ranked.ranked.display }}</td>
-      <td class="view-button-parent"><a class="btn" href="{{ ranked.ranked.player.user.get_profile.get_absolute_url }}">Profile</a></td>
+      <td>{{ ranked.remove_field }}</td>
   </tr>    
      {% endfor %}
+   <tr class="ladder-rank-table-row">
+      <td class="rank">(Last)</td>
+      <td>{{ ladder_edit_form.new_player }}</td>
+      <td></td>
+  </tr>  
     {% else %}
   {% for ranked in ladder.ranking %}
   <tr class="ladder-rank-table-row">

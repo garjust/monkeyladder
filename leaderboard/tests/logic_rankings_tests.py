@@ -18,3 +18,21 @@ class GetLadderPlayersTest(TestCase):
         self.assertEqual(players['User Longnameduserishappytoprovidetheirlongnametotestnamelength'], User.objects.get(pk=8))
         self.assertEqual(players['user.noname'], User.objects.get(pk=11))
 
+class GetLadderWatchersNotPlaying(TestCase):
+    fixtures = FIXTURES
+
+    def setUp(self):
+        self.fixture = rankings.get_ladder_watchers_not_playing
+
+    def test_should_not_have_non_watchers(self):
+        watchers = self.fixture(ladder=3)
+        for id, name in watchers:
+            if id == 7:
+                raise Exception("failed")
+
+    def test_should_not_have_players(self):
+        watchers = self.fixture(ladder=4)
+        for id, name in watchers:
+            if id == 7:
+                raise Exception("failed")
+

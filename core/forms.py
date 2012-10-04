@@ -45,6 +45,7 @@ class LadderRankingEditForm(forms.Form):
 
     def __init__(self, ladder, *args, **kwargs):
         forms.Form.__init__(self, *args, **kwargs)
+        self.ladder = ladder
         self.ladder_ranking = ladder.ranking()
         self.ranking = []
         for i, ranked in enumerate(self.ladder_ranking):

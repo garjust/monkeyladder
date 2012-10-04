@@ -1,6 +1,6 @@
 from django.utils import timezone
 
-from core.models import Ranked, RankingChange
+from core.models import Ranked, RankingChange, Watcher
 from core.logic import get_config
 from leaderboard.models import Player, MatchRankingChangeSet
 
@@ -15,6 +15,19 @@ def get_ladder_players(ladder):
     for ranked in ladder.ranking():
         player_dictionary[ranked.player.user.get_profile().name()] = ranked.player.user
     return player_dictionary
+
+def get_ladder_watchers_not_playing(ladder):
+    """
+    Returns a dictionary with the names of a ladders watchers as keys and the user instance as values.
+
+    Does not include ladder watchers which are playing
+    """
+    player_dictionary = []
+    ladder_players = [player.user for player in Player.objects.filter(ladder=ladder)]
+    for watcher in Watcher.objects.filter(ladder=ladder):
+        if watcher.user not in ladder_players:
+            player_dictionary.append((watcher.user.id, watcher.user.get_profile().name()))
+    return tuple(player_dictionary)
 
 def get_ladder_players_for_match_entry(ladder):
     """

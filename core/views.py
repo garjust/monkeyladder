@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from core import logic, views_ladder
 from core.decorators import can_view_ladder, login_required_and_ladder_admin
 from core.forms import LadderCreationForm, LadderRankingEditForm
+from leaderboard.forms import LadderRankingAndPlayerEditForm
 
 @login_required
 def feeds(request):
@@ -27,13 +28,19 @@ def create_ladder(request):
 @login_required_and_ladder_admin
 def edit_ladder(request, ladder_id):
     ladder = logic.get_ladder_or_404(pk=ladder_id)
+
+    # IM IN A RUSH
+    form_class = LadderRankingEditForm
+    if ladder.type == 'LEADERBOARD':
+        form_class = LadderRankingAndPlayerEditForm
+
     if request.POST:
-        form = LadderRankingEditForm(ladder, request.POST)
+        form = form_class(ladder, request.POST)
         if form.is_valid():
             form.save()
             return redirect(ladder)
     else:
-        form = LadderRankingEditForm(ladder)
+        form = form_class(ladder)
     return views_ladder.ladder_display(request, ladder_id, context={'ladder_edit_form': form})
 
 @can_view_ladder

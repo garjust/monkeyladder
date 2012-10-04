@@ -1,10 +1,11 @@
 from django.contrib.auth.forms import forms, _
+from django.contrib.auth.models import User
 
 from core.logic import int_or_404
-from core.forms import LadderConfigurationForm
+from core.forms import LadderConfigurationForm, LadderRankingEditForm
 from core.models import LadderConfiguration, LadderConfigurationKey
-from leaderboard.logic.rankings import get_ladder_players
-from leaderboard.models import Match, Game, MatchPlayer, GamePlayer
+from leaderboard.logic.rankings import get_ladder_players, get_ladder_watchers_not_playing
+from leaderboard.models import Match, Game, MatchPlayer, GamePlayer, Player
 
 def get_match_form(ladder, post_dictionary=None, number_of_games=None):
     arguments = {'ladder': ladder}
@@ -141,3 +142,29 @@ class LeaderboardConfigurationForm(LadderConfigurationForm):
             except LadderConfiguration.DoesNotExist:
                 config = LadderConfiguration(ladder=self.ladder, key=config_key, raw_value=self.cleaned_data[key])
             config.save()
+
+class LadderRankingAndPlayerEditForm(LadderRankingEditForm):
+
+    def __init__(self, ladder, *args, **kwargs):
+        LadderRankingEditForm.__init__(self, ladder, *args, **kwargs)
+        self.fields['new_player'] = forms.ChoiceField(label=_("New Player"), choices=(('0', 'None'),) + get_ladder_watchers_not_playing(ladder), required=False, widget=forms.Select)
+        for i, ranking in enumerate(self.ranking):
+            self.fields['rank_%s_remove' % i] = forms.BooleanField(required=False)
+            ranking['remove_field'] = self['rank_%s_remove' % i]
+
+    def clean_new_player(self):
+        return int(self.cleaned_data['new_player'])
+
+    def clean(self):
+        return self.cleaned_data
+
+    def save(self):
+        super(LadderRankingAndPlayerEditForm, self).save()
+        for i, ranked in enumerate(self.ranking):
+            if self.cleaned_data['rank_%s_remove' % i]:
+                print "REMOVE A RANKED OBJECT WITH ID = %s" % ranked['ranked']
+                ranked['ranked'].delete()
+        if self.cleaned_data['new_player'] and self.cleaned_data['new_player'] != 0:
+            print "ADDING PLAYER WITH ID=%s" % self.cleaned_data['new_player']
+            Player.objects.create(ladder=self.ladder, rank=0, user=User.objects.get(pk=self.cleaned_data['new_player']))
+
