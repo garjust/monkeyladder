@@ -9,10 +9,10 @@
 			    <p>Hit the button below to make a ladder and track those ping pong matches. (Or something else exciting)</p>
 			    <p class="hero-unit-links btn-group">
 			    {% if not user.is_authenticated %}
-                    <a id="home-register-link" class="btn btn-large" href="/accounts/register/">Sign Up</a>
-                    <a id="home-login-link" class="btn btn-large" href="/accounts/login/">Log In</a>
+                    <a id="home-page-register-link" class="btn btn-large" href="/accounts/register/">Sign Up</a>
+                    <a id="home-page-login-link" class="btn btn-large" href="/accounts/login/">Log In</a>
                 {% endif %}
-                    <a id="create-ladder-link" class="btn btn-large btn-primary" href="/ladders/create">Create Ladder</a>
+                    <a id="home-page-create-ladder-link" class="btn btn-large btn-primary" href="/ladders/create">Create Ladder</a>
 			    </p>
 			</div>
 		</div>
