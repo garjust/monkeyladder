@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from accounts.decorators import login_required_forbidden
-from core.logic import get_ladder_or_404, int_or_404, get_base_ladder_context
+from core.logic.util import get_ladder_or_404, int_or_404, get_base_ladder_context
 
 from leaderboard.contexts import get_leaderboard_ladder_context
 from leaderboard.forms import get_match_form

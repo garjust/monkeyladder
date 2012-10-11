@@ -1,7 +1,7 @@
 from django.utils import timezone
 
 from core.models import Ranked, RankingChange, Watcher
-from core.logic import get_config
+from core.logic.config import get_config
 from leaderboard.models import Player, MatchRankingChangeSet
 
 import logging

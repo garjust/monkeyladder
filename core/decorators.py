@@ -1,7 +1,7 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 
-from core.logic import get_ladder_or_404
+from core.logic.util import get_ladder_or_404
 from core.models import Watcher
 
 def can_view_ladder(f):

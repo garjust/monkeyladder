@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import forms, _
 from django.contrib.auth.models import User
 
-from core.logic import int_or_404
+from core.logic.util import int_or_404
 from core.forms import LadderConfigurationForm, LadderRankingEditForm
 from core.models import LadderConfiguration, LadderConfigurationKey
 from leaderboard.logic.rankings import get_ladder_players, get_ladder_watchers_not_playing

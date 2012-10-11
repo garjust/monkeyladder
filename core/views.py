@@ -9,9 +9,9 @@ from leaderboard.forms import LadderRankingAndPlayerEditForm
 @login_required
 def feeds(request):
     return render(request, 'core/feeds.html', {'ladder_feed_size': 4, 'navbar_active': 'feeds',
-        'watched_ladder_feed': logic.nonfavorite_ladder_feed(request.user, size=25),
-        'favorite_ladder_feed': logic.favorite_ladder_feed(request.user, size=25),
-        'public_ladder_feed': logic.public_ladder_feed(request.user, size=25),
+        'watched_ladder_feed': logic.feeds.nonfavorite_ladder_feed(request.user, size=25),
+        'favorite_ladder_feed': logic.feeds.favorite_ladder_feed(request.user, size=25),
+        'public_ladder_feed': logic.feeds.public_ladder_feed(request.user, size=25),
     })
 
 @login_required
@@ -27,7 +27,7 @@ def create_ladder(request):
 
 @login_required_and_ladder_admin
 def edit_ladder(request, ladder_id):
-    ladder = logic.get_ladder_or_404(pk=ladder_id)
+    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
 
     # IM IN A RUSH
     form_class = LadderRankingEditForm
@@ -45,13 +45,13 @@ def edit_ladder(request, ladder_id):
 
 @can_view_ladder
 def view_watchers(request, ladder_id):
-    ladder = logic.get_ladder_or_404(pk=ladder_id)
-    return render(request, 'core/view_ladder_watchers.html', logic.get_base_ladder_context(request, ladder, {
-        'navbar_active': 'watchers', 'watcher_feed': logic.ladder_watchers(ladder)
+    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
+    return render(request, 'core/view_ladder_watchers.html', logic.util.get_base_ladder_context(request, ladder, {
+        'navbar_active': 'watchers', 'watcher_feed': logic.util.ladder_watchers(ladder)
     }))
 
 @can_view_ladder
 def watch_ladder(request, ladder_id):
-    ladder = logic.get_ladder_or_404(pk=ladder_id)
-    logic.create_watcher(ladder, request.user, request.user)
+    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
+    logic.util.create_watcher(ladder, request.user, request.user)
     return redirect(ladder)

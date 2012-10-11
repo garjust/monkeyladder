@@ -1,6 +1,6 @@
 from leaderboard.forms import LeaderboardConfigurationForm, get_match_form
 from leaderboard import logic
-from core.logic import get_base_ladder_context
+from core.logic.util import get_base_ladder_context
 
 def get_leaderboard_ladder_context(request, ladder, form=None):
     return get_base_ladder_context(request, ladder, extra=view_ladder_context(request, ladder, form))

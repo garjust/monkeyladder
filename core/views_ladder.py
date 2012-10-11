@@ -27,21 +27,21 @@ CONTEXTS = {
 
 @can_view_ladder
 def view_ladder(request, ladder_id):
-    ladder = logic.get_ladder_or_404(pk=ladder_id)
-    context = logic.get_base_ladder_context(request, ladder, extra={'navbar_active': 'ladder'})
+    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
+    context = logic.util.get_base_ladder_context(request, ladder, extra={'navbar_active': 'ladder'})
     context.update(CONTEXTS[ladder.type][VIEW]['context'](request, ladder))
     return render(request, CONTEXTS[ladder.type][VIEW]['template'], context)
 
 @can_view_ladder
 def ladder_display(request, ladder_id, context={}):
-    ladder = logic.get_ladder_or_404(pk=ladder_id)
-    context = logic.get_base_ladder_context(request, ladder, extra=context)
+    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
+    context = logic.util.get_base_ladder_context(request, ladder, extra=context)
     context.update(CONTEXTS[ladder.type][CONTENT]['context'](request, ladder))
     return render(request, CONTEXTS[ladder.type][CONTENT]['template'], context)
 
 @login_required_and_ladder_admin
 def configure_ladder(request, ladder_id):
-    ladder = logic.get_ladder_or_404(pk=ladder_id)
+    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
     form_class = CONTEXTS[ladder.type][CONFIG]['form']
     if request.POST:
         form = form_class(ladder, request.POST)
@@ -50,5 +50,5 @@ def configure_ladder(request, ladder_id):
             return redirect(ladder)
     else:
         form = form_class(ladder)
-    context = logic.get_base_ladder_context(request, ladder, extra={'navbar_active': 'config', 'form': form})
+    context = logic.util.get_base_ladder_context(request, ladder, extra={'navbar_active': 'config', 'form': form})
     return render(request, CONTEXTS[ladder.type][CONFIG]['template'], context)

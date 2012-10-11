@@ -1,5 +1,4 @@
-from forms import *
-from logic_feeds_tests import *
-from logic_rankings_tests import *
-from logic_stats_tests import *
-from models import *
+from logic import *
+
+from forms_tests import *
+from models_tests import *
