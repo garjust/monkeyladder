@@ -51,3 +51,6 @@ def get_watcher(user, ladder):
             return ladder.watcher(user)
         except Watcher.DoesNotExist:
             pass
+
+def get_lowest_rank(ladder):
+    return list(ladder.ranked_set.order_by('rank'))[-1].rank
