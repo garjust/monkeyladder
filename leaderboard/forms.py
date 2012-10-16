@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import forms, _
 from django.contrib.auth.models import User
 
-from core.logic.util import int_or_404, get_lowest_rank
+from core.logic.util import int_or_404, get_lowest_rank, validate_and_correct_ranking
 from core.forms import LadderConfigurationForm, LadderRankingEditForm
 from core.models import LadderConfiguration, LadderConfigurationKey
 from leaderboard.logic.rankings import get_ladder_players, get_ladder_watchers_not_playing
@@ -164,6 +164,7 @@ class LadderRankingAndPlayerEditForm(LadderRankingEditForm):
             if self.cleaned_data['rank_%s_remove' % i]:
                 print "REMOVE A RANKED OBJECT WITH ID = %s" % ranked['ranked']
                 ranked['ranked'].delete()
+        validate_and_correct_ranking(self.ladder)
         if self.cleaned_data['new_player'] and self.cleaned_data['new_player'] != 0:
             print "ADDING PLAYER WITH ID=%s" % self.cleaned_data['new_player']
             Player.objects.create(ladder=self.ladder, rank=get_lowest_rank(self.ladder) + 1, user=User.objects.get(pk=self.cleaned_data['new_player']))

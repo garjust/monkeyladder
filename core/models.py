@@ -29,7 +29,7 @@ class Ladder(DatedModel):
     type = models.CharField(max_length=50, choices=TYPES, default='BASIC', editable=False)
 
     def ranking(self):
-        return self.ranked_set.filter().order_by('rank')
+        return self.ranked_set.order_by('rank')
 
     def watcher(self, user):
         if user.is_authenticated():

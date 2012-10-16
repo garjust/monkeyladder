@@ -53,4 +53,10 @@ def get_watcher(user, ladder):
             pass
 
 def get_lowest_rank(ladder):
-    return list(ladder.ranked_set.order_by('rank'))[-1].rank
+    return list(ladder.ranking())[-1].rank
+
+def validate_and_correct_ranking(ladder):
+    for i, ranked in enumerate(ladder.ranking()):
+        if ranked.rank != i + 1:
+            ranked.rank = i + 1
+            ranked.save()
