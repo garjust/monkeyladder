@@ -33,7 +33,7 @@ class Match(DatedModel):
 
     #@models.permalink
     def get_absolute_url(self):
-        return '/ladders/%s/leaderboard/matches/?id=%s' % (self.ladder.id, self.id)
+        return '%s/matches/?id=%s' % (self.ladder.get_absolute_url(), self.id)
 
     def __unicode__(self):
         return "{} ({}) vs {} ({})".format(self.winner().user.get_profile().name(), self.winner().score, self.loser().user.get_profile().name(), self.loser().score)

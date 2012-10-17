@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from accounts.decorators import login_required_forbidden
+from core.decorators import can_view_ladder, login_required_and_ladder_admin
 from core.logic.util import get_ladder_or_404, int_or_404, get_base_ladder_context
 
-from leaderboard.contexts import get_leaderboard_ladder_context
-from leaderboard.forms import get_match_form
+from leaderboard.contexts import get_leaderboard_ladder_context, view_ladder_context, ladder_display_context
+from leaderboard.forms import get_match_form, LeaderboardConfigurationForm, LadderRankingAndPlayerEditForm
 from leaderboard import logic
 from leaderboard.models import Match
 
@@ -49,3 +50,44 @@ def match_feed_content(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     match_feed = logic.feeds.get_match_feed(ladder)
     return render(request, 'leaderboard/content/match_feed.html', {'match_feed': match_feed, 'ladder': ladder})
+
+@can_view_ladder
+def view_ladder(request, ladder_id):
+    ladder = get_ladder_or_404(pk=ladder_id)
+    context = get_base_ladder_context(request, ladder, extra={'navbar_active': 'ladder'})
+    context.update(view_ladder_context(request, ladder))
+    return render(request, 'leaderboard/view_ladder.html', context)
+
+@can_view_ladder
+def ladder_display(request, ladder_id, context=None):
+    if not context:
+        context = {}
+    ladder = get_ladder_or_404(pk=ladder_id)
+    context = get_base_ladder_context(request, ladder, extra=context)
+    context.update(ladder_display_context(request, ladder))
+    return render(request, 'leaderboard/content/ladder_display.html', context)
+
+@login_required_and_ladder_admin
+def configure_ladder(request, ladder_id):
+    ladder = get_ladder_or_404(pk=ladder_id)
+    if request.POST:
+        form = LeaderboardConfigurationForm(ladder, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(ladder)
+    else:
+        form = LeaderboardConfigurationForm(ladder)
+    context = get_base_ladder_context(request, ladder, extra={'navbar_active': 'config', 'form': form})
+    return render(request, 'leaderboard/configure_ladder.html', context)
+
+@login_required_and_ladder_admin
+def edit_ladder(request, ladder_id):
+    ladder = get_ladder_or_404(pk=ladder_id)
+    if request.POST:
+        form = LadderRankingAndPlayerEditForm(ladder, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(ladder)
+    else:
+        form = LadderRankingAndPlayerEditForm(ladder)
+    return ladder_display(request, ladder_id, context={'ladder_edit_form': form})

@@ -47,7 +47,7 @@ class Ladder(DatedModel):
     #@models.permalink
     def get_absolute_url(self):
         #return ('view_ladder', (), {'ladder_id': self.id})
-        return '/ladders/{}/'.format(self.id)
+        return '/ladders/%s/%s' % (self.type.lower(), self.id)
 
     def __unicode__(self):
         return self.name

@@ -1,10 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from core import logic, views_ladder
+from core import logic
 from core.decorators import can_view_ladder, login_required_and_ladder_admin
-from core.forms import LadderCreationForm, LadderRankingEditForm
-from leaderboard.forms import LadderRankingAndPlayerEditForm
+from core.forms import LadderCreationForm, LadderRankingEditForm, LadderConfigurationForm
 
 @login_required
 def feeds(request):
@@ -28,20 +27,14 @@ def create_ladder(request):
 @login_required_and_ladder_admin
 def edit_ladder(request, ladder_id):
     ladder = logic.util.get_ladder_or_404(pk=ladder_id)
-
-    # IM IN A RUSH
-    form_class = LadderRankingEditForm
-    if ladder.type == 'LEADERBOARD':
-        form_class = LadderRankingAndPlayerEditForm
-
     if request.POST:
-        form = form_class(ladder, request.POST)
+        form = LadderRankingEditForm(ladder, request.POST)
         if form.is_valid():
             form.save()
             return redirect(ladder)
     else:
-        form = form_class(ladder)
-    return views_ladder.ladder_display(request, ladder_id, context={'ladder_edit_form': form})
+        form = LadderRankingEditForm(ladder)
+    return ladder_display(request, ladder_id, context={'ladder_edit_form': form})
 
 @can_view_ladder
 def view_watchers(request, ladder_id):
@@ -55,3 +48,30 @@ def watch_ladder(request, ladder_id):
     ladder = logic.util.get_ladder_or_404(pk=ladder_id)
     logic.util.create_watcher(ladder, request.user, request.user)
     return redirect(ladder)
+
+@can_view_ladder
+def view_ladder(request, ladder_id):
+    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
+    context = logic.util.get_base_ladder_context(request, ladder, extra={'navbar_active': 'ladder'})
+    return render(request, 'core/view_ladder.html', context)
+
+@can_view_ladder
+def ladder_display(request, ladder_id, context=None):
+    if not context:
+        context = {}
+    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
+    context = logic.util.get_base_ladder_context(request, ladder, extra=context)
+    return render(request, 'core/content/ladder_display.html', context)
+
+@login_required_and_ladder_admin
+def configure_ladder(request, ladder_id):
+    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
+    if request.POST:
+        form = LadderConfigurationForm(ladder, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(ladder)
+    else:
+        form = LadderConfigurationForm(ladder)
+    context = logic.util.get_base_ladder_context(request, ladder, extra={'navbar_active': 'config', 'form': form})
+    return render(request, 'core/configure_ladder.html', context)

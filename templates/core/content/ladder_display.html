@@ -7,7 +7,7 @@
 </div>
 <div class="row">
     <div class="span{{ ladder_display_size|default:'6' }} monkey-form-div-free">
-    {% if ladder_edit_form %}<form id="edit-ladder-form" action="/ladders/{{ ladder.id }}/edit/" method="post">{% csrf_token %}{% endif %}
+    {% if ladder_edit_form %}<form id="edit-ladder-form" action="{{ ladder.get_absolute_url }}/edit/" method="post">{% csrf_token %}{% endif %}
         <table class="table table-striped tbcentered-table">
             {% block ladder_entries %}
             <thead>
@@ -49,7 +49,7 @@
     })
     $(function() {
         $("#ladder-edit-link").bind("click", function(e) {
-            $("#ladder-display-span").load("{{ ladder.get_absolute_url }}edit/")
+            $("#ladder-display-span").load("{{ ladder.get_absolute_url }}/edit/")
         })
     });
 </script>

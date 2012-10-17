@@ -1,5 +1,5 @@
 <div id="match-entry-form">
-    <form class="" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/" method="post">{% csrf_token %}
+    <form class="" action="{{ ladder.get_absolute_url }}/matches/create/" method="post">{% csrf_token %}
         <table id="match-entry-table">
             <tbody>
             {% for game in form.games %} 
@@ -48,8 +48,8 @@
 	        $("#match-entry-form-submit > input").attr('disabled', true)
 	        $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
 	            $("#match-entry-form-submit > input").attr('disabled', false)
-	            $("#ladder-display-span").load("content/ladder_display/")
-	            $("#match-feed-span").load("leaderboard/content/match_feed/")
+	            $("#ladder-display-span").load("{{ form.ladder.get_absolute_url }}/content/ladder_display")
+	            $("#match-feed-span").load("{{ form.ladder.get_absolute_url }}/content/match_feed/")
 	        });
 	        e.preventDefault(); 
 	    });

@@ -1,6 +1,6 @@
 {% if not form.number_of_games %}
 <div class="monkey-form-div">
-    <form id="match-entry-form" class="well" method="post" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/">{% csrf_token %}
+    <form id="match-entry-form" class="well" method="post" action="{{ ladder.get_absolute_url }}/matches/create/">{% csrf_token %}
         <fieldset>
 	        <div class="container-fluid">
 	            <div class="row-fluid">
@@ -29,7 +29,7 @@
 </div>
 {% else %}
 <div class="monkey-form-div game-entry">
-    <form id="match-entry-form" class="well" method="post" action="/ladders/{{ ladder.id }}/leaderboard/matches/create/?games={{ form.number_of_games }}">{% csrf_token %}
+    <form id="match-entry-form" class="well" method="post" action="{{ ladder.get_absolute_url }}/matches/create/?games={{ form.number_of_games }}">{% csrf_token %}
         <fieldset>
             <div class="container-fluid">
                 <div class="row-fluid">
@@ -52,9 +52,9 @@
       {% endif %}
         <div class="monkey-form-actions">
             <input id="match-entry-form-submit" class="btn btn-large" type="submit" value="Submit Match" />
-            <a class="btn btn-large" href="/ladders/{{ ladder.id }}/">Simple Entry</a>
-            <a class="btn btn-large" href="/ladders/{{ ladder.id }}?games={{ form.number_of_games|add:'1' }}">More</a>
-            <a class="btn btn-large" href="/ladders/{{ ladder.id }}?games={{ form.number_of_games|add:'-1' }}">Less</a>
+            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}">Simple Entry</a>
+            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}?games={{ form.number_of_games|add:'1' }}">More</a>
+            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}?games={{ form.number_of_games|add:'-1' }}">Less</a>
         </div>
         {% if form.success %}<div class="success">Match created successfully</div>{% endif %}
         <div id="forbidden-error">Match failed to submit. Logged in?</div>
@@ -89,8 +89,8 @@
 	            if (responseStatus == "error") {
 	            	$("#forbidden-error").show()
 	            } else {
-	                $("#ladder-display-span").load("content/ladder_display/")
-	                $("#match-feed-span").load("leaderboard/content/match_feed/")
+		            $("#ladder-display-span").load("{{ form.ladder.get_absolute_url }}/content/ladder_display")
+		            $("#match-feed-span").load("{{ form.ladder.get_absolute_url }}/content/match_feed/")
 	            }
 	        });
 	        e.preventDefault(); 
