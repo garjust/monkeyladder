@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from core import logic
 from core.decorators import can_view_ladder, login_required_and_ladder_admin
 from core.forms import LadderCreationForm, LadderRankingEditForm, LadderConfigurationForm
+from core.generic_views import handle_form_and_redirect_to_ladder
 
 @login_required
 def feeds(request):
@@ -23,18 +24,6 @@ def create_ladder(request):
     else:
         form = LadderCreationForm()
     return render(request, 'core/create_ladder.html', {'form': form})
-
-@login_required_and_ladder_admin
-def edit_ladder(request, ladder_id):
-    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
-    if request.POST:
-        form = LadderRankingEditForm(ladder, request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(ladder)
-    else:
-        form = LadderRankingEditForm(ladder)
-    return ladder_display(request, ladder_id, context={'ladder_edit_form': form})
 
 @can_view_ladder
 def view_watchers(request, ladder_id):
@@ -64,14 +53,13 @@ def ladder_display(request, ladder_id, context=None):
     return render(request, 'core/content/ladder_display.html', context)
 
 @login_required_and_ladder_admin
+def edit_ladder(request, ladder_id):
+    return handle_form_and_redirect_to_ladder(request, ladder_id, LadderRankingEditForm, 'core/content/ladder_display.html',
+        form_name='ladder_edit_form'
+    )
+
+@login_required_and_ladder_admin
 def configure_ladder(request, ladder_id):
-    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
-    if request.POST:
-        form = LadderConfigurationForm(ladder, request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(ladder)
-    else:
-        form = LadderConfigurationForm(ladder)
-    context = logic.util.get_base_ladder_context(request, ladder, extra={'navbar_active': 'config', 'form': form})
-    return render(request, 'core/configure_ladder.html', context)
+    return handle_form_and_redirect_to_ladder(request, ladder_id, LadderConfigurationForm, 'core/configure_ladder.html',
+        extra_context={'navbar_active': 'config'}
+    )

@@ -3,7 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin
-from core.logic.util import get_ladder_or_404, int_or_404, get_base_ladder_context
+from core.logic.util import get_ladder_or_404, int_or_404, get_base_ladder_context, get_watcher
+from core.generic_views import handle_form_and_redirect_to_ladder
 
 from leaderboard.contexts import get_leaderboard_ladder_context, view_ladder_context, ladder_display_context
 from leaderboard.forms import get_match_form, LeaderboardConfigurationForm, LadderRankingAndPlayerEditForm
@@ -68,26 +69,13 @@ def ladder_display(request, ladder_id, context=None):
     return render(request, 'leaderboard/content/ladder_display.html', context)
 
 @login_required_and_ladder_admin
-def configure_ladder(request, ladder_id):
-    ladder = get_ladder_or_404(pk=ladder_id)
-    if request.POST:
-        form = LeaderboardConfigurationForm(ladder, request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(ladder)
-    else:
-        form = LeaderboardConfigurationForm(ladder)
-    context = get_base_ladder_context(request, ladder, extra={'navbar_active': 'config', 'form': form})
-    return render(request, 'leaderboard/configure_ladder.html', context)
+def edit_ladder(request, ladder_id):
+    return handle_form_and_redirect_to_ladder(request, ladder_id, LadderRankingAndPlayerEditForm, 'leaderboard/content/ladder_display.html',
+        form_name='ladder_edit_form'
+    )
 
 @login_required_and_ladder_admin
-def edit_ladder(request, ladder_id):
-    ladder = get_ladder_or_404(pk=ladder_id)
-    if request.POST:
-        form = LadderRankingAndPlayerEditForm(ladder, request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(ladder)
-    else:
-        form = LadderRankingAndPlayerEditForm(ladder)
-    return ladder_display(request, ladder_id, context={'ladder_edit_form': form})
+def configure_ladder(request, ladder_id):
+    return handle_form_and_redirect_to_ladder(request, ladder_id, LeaderboardConfigurationForm, 'leaderboard/configure_ladder.html',
+        extra_context={'navbar_active': 'config'}
+    )

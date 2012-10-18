@@ -5,7 +5,7 @@
 	<div class="row">
 	    <div id="ladder-config-span" class="span12">
 	        <div class="monkey-form-div">
-			    <form class="form-horizontal" method="post" action="/ladders/{{ ladder.id }}/configure/">{% csrf_token %}
+			    <form class="form-horizontal" method="post" action="{{ ladder.get_absolute_url }}/configure/">{% csrf_token %}
 			        <fieldset>
 			            <div id="id_name-group" class="control-group">{{ form.name.label_tag }}
 					        <div class="controls">{{ form.name }}</div>
