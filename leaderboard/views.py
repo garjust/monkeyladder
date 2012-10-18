@@ -3,11 +3,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin
-from core.logic.util import get_ladder_or_404, int_or_404, get_base_ladder_context, get_watcher
-from core.generic_views import handle_form_and_redirect_to_ladder
+from core.logic.util import get_ladder_or_404, int_or_404
+from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder
 
-from leaderboard.contexts import get_leaderboard_ladder_context, view_ladder_context, ladder_display_context
 from leaderboard.forms import get_match_form, LeaderboardConfigurationForm, LadderRankingAndPlayerEditForm
+from leaderboard.generic_views import view_with_leaderboard
 from leaderboard import logic
 from leaderboard.models import Match
 
@@ -29,9 +29,9 @@ def view_matches(request, ladder_id):
             page = paginator.page(page_number)
             if match in page:
                 matches = page
-    context = get_base_ladder_context(request, ladder)
-    context.update({'navbar_active': 'matches', 'matches': matches, 'match_id': match_id})
-    return render(request, 'leaderboard/view_matches.html', context)
+    return view_with_ladder(request, ladder, 'leaderboard/view_matches.html', {
+        'navbar_active': 'matches', 'matches': matches, 'match_id': match_id
+    })
 
 @login_required_forbidden
 def create_match(request, ladder_id):
@@ -43,9 +43,9 @@ def create_match(request, ladder_id):
         if request.is_ajax():
             form = get_match_form(ladder, number_of_games=request.GET.get('games'))
             form.success = "Match created successfully"
-            return render(request, 'leaderboard/content/match_entry_form.html', get_leaderboard_ladder_context(request, ladder, form=form))
-        return redirect('/ladders/{}'.format(ladder_id))
-    return render(request, 'leaderboard/content/match_entry_form.html', get_leaderboard_ladder_context(request, ladder, form=form))
+        else:
+            return redirect(ladder)
+    return view_with_leaderboard(request, ladder, 'leaderboard/content/match_entry_form.html', form=form)
 
 def match_feed_content(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
@@ -55,18 +55,12 @@ def match_feed_content(request, ladder_id):
 @can_view_ladder
 def view_ladder(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    context = get_base_ladder_context(request, ladder, extra={'navbar_active': 'ladder'})
-    context.update(view_ladder_context(request, ladder))
-    return render(request, 'leaderboard/view_ladder.html', context)
+    return view_with_leaderboard(request, ladder, 'leaderboard/view_ladder.html', {'navbar_active': 'ladder'})
 
 @can_view_ladder
-def ladder_display(request, ladder_id, context=None):
-    if not context:
-        context = {}
+def ladder_display(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    context = get_base_ladder_context(request, ladder, extra=context)
-    context.update(ladder_display_context(request, ladder))
-    return render(request, 'leaderboard/content/ladder_display.html', context)
+    return view_with_ladder(request, ladder, 'leaderboard/content/ladder_display.html')
 
 @login_required_and_ladder_admin
 def edit_ladder(request, ladder_id):
@@ -77,5 +71,5 @@ def edit_ladder(request, ladder_id):
 @login_required_and_ladder_admin
 def configure_ladder(request, ladder_id):
     return handle_form_and_redirect_to_ladder(request, ladder_id, LeaderboardConfigurationForm, 'leaderboard/configure_ladder.html',
-        extra_context={'navbar_active': 'config'}
+        context={'navbar_active': 'config'}
     )

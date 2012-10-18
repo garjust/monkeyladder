@@ -4,9 +4,9 @@ from django.template import TemplateDoesNotExist
 
 from core.logic.util import get_ladder_or_404, get_watcher
 
-def handle_form_and_redirect_to_ladder(request, ladder_id, form_class, template, extra_context=None, form_name='form'):
-    if not extra_context:
-        extra_context = {}
+def handle_form_and_redirect_to_ladder(request, ladder_id, form_class, template, context=None, form_name='form'):
+    if not context:
+        context = {}
     ladder = get_ladder_or_404(pk=ladder_id)
     if request.POST:
         form = form_class(ladder, request.POST)
@@ -15,9 +15,14 @@ def handle_form_and_redirect_to_ladder(request, ladder_id, form_class, template,
             return redirect(ladder)
     else:
         form = form_class(ladder)
-    context = {'ladder': ladder, form_name: form, 'watcher': get_watcher(request.user, ladder)}
-    context.update(extra_context)
+    context[form_name] = form
+    return view_with_ladder(request, ladder, template, context=context)
+
+def view_with_ladder(request, ladder, template, context=None):
+    if not context:
+        context = {}
+    context.update({'ladder': ladder, 'watcher': get_watcher(request.user, ladder)})
     try:
         return render(request, template, context)
     except TemplateDoesNotExist:
-        raise Http404("Template does not exist")
+        raise Http404("Template does not exist: %s" % template)

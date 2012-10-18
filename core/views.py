@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from core import logic
 from core.decorators import can_view_ladder, login_required_and_ladder_admin
 from core.forms import LadderCreationForm, LadderRankingEditForm, LadderConfigurationForm
-from core.generic_views import handle_form_and_redirect_to_ladder
+from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder
 
 @login_required
 def feeds(request):
@@ -26,13 +26,6 @@ def create_ladder(request):
     return render(request, 'core/create_ladder.html', {'form': form})
 
 @can_view_ladder
-def view_watchers(request, ladder_id):
-    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
-    return render(request, 'core/view_ladder_watchers.html', logic.util.get_base_ladder_context(request, ladder, {
-        'navbar_active': 'watchers', 'watcher_feed': logic.util.ladder_watchers(ladder)
-    }))
-
-@can_view_ladder
 def watch_ladder(request, ladder_id):
     ladder = logic.util.get_ladder_or_404(pk=ladder_id)
     logic.util.create_watcher(ladder, request.user, request.user)
@@ -41,16 +34,12 @@ def watch_ladder(request, ladder_id):
 @can_view_ladder
 def view_ladder(request, ladder_id):
     ladder = logic.util.get_ladder_or_404(pk=ladder_id)
-    context = logic.util.get_base_ladder_context(request, ladder, extra={'navbar_active': 'ladder'})
-    return render(request, 'core/view_ladder.html', context)
+    return view_with_ladder(request, ladder, 'core/view_ladder.html', {'navbar_active': 'ladder'})
 
 @can_view_ladder
-def ladder_display(request, ladder_id, context=None):
-    if not context:
-        context = {}
+def ladder_display(request, ladder_id):
     ladder = logic.util.get_ladder_or_404(pk=ladder_id)
-    context = logic.util.get_base_ladder_context(request, ladder, extra=context)
-    return render(request, 'core/content/ladder_display.html', context)
+    return view_with_ladder(request, ladder, 'core/content/ladder_display.html')
 
 @login_required_and_ladder_admin
 def edit_ladder(request, ladder_id):
@@ -61,5 +50,5 @@ def edit_ladder(request, ladder_id):
 @login_required_and_ladder_admin
 def configure_ladder(request, ladder_id):
     return handle_form_and_redirect_to_ladder(request, ladder_id, LadderConfigurationForm, 'core/configure_ladder.html',
-        extra_context={'navbar_active': 'config'}
+        context={'navbar_active': 'config'}
     )
