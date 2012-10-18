@@ -13,19 +13,6 @@ def int_or_404(value):
         raise Http404
     return value
 
-def get_base_ladder_context(request, ladder, extra=None):
-    """
-    Returns the basic context all ladders need
-    """
-    if not extra:
-        extra = {}
-    context = {
-        'ladder': ladder,
-        'watcher': get_watcher(request.user, ladder)
-    }
-    context.update(extra)
-    return context
-
 def get_ladder_or_404(*args, **kwargs):
     """
     Returns a ladder or a 404 response
