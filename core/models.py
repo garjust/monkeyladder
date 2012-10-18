@@ -20,6 +20,7 @@ LADDER_PERMISSION_TYPES = (
     ('NORM', 'Normal'),
 )
 
+
 class Ladder(DatedModel):
     name = models.CharField(max_length=50)
     rungs = models.IntegerField()
@@ -33,7 +34,10 @@ class Ladder(DatedModel):
 
     def watcher(self, user):
         if user.is_authenticated():
-            return self.watcher_set.get(user=user)
+            try:
+                return self.watcher_set.get(user=user)
+            except Watcher.DoesNotExist:
+                pass
 
     def is_leaderboard(self):
         return self.type == 'LEADERBOARD'
@@ -52,6 +56,7 @@ class Ladder(DatedModel):
     def __unicode__(self):
         return self.name
 
+
 class LadderConfigurationKey(DatedModel):
     key = models.CharField(max_length=50, unique=True)
 
@@ -63,6 +68,7 @@ class LadderConfigurationKey(DatedModel):
 
     class Meta:
         db_table = 'core_ladder_configuration_key'
+
 
 class LadderConfiguration(DatedModel):
     ladder = models.ForeignKey(Ladder, null=True)
@@ -89,6 +95,7 @@ class LadderConfiguration(DatedModel):
         unique_together = ('ladder', 'key')
         db_table = 'core_ladder_configuration'
 
+
 class Ranked(DatedModel):
     ladder = models.ForeignKey(Ladder)
     rank = models.IntegerField()
@@ -102,6 +109,7 @@ class Ranked(DatedModel):
 
     def __unicode__(self):
         return self.description
+
 
 class Watcher(DatedModel):
     ladder = models.ForeignKey(Ladder)
@@ -129,6 +137,7 @@ class Watcher(DatedModel):
     class Meta:
         unique_together = ('ladder', 'user')
 
+
 class RankingChangeSet(DatedModel):
     ladder = models.ForeignKey(Ladder)
     change_date = models.DateTimeField()
@@ -138,6 +147,7 @@ class RankingChangeSet(DatedModel):
 
     class Meta:
         db_table = 'core_ranking_change_set'
+
 
 class RankingChange(DatedModel):
     ranking_change_set = models.ForeignKey(RankingChangeSet)
