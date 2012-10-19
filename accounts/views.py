@@ -8,6 +8,7 @@ from leaderboard.logic.stats import count_players_matches, count_players_wins, c
     calculate_players_match_win_percentage
 from leaderboard.logic.feeds import get_players_match_feed
 
+
 def register(request):
     if request.POST:
         form = ExtendedUserCreationForm(request.POST)
@@ -17,6 +18,7 @@ def register(request):
     else:
         form = ExtendedUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
+
 
 @login_required(login_url="/accounts/login")
 def view_profile(request, user_id):
@@ -30,6 +32,7 @@ def view_profile(request, user_id):
         'game_win_percentage': calculate_players_game_win_percentage(user),
         'match_win_percentage': calculate_players_match_win_percentage(user),
     })
+
 
 @login_required(login_url="/accounts/login")
 def edit_profile(request, user_id):

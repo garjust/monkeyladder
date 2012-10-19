@@ -5,6 +5,7 @@ from core import logic
 from core.decorators import can_view_ladder, login_required_and_ladder_admin
 from core.forms import LadderCreationForm, LadderRankingEditForm, LadderConfigurationForm
 from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder
+from core.models import Watcher
 
 
 @login_required
@@ -31,7 +32,7 @@ def create_ladder(request):
 @can_view_ladder
 def watch_ladder(request, ladder_id):
     ladder = logic.util.get_ladder_or_404(pk=ladder_id)
-    logic.util.create_watcher(ladder, request.user, request.user)
+    Watcher.objects.create(ladder=ladder, user=request.user, type='NORMAL', created_by=request.user)
     return redirect(ladder)
 
 

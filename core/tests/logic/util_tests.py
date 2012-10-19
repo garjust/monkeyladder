@@ -6,6 +6,7 @@ from core.models import Ladder, Watcher
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
+
 class IntOr404Test(TestCase):
     fixtures = FIXTURES
 
@@ -17,7 +18,8 @@ class IntOr404Test(TestCase):
 
     def test_raise_404_if_int_invalid(self):
         with self.assertRaises(Http404):
-            self.fixture("sd")
+            self.fixture("sad")
+
 
 class GetLadderOr404Test(TestCase):
     fixtures = FIXTURES
@@ -31,14 +33,9 @@ class GetLadderOr404Test(TestCase):
     def test_raise_404_if_ladder_dne(self):
         self.assertRaises(Http404, self.fixture, pk=99999)
 
-class LadderWatchersTest(TestCase):
+
+class CreateWatcherTest(TestCase):
     fixtures = FIXTURES
 
     def setUp(self):
-        self.fixture = util.ladder_watchers
-
-    def test_get_correct_watchers(self):
-        ladder = Ladder.objects.get(pk=1)
-        watchers = self.fixture(ladder)
-        for watcher in Watcher.objects.filter(ladder=ladder):
-            self.assertIn(watcher, watchers)
+        self.fixture = util.create_watcher

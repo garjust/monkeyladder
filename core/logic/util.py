@@ -8,6 +8,9 @@ logger = logging.getLogger('monkeyladder')
 
 
 def int_or_404(value):
+    """
+    Returns the given value cast as an integer or 404 if unsuccessful
+    """
     try:
         value = int(value)
     except ValueError:
@@ -20,20 +23,6 @@ def get_ladder_or_404(*args, **kwargs):
     Returns a ladder or a 404 response
     """
     return get_object_or_404(Ladder, *args, **kwargs)
-
-
-def ladder_watchers(ladder, order='-created', size=100):
-    """
-    Returns a list of watchers for the given ladder
-    """
-    return ladder.watcher_set.order_by(order)[:size]
-
-
-def create_watcher(ladder, user, created_by, watcher_type='NORMAL'):
-    """
-    Creates a watcher object
-    """
-    return Watcher.objects.create(ladder=ladder, user=user, type=watcher_type, created_by=created_by)
 
 
 def get_lowest_rank(ladder):

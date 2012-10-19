@@ -2,6 +2,7 @@ from django.contrib.auth.forms import forms, _
 
 from core.models import Ladder, Watcher
 
+
 class LadderCreationForm(forms.Form):
     """
     A form that creates a ladder and a ladder admin
@@ -35,6 +36,7 @@ class LadderCreationForm(forms.Form):
         Watcher.objects.create(ladder=ladder, user=user, type='ADMIN')
         return ladder
 
+
 class LadderRankingEditForm(forms.Form):
     """
     A form to edit the rankings of a ladder
@@ -64,6 +66,7 @@ class LadderRankingEditForm(forms.Form):
         for i, ranked in enumerate(self.ladder_ranking):
             ranked.rank = self.cleaned_data['rank_%s' % i]
             ranked.save()
+
 
 class LadderConfigurationForm(forms.Form):
     """
