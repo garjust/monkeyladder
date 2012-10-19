@@ -41,8 +41,9 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.humanize',
     'accounts',
-    'core',
     'datedmodels',
+    'core',
+    'basic',
     'leaderboard',
 )
 
