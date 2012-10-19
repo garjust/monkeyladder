@@ -4,6 +4,7 @@ from django.template import TemplateDoesNotExist
 
 from core.logic.util import get_ladder_or_404
 
+
 def handle_form_and_redirect_to_ladder(request, ladder_id, form_class, template, context=None, form_name='form'):
     if not context:
         context = {}
@@ -17,6 +18,7 @@ def handle_form_and_redirect_to_ladder(request, ladder_id, form_class, template,
         form = form_class(ladder)
     context[form_name] = form
     return view_with_ladder(request, ladder, template, context=context)
+
 
 def view_with_ladder(request, ladder, template, context=None):
     if not context:
