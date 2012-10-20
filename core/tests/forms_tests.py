@@ -6,6 +6,7 @@ from core.models import Ladder, Watcher
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
+
 class LadderCreationFormTest(TestCase):
     fixtures = FIXTURES
 
@@ -29,12 +30,14 @@ class LadderCreationFormTest(TestCase):
         self.assertEqual(ladder.created_by, self.user, 'The new ladder was created by user passed in')
         self.assertEqual(Watcher.objects.get(ladder=ladder, user=self.user).type, 'ADMIN', 'An admin watcher was created with the ladder and user')
 
+
 class LadderRankingEditFormTest(TestCase):
     fixtures = FIXTURES
 
     def setUp(self):
         self.fixture = forms.LadderRankingEditForm
         self.ladder = Ladder.objects.get(name='Public Basic')
+
 
 class LadderConfigurationFormTest(TestCase):
     fixtures = FIXTURES

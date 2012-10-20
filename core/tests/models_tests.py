@@ -5,6 +5,7 @@ from core import models
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
+
 class LadderModelTest(TestCase):
     fixtures = FIXTURES
 

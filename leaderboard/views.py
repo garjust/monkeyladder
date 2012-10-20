@@ -80,3 +80,11 @@ def configure_ladder(request, ladder_id):
     return handle_form_and_redirect_to_ladder(request, ladder_id, LeaderboardConfigurationForm, 'leaderboard/configure_ladder.html',
         context={'navbar_active': 'config'}
     )
+
+
+@login_required_forbidden
+def matchup(request):
+    """
+    Return a piece of HTML designed to be embedded in the matchup container
+    """
+    pass

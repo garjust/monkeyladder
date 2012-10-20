@@ -3,6 +3,7 @@ from leaderboard.models import MatchPlayer
 import logging
 logger = logging.getLogger('monkeyladder')
 
+
 def count_players_wins(user, ladder=None):
     """
     Returns the users total matches won.
@@ -12,6 +13,7 @@ def count_players_wins(user, ladder=None):
     if ladder:
         return len(filter(lambda p: p.match.winner() == p, MatchPlayer.objects.filter(match__ladder=ladder, user=user)))
     return len(filter(lambda p: p.match.winner() == p, MatchPlayer.objects.filter(user=user)))
+
 
 def count_players_losses(user, ladder=None):
     """
@@ -23,6 +25,7 @@ def count_players_losses(user, ladder=None):
         return len(filter(lambda p: p.match.loser() == p, MatchPlayer.objects.filter(match__ladder=ladder, user=user)))
     return len(filter(lambda p: p.match.loser() == p, MatchPlayer.objects.filter(user=user)))
 
+
 def count_players_matches(user, ladder=None):
     """
     Returns the users total matches played.
@@ -31,12 +34,14 @@ def count_players_matches(user, ladder=None):
     """
     return count_players_wins(user, ladder) + count_players_losses(user, ladder)
 
+
 def calculate_players_match_win_percentage(user, ladder=None):
     wins = count_players_wins(user, ladder)
     matches = count_players_matches(user, ladder)
     if matches == 0:
         return 0
     return (float(wins) / float(matches)) * 100
+
 
 def count_players_games(user, ladder=None):
     wins = 0
@@ -51,6 +56,7 @@ def count_players_games(user, ladder=None):
             for other_match_player in match_player.match.matchplayer_set.all():
                 games += other_match_player.score
     return wins, games
+
 
 def calculate_players_game_win_percentage(user, ladder=None):
     wins, games = count_players_games(user, ladder)
