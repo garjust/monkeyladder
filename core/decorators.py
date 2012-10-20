@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from core.logic.util import get_ladder_or_404
 from core.models import Watcher
 
+
 def can_view_ladder(f):
     """
     Checks whether the requests user has permission to view the ladder
@@ -14,6 +15,7 @@ def can_view_ladder(f):
             return redirect('/home/')
         return f(request, ladder_id, *args, **kwargs)
     return decorated
+
 
 def login_required_and_ladder_admin(f):
     """

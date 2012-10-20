@@ -5,6 +5,7 @@ from core.models import LadderConfigurationKey
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
+
 class GetConfigTest(TestCase):
     fixtures = FIXTURES + ['fixtures/leaderboard']
 
@@ -25,4 +26,3 @@ class GetConfigTest(TestCase):
         self.assertEqual(self.fixture(3, 'leaderboard.auto_take_first', 'leaderboard.swap_range'), {
             'leaderboard.auto_take_first': False, 'leaderboard.swap_range': 0,
         })
-

@@ -6,6 +6,7 @@ from core.models import Ladder, Watcher
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
+
 class PublicLadderFeedTest(TestCase):
     fixtures = FIXTURES
 
@@ -30,6 +31,7 @@ class PublicLadderFeedTest(TestCase):
 
     def test_change_size_of_feed(self):
         self.assertEqual(len(self.fixture(size=0)), 0)
+
 
 class WatchedLadderFeedTest(TestCase):
     fixtures = FIXTURES

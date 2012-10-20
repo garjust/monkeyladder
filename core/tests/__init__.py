@@ -1,4 +1,5 @@
-from decorators import *
-from forms import *
 from logic import *
-from models import *
+
+from decorators_tests import *
+from forms_tests import *
+from models_tests import *
