@@ -1,5 +1,17 @@
 [
   {
+    "pk": 7, 
+    "model": "core.ladder", 
+    "fields": {
+      "rungs": 10, 
+      "name": "Inconsistent Leaderboard", 
+      "created": "2012-10-20T18:54:23.667Z", 
+      "created_by": 1, 
+      "type": "LEADERBOARD", 
+      "is_private": false
+    }
+  }, 
+  {
     "pk": 6, 
     "model": "core.ladder", 
     "fields": {
@@ -135,6 +147,83 @@
       "key": 3, 
       "created_by": null, 
       "created": "2012-07-25T23:32:13.402Z"
+    }
+  }, 
+  {
+    "pk": 41, 
+    "model": "core.ranked", 
+    "fields": {
+      "ladder": 7, 
+      "description": "user.long", 
+      "rank": 9, 
+      "created_by": null, 
+      "created": "2012-10-20T19:04:53.732Z"
+    }
+  }, 
+  {
+    "pk": 40, 
+    "model": "core.ranked", 
+    "fields": {
+      "ladder": 7, 
+      "description": "user.c", 
+      "rank": 4, 
+      "created_by": null, 
+      "created": "2012-10-20T19:04:48.675Z"
+    }
+  }, 
+  {
+    "pk": 39, 
+    "model": "core.ranked", 
+    "fields": {
+      "ladder": 7, 
+      "description": "user.short", 
+      "rank": 8, 
+      "created_by": null, 
+      "created": "2012-10-20T19:04:44.231Z"
+    }
+  }, 
+  {
+    "pk": 38, 
+    "model": "core.ranked", 
+    "fields": {
+      "ladder": 7, 
+      "description": "user.noname", 
+      "rank": 5, 
+      "created_by": null, 
+      "created": "2012-10-20T19:04:39.865Z"
+    }
+  }, 
+  {
+    "pk": 37, 
+    "model": "core.ranked", 
+    "fields": {
+      "ladder": 7, 
+      "description": "user.b", 
+      "rank": 2, 
+      "created_by": null, 
+      "created": "2012-10-20T19:04:34.422Z"
+    }
+  }, 
+  {
+    "pk": 36, 
+    "model": "core.ranked", 
+    "fields": {
+      "ladder": 7, 
+      "description": "user.e", 
+      "rank": 4, 
+      "created_by": null, 
+      "created": "2012-10-20T19:04:30.330Z"
+    }
+  }, 
+  {
+    "pk": 35, 
+    "model": "core.ranked", 
+    "fields": {
+      "ladder": 7, 
+      "description": "user.admin", 
+      "rank": 1, 
+      "created_by": null, 
+      "created": "2012-10-20T19:04:26.007Z"
     }
   }, 
   {
@@ -1037,6 +1126,90 @@
       "favorite": false, 
       "created_by": null, 
       "user": 3, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 46, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-10-20T18:54:23.671Z", 
+      "ladder": 7, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 1, 
+      "type": "ADMIN"
+    }
+  }, 
+  {
+    "pk": 47, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-10-20T18:54:46.179Z", 
+      "ladder": 7, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 3, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 48, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-10-20T18:54:51.258Z", 
+      "ladder": 7, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 6, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 49, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-10-20T18:54:58.024Z", 
+      "ladder": 7, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 4, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 50, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-10-20T18:55:05.325Z", 
+      "ladder": 7, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 9, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 51, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-10-20T18:55:12.485Z", 
+      "ladder": 7, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 11, 
+      "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 52, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-10-20T18:55:20.013Z", 
+      "ladder": 7, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 8, 
       "type": "NORM"
     }
   }, 

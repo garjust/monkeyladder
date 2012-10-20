@@ -1,11 +1,13 @@
 from django.contrib.auth.forms import forms, _
 from django.contrib.auth.models import User
 
-from core.logic.util import int_or_404, get_lowest_rank, validate_and_correct_ranking
+from core.logic.ranks import get_new_rank, correct_ranking
+from core.logic.util import int_or_404
 from core.forms import LadderConfigurationForm, LadderRankingEditForm
 from core.models import LadderConfiguration, LadderConfigurationKey
 from leaderboard.logic.rankings import get_ladder_players, get_ladder_watchers_not_playing
 from leaderboard.models import Match, Game, MatchPlayer, GamePlayer, Player
+
 
 def get_match_form(ladder, post_dictionary=None, number_of_games=None):
     arguments = {'ladder': ladder}
@@ -16,6 +18,7 @@ def get_match_form(ladder, post_dictionary=None, number_of_games=None):
     if post_dictionary:
         return form_class(post_dictionary, **arguments)
     return form_class(**arguments)
+
 
 class BaseMatchCreationForm(forms.Form):
     error_messages = {
@@ -52,6 +55,7 @@ class BaseMatchCreationForm(forms.Form):
                 raise forms.ValidationError(self.error_messages['same_players'])
         return self.cleaned_data
 
+
 class MatchCreationForm(BaseMatchCreationForm):
     """
     A form that creates a match without game information
@@ -66,6 +70,7 @@ class MatchCreationForm(BaseMatchCreationForm):
         MatchPlayer.objects.create(match=match, user=self.cleaned_data['player_one'], score=self.cleaned_data['player_one_score'])
         MatchPlayer.objects.create(match=match, user=self.cleaned_data['player_two'], score=self.cleaned_data['player_two_score'])
         return match
+
 
 class GameCreationForm(BaseMatchCreationForm):
     """
@@ -113,6 +118,7 @@ class GameCreationForm(BaseMatchCreationForm):
             i += 1
         return match
 
+
 class LeaderboardConfigurationForm(LadderConfigurationForm):
 
     def __init__(self, ladder, *args, **kwargs):
@@ -143,6 +149,7 @@ class LeaderboardConfigurationForm(LadderConfigurationForm):
                 config = LadderConfiguration(ladder=self.ladder, key=config_key, raw_value=self.cleaned_data[key])
             config.save()
 
+
 class LadderRankingAndPlayerEditForm(LadderRankingEditForm):
 
     def __init__(self, ladder, *args, **kwargs):
@@ -164,8 +171,7 @@ class LadderRankingAndPlayerEditForm(LadderRankingEditForm):
             if self.cleaned_data['rank_%s_remove' % i]:
                 print "REMOVE A RANKED OBJECT WITH ID = %s" % ranked['ranked']
                 ranked['ranked'].delete()
-        validate_and_correct_ranking(self.ladder)
+        correct_ranking(self.ladder)
         if self.cleaned_data['new_player'] and self.cleaned_data['new_player'] != 0:
             print "ADDING PLAYER WITH ID=%s" % self.cleaned_data['new_player']
-            Player.objects.create(ladder=self.ladder, rank=get_lowest_rank(self.ladder) + 1, user=User.objects.get(pk=self.cleaned_data['new_player']))
-
+            Player.objects.create(ladder=self.ladder, rank=get_new_rank(self.ladder), user=User.objects.get(pk=self.cleaned_data['new_player']))

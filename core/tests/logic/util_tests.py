@@ -2,7 +2,7 @@ from django.http import Http404
 from django.test import TestCase
 
 from core.logic import util
-from core.models import Ladder, Watcher
+from core.models import Ladder
 
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
@@ -32,10 +32,3 @@ class GetLadderOr404Test(TestCase):
 
     def test_raise_404_if_ladder_dne(self):
         self.assertRaises(Http404, self.fixture, pk=99999)
-
-
-class CreateWatcherTest(TestCase):
-    fixtures = FIXTURES
-
-    def setUp(self):
-        self.fixture = util.create_watcher

@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 
-from core.models import Ladder, Watcher
+from core.models import Ladder
 
 import logging
 logger = logging.getLogger('monkeyladder')
@@ -23,17 +23,3 @@ def get_ladder_or_404(*args, **kwargs):
     Returns a ladder or a 404 response
     """
     return get_object_or_404(Ladder, *args, **kwargs)
-
-
-def get_lowest_rank(ladder):
-    """
-    Returns the lowest current rank in the ladder
-    """
-    return list(ladder.ranking())[-1].rank
-
-
-def validate_and_correct_ranking(ladder):
-    for i, ranked in enumerate(ladder.ranking()):
-        if ranked.rank != i + 1:
-            ranked.rank = i + 1
-            ranked.save()
