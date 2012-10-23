@@ -13,29 +13,28 @@
                     {% if request.user.is_authenticated %}<li><a id="nav-feeds-link" href="/ladders/feeds/">Feeds</a></li>{% endif %}
                 </ul>
             </div>
-        {% if ladder %}
+        	{% if ladder %}
             <div class="nav-collapse">
                 <ul class="nav nav-padded-left">
                     <li><a id="nav-ladder-link" href="{{ ladder.get_absolute_url }}">{{ ladder.name }}</a></li>
                     {% if ladder.is_leaderboard %}<li><a id="nav-matches-link" href="{{ ladder.get_absolute_url }}/matches/">Matches</a></li>{% endif %}
-                    
         			{% if watcher and watcher.admin %}<li><a id="nav-config-link" href="{{ ladder.get_absolute_url }}/configure/">Configure</a></li>{% endif %}
                     {% block special_ladder_nav_links %}{% endblock %}
                 </ul>
             </div>
-        {% endif %}
+        	{% endif %}
         	<div class="nav-collapse">
                 <div class="navbar-text pull-right">   
                 	<ul class="nav">
-                	{% if not request.user.is_authenticated %}
+                		{% if not request.user.is_authenticated %}
                     	<li class="session-link"><a id="nav-login-link" href="/accounts/login/">Log In</a></li>
-                	{% else %}
+                		{% else %}
                 		<li class="session-link"><a id="nav-profile-link" href="{{ request.user.get_profile.get_absolute_url }}">Logged in as {{ request.user.get_profile.name }}</a></li>
                    		<li class="session-link"><a id="nav-logout-link" href="/accounts/logout/">Log Out</a></li>
-                   		{% if request.user.is_staff %}
+                   			{% if request.user.is_staff %}
                    		<li><a id ="nav-admin-link" href="/admin/">Administration</a></li>
-                   		{% endif %}
-                	{% endif %}
+                   			{% endif %}
+                		{% endif %}
                 	</ul>
                 </div>
             </div>        
