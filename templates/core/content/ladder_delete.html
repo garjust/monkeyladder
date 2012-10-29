@@ -1,0 +1,25 @@
+<div class="row">
+	<div id="delete-ladder-span" class="span12">
+		<button id="delete-ladder-button-confirm" class="btn btn-large btn-danger" data-target="#deleteLadderModal" data-toggle="modal">Delete Ladder</button>
+	</div>
+</div>
+<div id="deleteLadderModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<h2 id="myModalLabel">Are you sure you wish to delete this ladder?</h2>
+	</div>
+	<div class="modal-footer">
+	  	<button id="delete-ladder-button" class="btn btn-large btn-danger" data-dismiss="modal" aria-hidden="true">Yes</button>
+	  	<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true">Do Not Delete {{ ladder.name }}</button>
+	</div>
+</div>
+<script type="text/javascript">
+$(function () {
+	$("#delete-ladder-button").bind("click", function(e) {
+		$.get("{{ ladder.get_general_url }}/delete/", function(data) {
+			window.location.replace("/home")
+		}).error(function() {
+			$("#alerts").append($("<div class='alert alert-block alert-error fade in'><button type='button' class='close' data-dismiss='alert'><i class='icon-ok'/></button><h3 class='alert-heading'>Failed to delete {{ ladder.name }}</h3></div>"))
+		})
+	})
+})
+</script>

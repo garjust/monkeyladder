@@ -24,6 +24,7 @@ class Ladder(DatedModel):
     name = models.CharField(max_length=50)
     rungs = models.IntegerField()
     is_private = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     type = models.CharField(max_length=50, choices=TYPES, default='BASIC', editable=False)
 
     def ranking(self):
@@ -49,6 +50,9 @@ class Ladder(DatedModel):
     def get_absolute_url(self):
         #return ('view_ladder', (), {'ladder_id': self.id})
         return '/ladders/%s/%s' % (self.type.lower(), self.id)
+
+    def get_general_url(self):
+        return '/ladders/%s' % self.id
 
     def __unicode__(self):
         return self.name

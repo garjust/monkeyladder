@@ -13,3 +13,12 @@
 #ladder-config-page .monkey-form-div {
     width: 500px;
 }
+
+#delete-ladder-span {
+	margin: 20px 20px 20px 20px;
+	text-align: center;
+}
+
+#delete-ladder-span button {
+	width: 200px;
+}

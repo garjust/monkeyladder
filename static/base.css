@@ -73,3 +73,7 @@ table.centered-table td {
 .well .table tbody tr:hover th {
   background-color: #ffffff;
 }
+
+.alert-bucket {
+	margin-top: 20px;
+}
