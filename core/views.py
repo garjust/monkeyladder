@@ -47,5 +47,6 @@ def watch_ladder(request, ladder_id):
 @login_required_and_ladder_admin
 def delete_ladder(request, ladder_id):
     ladder = logic.util.get_ladder_or_404(pk=ladder_id)
-    ladder.delete()
+    ladder.is_active = False
+    ladder.save()
     return redirect('/home/')

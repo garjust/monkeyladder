@@ -2,12 +2,14 @@ from django.contrib import admin
 
 from core.models import Ladder, LadderConfiguration, Ranked, Watcher, RankingChangeSet, RankingChange
 
+
 class RankedInline(admin.TabularInline):
     model = Ranked
     extra = 1
     fieldsets = [
         (None, {'fields': ['rank', 'description']}),
     ]
+
 
 class WatcherInline(admin.TabularInline):
     model = Watcher
@@ -16,6 +18,7 @@ class WatcherInline(admin.TabularInline):
         (None, {'fields': ['user']}),
     ]
 
+
 class LadderConfigurationInline(admin.TabularInline):
     model = LadderConfiguration
     extra = 0
@@ -23,16 +26,18 @@ class LadderConfigurationInline(admin.TabularInline):
         (None, {'fields': ['key', 'raw_value']}),
     ]
 
+
 class LadderAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['name', 'rungs', 'is_private']}),
+        (None, {'fields': ['name', 'rungs', 'is_private', 'is_active']}),
         ('Meta', {'fields': ['created', 'created_by']})
     ]
     inlines = [RankedInline, LadderConfigurationInline, WatcherInline]
-    list_display = ('name', 'type', 'rungs', 'is_private', 'created')
-    list_filter = ['is_private', 'created']
+    list_display = ('name', 'type', 'rungs', 'is_private', 'is_active', 'created')
+    list_filter = ['is_private', 'is_active', 'created']
     search_fields = ['name']
     date_hierarchy = 'created'
+
 
 class WatcherAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -43,9 +48,11 @@ class WatcherAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'user__first_name', 'user__last_name', 'ladder__name']
     date_hierarchy = 'created'
 
+
 class RankingChangeInline(admin.TabularInline):
     model = RankingChange
     extra = 0
+
 
 class RankingChangeSetAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -56,6 +63,7 @@ class RankingChangeSetAdmin(admin.ModelAdmin):
     list_filter = ['ladder', 'change_date']
     search_fields = ['ladder', 'change_data']
     date_hierarchy = 'change_date'
+
 
 class LadderConfigurationAdmin(admin.ModelAdmin):
     fieldsets = [
