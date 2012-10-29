@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 from core import logic
 from core.logic.feeds import watched_ladder_feed, public_ladder_feed
-from core.decorators import can_view_ladder, login_required_and_ladder_admin
+from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
 from core.forms import LadderCreationForm
 from core.models import Watcher
 
@@ -37,6 +37,7 @@ def create_ladder(request):
     return render(request, 'core/create_ladder.html', {'form': form})
 
 
+@ladder_is_active
 @can_view_ladder
 def watch_ladder(request, ladder_id):
     ladder = logic.util.get_ladder_or_404(pk=ladder_id)
@@ -44,6 +45,7 @@ def watch_ladder(request, ladder_id):
     return redirect(ladder)
 
 
+@ladder_is_active
 @login_required_and_ladder_admin
 def delete_ladder(request, ladder_id):
     ladder = logic.util.get_ladder_or_404(pk=ladder_id)

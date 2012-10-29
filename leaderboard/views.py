@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from accounts.decorators import login_required_forbidden
-from core.decorators import can_view_ladder, login_required_and_ladder_admin
+from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
 from core.logic.util import get_ladder_or_404, int_or_404
 from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder
 
@@ -35,6 +35,7 @@ def view_matches(request, ladder_id):
     })
 
 
+@ladder_is_active
 @login_required_forbidden
 def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
@@ -56,18 +57,21 @@ def match_feed_content(request, ladder_id):
     return render(request, 'leaderboard/content/match_feed.html', {'match_feed': match_feed, 'ladder': ladder})
 
 
+@ladder_is_active
 @can_view_ladder
 def view_ladder(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     return view_with_leaderboard(request, ladder, 'leaderboard/view_ladder.html', {'navbar_active': 'ladder'})
 
 
+@ladder_is_active
 @can_view_ladder
 def ladder_display(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     return view_with_ladder(request, ladder, 'leaderboard/content/ladder_display.html')
 
 
+@ladder_is_active
 @login_required_and_ladder_admin
 def edit_ladder(request, ladder_id):
     return handle_form_and_redirect_to_ladder(request, ladder_id, LadderRankingAndPlayerEditForm, 'leaderboard/content/ladder_display.html',
@@ -75,6 +79,7 @@ def edit_ladder(request, ladder_id):
     )
 
 
+@ladder_is_active
 @login_required_and_ladder_admin
 def configure_ladder(request, ladder_id):
     return handle_form_and_redirect_to_ladder(request, ladder_id, LeaderboardConfigurationForm, 'leaderboard/configure_ladder.html',
