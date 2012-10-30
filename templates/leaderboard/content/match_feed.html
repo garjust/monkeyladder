@@ -1,22 +1,49 @@
 {% load humanize %}
 
 <div class="row">
-    <div class="span{{ match_feed_size|default:'6' }} page-header muted">
-        <h2>{{ match_feed_name|default:'Recent Matches' }}</h2>
-    </div>
+	<div class="span{{ match_feed_size|default:'6' }}">
+	    <div class="well">
+	        <h3 class="">{{ match_feed_name|default:'Recent Matches' }}</h3>
+	        <table class="table centered-table">
+	        	<tbody>
+		        	{% for match in match_feed %}
+			            <tr>
+			                <tr>
+			                    <td>{{ match }}</td>
+			                    <td>{{ match.created|naturaltime }}</td>
+			                    <td><a class="btn" href="{{ match.ladder.get_absolute_url }}/matches/?id={{ match.id }}">View</a></td>
+			                </tr>
+			            </tr>
+		        	{% empty %}
+			            <tr>
+			                <td>No Matches</td>
+			            </tr>
+		        	{% endfor %}
+	        	</tbody>	
+	        </table>
+	        <div class="pagination">
+                <ul>
+                    <li id="match-feed-prev" {% if not match_feed.has_previous %}class="disabled"{% endif %}><a href="#prev">Previous</a></li>
+					<li id="match-feed-next" {% if not match_feed.has_next %}class="disabled"{% endif %}><a href="#next">Next</a></li>
+                </ul>
+            </div>
+	    </div>
+	</div>
 </div>
-<div class="row match-feed-body">
-    <div class="span{{ match_feed_size|default:'6' }}">
-        <table class="table no-horizontal-lines-table centered-table">
-            <tbody>
-		    {% for match in match_feed %}
-				<tr>
-				    <td>{{ match }}</td>
-				    <td>{{ match.created|naturaltime }}</td>
-				    <td class="view-button-parent"><a class="btn" href="{{ match.get_absolute_url }}">View</a></td>
-				</tr>
-			{% endfor %}
-			</tbody>
-        </table>
-    </div>
-</div>
+
+<script type="text/javascript">
+$(function () {
+	prev = $("#match-feed-prev")
+	if (!prev.hasClass("disabled")) {
+		prev.bind("click", function () {
+			$("#match-feed-span").load("/ladders/leaderboard/content/matches?ladder_id={{ matches_ladder.id }}&user_id={{ matches_user.id }}&page={{ match_feed.previous_page_number }}")
+		})
+	}
+	next = $("#match-feed-next")
+	if (!next.hasClass("disabled")) {
+		next.bind("click", function () {
+			$("#match-feed-span").load("/ladders/leaderboard/content/matches?ladder_id={{ matches_ladder.id }}&user_id={{ matches_user.id }}&page={{ match_feed.next_page_number }}")
+		})
+	}
+})
+</script>

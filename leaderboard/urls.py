@@ -9,4 +9,5 @@ urlpatterns = patterns('leaderboard.views',
     url(r'^(?P<ladder_id>\d+)/configure/$', 'configure_ladder'),
     url(r'^(?P<ladder_id>\d+)/edit/$', 'edit_ladder'),
     url(r'^content/matchup/$', 'matchup'),
+    url(r'^content/matches/$', 'matches'),
 )

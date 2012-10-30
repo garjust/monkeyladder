@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 
@@ -23,3 +24,10 @@ def get_ladder_or_404(*args, **kwargs):
     Returns a ladder or a 404 response
     """
     return get_object_or_404(Ladder, *args, **kwargs)
+
+
+def get_user_or_404(*args, **kwargs):
+    """
+    Returns a user or a 404 response
+    """
+    return get_object_or_404(User, *args, **kwargs)

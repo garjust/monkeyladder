@@ -4,12 +4,13 @@ from leaderboard.forms import get_match_form
 from leaderboard import logic
 from leaderboard.logic.feeds import get_match_feed
 
+
 def view_with_leaderboard(request, ladder, template, context=None, form=None):
     if not context:
         context = {}
     context.update({
         'player_names': logic.rankings.get_ladder_players_for_match_entry(ladder),
-        'match_feed': get_match_feed(ladder),
+        'match_feed': get_match_feed(ladder=ladder),
         'form': form if form else get_match_form(ladder, number_of_games=request.GET.get('games')),
     })
     return view_with_ladder(request, ladder, template, context)

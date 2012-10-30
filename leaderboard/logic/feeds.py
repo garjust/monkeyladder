@@ -1,25 +1,22 @@
-from leaderboard.models import Match, MatchPlayer
+from leaderboard.models import Match
 
 import logging
 logger = logging.getLogger('monkeyladder')
 
-def get_match_feed(ladder=None, order='-created', size=10):
+
+def get_match_feed(ladder=None, user=None, order='-created'):
     """
-    Returns a match feed for the specified ladder
+    Returns a match feed
+
+    The matches can be specific to a ladder and/or a user
     """
     query = Match.objects.all()
+    if user:
+        query = query.filter(matchplayer__user=user)
     if ladder:
         query = query.filter(ladder=ladder)
-    return query.order_by(order)[:size]
+    return query.order_by(order)
 
-def get_players_match_feed(user, ladder=None, order='-match__created', size=10):
-    """
-    Returns a match feed for the specified ladder and user
-    """
-    query = MatchPlayer.objects.filter(user=user)
-    if ladder:
-        query = query.filter(match__ladder=ladder)
-    return map(lambda p: p.match, query.order_by(order)[:size])
 
 def climbing_ladder_feed(user, order='-created', size=5):
     """
@@ -27,4 +24,3 @@ def climbing_ladder_feed(user, order='-created', size=5):
     """
     if user.is_authenticated():
         return map(lambda p: p.ladder, user.player_set.all().order_by(order)[:size])
-

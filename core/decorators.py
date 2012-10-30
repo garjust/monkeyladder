@@ -1,4 +1,4 @@
-from django.http import HttpResponseForbidden, HttpResponseNotFound
+from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import redirect
 
 from core.logic.util import get_ladder_or_404
@@ -14,7 +14,7 @@ def ladder_is_active(f):
     def decorated(request, ladder_id, *args, **kwargs):
         ladder = get_ladder_or_404(pk=ladder_id)
         if not ladder.is_active:
-            return HttpResponseNotFound()
+            raise Http404()
         return f(request, ladder_id, *args, **kwargs)
     return decorated
 

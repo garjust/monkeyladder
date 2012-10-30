@@ -9,17 +9,29 @@
 	        </div>
 	    </div>
 	    <div class="span6">
-		{% include "accounts/content/user_info.html" %}
+			{% include "accounts/content/user_info.html" %}
 		</div>
 	</div>
 	<div class="row">
 		<div class="span6">
-		{% include "core/content/watched_feed.html" %}
+			{% include "core/content/watched_feed.html" %}
 		</div>
 		<div class="span6">
-		{% include "leaderboard/content/player_match_stats.html" %}
-		{% include "leaderboard/content/player_match_feed.html" %}
+			{% include "leaderboard/content/player_match_stats.html" %}
+			<div class="row">
+				<div id="match-feed-span" class="span6"></div>
+			</div>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+$(function () {
+	$("#match-feed-span").load("/ladders/leaderboard/content/matches/?user_id={{ user.id }}", function(response, status, xhr) {
+		if (status == "error") {
+			alert("ERROR")
+		}
+	})
+})
+</script>
 {% endblock %}
