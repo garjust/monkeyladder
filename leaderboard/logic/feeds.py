@@ -1,4 +1,4 @@
-from leaderboard.models import Match
+from leaderboard.models import Ladder, Match
 
 import logging
 logger = logging.getLogger('monkeyladder')
@@ -23,4 +23,4 @@ def climbing_ladder_feed(user, order='-created', size=5):
     Returns a ladder feed of the ladders the user is a player on
     """
     if user.is_authenticated():
-        return map(lambda p: p.ladder, user.player_set.all().order_by(order)[:size])
+        return Ladder.objects.filter(ranked__player__user=user).order_by(order)[:size]

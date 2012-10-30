@@ -3,7 +3,17 @@
 <div class="row">
 	<div class="span{{ match_feed_size|default:'6' }}">
 	    <div class="well">
-	        <h3 class="">{{ match_feed_name|default:'Recent Matches' }}</h3>
+	        <h3 style="float: left">{{ match_feed_name|default:'Recent Matches' }}</h3>
+	        <div id="match-feed-ladder-select-div">
+	        	{% if matches_user_ladders %}
+		        	<select>
+		        		<option value="0">All Ladders</option>
+		        		{% for ladder in matches_user_ladders %}
+		        			<option {% if matches_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder.name }}</option>
+		        		{% endfor %}
+		        	</select>
+	        	{% endif %}
+	        </div>
 	        <table class="table centered-table">
 	        	<tbody>
 		        	{% for match in match_feed %}
@@ -33,17 +43,21 @@
 
 <script type="text/javascript">
 $(function () {
-	prev = $("#match-feed-prev")
+	var prev = $("#match-feed-prev")
 	if (!prev.hasClass("disabled")) {
 		prev.bind("click", function () {
 			$("#match-feed-span").load("/ladders/leaderboard/content/matches?ladder_id={{ matches_ladder.id }}&user_id={{ matches_user.id }}&page={{ match_feed.previous_page_number }}")
 		})
 	}
-	next = $("#match-feed-next")
+	var next = $("#match-feed-next")
 	if (!next.hasClass("disabled")) {
 		next.bind("click", function () {
 			$("#match-feed-span").load("/ladders/leaderboard/content/matches?ladder_id={{ matches_ladder.id }}&user_id={{ matches_user.id }}&page={{ match_feed.next_page_number }}")
 		})
 	}
+	
+	$("#match-feed-ladder-select-div").change(function () {
+		$("#match-feed-span").load("/ladders/leaderboard/content/matches?ladder_id="+$(this).find("option:selected").attr("value")+"&user_id={{ matches_user.id }}")
+	})
 })
 </script>

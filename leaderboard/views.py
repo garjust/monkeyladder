@@ -10,7 +10,7 @@ from leaderboard.forms import get_match_form, LeaderboardConfigurationForm, Ladd
 from leaderboard.generic_views import view_with_leaderboard
 from leaderboard import logic
 from leaderboard.models import Match
-from leaderboard.logic.feeds import get_match_feed
+from leaderboard.logic.feeds import get_match_feed, climbing_ladder_feed
 
 
 def view_matches(request, ladder_id):
@@ -94,9 +94,11 @@ def matchup(request):
 def matches(request):
     """
     Returns a paged feed of matches
+
+    Takes parameters ladder_id, user_id, page
     """
     filters = {}
-    if request.GET.get('ladder_id'):
+    if request.GET.get('ladder_id') and request.GET.get('ladder_id') != "0":
         filters['ladder'] = request.GET.get('ladder_id')
     if request.GET.get('user_id'):
         filters['user'] = request.GET.get('user_id')
@@ -113,4 +115,5 @@ def matches(request):
         context['matches_ladder'] = get_ladder_or_404(pk=filters['ladder'])
     if filters.get('user'):
         context['matches_user'] = get_user_or_404(pk=filters['user'])
+        context['matches_user_ladders'] = climbing_ladder_feed(context['matches_user'])
     return render(request, 'leaderboard/content/match_feed.html', context)
