@@ -52,12 +52,6 @@ def create_match(request, ladder_id):
     return view_with_leaderboard(request, ladder, 'leaderboard/content/match_entry_form.html', form=form)
 
 
-def match_feed_content(request, ladder_id):
-    ladder = get_ladder_or_404(pk=ladder_id)
-    match_feed = logic.feeds.get_match_feed(ladder=ladder)
-    return render(request, 'leaderboard/content/match_feed.html', {'match_feed': match_feed, 'ladder': ladder})
-
-
 @ladder_is_active
 @can_view_ladder
 def view_ladder(request, ladder_id):
