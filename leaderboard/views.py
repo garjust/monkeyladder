@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -11,6 +12,7 @@ from leaderboard.generic_views import view_with_leaderboard
 from leaderboard import logic
 from leaderboard.models import Match
 from leaderboard.logic.feeds import get_match_feed, climbing_ladder_feed
+from leaderboard.logic.stats import calculate_players_game_win_percentage, calculate_players_match_win_percentage
 
 
 def view_matches(request, ladder_id):
@@ -117,3 +119,24 @@ def matches(request):
         context['matches_user'] = get_user_or_404(pk=filters['user'])
         context['matches_user_ladders'] = climbing_ladder_feed(context['matches_user'])
     return render(request, 'leaderboard/content/match_feed.html', context)
+
+
+@login_required_forbidden
+def stats(request):
+    """
+    Returns statistics for the given user
+    """
+    user_id = request.GET.get('user_id')
+    ladder_id = request.GET.get('ladder_id')
+    if not user_id:
+        raise Http404()
+    context = {'stats_user': get_user_or_404(pk=user_id), 'stats_ladder': None}
+    if ladder_id and ladder_id != "0":
+        print "HERE"
+        context['stats_ladder'] = get_ladder_or_404(pk=ladder_id)
+    context['stats_user_ladders'] = climbing_ladder_feed(context['stats_user'])
+    context.update({
+        'match_win_percentage': calculate_players_match_win_percentage(context['stats_user'], ladder=context['stats_ladder']),
+        'game_win_percentage': calculate_players_game_win_percentage(context['stats_user'], ladder=context['stats_ladder']),
+    })
+    return render(request, 'leaderboard/content/player_stats.html', context)

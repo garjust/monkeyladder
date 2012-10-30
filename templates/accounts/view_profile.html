@@ -17,7 +17,9 @@
 			{% include "core/content/watched_feed.html" %}
 		</div>
 		<div class="span6">
-			{% include "leaderboard/content/player_match_stats.html" %}
+			<div class="row">
+				<div id="player-stats-span" class="span6"></div>
+			</div>
 			<div class="row">
 				<div id="match-feed-span" class="span6"></div>
 			</div>
@@ -28,6 +30,12 @@
 <script type="text/javascript">
 $(function () {
 	$("#match-feed-span").load("/ladders/leaderboard/content/matches/?user_id={{ user.id }}", function(response, status, xhr) {
+		if (status == "error") {
+			alert("ERROR")
+		}
+	})
+	
+	$("#player-stats-span").load("/ladders/leaderboard/content/stats/?user_id={{ user.id }}", function(response, status, xhr) {
 		if (status == "error") {
 			alert("ERROR")
 		}

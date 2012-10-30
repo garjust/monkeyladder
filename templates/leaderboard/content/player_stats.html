@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="span6">
+	    <div class="well">
+	        <h3 style="float: left">Match Statistics</h3>
+	        <div id="player-stats-ladder-select-div">
+	        	{% if stats_user_ladders %}
+		        	<select>
+		        		<option value="0">All Ladders</option>
+		        		{% for ladder in stats_user_ladders %}
+		        			<option {% if stats_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder.name }}</option>
+		        		{% endfor %}
+		        	</select>
+	        	{% endif %}
+	        </div>
+	        <table class="table centered-table">
+	        	<tbody>
+		        	<tr>
+		            	<td>Match Win Percentage</td>
+		            	<td>{% if match_win_percentage %}{{ match_win_percentage|floatformat }}&#37;{% else %}-{% endif %}</td>
+		            </tr>
+		            <tr>
+		                <td>Game Win Percentage</td>
+		                <td>{% if game_win_percentage %}{{ game_win_percentage|floatformat }}&#37;{% else %}-{% endif %}</td>
+		            </tr>
+	        	</tbody>	
+	        </table>
+	    </div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(function () {	
+	$("#player-stats-ladder-select-div").change(function () {
+		$("#player-stats-span").load("/ladders/leaderboard/content/stats?ladder_id="+$(this).find("option:selected").attr("value")+"&user_id={{ stats_user.id }}")
+	})
+})
+</script>
