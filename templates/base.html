@@ -8,6 +8,7 @@
 	</head>
 	<body>
 	    <div id="navbar-parent">{% block navbar %}{% include "navbar.html" %}{% endblock %}</div>
+	    <div id="alerts-parent">{% block alerts %}{% include "alerts.html" %}{% endblock %}</div>
 	    <div id="content-parent">{% block content %}{% endblock %}</div>
 	    <div id="footer-parent">{% block footer %}{% include "footer.html" %}{% endblock %}</div>
 	</body>

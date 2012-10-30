@@ -1,12 +1,11 @@
 #server-error-page,
 #not-found-error-page,
-#footer .container,
 body {
 	background-color: #eee;
 }
 
 div.container {
-	padding: 50px 20px 20px 20px;
+	padding: 0px 20px 20px 20px;
 	background-color: #fff;
 }
 
@@ -74,6 +73,15 @@ table.centered-table td {
   background-color: #ffffff;
 }
 
+#alerts.container {
+	padding: 0px 20px;
+}
+
 .alert-bucket {
+	margin-top: 0px;
+}
+
+.alert {
 	margin-top: 20px;
+	margin-bottom: 0px;
 }

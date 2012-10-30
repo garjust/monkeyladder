@@ -3,11 +3,6 @@
 {% block content %}
 <div id="ladder-config-page" class="container container-dark">
 	<div class="row">
-		<div class="span12">
-			<div id="alerts" class="alert-bucket"></div>
-		</div>
-	</div>
-	<div class="row">
 	    <div id="ladder-config-span" class="span12">
 	        <div class="monkey-form-div">
 			    <form class="form-horizontal" method="post" action="{{ ladder.get_absolute_url }}/configure/">{% csrf_token %}
