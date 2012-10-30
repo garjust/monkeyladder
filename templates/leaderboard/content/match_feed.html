@@ -11,7 +11,7 @@
 			                <tr>
 			                    <td>{{ match }}</td>
 			                    <td>{{ match.created|naturaltime }}</td>
-			                    <td><a class="btn" href="{{ match.ladder.get_absolute_url }}/matches/?id={{ match.id }}">View</a></td>
+			                    <td class="view-button-parent"><a class="btn" href="{{ match.ladder.get_absolute_url }}/matches/?id={{ match.id }}">View</a></td>
 			                </tr>
 			            </tr>
 		        	{% empty %}
