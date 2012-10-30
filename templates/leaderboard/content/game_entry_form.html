@@ -49,7 +49,7 @@
 	        $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
 	            $("#match-entry-form-submit > input").attr('disabled', false)
 	            $("#ladder-display-span").load("{{ form.ladder.get_absolute_url }}/content/ladder_display")
-	            $("#match-feed-span").load("{{ form.ladder.get_absolute_url }}/content/match_feed/")
+	            $("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ form.ladder.id }}")
 	        });
 	        e.preventDefault(); 
 	    });
