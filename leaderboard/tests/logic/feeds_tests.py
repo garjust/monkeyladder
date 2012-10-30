@@ -16,7 +16,7 @@ class GetMatchFeedTest(TestCase):
         self.assertEqual(len(self.fixture(ladder=2)), 0)
 
     def test_get_match_feed_with_ladder(self):
-        self.assertEqual(len(self.fixture(ladder=4, size=100)), 17)
+        self.assertEqual(len(self.fixture(ladder=4)), 17)
 
     def test_get_match_feed_with_user(self):
         matches = self.fixture(user=10)
