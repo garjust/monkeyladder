@@ -1,7 +1,15 @@
 <div id="alerts" class="container container-dark">
 	<div class="row">
 		<div class="span12">
-			<div class="alert-bucket"></div>
+			<div id="announcment-bucket" class="alert-bucket">
+				{% for heading, body in global_announcments %}
+					<div class='alert alert-block alert-success fade in'>
+						<h3 class='alert-heading'>{{ heading }}</h3>
+						<p>{{ body }}</p>
+					</div>
+				{% endfor %}
+			</div>
+			<div id="error-bucket" class="alert-bucket"></div>
 		</div>
 	</div>
 </div>

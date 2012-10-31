@@ -1,16 +1,39 @@
 <div class="row">
 	<div class="span6">
 	    <div class="well">
-	        <h3 class="">{% if ladder %}{{ ladder.name }} {% endif %}Matchups</h3>
+	        <h3 class="underlined" style="float: left;">Matchups</h3>
+	        <div id="matchup-user-select-div">
+	        	{% if matchup_users %}
+		        	<select>
+		        		<option value="0">All Users</option>
+		        		{% for user in matchup_users %}
+		        			<option {% if matchup_user == user %}selected {% endif %}value="{{ user }}">{{ user.name }}</option>
+		        		{% endfor %}
+		        	</select>
+	        	{% endif %}
+	        </div>
+	        <div id="matchup-ladder-select-div">
+	        	{% if matchup_user_ladders %}
+		        	<select>
+		        		<option value="0">All Ladders</option>
+		        		{% for ladder in matchup_user_ladders %}
+		        			<option {% if matchup_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder.name }}</option>
+		        		{% endfor %}
+		        	</select>
+	        	{% endif %}
+	        </div>
 	        <table class="table centered-table">
+	        	<thead>
+	        		<tr>
+	        			<th style="width: 50%;">User</th><th>Match Win %</th><th>Game Win %</th>
+	        		</tr>
+	        	</thead>
 	        	<tbody>
 		            <tr>
-		                <td>-</td>
+		                <td>-</td><td>-</td><td>-</td>
 		            </tr>
 	        	</tbody>	
 	        </table>
 	    </div>
 	</div>
 </div>
-
-#BUNCH OF JS

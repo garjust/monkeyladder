@@ -43,7 +43,7 @@ div.container-dark {
 	color: green;
 }
 
-.small-header {
+.underlined {
 	border-bottom: 1px solid #dddddd;
 }
 
@@ -81,7 +81,11 @@ table.centered-table td {
 	margin-top: 0px;
 }
 
+.white {
+	background-color: #fff;
+}
+
 .alert {
-	margin-top: 20px;
-	margin-bottom: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
