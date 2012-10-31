@@ -1,32 +1,30 @@
+from core import logic
+from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
+from core.forms import LadderCreationForm
+from core.logic.feeds import watched_ladder_feed, public_ladder_feed, nonfavorite_ladder_feed, favorite_ladder_feed
+from core.models import Watcher
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from core import logic
-from core.logic.feeds import watched_ladder_feed, public_ladder_feed
-from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
-from core.forms import LadderCreationForm
-from core.models import Watcher
 
-
-def home(request):
-    return render(request, 'home.html', {
+def home_page(request):
+    return render(request, 'home.html', {'navbar_active': 'home',
         'public_ladder_feed': public_ladder_feed(request.user),
         'watched_ladder_feed': watched_ladder_feed(request.user),
-        'navbar_active': 'home'
     })
 
 
 @login_required
-def feeds(request):
-    return render(request, 'core/feeds.html', {'ladder_feed_size': 4, 'navbar_active': 'feeds',
-        'watched_ladder_feed': logic.feeds.nonfavorite_ladder_feed(request.user, size=25),
-        'favorite_ladder_feed': logic.feeds.favorite_ladder_feed(request.user, size=25),
-        'public_ladder_feed': logic.feeds.public_ladder_feed(request.user, size=25),
+def feeds_page(request):
+    return render(request, 'core/feeds.html', {'navbar_active': 'feeds', 'ladder_feed_size': 4,
+        'public_ladder_feed': public_ladder_feed(request.user, size=25),
+        'watched_ladder_feed': nonfavorite_ladder_feed(request.user, size=25),
+        'favorite_ladder_feed': favorite_ladder_feed(request.user, size=25),
     })
 
 
 @login_required
-def create_ladder(request):
+def create_ladder_page(request):
     if request.POST:
         form = LadderCreationForm(request.POST)
         if form.is_valid():

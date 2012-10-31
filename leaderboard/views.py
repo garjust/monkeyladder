@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.list_detail import object_detail
 
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
@@ -15,26 +16,11 @@ from leaderboard.logic.feeds import get_match_feed, climbing_ladder_feed
 from leaderboard.logic.stats import calculate_players_game_win_percentage, calculate_players_match_win_percentage
 
 
-def view_matches(request, ladder_id):
+def matches_page(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    paginator = Paginator(ladder.match_set.order_by('-created'), 10)
-    page_number = request.GET.get('page')
-    try:
-        matches = paginator.page(page_number)
-    except PageNotAnInteger:
-        matches = paginator.page(1)
-    except EmptyPage:
-        matches = paginator.page(paginator.num_pages)
     match_id = request.GET.get('id', None)
-    if match_id:
-        match_id = int_or_404(match_id)
-        match = get_object_or_404(Match, pk=match_id)
-        for page_number in range(1, paginator.num_pages + 1):
-            page = paginator.page(page_number)
-            if match in page:
-                matches = page
     return view_with_ladder(request, ladder, 'leaderboard/view_matches.html', {
-        'navbar_active': 'matches', 'matches': matches, 'match_id': match_id
+        'navbar_active': 'matches', 'match_id': match_id, 'match_feed_size': 10,
     })
 
 
@@ -56,7 +42,7 @@ def create_match(request, ladder_id):
 
 @ladder_is_active
 @can_view_ladder
-def view_ladder(request, ladder_id):
+def ladder_page(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     return view_with_leaderboard(request, ladder, 'leaderboard/view_ladder.html', {'navbar_active': 'ladder'})
 
@@ -96,28 +82,33 @@ def matchup(request):
 def matches(request):
     """
     Returns a paged feed of matches
-
-    Takes parameters ladder_id, user_id, page
     """
-    filters = {}
-    if request.GET.get('ladder_id') and request.GET.get('ladder_id') != "0":
-        filters['ladder'] = request.GET.get('ladder_id')
-    if request.GET.get('user_id'):
-        filters['user'] = request.GET.get('user_id')
-    paginator = Paginator(get_match_feed(**filters), 5)
+    ladder_id = request.GET.get('ladder_id')
+    user_id = request.GET.get('user_id')
     page_number = request.GET.get('page')
+    size = request.GET.get('size')
+    if not size:
+        size = 5
+    filters = {}
+    if ladder_id and ladder_id != "0":
+        filters['ladder'] = ladder_id
+    if user_id:
+        filters['user'] = user_id
+    paginator = Paginator(get_match_feed(**filters), size)
     try:
         matches = paginator.page(page_number)
     except PageNotAnInteger:
         matches = paginator.page(1)
     except EmptyPage:
         matches = paginator.page(paginator.num_pages)
-    context = {'match_feed': matches}
+    context = {'match_feed': matches, 'match_feed_size': size}
     if filters.get('ladder'):
         context['matches_ladder'] = get_ladder_or_404(pk=filters['ladder'])
     if filters.get('user'):
         context['matches_user'] = get_user_or_404(pk=filters['user'])
         context['matches_user_ladders'] = climbing_ladder_feed(context['matches_user'])
+    if request.GET.get('match_bucket'):
+        context['match_bucket'] = True
     return render(request, 'leaderboard/content/match_feed.html', context)
 
 
@@ -140,3 +131,8 @@ def stats(request):
         'game_win_percentage': calculate_players_game_win_percentage(context['stats_user'], ladder=context['stats_ladder']),
     })
     return render(request, 'leaderboard/content/player_stats.html', context)
+
+
+@login_required_forbidden
+def match(request, match_id):
+    return object_detail(request, Match.objects.filter(pk=match_id), match_id, template_name='leaderboard/content/match.html', template_object_name='match')

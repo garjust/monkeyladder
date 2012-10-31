@@ -1,4 +1,4 @@
-from core import logic
+from core.logic.util import get_ladder_or_404
 from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
 from core.forms import LadderRankingEditForm, LadderConfigurationForm
 from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder
@@ -6,15 +6,15 @@ from core.generic_views import handle_form_and_redirect_to_ladder, view_with_lad
 
 @ladder_is_active
 @can_view_ladder
-def view_ladder(request, ladder_id):
-    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
+def ladder_page(request, ladder_id):
+    ladder = get_ladder_or_404(pk=ladder_id)
     return view_with_ladder(request, ladder, 'core/view_ladder.html', {'navbar_active': 'ladder'})
 
 
 @ladder_is_active
 @can_view_ladder
 def ladder_display(request, ladder_id):
-    ladder = logic.util.get_ladder_or_404(pk=ladder_id)
+    ladder = get_ladder_or_404(pk=ladder_id)
     return view_with_ladder(request, ladder, 'core/content/ladder_display.html')
 
 

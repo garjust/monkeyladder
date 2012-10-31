@@ -4,7 +4,6 @@ from django.db import models
 from datedmodels.models import DatedModel
 from ladder_types import LADDER_TYPES
 
-
 LADDER_CONFIGURATION_TYPES = (
     ('STR', 'String'),
     ('INT', 'Integer'),
@@ -42,17 +41,8 @@ class Ladder(DatedModel):
             except Watcher.DoesNotExist:
                 pass
 
-    def is_leaderboard(self):
-        """DEPRECATED"""
-        return self.type == 'LEADERBOARD'
-
     def watcher_count(self):
-        """DEPRECATED"""
         return self.watcher_set.count()
-
-    def favorite_count(self):
-        """DEPRECATED"""
-        return self.watcher_set.filter(favorite=True).count()
 
     #@models.permalink
     def get_absolute_url(self):

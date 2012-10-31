@@ -1,0 +1,11 @@
+{% load humanize %}
+<div id="match-{{ match.id }}" class="alert alert-block alert-info fade in">
+	<button type='button' class='close' data-dismiss='alert'><i class='icon-ok'/></button>
+    <h2 class="alert-heading">{{ match }}</h2>
+    <p>
+	    <h3>{{ match.created|naturaltime }}</h3>
+	    {% for game in match.games %}
+	    <h4>{{ game }}</h4>
+	    {% endfor %}
+    </p>
+</div>

@@ -8,7 +8,7 @@ urlpatterns = patterns('django.views.generic.simple',
 )
 
 urlpatterns += patterns('',
-    url(r'^home/$', 'core.views.home'),
+    url(r'^home/$', 'core.views.home_page'),
     url(r'^ladders/', include('core.urls')),
     url(r'^ladders/basic/', include('basic.urls')),
     url(r'^ladders/leaderboard/', include('leaderboard.urls')),

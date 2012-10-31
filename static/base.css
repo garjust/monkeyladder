@@ -73,6 +73,11 @@ table.centered-table td {
   background-color: #ffffff;
 }
 
+.well {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 #alerts.container {
 	padding: 0px 20px;
 }

@@ -3,74 +3,28 @@
 {% load humanize %}
 
 {% block head %}
+{{ block.super }}
 <script type="text/javascript">
-	$(function() {
-	    $(".match-entry").bind("click", function(event) {
-	    	$("#match-detail > div").css("display", "none")
-	    	$("#" + event.currentTarget.id + "-detail").css("display", "block")
-	    })
-	});
-	{% if match_id %}
-	$(function() {
-		$("#match-entry-{{ match_id }}-detail").css("display", "block")
+	$(function () {
+		$("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ ladder.id }}&size={{ match_feed_size }}&match_bucket=1", function(response, status) {
+			if (status == "error") {
+				alert("ERROR")
+			} else {
+				fix_match_links()
+				{% if match_id %}
+				$("#match-feed-entry-{{ match_id }} a").trigger("click")
+				{% endif %}
+			}
+		})
 	})
-	{% endif %}
 </script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="span6">
-            <div class="page-header muted">
-                <h2>{{ ladder }}&nbsp;Matches</h2>
-            </div>
-            <div>
-                <table class="table">
-                    <thead>
-                        <th>Match</th>
-                        <th>Date</th>
-                    </thead>
-                    <tbody>
-                    {% for match in matches %}
-	                   <tr id="match-entry-{{ match.id }}" class="match-entry">
-	                       <td>{{ match }}</td>
-	                       <td>Played {{ match.created|naturaltime }}</td>
-	                   </tr>      
-	                {% empty %}
-	                   <td>-</td>
-	                   <td>-</td>
-	                {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="pagination">
-                <ul>
-                    {% if not matches.has_previous %}<li class="disabled"><a href="#">Previous</a></li>
-                    {% else %}<li><a href="{{ ladder.get_absolute_url }}/matches/?id=&page={{ matches.previous_page_number }}">Previous</a></li>
-                    {% endif %}
-                    {% if not matches.has_next %}<li class="disabled"><a href="#">Next</a></li>
-                    {% else %}<li class=""><a href="{{ ladder.get_absolute_url }}/matches/?id=&page={{ matches.next_page_number }}">Next</a></li>
-                    {% endif %} 
-                </ul>
-            </div>
-        </div>
-        <div class="span6">
-            <div id="match-detail">
-	        {% for match in matches %}
-	            <div id="match-entry-{{ match.id }}-detail" style="display: none">
-	                <h2>{{ match }}</h2>
-	                <h3>{{ match.created|naturaltime }}</h3>
-	                {% for game in match.games %}
-	                <h4>{{ game }}</h4>
-	                {% endfor %}
-	                <div>
-	                {% include "core/content/comments.html" with commentable=match %}
-	                </div>
-	            </div>      
-	        {% endfor %}
-            </div>
-        </div>
+        <div id="match-feed-span" class="span6"></div>
+        <div id="match-bucket" class="span6"></div>
     </div>
 </div>
 {% endblock %}
