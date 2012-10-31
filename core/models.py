@@ -30,7 +30,12 @@ class Ladder(DatedModel):
     def ranking(self):
         return self.ranked_set.order_by('rank')
 
+    def last_change(self):
+        changes = self.rankingchangeset_set.order_by('-change_date')
+        return changes[0] if changes else None
+
     def watcher(self, user):
+        """DEPRECATED"""
         if user.is_authenticated():
             try:
                 return self.watcher_set.get(user=user)
@@ -38,12 +43,15 @@ class Ladder(DatedModel):
                 pass
 
     def is_leaderboard(self):
+        """DEPRECATED"""
         return self.type == 'LEADERBOARD'
 
     def watcher_count(self):
+        """DEPRECATED"""
         return self.watcher_set.count()
 
     def favorite_count(self):
+        """DEPRECATED"""
         return self.watcher_set.filter(favorite=True).count()
 
     #@models.permalink

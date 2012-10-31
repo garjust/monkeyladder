@@ -24,7 +24,7 @@
 	                {% endfor %}
                 {% else %}
 		            {% for ranked in ladder.ranking %}
-		            <tr class="ladder-rank-table-row">
+		            <tr id="ladder-rank-{{ ranked.rank }}" class="ladder-rank-table-row">
 		                <td class="rank">{{ ranked.rank }}</td>
 		                <td>{{ ranked.display }}</td>
 		            </tr>
@@ -52,4 +52,19 @@
             $("#ladder-display-span").load("{{ ladder.get_absolute_url }}/edit/")
         })
     });
+    /*
+    $(function () {
+    	var changes = [
+    	{% for rank_change in ladder.last_change.rankingchange_set.all %}[{{ rank_change.ranked.rank }}, {{rank_change.change }}],{% endfor %}
+    	]
+    	for (var i = 0; i < changes.length; i++) {
+    		var row = $("#ladder-rank-" + changes[i][0])
+    		if (changes[i][1] < 0) {
+    			row.addClass("rank-up")
+    		} else {
+    			row.addClass("rank-down")
+    		}
+    	}
+    })
+    */
 </script>

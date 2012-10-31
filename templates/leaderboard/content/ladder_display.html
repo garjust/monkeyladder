@@ -22,7 +22,7 @@
   </tr>  
     {% else %}
   {% for ranked in ladder.ranking %}
-  <tr class="ladder-rank-table-row">
+  <tr id="ladder-rank-{{ ranked.rank }}" class="ladder-rank-table-row">
       <td class="rank">{{ ranked.rank }}</td>
       <td>{{ ranked.display }}</td>
       <td class="view-button-parent"><a class="btn" href="{{ ranked.player.user.get_profile.get_absolute_url }}">Profile</a></td>

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from core.models import Ladder, Ranked, RankingChangeSet
 from datedmodels.models import DatedModel
 
+
 class Player(Ranked):
     user = models.ForeignKey(User)
 
@@ -17,6 +18,7 @@ class Player(Ranked):
         if not self.id:
             self.description = self.user.username
         super(Player, self).save(*args, **kwargs)
+
 
 class Match(DatedModel):
     ladder = models.ForeignKey(Ladder)
@@ -41,6 +43,7 @@ class Match(DatedModel):
     class Meta:
         verbose_name_plural = "Matches"
 
+
 class MatchPlayer(models.Model):
     match = models.ForeignKey(Match)
     user = models.ForeignKey(User)
@@ -52,6 +55,7 @@ class MatchPlayer(models.Model):
     class Meta:
         db_table = 'leaderboard_match_player'
         unique_together = ('match', 'user')
+
 
 class Game(DatedModel):
     match = models.ForeignKey(Match)
@@ -69,6 +73,7 @@ class Game(DatedModel):
     class Meta:
         ordering = ['game_number']
 
+
 class GamePlayer(models.Model):
     game = models.ForeignKey(Game)
     player = models.ForeignKey(MatchPlayer)
@@ -80,6 +85,7 @@ class GamePlayer(models.Model):
     class Meta:
         db_table = 'leaderboard_game_player'
         unique_together = ('game', 'player')
+
 
 class MatchRankingChangeSet(RankingChangeSet):
     match = models.ForeignKey(Match)
