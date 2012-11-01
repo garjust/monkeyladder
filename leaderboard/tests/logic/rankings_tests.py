@@ -6,6 +6,7 @@ from leaderboard.logic import rankings
 
 FIXTURES = ['fixtures/users', 'fixtures/core', 'fixtures/leaderboard']
 
+
 class GetLadderPlayersTest(TestCase):
     fixtures = FIXTURES
 
@@ -15,8 +16,9 @@ class GetLadderPlayersTest(TestCase):
     def test_get_ladder_players(self):
         players = self.fixture(Ladder.objects.get(pk=3))
         self.assertEqual(type(players), dict)
-        self.assertEqual(players['User Longnameduserishappytoprovidetheirlongnametotestnamelength'], User.objects.get(pk=8))
+        self.assertEqual(players['User Longnameduserishappytoprovidetheirlongnametotestnamelength'[:40] + '...'], User.objects.get(pk=8))
         self.assertEqual(players['user.noname'], User.objects.get(pk=11))
+
 
 class GetLadderWatchersNotPlaying(TestCase):
     fixtures = FIXTURES
@@ -35,4 +37,3 @@ class GetLadderWatchersNotPlaying(TestCase):
         for id, name in watchers:
             if id == 7:
                 raise Exception("failed")
-
