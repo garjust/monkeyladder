@@ -1,11 +1,11 @@
 from django.http import Http404
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic.list_detail import object_detail
 
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
-from core.logic.util import get_ladder_or_404, int_or_404, get_user_or_404
+from core.logic.util import get_ladder_or_404, get_user_or_404
 from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder
 
 from leaderboard.forms import get_match_form, LeaderboardConfigurationForm, LadderRankingAndPlayerEditForm
@@ -16,6 +16,7 @@ from leaderboard.logic.feeds import get_match_feed, climbing_ladder_feed
 from leaderboard.logic.stats import calculate_players_game_win_percentage, calculate_players_match_win_percentage
 
 
+@can_view_ladder
 def matches_page(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     match_id = request.GET.get('id', None)
@@ -26,6 +27,7 @@ def matches_page(request, ladder_id):
 
 @ladder_is_active
 @login_required_forbidden
+@can_view_ladder
 def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     form = get_match_form(ladder, post_dictionary=request.POST, number_of_games=request.GET.get('games'))
@@ -78,7 +80,6 @@ def matchup(request):
     pass
 
 
-@login_required_forbidden
 def matches(request):
     """
     Returns a paged feed of matches
@@ -133,6 +134,5 @@ def stats(request):
     return render(request, 'leaderboard/content/player_stats.html', context)
 
 
-@login_required_forbidden
 def match(request, match_id):
     return object_detail(request, Match.objects.filter(pk=match_id), match_id, template_name='leaderboard/content/match.html', template_object_name='match')
