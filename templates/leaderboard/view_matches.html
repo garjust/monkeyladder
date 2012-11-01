@@ -12,7 +12,7 @@
 			} else {
 				fix_match_links()
 				{% if match_id %}
-				$("#match-feed-entry-{{ match_id }} a").trigger("click")
+				$("#match-feed-entry-{{ match_id }} a").click()
 				{% endif %}
 			}
 		})
