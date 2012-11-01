@@ -19,7 +19,7 @@ from leaderboard.logic.stats import calculate_players_game_win_percentage, calcu
 def matches_page(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     match_id = request.GET.get('id', None)
-    return view_with_ladder(request, ladder, 'leaderboard/view_matches.html', {
+    return view_with_ladder(request, ladder, 'leaderboard/matches_page.html', {
         'navbar_active': 'matches', 'match_id': match_id, 'match_feed_size': 10,
     })
 
