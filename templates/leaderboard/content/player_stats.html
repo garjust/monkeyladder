@@ -16,11 +16,11 @@
 	        	<tbody>
 		        	<tr>
 		            	<td>Match Win Percentage</td>
-		            	<td>{% if match_win_percentage %}{{ match_win_percentage|floatformat }}&#37;{% else %}-{% endif %}</td>
+		            	<td>{% if stats.match_win_percentage %}{{ stats.match_win_percentage|floatformat }}&#37;{% else %}-{% endif %}</td>
 		            </tr>
 		            <tr>
 		                <td>Game Win Percentage</td>
-		                <td>{% if game_win_percentage %}{{ game_win_percentage|floatformat }}&#37;{% else %}-{% endif %}</td>
+		                <td>{% if stats.game_win_percentage %}{{ stats.game_win_percentage|floatformat }}&#37;{% else %}-{% endif %}</td>
 		            </tr>
 	        	</tbody>	
 	        </table>

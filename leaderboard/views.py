@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -14,7 +13,7 @@ from leaderboard.generic_views import view_with_leaderboard
 from leaderboard import logic
 from leaderboard.models import Match
 from leaderboard.logic.feeds import get_match_feed, climbing_ladder_feed, users_played
-from leaderboard.logic.stats import calculate_players_game_win_percentage, calculate_players_match_win_percentage, get_stats
+from leaderboard.logic.stats import get_stats
 
 
 @can_view_ladder
@@ -82,9 +81,11 @@ def matchup(request):
     user_id = request.GET.get('user_id')
     page_number = request.GET.get('page_number')
     size = request.GET.get('size')
+    if ladder_id == "0":
+        ladder_id = None
     if not size:
         size = 5
-    context = {'matchups_size': size}
+    context = {'matchups_size': size, 'matchup_user': get_user_or_404(pk=user_id)}
     paginator = Paginator(users_played(user_id=user_id, ladder_id=ladder_id), size)
     try:
         matchup_users = paginator.page(page_number)
@@ -94,6 +95,8 @@ def matchup(request):
         matchup_users = paginator.page(paginator.num_pages)
     context['matchup_users'] = matchup_users
     matchups = []
+    if ladder_id and ladder_id != "0":
+        context['matchup_ladder'] = get_ladder_or_404(pk=ladder_id)
     for matchup_user in matchup_users:
         matchup = get_stats(user_id, ladder=ladder_id, other_user_id=matchup_user.id)
         matchup['user'] = matchup_user
@@ -101,6 +104,7 @@ def matchup(request):
             matchup['ladder_id'] = ladder_id
         matchups.append(matchup)
     context['matchups'] = matchups
+    context['matchup_user_ladders'] = climbing_ladder_feed(context['matchup_user'])
     return render(request, 'leaderboard/content/matchups.html', context)
 
 
@@ -146,15 +150,13 @@ def stats(request):
     ladder_id = request.GET.get('ladder_id')
     if not user_id:
         raise Http404()
+    if ladder_id == "0":
+        ladder_id = None
     context = {'stats_user': get_user_or_404(pk=user_id), 'stats_ladder': None}
     if ladder_id and ladder_id != "0":
-        print "HERE"
         context['stats_ladder'] = get_ladder_or_404(pk=ladder_id)
     context['stats_user_ladders'] = climbing_ladder_feed(context['stats_user'])
-    context.update({
-        'match_win_percentage': calculate_players_match_win_percentage(context['stats_user'], ladder=context['stats_ladder']),
-        'game_win_percentage': calculate_players_game_win_percentage(context['stats_user'], ladder=context['stats_ladder']),
-    })
+    context['stats'] = get_stats(user_id, ladder=ladder_id)
     return render(request, 'leaderboard/content/player_stats.html', context)
 
 
