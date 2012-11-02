@@ -79,7 +79,7 @@ def matchup(request):
     """
     ladder_id = request.GET.get('ladder_id')
     user_id = request.GET.get('user_id')
-    page_number = request.GET.get('page_number')
+    page_number = request.GET.get('page')
     size = request.GET.get('size')
     if ladder_id == "0":
         ladder_id = None
