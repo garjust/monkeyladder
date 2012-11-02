@@ -4,62 +4,53 @@ import logging
 logger = logging.getLogger('monkeyladder')
 
 
-def count_players_wins(user, ladder=None):
+def get_stats(user, ladder=None, other_user_id=None):
     """
-    Returns the users total matches won.
+    Returns a package of a users various statistics
 
-    If a ladder is supplied only that ladder will be considered
+    Includes: matches won, matches played, games won, games player, match win %, game win %
     """
-    if ladder:
-        return len(filter(lambda p: p.match.winner() == p, MatchPlayer.objects.filter(match__ladder=ladder, user=user)))
-    return len(filter(lambda p: p.match.winner() == p, MatchPlayer.objects.filter(user=user)))
+    def calculate_win_percentage(wins, played):
+        if not played:
+            return float(0)
+        return (float(wins) / float(played)) * 100
+    matches_won, matches_played = get_match_stats(user, ladder, other_user_id)
+    games_won, games_played = get_game_stats(user, ladder, other_user_id)
+    return {
+        'matches_won': matches_won,
+        'matches_played': matches_played,
+        'match_win_percentage': calculate_win_percentage(matches_won, matches_played),
+        'games_won': games_won,
+        'games_played': games_played,
+        'game_win_percentage': calculate_win_percentage(games_won, games_played),
+    }
 
 
-def count_players_losses(user, ladder=None):
-    """
-    Returns the users total matches lost.
-
-    If a ladder is supplied only that ladder will be considered
-    """
-    if ladder:
-        return len(filter(lambda p: p.match.loser() == p, MatchPlayer.objects.filter(match__ladder=ladder, user=user)))
-    return len(filter(lambda p: p.match.loser() == p, MatchPlayer.objects.filter(user=user)))
-
-
-def count_players_matches(user, ladder=None):
-    """
-    Returns the users total matches played.
-
-    If a ladder is supplied only that ladder will be considered
-    """
-    return count_players_wins(user, ladder) + count_players_losses(user, ladder)
-
-
-def calculate_players_match_win_percentage(user, ladder=None):
-    wins = count_players_wins(user, ladder)
-    matches = count_players_matches(user, ladder)
-    if matches == 0:
-        return 0
-    return (float(wins) / float(matches)) * 100
-
-
-def count_players_games(user, ladder=None):
+def get_match_stats(user, ladder=None, other_user_id=None):
     wins = 0
     games = 0
+    match_players = MatchPlayer.objects.filter(user=user)
     if ladder:
-        match_players = MatchPlayer.objects.filter(match__ladder=ladder, user=user)
-    else:
-        match_players = MatchPlayer.objects.filter(user=user)
+        match_players = match_players.filter(match__ladder=ladder)
     for match_player in match_players:
-            if match_player.match.winner() == match_player:
-                wins += match_player.score
-            for other_match_player in match_player.match.matchplayer_set.all():
-                games += other_match_player.score
+        if other_user_id and other_user_id not in [other_match_player.user.id for other_match_player in match_player.match.matchplayer_set.all()]:
+            continue
+        if match_player.match.winner() == match_player:
+            wins += 1
+        games += 1
     return wins, games
 
 
-def calculate_players_game_win_percentage(user, ladder=None):
-    wins, games = count_players_games(user, ladder)
-    if games == 0:
-        return 0
-    return (float(wins) / float(games)) * 100
+def get_game_stats(user, ladder=None, other_user_id=None):
+    wins = 0
+    games = 0
+    match_players = MatchPlayer.objects.filter(user=user)
+    if ladder:
+        match_players = match_players.filter(match__ladder=ladder)
+    for match_player in match_players:
+            if other_user_id and other_user_id not in [other_match_player.user.id for other_match_player in match_player.match.matchplayer_set.all()]:
+                continue
+            wins += match_player.score
+            for a_match_player in match_player.match.matchplayer_set.all():
+                games += a_match_player.score
+    return wins, games

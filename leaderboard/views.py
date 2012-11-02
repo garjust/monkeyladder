@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -12,8 +13,8 @@ from leaderboard.forms import get_match_form, LeaderboardConfigurationForm, Ladd
 from leaderboard.generic_views import view_with_leaderboard
 from leaderboard import logic
 from leaderboard.models import Match
-from leaderboard.logic.feeds import get_match_feed, climbing_ladder_feed
-from leaderboard.logic.stats import calculate_players_game_win_percentage, calculate_players_match_win_percentage
+from leaderboard.logic.feeds import get_match_feed, climbing_ladder_feed, users_played
+from leaderboard.logic.stats import calculate_players_game_win_percentage, calculate_players_match_win_percentage, get_stats
 
 
 @can_view_ladder
@@ -77,7 +78,30 @@ def matchup(request):
     """
     Return a piece of HTML designed to be embedded in the matchup container
     """
-    pass
+    ladder_id = request.GET.get('ladder_id')
+    user_id = request.GET.get('user_id')
+    page_number = request.GET.get('page_number')
+    size = request.GET.get('size')
+    if not size:
+        size = 5
+    context = {'matchups_size': size}
+    paginator = Paginator(users_played(user_id=user_id, ladder_id=ladder_id), size)
+    try:
+        matchup_users = paginator.page(page_number)
+    except PageNotAnInteger:
+        matchup_users = paginator.page(1)
+    except EmptyPage:
+        matchup_users = paginator.page(paginator.num_pages)
+    context['matchup_users'] = matchup_users
+    matchups = []
+    for matchup_user in matchup_users:
+        matchup = get_stats(user_id, ladder=ladder_id, other_user_id=matchup_user.id)
+        matchup['user'] = matchup_user
+        if ladder_id:
+            matchup['ladder_id'] = ladder_id
+        matchups.append(matchup)
+    context['matchups'] = matchups
+    return render(request, 'leaderboard/content/matchups.html', context)
 
 
 def matches(request):

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from leaderboard.models import Ladder, Match
 
 import logging
@@ -24,3 +25,13 @@ def climbing_ladder_feed(user, order='-created', size=5):
     """
     if user.is_authenticated():
         return Ladder.objects.filter(ranked__player__user=user).order_by(order)[:size]
+
+
+def users_played(user_id, ladder_id=None):
+    """
+    Returns a list of users who have played in a match with the given user
+    """
+    filters = {'matchplayer__match__matchplayer__user': user_id}
+    if ladder_id:
+        filters['matchplayer__match__ladder'] = ladder_id
+    return User.objects.filter(**filters).distinct().exclude(pk=user_id)
