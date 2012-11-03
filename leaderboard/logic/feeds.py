@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import Q
 from leaderboard.models import Ladder, Match
 
 import logging
@@ -19,12 +20,18 @@ def get_match_feed(ladder=None, user=None, order='-created'):
     return query.order_by(order)
 
 
-def climbing_ladder_feed(user, order='-created', size=5):
+def get_played_ladder_feed(user, climbing=True, has_matches=True, order='-created'):
     """
-    Returns a ladder feed of the ladders the user is a player on
+    Returns a ladder feed of all the ladders the user is playing on or has matches on
     """
     if user.is_authenticated():
-        return Ladder.objects.filter(ranked__player__user=user).order_by(order)[:size]
+        climbing_filter = Q(ranked__player__user=user)
+        has_matches_filter = Q(match__matchplayer__user=user)
+        if climbing and has_matches:
+            query = Ladder.objects.filter(climbing_filter | has_matches_filter)
+        else:
+            query = Ladder.objects.filter(climbing_filter if climbing else has_matches_filter)
+        return query.distinct().order_by(order)
 
 
 def users_played(user_id, ladder_id=None):

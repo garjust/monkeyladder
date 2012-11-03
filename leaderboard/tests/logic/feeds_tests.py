@@ -25,11 +25,11 @@ class GetMatchFeedTest(TestCase):
             self.assertEquals(len(MatchPlayer.objects.filter(match=match, user=10)), 1)
 
 
-class ClimbingLadderFeedTest(TestCase):
+class GetPlayedLadderFeed(TestCase):
     fixtures = FIXTURES
 
     def setUp(self):
-        self.fixture = feeds.climbing_ladder_feed
+        self.fixture = feeds.get_played_ladder_feed
 
 
 class UsersPlayedTest(TestCase):

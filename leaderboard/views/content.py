@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.views.generic.list_detail import object_detail
 from leaderboard.forms import get_match_form, LadderRankingAndPlayerEditForm
 from leaderboard.generic_views import view_with_leaderboard
-from leaderboard.logic.feeds import get_match_feed, climbing_ladder_feed, users_played
+from leaderboard.logic.feeds import get_match_feed, users_played, get_played_ladder_feed
 from leaderboard.logic.rankings import adjust_rankings
 from leaderboard.logic.stats import get_stats
 from leaderboard.models import Match
@@ -70,7 +70,7 @@ def matchup(request):
             matchup['ladder_id'] = ladder_id
         matchups.append(matchup)
     context['matchups'] = matchups
-    context['matchup_user_ladders'] = climbing_ladder_feed(context['matchup_user'])
+    context['matchup_user_ladders'] = get_played_ladder_feed(context['matchup_user'], order='name')
     return render(request, 'leaderboard/content/matchups.html', context)
 
 
@@ -98,7 +98,7 @@ def matches(request):
         context['matches_ladder'] = get_ladder_or_404(pk=filters['ladder'])
     if filters.get('user'):
         context['matches_user'] = get_user_or_404(pk=filters['user'])
-        context['matches_user_ladders'] = climbing_ladder_feed(context['matches_user'])
+        context['matches_user_ladders'] = get_played_ladder_feed(context['matches_user'], order='name')
     if request.GET.get('match_bucket'):
         context['match_bucket'] = True
     return render(request, 'leaderboard/content/match_feed.html', context)
@@ -116,7 +116,7 @@ def stats(request):
     context = {'stats_user': get_user_or_404(pk=user_id), 'stats_ladder': None}
     if ladder_id:
         context['stats_ladder'] = get_ladder_or_404(pk=ladder_id)
-    context['stats_user_ladders'] = climbing_ladder_feed(context['stats_user'])
+    context['stats_user_ladders'] = get_played_ladder_feed(context['stats_user'], order='name')
     context['stats'] = get_stats(user_id, ladder=ladder_id)
     return render(request, 'leaderboard/content/player_stats.html', context)
 
