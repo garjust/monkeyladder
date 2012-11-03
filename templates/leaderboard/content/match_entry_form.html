@@ -36,7 +36,7 @@
             <div class="generic-error">{{ form.non_field_errors|removetags:"ul li" }}</div>
         {% endif %}
         <div class="monkey-form-actions">
-            <input id="match-entry-form-submit" class="btn btn-large" type="submit" value="Submit Match" />
+            <input id="match-entry-form-submit" class="btn btn-large btn-success" type="submit" value="Submit Match" />
             {% if not form.number_of_games %}
                 <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games=3">Game Entry</a>
             {% else %}
