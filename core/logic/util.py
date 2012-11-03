@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, InvalidPage
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 
@@ -31,3 +32,15 @@ def get_user_or_404(*args, **kwargs):
     Returns a user or a 404 response
     """
     return get_object_or_404(User, *args, **kwargs)
+
+
+def get_page_or_first_page(paginator, page_number):
+    """
+    Returns the requested page from the paginator
+
+    If any errors occur the first page is returned
+    """
+    try:
+        return paginator.page(page_number)
+    except InvalidPage:
+        return paginator.page(1)

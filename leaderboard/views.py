@@ -1,11 +1,11 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.views.generic.list_detail import object_detail
 
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
-from core.logic.util import get_ladder_or_404, get_user_or_404
+from core.logic.util import get_ladder_or_404, get_user_or_404, get_page_or_first_page
 from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder
 
 from leaderboard.forms import get_match_form, LeaderboardConfigurationForm, LadderRankingAndPlayerEditForm
@@ -83,12 +83,7 @@ def matchup(request):
     size = request.GET.get('size', 5)
     context = {'matchups_size': size, 'matchup_user': get_user_or_404(pk=user_id)}
     paginator = Paginator(users_played(user_id=user_id, ladder_id=ladder_id), size)
-    try:
-        matchup_users = paginator.page(page_number)
-    except PageNotAnInteger:
-        matchup_users = paginator.page(1)
-    except EmptyPage:
-        matchup_users = paginator.page(paginator.num_pages)
+    matchup_users = get_page_or_first_page(paginator, page_number)
     context['matchup_users'] = matchup_users
     matchups = []
     if ladder_id:
@@ -118,12 +113,7 @@ def matches(request):
     if user_id:
         filters['user'] = user_id
     paginator = Paginator(get_match_feed(**filters), size)
-    try:
-        matches = paginator.page(page_number)
-    except PageNotAnInteger:
-        matches = paginator.page(1)
-    except EmptyPage:
-        matches = paginator.page(paginator.num_pages)
+    matches = get_page_or_first_page(paginator, page_number)
     context = {'match_feed': matches, 'match_feed_size': size}
     if filters.get('ladder'):
         context['matches_ladder'] = get_ladder_or_404(pk=filters['ladder'])
