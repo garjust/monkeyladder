@@ -41,8 +41,10 @@
                 <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games=3">Game Entry</a>
             {% else %}
 	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create">Simple Entry</a>
-	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'1' }}">More</a>
-	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'-1' }}">Less</a>
+	            <div style="float:right;" class="btn-group">
+	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'1' }}"><i class="icon-chevron-down"></i></a>
+	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'-1' }}"><i class="icon-chevron-up"></i></a>
+                </div>
             {% endif %}
         </div>
         {% if form.success %}<div class="generic-success">Match created successfully</div>{% endif %}
