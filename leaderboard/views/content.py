@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render
 from django.views.generic.list_detail import object_detail
+from leaderboard.decorators import ladder_player_or_admin
 from leaderboard.forms import get_match_form, LadderRankingAndPlayerEditForm
 from leaderboard.generic_views import view_with_leaderboard
 from leaderboard.logic.feeds import get_match_feed, users_played, get_played_ladder_feed
@@ -15,8 +16,7 @@ from leaderboard.models import Match
 
 
 @ladder_is_active
-@login_required_forbidden
-@can_view_ladder
+@ladder_player_or_admin
 def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
     games = request.GET.get('games')
