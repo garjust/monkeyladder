@@ -28,7 +28,9 @@
 		                <td class="rank">{{ ranked.rank }}</td>
 		                <td>{{ ranked.display }}</td>
 		            </tr>
-	               {% endfor %}
+		            {% else %}
+		            <tr><td>-</td><td>-</td></tr>
+	                {% endfor %}
                 {% endif %}           
             {% endblock %}
             </tbody>

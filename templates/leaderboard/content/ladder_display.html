@@ -27,6 +27,8 @@
       <td>{{ ranked.display }}</td>
       <td class="view-button-parent"><a class="btn" href="{{ ranked.player.user.get_profile.get_absolute_url }}">Profile</a></td>
   </tr>
+  {% else %}
+  <tr><td>-</td><td>-</td></tr>
     {% endfor %}
     {% endif %}           
 {% endblock %}
