@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator, InvalidPage
+from django.core.paginator import InvalidPage
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 
