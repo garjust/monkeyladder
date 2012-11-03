@@ -1,99 +1,101 @@
-{% if not form.number_of_games %}
-<div class="monkey-form-div">
-    <form id="match-entry-form" class="well" method="post" action="{{ ladder.get_absolute_url }}/matches/create/">{% csrf_token %}
-        <fieldset>
-	        <div class="container-fluid">
-	            <div class="row-fluid">
-		           <div id="id_player_one-group" class="span8 ">{{ form.player_one.label_tag }}{{ form.player_one }}</div>
-	               <div id="id_player_one_score-group" class="span4 ">{{ form.player_one_score.label_tag }}{{ form.player_one_score }}</div>
+<div class="monkey-form-div {% if form.number_of_games %}game-entry{% endif %}">
+    <form id="match-entry-form" class="well" method="post" action="{{ ladder.get_absolute_url }}/matches/create/?games={{ form.number_of_games }}">{% csrf_token %}
+        {% if not form.number_of_games %}
+	        <fieldset>
+	            <div class="container-fluid">
+	                <div class="row-fluid">
+	                   <div id="id_player_one-group" class="span8 ">{{ form.player_one.label_tag }}{{ form.player_one }}</div>
+	                   <div id="id_player_one_score-group" class="span4 ">{{ form.player_one_score.label_tag }}{{ form.player_one_score }}</div>
+	                </div>
+	                <div class="row-fluid">
+	                    <div id="id_player_two-group" class="span8 ">{{ form.player_two.label_tag }}{{ form.player_two }}</div>
+	                    <div id="id_player_two_score-group" class="span4 ">{{ form.player_two_score.label_tag }}{{ form.player_two_score }}</div>
+	               </div>
 	            </div>
-	            <div class="row-fluid">
-	                <div id="id_player_two-group" class="span8 ">{{ form.player_two.label_tag }}{{ form.player_two }}</div>
-	                <div id="id_player_two_score-group" class="span4 ">{{ form.player_two_score.label_tag }}{{ form.player_two_score }}</div>
-		       </div>
-	        </div>
-        </fieldset>
+	        </fieldset>
+        {% else %}
+	        <fieldset>
+	            <div class="container-fluid">
+	                <div class="row-fluid">
+	                   <div id="id_player_one-group" class="span6">{{ form.player_one.label_tag }}{{ form.player_one }}</div>
+	                   <div id="id_player_two-group" class="span6">{{ form.player_two.label_tag }}{{ form.player_two }}</div>
+	                </div>
+	                {% for player_one_score, player_two_score in form.games %}
+	                <div class="row-fluid">
+	                    <div class="span6">{{ player_one_score }}</div>
+	                    <div class="span6">{{ player_two_score }}</div>
+	                </div>
+	                {% endfor %}
+	            </div>
+	        </fieldset>
+        {% endif %}
         <fieldset>
             <input type="hidden" name="next" value="{{ request.path }}"/>
         </fieldset>
         {% if form.non_field_errors %} 
-        <div class="generic-error">{{ form.non_field_errors|removetags:"ul li" }}</div>
+            <div class="generic-error">{{ form.non_field_errors|removetags:"ul li" }}</div>
         {% endif %}
         <div class="monkey-form-actions">
             <input id="match-entry-form-submit" class="btn btn-large" type="submit" value="Submit Match" />
-            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/?games=3">Game Entry</a>
+            {% if not form.number_of_games %}
+                <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games=3">Game Entry</a>
+            {% else %}
+	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create">Simple Entry</a>
+	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'1' }}">More</a>
+	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'-1' }}">Less</a>
+            {% endif %}
         </div>
         {% if form.success %}<div class="generic-success">Match created successfully</div>{% endif %}
         <div id="forbidden-error" class="error">Match failed to submit. {% if not request.user.is_authenticated %}Please log in.{% endif %}</div>
     </form>
 </div>
-{% else %}
-<div class="monkey-form-div game-entry">
-    <form id="match-entry-form" class="well" method="post" action="{{ ladder.get_absolute_url }}/matches/create/?games={{ form.number_of_games }}">{% csrf_token %}
-        <fieldset>
-            <div class="container-fluid">
-                <div class="row-fluid">
-                   <div id="id_player_one-group" class="span6">{{ form.player_one.label_tag }}{{ form.player_one }}</div>
-                   <div id="id_player_two-group" class="span6">{{ form.player_two.label_tag }}{{ form.player_two }}</div>
-                </div>
-                {% for player_one_score, player_two_score in form.games %}
-                <div class="row-fluid">
-                    <div class="span6">{{ player_one_score }}</div>
-                    <div class="span6">{{ player_two_score }}</div>
-                </div>
-                {% endfor %}
-            </div>
-        </fieldset>
-        <fieldset>
-            <input type="hidden" name="next" value="{{ request.path }}"/>
-        </fieldset>
-        {% if form.non_field_errors %} 
-      <div class="generic-error">{{ form.non_field_errors|removetags:"ul li" }}</div>
-      {% endif %}
-        <div class="monkey-form-actions">
-            <input id="match-entry-form-submit" class="btn btn-large" type="submit" value="Submit Match" />
-            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}">Simple Entry</a>
-            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}?games={{ form.number_of_games|add:'1' }}">More</a>
-            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}?games={{ form.number_of_games|add:'-1' }}">Less</a>
-        </div>
-        {% if form.success %}<div class="success">Match created successfully</div>{% endif %}
-        <div id="forbidden-error">Match failed to submit. Logged in?</div>
-    </form> 
-</div>
-{% endif %}
+
 <script type="text/javascript">
-	$("#forbidden-error").hide()
-	$("#match-entry-span input").attr("autocomplete", "off")
-	$(".player-name-autocomplete").typeahead({
-	    source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], items: 10
-	});
-	$(function () {
-	    function errorTooltip(id, content) {
-	        var group = $("#" + id)
-	        group.addClass("form-error")
-	        group.tooltip({
-	            placement: "right", title: content
-	        });
-	    }
-	    {% if form.errors.player_one %}errorTooltip("id_player_one-group", "{{ form.errors.player_one|removetags:'ul li'}}"){% endif %}
-	    {% if form.errors.player_one_score %}errorTooltip("id_player_one_score-group", "{{ form.errors.player_one_score|removetags:'ul li'}}"){% endif %}
-	    {% if form.errors.player_two %}errorTooltip("id_player_two-group", "{{ form.errors.player_two|removetags:'ul li'}}"){% endif %}
-	    {% if form.errors.player_two_score %}errorTooltip("id_player_two_score-group", "{{ form.errors.player_two_score|removetags:'ul li'}}"){% endif %}
-	})
+
+    $("#forbidden-error").hide()
+    $("#match-entry-span input").attr("autocomplete", "off")
+    $(".player-name-autocomplete").typeahead({
+        source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], items: 10
+    });
+    
+    $(function () {
+        function errorTooltip(id, content) {
+            var group = $("#" + id)
+            group.addClass("form-error")
+            group.tooltip({
+                placement: "right", title: content
+            });
+        }
+        {% if form.errors.player_one %}errorTooltip("id_player_one-group", "{{ form.errors.player_one|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.player_one_score %}errorTooltip("id_player_one_score-group", "{{ form.errors.player_one_score|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.player_two %}errorTooltip("id_player_two-group", "{{ form.errors.player_two|removetags:'ul li'}}"){% endif %}
+        {% if form.errors.player_two_score %}errorTooltip("id_player_two_score-group", "{{ form.errors.player_two_score|removetags:'ul li'}}"){% endif %}
+    })
+    
     $(function() {
-	    var form = $("#match-entry-form");
-	    form.submit(function(e) {
-	        $("#match-entry-form-submit").attr('disabled', true)
-	        $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
-	            $("#match-entry-form-submit").attr('disabled', false)
-	            if (responseStatus == "error") {
-	            	$("#forbidden-error").show()
-	            } else {
-		            $("#ladder-display-span").load("{{ form.ladder.get_absolute_url }}/content/ladder_display")
-		            $("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ form.ladder.id }}")
-	            }
-	        });
-	        e.preventDefault(); 
-	    });
-	}); 
+        var form = $("#match-entry-form");
+        form.submit(function(e) {
+            $("#match-entry-form-submit").attr('disabled', true)
+            $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
+                $("#match-entry-form-submit").attr('disabled', false)
+                if (responseStatus == "error") {
+                    $("#forbidden-error").show()
+                } else {
+                    $("#ladder-display-span").load("{{ form.ladder.get_absolute_url }}/content/ladder_display")
+                    $("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ form.ladder.id }}")
+                }
+            });
+            e.preventDefault(); 
+        });
+    });
+
+    $(function () {
+    	$("#match-entry-span .monkey-form-actions a").map(function() {
+    		var target = $(this).attr("href")
+    		$(this).attr("href", "#")
+    		$(this).click(function() {
+    			$("#match-entry-span").load(target)
+    		})
+    	})
+    })
 </script>

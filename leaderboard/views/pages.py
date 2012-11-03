@@ -18,12 +18,12 @@ def matches_page(request, ladder_id):
 @can_view_ladder
 def ladder_page(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    return view_with_leaderboard(request, ladder, 'leaderboard/view_ladder.html', {'navbar_active': 'ladder'})
+    return view_with_leaderboard(request, ladder, 'leaderboard/ladder_page.html', {'navbar_active': 'ladder'})
 
 
 @ladder_is_active
 @login_required_and_ladder_admin
 def configure_ladder_page(request, ladder_id):
-    return handle_form_and_redirect_to_ladder(request, ladder_id, LeaderboardConfigurationForm, 'leaderboard/configure_ladder.html',
+    return handle_form_and_redirect_to_ladder(request, ladder_id, LeaderboardConfigurationForm, 'leaderboard/configure_ladder_page.html',
         context={'navbar_active': 'config'}
     )

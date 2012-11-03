@@ -9,3 +9,11 @@ function fix_match_links() {
 		})
 	})
 }
+
+function errorTooltip(id, content) {
+    var group = $("#" + id)
+    group.addClass("form-error")
+    group.tooltip({
+        placement: "right", title: content
+    });
+}

@@ -12,7 +12,8 @@ from leaderboard.models import Match, Game, MatchPlayer, GamePlayer, Player
 def get_match_form(ladder, post_dictionary=None, number_of_games=None):
     arguments = {'ladder': ladder}
     form_class = MatchCreationForm
-    if number_of_games:
+    if number_of_games and int(number_of_games) > 0:
+        print number_of_games
         arguments['number_of_games'] = number_of_games
         form_class = GameCreationForm
     if post_dictionary:

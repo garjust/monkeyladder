@@ -4,12 +4,12 @@ from core.generic_views import handle_form_and_redirect_to_ladder, view_with_lad
 from core.logic.util import get_ladder_or_404, get_user_or_404, get_page_or_first_page
 from django.core.paginator import Paginator
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views.generic.list_detail import object_detail
-from leaderboard import logic
 from leaderboard.forms import get_match_form, LadderRankingAndPlayerEditForm
 from leaderboard.generic_views import view_with_leaderboard
 from leaderboard.logic.feeds import get_match_feed, climbing_ladder_feed, users_played
+from leaderboard.logic.rankings import adjust_rankings
 from leaderboard.logic.stats import get_stats
 from leaderboard.models import Match
 
@@ -19,15 +19,16 @@ from leaderboard.models import Match
 @can_view_ladder
 def create_match(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    form = get_match_form(ladder, post_dictionary=request.POST, number_of_games=request.GET.get('games'))
-    if form.is_valid():
-        match = form.save()
-        logic.rankings.adjust_rankings(match)
-        if request.is_ajax():
-            form = get_match_form(ladder, number_of_games=request.GET.get('games'))
+    games = request.GET.get('games')
+    if request.POST:
+        form = get_match_form(ladder, post_dictionary=request.POST, number_of_games=games)
+        if form.is_valid():
+            match = form.save()
+            adjust_rankings(match)
+            form = get_match_form(ladder, number_of_games=games)
             form.success = "Match created successfully"
-        else:
-            return redirect(ladder)
+    else:
+        form = get_match_form(ladder, number_of_games=games)
     return view_with_leaderboard(request, ladder, 'leaderboard/content/match_entry_form.html', form=form)
 
 
