@@ -25,8 +25,8 @@
 			            <tr>
 			                <tr id="matchup-entry-{{ matchup.user.id }}-{{ matchup.ladder_id }}" class="matchup-entry">
 			                    <td>vs {{ matchup.user.get_profile.name }}</td>
-			                    <td>{{ matchup.match_win_percentage }}</td>
-			                    <td>{{ matchup.game_win_percentage }}</td>
+			                    <td>{{ matchup.match_win_percentage|floatformat }}</td>
+			                    <td>{{ matchup.game_win_percentage|floatformat }}</td>
 			                </tr>
 			            </tr>
 		        	{% empty %}
