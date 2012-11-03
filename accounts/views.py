@@ -6,7 +6,7 @@ from accounts.forms import ExtendedUserCreationForm
 from core.logic.feeds import watched_ladder_feed
 
 
-def register(request):
+def register_page(request):
     if request.POST:
         form = ExtendedUserCreationForm(request.POST)
         if form.is_valid():
@@ -14,18 +14,18 @@ def register(request):
             return redirect("/accounts/login")
     else:
         form = ExtendedUserCreationForm()
-    return render(request, 'accounts/register.html', {'form': form})
+    return render(request, 'accounts/register_page.html', {'form': form})
 
 
 @login_required(login_url="/accounts/login")
-def view_profile(request, user_id):
+def profile_page(request, user_id):
     user = logic.get_user_or_404(pk=user_id)
-    return render(request, 'accounts/view_profile.html', {
+    return render(request, 'accounts/profile_page.html', {
         'user': user,
         'watched_feed': watched_ladder_feed(user, include_watchers=True),
     })
 
 
 @login_required(login_url="/accounts/login")
-def edit_profile(request, user_id):
-    return render(request, 'accounts/edit_profile.html')
+def edit_profile_page(request, user_id):
+    return render(request, 'accounts/edit_profile_page.html')
