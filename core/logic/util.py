@@ -44,3 +44,11 @@ def get_page_or_first_page(paginator, page_number):
         return paginator.page(page_number)
     except InvalidPage:
         return paginator.page(1)
+
+
+def get_page_with_object_id(paginator, object_id):
+    for page_number in range(1, paginator.num_pages + 1, 1):
+        page = paginator.page(page_number)
+        if int(object_id) in [item.pk for item in page]:
+            return page
+    return paginator.page(1)

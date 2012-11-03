@@ -34,6 +34,7 @@
 	        <div class="pagination">
                 <ul>
                     <li id="match-feed-prev" {% if not match_feed.has_previous %}class="disabled"{% endif %}><a href="#prev">Previous</a></li>
+					<li id="match-feed-page-number" class="disabled"><a href="#">{{ match_feed.number }}</a></li>
 					<li id="match-feed-next" {% if not match_feed.has_next %}class="disabled"{% endif %}><a href="#next">Next</a></li>
                 </ul>
             </div>
