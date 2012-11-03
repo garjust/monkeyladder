@@ -7,5 +7,5 @@ def version_number(request):
 
 def global_announcments(request):
     return {'global_announcments': [
-        ('New version comes with fancy alerts!', ''),
+        #('New version comes with fancy alerts!', ''),
     ]}
