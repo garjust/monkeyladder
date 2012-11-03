@@ -1,7 +1,7 @@
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
 from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder
-from core.logic.util import get_ladder_or_404, get_user_or_404, get_page_or_first_page, get_page_with_object_id
+from core.logic.util import get_ladder_or_404, get_user_or_404, get_page_or_first_page, get_page_with_object_id, int_or_none
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render
@@ -79,7 +79,7 @@ def matches(request):
     Returns a paged feed of matches
     """
     ladder_id = request.GET.get('ladder_id')
-    match_id = request.GET.get('match_id')
+    match_id = int_or_none(request.GET.get('match_id'))
     user_id = request.GET.get('user_id')
     page_number = request.GET.get('page')
     size = request.GET.get('size', 5)

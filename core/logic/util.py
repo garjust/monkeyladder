@@ -14,10 +14,19 @@ def int_or_404(value):
     Returns the given value cast as an integer or 404 if unsuccessful
     """
     try:
-        value = int(value)
-    except ValueError:
+        return int(value)
+    except (TypeError, ValueError):
         raise Http404
-    return value
+
+
+def int_or_none(value):
+    """
+    Returns the given value cast as an integer or None if unsuccessful
+    """
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def get_ladder_or_404(*args, **kwargs):
