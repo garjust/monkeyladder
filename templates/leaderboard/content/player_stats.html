@@ -5,7 +5,7 @@
 	        <div id="player-stats-ladder-select-div">
 	        	{% if stats_user_ladders %}
 		        	<select>
-		        		<option value="0">All Ladders</option>
+		        		<option value="">All Ladders</option>
 		        		{% for ladder in stats_user_ladders %}
 		        			<option {% if stats_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder.name }}</option>
 		        		{% endfor %}

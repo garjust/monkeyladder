@@ -7,7 +7,7 @@
 	        <div id="match-feed-ladder-select-div">
 	        	{% if matches_user_ladders %}
 		        	<select>
-		        		<option value="0">All Ladders</option>
+		        		<option value="">All Ladders</option>
 		        		{% for ladder in matches_user_ladders %}
 		        			<option {% if matches_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder.name }}</option>
 		        		{% endfor %}

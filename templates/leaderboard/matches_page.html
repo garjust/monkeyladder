@@ -6,7 +6,7 @@
 {{ block.super }}
 <script type="text/javascript">
 	$(function () {
-		$("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ ladder.id }}&size={{ match_feed_size }}&match_bucket=1", function(response, status) {
+		$("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ ladder.id }}&size={{ match_feed_size }}&match_bucket=1&match_id={{ match_id }}", function(response, status) {
 			if (status == "error") {
 				alert("ERROR")
 			} else {

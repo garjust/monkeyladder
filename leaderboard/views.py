@@ -80,11 +80,7 @@ def matchup(request):
     ladder_id = request.GET.get('ladder_id')
     user_id = request.GET.get('user_id')
     page_number = request.GET.get('page')
-    size = request.GET.get('size')
-    if ladder_id == "0":
-        ladder_id = None
-    if not size:
-        size = 5
+    size = request.GET.get('size', 5)
     context = {'matchups_size': size, 'matchup_user': get_user_or_404(pk=user_id)}
     paginator = Paginator(users_played(user_id=user_id, ladder_id=ladder_id), size)
     try:
@@ -95,7 +91,7 @@ def matchup(request):
         matchup_users = paginator.page(paginator.num_pages)
     context['matchup_users'] = matchup_users
     matchups = []
-    if ladder_id and ladder_id != "0":
+    if ladder_id:
         context['matchup_ladder'] = get_ladder_or_404(pk=ladder_id)
     for matchup_user in matchup_users:
         matchup = get_stats(user_id, ladder=ladder_id, other_user_id=matchup_user.id)
@@ -115,11 +111,9 @@ def matches(request):
     ladder_id = request.GET.get('ladder_id')
     user_id = request.GET.get('user_id')
     page_number = request.GET.get('page')
-    size = request.GET.get('size')
-    if not size:
-        size = 5
+    size = request.GET.get('size', 5)
     filters = {}
-    if ladder_id and ladder_id != "0":
+    if ladder_id:
         filters['ladder'] = ladder_id
     if user_id:
         filters['user'] = user_id
@@ -150,10 +144,8 @@ def stats(request):
     ladder_id = request.GET.get('ladder_id')
     if not user_id:
         raise Http404()
-    if ladder_id == "0":
-        ladder_id = None
     context = {'stats_user': get_user_or_404(pk=user_id), 'stats_ladder': None}
-    if ladder_id and ladder_id != "0":
+    if ladder_id:
         context['stats_ladder'] = get_ladder_or_404(pk=ladder_id)
     context['stats_user_ladders'] = climbing_ladder_feed(context['stats_user'])
     context['stats'] = get_stats(user_id, ladder=ladder_id)
