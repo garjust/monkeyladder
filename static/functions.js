@@ -10,6 +10,9 @@ function fix_match_links() {
 	})
 }
 
+/*
+ * Creates a tooltip with content attached to the right of the element identified by id
+ */
 function errorTooltip(id, content) {
     var group = $("#" + id)
     group.addClass("form-error")

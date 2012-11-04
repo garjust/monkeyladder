@@ -9,9 +9,15 @@
 	                <fieldset id="login-fieldset-primary">
 	                   <div id="id_username-group" class="control-group">{{ form.username.label_tag }}
 	                       <div class="controls">{{ form.username }}</div>
+	                       {% if form.errors.username %}
+                           <div class="right-side-tooltip-error hidden">{{ form.errors.username|removetags:'ul li' }}</div>
+                           {% endif %}
 	                   </div>
 	                   <div id="id_password-group" class="control-group">{{ form.password.label_tag }}
                            <div class="controls">{{ form.password }}</div>
+                           {% if form.errors.password %}
+                           <div class="right-side-tooltip-error hidden">{{ form.errors.password|removetags:'ul li' }}</div>
+                           {% endif %}
                        </div>
 	                </fieldset>
 	                <fieldset>
@@ -30,11 +36,4 @@
 	    </div>
 	</div>
 </div>
-<script type="text/javascript">
-    $(".control-group label").addClass("control-label");
-    $(function () {
-        {% if form.errors.username %}errorTooltip("id_username-group", "{{ form.errors.username|removetags:'ul li'}}"){% endif %}
-        {% if form.errors.password %}errorTooltip("id_password-group", "{{ form.errors.password|removetags:'ul li'}}"){% endif %}
-    })
-</script>
 {% endblock %}
