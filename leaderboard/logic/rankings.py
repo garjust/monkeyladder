@@ -7,6 +7,7 @@ from leaderboard.models import Player, MatchRankingChangeSet
 import logging
 logger = logging.getLogger('monkeyladder')
 
+
 def get_ladder_players(ladder):
     """
     Returns a dictionary with the names of a ladders players as keys and the user instance as values
@@ -15,6 +16,7 @@ def get_ladder_players(ladder):
     for ranked in ladder.ranking():
         player_dictionary[ranked.player.user.get_profile().name()] = ranked.player.user
     return player_dictionary
+
 
 def get_ladder_watchers_not_playing(ladder):
     """
@@ -29,11 +31,12 @@ def get_ladder_watchers_not_playing(ladder):
             player_dictionary.append((watcher.user.id, watcher.user.get_profile().name()))
     return tuple(player_dictionary)
 
+
 def get_ladder_players_for_match_entry(ladder):
     """
     Returns a string of player names for use in javascript
     """
-    return ','.join(map(lambda n: '"%s"' % n, get_ladder_players(ladder)))
+    return ','.join(map(lambda n: '%s' % n, get_ladder_players(ladder)))
 
 
 def get_ranking_change(match):
@@ -46,8 +49,10 @@ def get_ranking_change(match):
         return
     ranking_change_set = MatchRankingChangeSet.objects.create(ladder=match.ladder, change_date=timezone.now(), match=match)
 
+
 def apply_ranking_change(ranking_change):
     pass
+
 
 def adjust_rankings(match):
     SWAP_RANGE = get_config(match.ladder, 'leaderboard.swap_range')

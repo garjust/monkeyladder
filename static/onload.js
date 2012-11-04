@@ -2,17 +2,10 @@
 // GENERAL
 // =======
 
-/*
+
 $(function() {
-	$("a.ajax-load").map(function() {
-		var target = $(this).attr("href")
-		$(this).attr("href", "#")
-		$(this).click(function() {
-			$("#match-entry-span").load($(this).attr("data-load-destination"))
-		})
-	})
+	setupAjaxLoad()
 })
-*/
 
 /*
  * Transforms the contents of every element with the class "right-side-tooltip-error"
@@ -35,9 +28,11 @@ $(function() {
 	$(".control-group label").addClass("control-label");
 })
 
+
 // ========
 // ACCOUNTS
 // ========
+
 
 /*
  * Disable autocomplete for the register form
@@ -45,3 +40,8 @@ $(function() {
 $(function() {
     $("#register-page input").attr("autocomplete", "off")
 })
+
+
+// ===========
+// LEADERBOARD
+// ===========

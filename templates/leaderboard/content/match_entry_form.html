@@ -62,52 +62,40 @@
         <div class="monkey-form-actions">
             <input id="match-entry-form-submit" class="btn btn-large btn-success" type="submit" value="Submit Match" />
             {% if not form.number_of_games %}
-                <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games=3">Game Entry</a>
+                <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create?games=3" data-load-destination-id="match-entry-span">Game Entry</a>
             {% else %}
-	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create">Simple Entry</a>
+	            <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create" data-load-destination-id="match-entry-span">Simple Entry</a>
 	            <div style="float:right;" class="btn-group">
-	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'1' }}"><i class="icon-chevron-down"></i></a>
-	            <a class="btn btn-large" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'-1' }}"><i class="icon-chevron-up"></i></a>
+	            <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'1' }}" data-load-destination-id="match-entry-span"><i class="icon-chevron-down"></i></a>
+	            <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'-1' }}" data-load-destination-id="match-entry-span"><i class="icon-chevron-up"></i></a>
                 </div>
             {% endif %}
         </div>
         {% if form.success %}<div class="generic-success">Match created successfully</div>{% endif %}
-        <div id="forbidden-error" class="error">Match failed to submit. {% if not request.user.is_authenticated %}Please log in.{% endif %}</div>
     </form>
+    <div id="player-name-autocomplete-data" class="hidden">{{ player_names }}</div>
 </div>
 <script type="text/javascript">
+$(function() {
+	setupMatchEntry()
+})
 
-    $("#forbidden-error").hide()
-    $("#match-entry-span input").attr("autocomplete", "off")
-    $(".player-name-autocomplete").typeahead({
-        source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], items: 10
-    });
-    
-    $(function() {
-        var form = $("#match-entry-form");
-        form.submit(function(e) {
-            $("#match-entry-form-submit").attr('disabled', true)
-            $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
-                $("#match-entry-form-submit").attr('disabled', false)
-                if (responseStatus == "error") {
-                    $("#forbidden-error").show()
-                } else {
-                    $("#ladder-display-span").load("{{ form.ladder.get_absolute_url }}/content/ladder_display")
-                    $("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ form.ladder.id }}")
-                }
-                createRightSideErrorTooltips()
-            });
-            e.preventDefault(); 
+$(function() {
+    var form = $("#match-entry-form");
+    form.submit(function(e) {
+    	var submit_button = $("#match-entry-form-submit")
+        submit_button.attr('disabled', true)
+        $("#match-entry-span").load(form.attr('action'), form.serializeArray(), function(responseText, responseStatus) {
+        	submit_button.attr('disabled', false)
+            if (responseStatus == "error") {
+                $("#match-entry-form").append("<div class='error'>Match failed to submit.</div>")
+            } else {
+                $("#ladder-display-span").load("{{ form.ladder.get_absolute_url }}/content/ladder_display")
+                $("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ form.ladder.id }}")
+            }
+            createRightSideErrorTooltips()
         });
+        e.preventDefault(); 
     });
-
-    $(function () {
-    	$("#match-entry-span .monkey-form-actions a").map(function() {
-    		var target = $(this).attr("href")
-    		$(this).attr("href", "#")
-    		$(this).click(function() {
-    			$("#match-entry-span").load(target)
-    		})
-    	})
-    })
+});
 </script>
