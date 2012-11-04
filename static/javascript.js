@@ -1,7 +1,3 @@
-$(function() {
-	setupAjaxLoad()
-})
-
 /*
  * Transforms the contents of every element with the class "right-side-tooltip-error"
  * into a tooltip attached to the elements parent
@@ -23,6 +19,10 @@ $(function() {
 	$(".control-group label").addClass("control-label");
 })
 
+
+/*
+ * Changes all anchor tags with the ajax-load class to ajax loads
+ */
 function setupAjaxLoad() {
 	$("a.ajax-load").map(function() {
 		var target = $(this).attr("href")
@@ -42,6 +42,29 @@ function setupAjaxLoad() {
 		})
 	})
 }
+$(function() {
+	setupAjaxLoad()
+})
+
+
+/*
+ * 
+ */
+function setupAjaxLoadSpans() {
+	$("div.ajax-load").map(function() {
+		$(this).load($(this).attr("data-load"), function(response, status, xhr) {
+			if (status == "error") {
+				alert("ERROR LOADING")
+			} else {
+				
+			}
+		})
+	})
+}
+$(function() {
+	setupAjaxLoadSpans()
+})
+
 
 /*
  * Creates a tooltip with content attached to the right of the element identified by id
@@ -53,3 +76,13 @@ function errorTooltip(id, content) {
         placement: "right", title: content
     });
 }
+
+
+function clickOnload() {
+	$(".click-onload").map(function() {
+		$(this).click()
+	})
+}
+$(function() {
+	clickOnload()
+})

@@ -1,5 +1,4 @@
 {% load humanize %}
-
 <div class="row">
 	<div class="span{{ match_feed_span_size|default:'6' }}">
 	    <div class="well">
@@ -21,7 +20,7 @@
 			                <tr id="match-feed-entry-{{ match.id }}" class="match-feed-entry">
 			                    <td>{{ match }}</td>
 			                    <td>{{ match.created|naturaltime }}</td>
-			                    <td class="view-button-parent"><a class="btn" data-id="{{ match.id }}" href="{{ match.ladder.get_absolute_url }}/matches/?id={{ match.id }}">View</a></td>
+			                    <td class="view-button-parent {% if match_bucket %}fix-view-match{% endif %}"><a class="btn {% if match_id == match.id %}click-onload{% endif %}" data-id="{{ match.id }}" href="{{ match.ladder.get_absolute_url }}/matches/?id={{ match.id }}">View</a></td>
 			                </tr>
 			            </tr>
 		        	{% empty %}
@@ -33,9 +32,9 @@
 	        </table>
 	        <div class="pagination">
                 <ul>
-                    <li id="match-feed-prev" {% if not match_feed.has_previous %}class="disabled"{% endif %}><a href="#prev">Previous</a></li>
+                    <li id="match-feed-prev" {% if not match_feed.has_previous %}class="disabled"{% endif %}><a class="{% if match_feed.has_previous %}ajax-load{% endif %}" href="/ladders/leaderboard/content/matches?ladder_id={{ matches_ladder.id }}&user_id={{ matches_user.id }}&page={{ match_feed.previous_page_number }}&size={{ match_feed_size }}&match_bucket={{ match_bucket }}" data-load-destination-id="match-feed-span">Previous</a></li>
 					<li id="match-feed-page-number" class="disabled"><a href="#">{{ match_feed.number }}</a></li>
-					<li id="match-feed-next" {% if not match_feed.has_next %}class="disabled"{% endif %}><a href="#next">Next</a></li>
+					<li id="match-feed-next" {% if not match_feed.has_next %}class="disabled"{% endif %}><a class="{% if match_feed.has_next %}ajax-load{% endif %}" href="/ladders/leaderboard/content/matches?ladder_id={{ matches_ladder.id }}&user_id={{ matches_user.id }}&page={{ match_feed.next_page_number }}&size={{ match_feed_size }}&match_bucket={{ match_bucket }}" data-load-destination-id="match-feed-span">Next</a></li>
                 </ul>
             </div>
 	    </div>
@@ -43,26 +42,12 @@
 </div>
 
 <script type="text/javascript">
-$(function () {
-	var prev = $("#match-feed-prev")
-	if (!prev.hasClass("disabled")) {
-		prev.bind("click", function () {
-			$("#match-feed-span").load("/ladders/leaderboard/content/matches?ladder_id={{ matches_ladder.id }}&user_id={{ matches_user.id }}&page={{ match_feed.previous_page_number }}&size={{ match_feed_size }}&match_bucket={{ match_bucket }}", function () {
-				{% if match_bucket %}fix_match_links(){% endif %}				
-			})
-		})
-	}
-	var next = $("#match-feed-next")
-	if (!next.hasClass("disabled")) {
-		next.bind("click", function () {
-			$("#match-feed-span").load("/ladders/leaderboard/content/matches?ladder_id={{ matches_ladder.id }}&user_id={{ matches_user.id }}&page={{ match_feed.next_page_number }}&size={{ match_feed_size }}&match_bucket={{ match_bucket }}", function () {
-				{% if match_bucket %}fix_match_links(){% endif %}
-			})
-		})
-	}
-	
+$(function() {
+	fixMatchLinks()
+	clickOnload()
+	setupAjaxLoad()
 	$("#match-feed-ladder-select-div").change(function () {
-		$("#match-feed-span").load("/ladders/leaderboard/content/matches?ladder_id="+$(this).find("option:selected").attr("value")+"&user_id={{ matches_user.id }}")
-	})
+        $("#match-feed-span").load("/ladders/leaderboard/content/matches?ladder_id="+$(this).find("option:selected").attr("value")+"&user_id={{ matches_user.id }}")
+    })
 })
 </script>

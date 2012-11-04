@@ -1,20 +1,4 @@
 {% extends "base.html" %}
-
-{% block head %}
-<script type="text/javascript">  
-    $(function() {
-        function toggleMatchEntry() {
-            $(".match-entry").toggle('drop', {"direction": "right"}, 500);
-        };
-
-        $("#match-entry-toggle-button").click(function() {
-            toggleMatchEntry();
-            return false;
-        });
-    });
-</script>
-{% endblock %}
-
 {% block content %}
 <div id="ladder-page" class="container">
     <div class="row">
@@ -27,31 +11,12 @@
         </div>
         <div class="span6">
             <div class="row">
-                <div id="match-entry-span" class="span6"></div>
+                <div id="match-entry-span" class="span6 ajax-load" data-load="{{ ladder.get_absolute_url }}/matches/create"></div>
             </div>
             <div class="row">
-                <div id="match-feed-span" class="span6"></div>
+                <div id="match-feed-span" class="span6 ajax-load" data-load="/ladders/leaderboard/content/matches/?ladder_id={{ ladder.id }}"></div>
             </div>
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-$(function () {
-	$("#match-entry-span").load("{{ ladder.get_absolute_url }}/matches/create", function(response, status, xhr) {
-        if (status == "error") {
-            if (xhr.status == 403) {
-            	// Do nothing
-            } else {
-            	alert("ERROR LOADING MATCH ENTRY")
-            }
-        }
-    })
-	$("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ ladder.id }}", function(response, status, xhr) {
-		if (status == "error") {
-			alert("ERROR LOADING MATCH FEED")
-		}
-	})
-})
-</script>
 {% endblock %}

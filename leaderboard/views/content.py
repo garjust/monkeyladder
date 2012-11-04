@@ -94,6 +94,8 @@ def matches(request):
     else:
         matches = get_page_or_first_page(paginator, page_number)
     context = {'match_feed': matches, 'match_feed_size': size}
+    if match_id:
+        context['match_id'] = match_id
     if filters.get('ladder'):
         context['matches_ladder'] = get_ladder_or_404(pk=filters['ladder'])
     if filters.get('user'):
