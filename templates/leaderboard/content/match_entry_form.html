@@ -60,19 +60,12 @@
         source: [{% autoescape off %}{{ player_names }}{% endautoescape %}], items: 10
     });
     
-    $(function () {
-        function errorTooltip(id, content) {
-            var group = $("#" + id)
-            group.addClass("form-error")
-            group.tooltip({
-                placement: "right", title: content
-            });
-        }
-        {% if form.errors.player_one %}errorTooltip("id_player_one-group", "{{ form.errors.player_one|removetags:'ul li'}}"){% endif %}
-        {% if form.errors.player_one_score %}errorTooltip("id_player_one_score-group", "{{ form.errors.player_one_score|removetags:'ul li'}}"){% endif %}
-        {% if form.errors.player_two %}errorTooltip("id_player_two-group", "{{ form.errors.player_two|removetags:'ul li'}}"){% endif %}
-        {% if form.errors.player_two_score %}errorTooltip("id_player_two_score-group", "{{ form.errors.player_two_score|removetags:'ul li'}}"){% endif %}
-    })
+$(function () {
+    {% if form.errors.player_one %}errorTooltip("id_player_one-group", "{{ form.errors.player_one|removetags:'ul li'}}"){% endif %}
+    {% if form.errors.player_one_score %}errorTooltip("id_player_one_score-group", "{{ form.errors.player_one_score|removetags:'ul li'}}"){% endif %}
+    {% if form.errors.player_two %}errorTooltip("id_player_two-group", "{{ form.errors.player_two|removetags:'ul li'}}"){% endif %}
+    {% if form.errors.player_two_score %}errorTooltip("id_player_two_score-group", "{{ form.errors.player_two_score|removetags:'ul li'}}"){% endif %}
+})
     
     $(function() {
         var form = $("#match-entry-form");

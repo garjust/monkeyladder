@@ -42,13 +42,6 @@
     $(".control-group label").addClass("control-label");
     $("#register-page input").attr("autocomplete", "off")
     $(function () {
-        function errorTooltip(id, content) {
-            var group = $("#" + id)
-            group.addClass("form-error")
-            group.tooltip({
-                placement: "right", title: content
-            });
-        }
         {% if form.errors.username %}errorTooltip("id_username-group", "{{ form.errors.username|removetags:'ul li'}}"){% endif %}
         {% if form.errors.password1 %}errorTooltip("id_password1-group", "{{ form.errors.password1|removetags:'ul li'}}"){% endif %}
         {% if form.errors.password2 %}errorTooltip("id_password2-group", "{{ form.errors.password2|removetags:'ul li'}}"){% endif %}
