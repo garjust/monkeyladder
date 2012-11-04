@@ -18,11 +18,15 @@ $(function() {
  * Transforms the contents of every element with the class "right-side-tooltip-error"
  * into a tooltip attached to the elements parent
  */
-$(function() {
+function createRightSideErrorTooltips() {
 	$(".right-side-tooltip-error").map(function() {
 		errorTooltip($(this).parent().attr("id"), $(this).text())
 	})
+}
+$(function() {
+	createRightSideErrorTooltips()
 })
+
 
 /*
  * Applies a class to make forms display properly
