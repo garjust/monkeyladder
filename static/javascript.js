@@ -1,14 +1,27 @@
-function fix_match_links() {
-	var view_buttons = $(".match-feed-entry .view-button-parent a")
-	view_buttons.attr("href", "#")
-	view_buttons.bind("click", function() {
-		$.get("/ladders/leaderboard/content/matches/" + $(this).attr("data-id"), function(data) {
-			$("#match-bucket").append(data)	
-		}).error(function() {
-			alert("ERROR")
-		})
+$(function() {
+	setupAjaxLoad()
+})
+
+/*
+ * Transforms the contents of every element with the class "right-side-tooltip-error"
+ * into a tooltip attached to the elements parent
+ */
+function createRightSideErrorTooltips() {
+	$(".right-side-tooltip-error").map(function() {
+		errorTooltip($(this).parent().attr("id"), $(this).text())
 	})
 }
+$(function() {
+	createRightSideErrorTooltips()
+})
+
+
+/*
+ * Applies a class to make forms display properly
+ */
+$(function() {
+	$(".control-group label").addClass("control-label");
+})
 
 function setupAjaxLoad() {
 	$("a.ajax-load").map(function() {
@@ -40,12 +53,3 @@ function errorTooltip(id, content) {
         placement: "right", title: content
     });
 }
-
-function setupMatchEntry() {
-	$("#match-entry-span input").attr("autocomplete", "off")
-	$(".player-name-autocomplete").typeahead({
-        source: $("#player-name-autocomplete-data").text().split(","), items: 10
-    });
-	setupAjaxLoad()
-}
-
