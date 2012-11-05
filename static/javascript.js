@@ -54,7 +54,13 @@ function setupAjaxLoadSpans() {
 	$("div.ajax-load").map(function() {
 		$(this).load($(this).attr("data-load"), function(response, status, xhr) {
 			if (status == "error") {
-				alert("ERROR LOADING")
+				if (xhr.status == 403) {
+	            	// Do nothing
+	            } else if (xhr.status == 405) {
+	            	alert("ERROR LOADING")
+	            } else {
+	            	alert("ERROR LOADING")
+	            }
 			} else {
 				
 			}
