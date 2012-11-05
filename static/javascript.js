@@ -53,7 +53,7 @@ $(function() {
  */
 function linkAjaxSelectChange() {
 	$("div.ajax-change").change(function () {
-		$("#" + $(this).attr("data-load-target")).load($(this).attr("data-load-url") + "" + $(this).find("option:selected").attr("value"), function() {
+		$("#" + $(this).attr("data-load-target")).load($(this).attr("data-load-url") + "" + $(this).find("option:selected").attr("value"), function(response, status, xhr) {
 			$(this).trigger("loaded")
 		})
 	})
@@ -66,7 +66,7 @@ $(function() {
 /*
  * 
  */
-function setupAjaxLoadSpans() {
+function loadAjaxSpans() {
 	$("div.ajax-load").map(function() {
 		$(this).load($(this).attr("data-load"), function(response, status, xhr) {
 			if (status == "error") {
@@ -84,7 +84,7 @@ function setupAjaxLoadSpans() {
 	})
 }
 $(function() {
-	setupAjaxLoadSpans()
+	loadAjaxSpans()
 })
 
 
