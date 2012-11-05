@@ -25,6 +25,7 @@ $(function() {
  */
 function setupAjaxLoad() {
 	$("a.ajax-load").map(function() {
+		$(this).removeClass("ajax-load").addClass("ajax-load-ready")
 		var target = $(this).attr("href")
 		$(this).attr("href", "#")
 		$(this).click(function() {

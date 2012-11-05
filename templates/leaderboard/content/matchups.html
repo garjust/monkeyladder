@@ -1,18 +1,17 @@
 {% load humanize %}
-
 <div class="row">
-	<div class="span{{ matchup_span_size|default:'6' }}">
-	    <div class="well">
+	<div class="span{{ matchups_span_size|default:'6' }}">
+	    <div id="matchups-well" class="well">
 	        <h3 style="float: left">Matchups</h3>
 	        <div id="matchup-ladder-select-div">
-	        	{% if matchup_user_ladders %}
-		        	<select>
-		        		<option value="">All Ladders</option>
-		        		{% for ladder in matchup_user_ladders %}
-		        			<option {% if matchup_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder }}</option>
-		        		{% endfor %}
-		        	</select>
-	        	{% endif %}
+        	{% if matchup_user_ladders %}
+	        	<select>
+	        		<option value="">All Ladders</option>
+	        		{% for ladder in matchup_user_ladders %}
+	        		<option {% if matchup_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder }}</option>
+	        		{% endfor %}
+	        	</select>
+        	{% endif %}
 	        </div>
 	        <table class="table centered-table">
 	        	<thead>
@@ -38,8 +37,8 @@
 	        </table>
 	        <div class="pagination">
                 <ul>
-                    <li id="matchups-prev" {% if not matchup_users.has_previous %}class="disabled"{% endif %}><a href="#prev">Previous</a></li>
-					<li id="matchups-next" {% if not matchup_users.has_next %}class="disabled"{% endif %}><a href="#next">Next</a></li>
+                    <li id="matchups-prev" {% if not matchup_users.has_previous %}class="disabled"{% endif %}><a class="{% if matchup_users.has_previous %}ajax-load{% endif %}" href="/ladders/leaderboard/content/matchup?ladder_id={{ matchup_ladder.id }}&user_id={{ matchup_user.id }}&page={{ matchup_users.previous_page_number }}&size={{ matchups_size }}" data-load-destination-id="player-matchup-span">Previous</a></li>
+					<li id="matchups-next" {% if not matchup_users.has_next %}class="disabled"{% endif %}><a class="{% if matchup_users.has_next %}ajax-load{% endif %}" href="/ladders/leaderboard/content/matchup?ladder_id={{ matchup_ladder.id }}&user_id={{ matchup_user.id }}&page={{ matchup_users.next_page_number }}&size={{ matchups_size }}" data-load-destination-id="player-matchup-span">Next</a></li>
                 </ul>
             </div>
 	    </div>
@@ -48,23 +47,7 @@
 
 <script type="text/javascript">
 $(function () {
-	var prev = $("#matchups-prev")
-	if (!prev.hasClass("disabled")) {
-		prev.bind("click", function () {
-			$("#player-matchup-span").load("/ladders/leaderboard/content/matchup?ladder_id={{ matchup_ladder.id }}&user_id={{ matchup_user.id }}&page={{ matchup_users.previous_page_number }}&size={{ matchups_size }}", function () {
-			
-			})
-		})
-	}
-	var next = $("#matchups-next")
-	if (!next.hasClass("disabled")) {
-		next.bind("click", function () {
-			$("#player-matchup-span").load("/ladders/leaderboard/content/matchup?ladder_id={{ matchup_ladder.id }}&user_id={{ matchup_user.id }}&page={{ matchup_users.next_page_number }}&size={{ matchups_size }}", function () {
-
-			})
-		})
-	}
-	
+    setupAjaxLoad()
 	$("#matchup-ladder-select-div").change(function () {
 		$("#player-matchup-span").load("/ladders/leaderboard/content/matchup?ladder_id="+$(this).find("option:selected").attr("value")+"&user_id={{ matchup_user.id }}")
 	})
