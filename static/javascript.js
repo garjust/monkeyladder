@@ -36,6 +36,8 @@ function linkAjaxAnchorLoad() {
 		            } else {
 		            	alert("ERROR LOADING: " + loadUrl)
 		            }
+		        } else {
+		        	$(this).trigger("loaded")
 		        }
 			})
 		})
@@ -51,7 +53,9 @@ $(function() {
  */
 function linkAjaxSelectChange() {
 	$("div.ajax-change").change(function () {
-		$("#" + $(this).attr("data-load-target")).load($(this).attr("data-load-url") + "" + $(this).find("option:selected").attr("value"))
+		$("#" + $(this).attr("data-load-target")).load($(this).attr("data-load-url") + "" + $(this).find("option:selected").attr("value"), function() {
+			$(this).trigger("loaded")
+		})
 	})
 }
 $(function() {
@@ -74,7 +78,7 @@ function setupAjaxLoadSpans() {
 	            	alert("ERROR LOADING")
 	            }
 			} else {
-				
+				$(this).trigger("loaded")
 			}
 		})
 	})

@@ -1,7 +1,5 @@
 function fixMatchLinks() {
-	var view_buttons = $(".match-feed-entry .fix-view-match a")
-	view_buttons.attr("href", "#")
-	view_buttons.bind("click", function() {
+	$(".match-feed-entry .view-match-link").attr("href", "#").bind("click", function() {
 		$.get("/ladders/leaderboard/content/matches/" + $(this).attr("data-id"), function(data) {
 			$("#match-bucket").append(data)	
 		}).error(function() {

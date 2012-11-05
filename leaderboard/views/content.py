@@ -89,8 +89,6 @@ def matches(request):
     if user_id:
         user = get_user_or_404(pk=user_id)
 
-    match_bucket = request.GET.get('match_bucket')
-
     paginator = Paginator(get_match_feed(ladder=ladder_id, user=user_id), size)
     if match_id:
         matches = get_page_with_object_id(paginator, match_id)
@@ -116,7 +114,6 @@ def matches(request):
             'ladder_id': ladder_id if ladder_id else '',
             'user_id': user_id if user_id else '',
             'size': size,
-            'match_bucket': match_bucket if match_bucket else '',
         },
     }
     return render(request, 'leaderboard/content/match_feed.html', context)

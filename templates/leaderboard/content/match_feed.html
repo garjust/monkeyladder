@@ -6,8 +6,8 @@
     <tr id="match-feed-entry-{{ match.id }}" class="match-feed-entry">
         <td>{{ match }}</td>
         <td>{{ match.created|naturaltime }}</td>
-        <td class="view-button-parent {% if match_bucket %}fix-view-match{% endif %}">
-            <a class="btn {% if match_id == match.id %}click-onload{% endif %}"
+        <td class="view-button-parent">
+            <a class="btn view-match-link {% if match_id == match.id %}click-onload{% endif %}"
                href="{{ match.ladder.get_absolute_url }}/matches/?id={{ match.id }}"
                data-id="{{ match.id }}">View</a>
         </td>
@@ -16,14 +16,4 @@
     <tr><td>No Matches</td></tr>
     {% endfor %}
 </tbody>    
-{% endblock %}
-{% block javascript %}
-<script type="text/javascript">
-$(function() {
-    linkAjaxAnchorLoad()
-    linkAjaxSelectChange()
-    fixMatchLinks()
-    clickOnload()
-})
-</script>
 {% endblock %}

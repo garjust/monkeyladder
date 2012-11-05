@@ -2,8 +2,16 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div id="match-feed-span" class="span6 ajax-load" data-load="/ladders/leaderboard/content/matches/?ladder_id={{ ladder.id }}&size={{ match_feed_size }}&match_bucket=1&match_id={{ match_id }}"></div>
+        <div id="match-feed-span" class="span6 ajax-load" data-load="/ladders/leaderboard/content/matches/?ladder_id={{ ladder.id }}&size={{ match_feed_size }}&match_id={{ match_id }}"></div>
         <div id="match-bucket" class="span6"></div>
     </div>
 </div>
+<script type="text/javascript">
+$(function() {
+	$("#match-feed-span").bind("loaded", function() {	
+        fixMatchLinks()
+        clickOnload()
+	})
+})
+</script>
 {% endblock %}
