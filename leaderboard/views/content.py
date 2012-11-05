@@ -1,7 +1,7 @@
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
 from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder
-from core.logic.util import get_ladder_or_404, get_user_or_404, get_page_or_first_page, get_page_with_object_id, int_or_none
+from core.logic.util import get_ladder_or_404, get_user_or_404, get_page_or_first_page, get_page_with_object_id, int_or_none, empty_string_if_none
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render
@@ -78,30 +78,32 @@ def matches(request):
     """
     Returns a paged feed of matches
     """
-    ladder_id = request.GET.get('ladder_id')
-    match_id = int_or_none(request.GET.get('match_id'))
-    user_id = request.GET.get('user_id')
-    page_number = request.GET.get('page')
-    size = request.GET.get('size', 5)
-    match_bucket = request.GET.get('match_bucket')
-    filters = {}
+    ladder_id = empty_string_if_none(int_or_none(request.GET.get('ladder_id')))
+    match_id = empty_string_if_none(int_or_none(request.GET.get('match_id')))
+    user_id = empty_string_if_none(int_or_none(request.GET.get('user_id')))
+    page_number = empty_string_if_none(int_or_none(request.GET.get('page')))
+    size = empty_string_if_none(int_or_none(request.GET.get('size', 5)))
+
     if ladder_id:
-        filters['ladder'] = ladder_id
+        ladder = get_ladder_or_404(pk=ladder_id)
     if user_id:
-        filters['user'] = user_id
-    paginator = Paginator(get_match_feed(**filters), size)
+        user = get_user_or_404(pk=user_id)
+
+    match_bucket = request.GET.get('match_bucket')
+
+    paginator = Paginator(get_match_feed(ladder=ladder_id, user=user_id), size)
     if match_id:
         matches = get_page_with_object_id(paginator, match_id)
     else:
         matches = get_page_or_first_page(paginator, page_number)
-    context = {'feed': matches, 'match_feed_size': size}
-    if match_id:
-        context['match_id'] = match_id
-    if filters.get('ladder'):
-        context['feed_ladder'] = get_ladder_or_404(pk=filters['ladder'])
-    if filters.get('user'):
-        context['matches_user'] = get_user_or_404(pk=filters['user'])
-        context['feed_ladder_options'] = get_played_ladder_feed(context['matches_user'], order='name')
+
+    context = {'feed': matches, 'match_feed_size': size,
+        'match_id': match_id,
+        'feed_ladder': ladder if ladder_id else ladder_id,
+        'matches_user': user if user_id else user_id,
+        'feed_ladder_options': get_played_ladder_feed(user, order='name') if user_id else None,
+    }
+
     if request.GET.get('match_bucket'):
         context['match_bucket'] = True
     context['feed_info'] = {

@@ -29,6 +29,10 @@ def int_or_none(value):
         return None
 
 
+def empty_string_if_none(value):
+    return '' if value == None else value
+
+
 def get_ladder_or_404(*args, **kwargs):
     """
     Returns a ladder or a 404 response
