@@ -59,12 +59,12 @@
         <div class="monkey-form-actions">
             <input id="match-entry-form-submit" class="btn btn-large btn-success" type="submit" value="Submit Match" />
             {% if not form.number_of_games %}
-                <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create?games=3" data-load-destination-id="match-entry-span">Game Entry</a>
+                <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create?games=3" data-load-target="match-entry-span">Game Entry</a>
             {% else %}
-	            <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create" data-load-destination-id="match-entry-span">Simple Entry</a>
+	            <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create" data-load-target="match-entry-span">Simple Entry</a>
 	            <div style="float:right;" class="btn-group">
-	            <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'1' }}" data-load-destination-id="match-entry-span"><i class="icon-chevron-down"></i></a>
-	            <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'-1' }}" data-load-destination-id="match-entry-span"><i class="icon-chevron-up"></i></a>
+	            <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'1' }}" data-load-target="match-entry-span"><i class="icon-chevron-down"></i></a>
+	            <a class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/matches/create?games={{ form.number_of_games|add:'-1' }}" data-load-target="match-entry-span"><i class="icon-chevron-up"></i></a>
                 </div>
             {% endif %}
         </div>
@@ -83,6 +83,7 @@ $(function() {
             if (responseStatus == "error") {
                 $("#match-entry-form").append("<div class='error'>Match failed to submit.</div>")
             } else {
+            	$(this).trigger("loaded")
                 $("#ladder-display-span").load("{{ form.ladder.get_absolute_url }}/content/ladder_display")
                 $("#match-feed-span").load("/ladders/leaderboard/content/matches/?ladder_id={{ form.ladder.id }}")
             }
@@ -93,6 +94,5 @@ $(function() {
 });
 $(function() {
     setupMatchEntry()
-    linkAjaxAnchorLoad()
 })
 </script>
