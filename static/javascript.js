@@ -21,6 +21,35 @@ $(function() {
 
 
 /*
+ * 
+ */
+function loadAjaxSpans() {
+	$("div.ajax-load").map(function() {
+		$(this).bind("loaded", function() {
+			linkAjaxAnchorLoad()
+		    linkAjaxSelectChange()
+		})
+		$(this).load($(this).attr("data-load"), function(response, status, xhr) {
+			if (status == "error") {
+				if (xhr.status == 403) {
+	            	// Do nothing
+	            } else if (xhr.status == 405) {
+	            	alert("ERROR LOADING")
+	            } else {
+	            	alert("ERROR LOADING")
+	            }
+			} else {
+				$(this).trigger("loaded")
+			}
+		})
+	})
+}
+$(function() {
+	loadAjaxSpans()
+})
+
+
+/*
  * Changes all anchor tags with the ajax-load class to ajax loads
  */
 function linkAjaxAnchorLoad() {
@@ -60,31 +89,6 @@ function linkAjaxSelectChange() {
 }
 $(function() {
 	linkAjaxSelectChange()
-})
-
-
-/*
- * 
- */
-function loadAjaxSpans() {
-	$("div.ajax-load").map(function() {
-		$(this).load($(this).attr("data-load"), function(response, status, xhr) {
-			if (status == "error") {
-				if (xhr.status == 403) {
-	            	// Do nothing
-	            } else if (xhr.status == 405) {
-	            	alert("ERROR LOADING")
-	            } else {
-	            	alert("ERROR LOADING")
-	            }
-			} else {
-				$(this).trigger("loaded")
-			}
-		})
-	})
-}
-$(function() {
-	loadAjaxSpans()
 })
 
 
