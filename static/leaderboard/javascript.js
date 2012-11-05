@@ -15,5 +15,4 @@ function setupMatchEntry() {
 	$(".player-name-autocomplete").typeahead({
         source: $("#player-name-autocomplete-data").text().split(","), items: 10
     });
-	setupAjaxLoad()
 }

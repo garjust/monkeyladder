@@ -53,9 +53,6 @@
 	            </div>
 	        </fieldset>
         {% endif %}
-        <fieldset>
-            <input type="hidden" name="next" value="{{ request.path }}"/>
-        </fieldset>
         {% if form.non_field_errors %} 
             <div class="generic-error">{{ form.non_field_errors|removetags:"ul li" }}</div>
         {% endif %}
@@ -78,6 +75,7 @@
 <script type="text/javascript">
 $(function() {
 	setupMatchEntry()
+    setupAjaxLoad()
 })
 
 $(function() {
