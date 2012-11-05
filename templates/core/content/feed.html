@@ -1,0 +1,58 @@
+{% load humanize %}
+{% load core_filters %}
+<div class="row">
+    <div class="span{{ feed_info.span_size|default:'6' }}">
+        <div class="feed well">
+            <h3>{{ feed_info.name|default:'Feed' }}</h3>
+            <div id="{{ feed_info.prefix }}-feed-ladder-select-div" class="ajax-change" 
+                 data-load-url="{{ feed_info.url }}?{{ feed_info.url_parameters|parameters }}&ladder_id=" 
+                 data-load-target="{{ feed_info.span_name }}"
+            >
+                {% if feed_ladder_options %}
+                <select>
+                    <option value="">All Ladders</option>
+                    {% for ladder in feed_ladder_options %}
+                    <option {% if feed_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder }}</option>
+                    {% endfor %}
+                </select>
+                {% endif %}
+            </div>
+            <table class="table centered-table">
+                {% block feed_table %}
+                <tbody>
+                    {% for item in feed %}
+                    <tr class="feed-entry"><td>{{ feed }}</td></tr>
+                    {% empty %}
+                    <tr><td>Feed Empty</td></tr>
+                    {% endfor %}
+                </tbody>
+                {% endblock %}
+            </table>
+            {% if feed.paginator %}
+            <div class="pagination">
+                <ul>
+                    <li id="{{ feed_info.prefix }}-feed-prev" {% if not feed.has_previous %}class="disabled"{% endif %}>
+                        <a class="{% if feed.has_previous %}ajax-load{% endif %}"
+                           href="{{ feed_info.url }}?{{ feed_info.url_parameters|parameters }}&page={{ feed.next_page_number }}"
+                           data-load-target="{{ feed_info.span_name }}">Previous</a>
+                    </li>
+                    <li id="{{ feed_info.prefix }}-feed-page-number" class="disabled">
+                        <a href="#">{{ feed.number }}</a>
+                    </li>
+                    <li id="{{ feed_info.prefix }}-feed-next" {% if not feed.has_next %}class="disabled"{% endif %}>
+                        <a class="{% if feed.has_next %}ajax-load{% endif %}"
+                           href="{{ feed_info.url }}?{{ feed_info.url_parameters|parameters }}&page={{ feed.next_page_number }}"
+                           data-load-target="{{ feed_info.span_name }}">Next</a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function() {
+    linkAjaxAnchorLoad()
+    linkAjaxChange()
+})
+</script>

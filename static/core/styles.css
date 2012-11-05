@@ -22,3 +22,7 @@
 #delete-ladder-span button {
 	width: 200px;
 }
+
+.feed > h3 {
+	float: left;
+}

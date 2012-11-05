@@ -1,8 +1,8 @@
 {% load humanize %}
 <div class="row">
 	<div class="span{{ match_feed_span_size|default:'6' }}">
-	    <div class="well">
-	        <h3 style="float: left">{{ match_feed_name|default:'Match History' }}</h3>
+	    <div class="feed well">
+	        <h3>{{ match_feed_name|default:'Match History' }}</h3>
 	        <div id="match-feed-ladder-select-div">
 	        	{% if matches_user_ladders %}
 		        	<select>
@@ -15,14 +15,12 @@
 	        </div>
 	        <table class="table centered-table">
 	        	<tbody>
-		        	{% for match in match_feed %}
-			            <tr>
-			                <tr id="match-feed-entry-{{ match.id }}" class="match-feed-entry">
-			                    <td>{{ match }}</td>
-			                    <td>{{ match.created|naturaltime }}</td>
-			                    <td class="view-button-parent {% if match_bucket %}fix-view-match{% endif %}"><a class="btn {% if match_id == match.id %}click-onload{% endif %}" data-id="{{ match.id }}" href="{{ match.ladder.get_absolute_url }}/matches/?id={{ match.id }}">View</a></td>
-			                </tr>
-			            </tr>
+		        	{% for match in match_feed %}		          
+	                <tr id="match-feed-entry-{{ match.id }}" class="match-feed-entry">
+	                    <td>{{ match }}</td>
+	                    <td>{{ match.created|naturaltime }}</td>
+	                    <td class="view-button-parent {% if match_bucket %}fix-view-match{% endif %}"><a class="btn {% if match_id == match.id %}click-onload{% endif %}" data-id="{{ match.id }}" href="{{ match.ladder.get_absolute_url }}/matches/?id={{ match.id }}">View</a></td>
+	                </tr>
 		        	{% empty %}
 			            <tr>
 			                <td>No Matches</td>
