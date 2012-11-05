@@ -2,16 +2,21 @@
 	<div class="span6">
 	    <div class="well">
 	        <h3 style="float: left">Match Statistics</h3>
-	        <div id="player-stats-ladder-select-div">
-	        	{% if stats_user_ladders %}
-		        	<select>
-		        		<option value="">All Ladders</option>
-		        		{% for ladder in stats_user_ladders %}
-		        			<option {% if stats_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder.name }}</option>
-		        		{% endfor %}
-		        	</select>
-	        	{% endif %}
-	        </div>
+	        <div class="feed-header-option-div">
+                <div class="ajax-change" 
+                     data-load-url="/ladders/leaderboard/content/stats?&user_id={{ stats_user.id }}&ladder_id=" 
+                     data-load-target="player-stats-span"
+                >
+                    {% if stats_user_ladders %}
+                    <select>
+                        <option value="">All Ladders</option>
+                        {% for ladder in stats_user_ladders %}
+                        <option {% if stats_ladder == ladder %}selected {% endif %}value="{{ ladder.id }}">{{ ladder }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                </div>
+            </div>
 	        <table class="table centered-table">
 	        	<tbody>
 		        	<tr>

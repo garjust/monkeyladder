@@ -3,11 +3,11 @@
     <div class="span{{ feed_info.span_size|default:'6' }}">
         <div class="feed well">
             <h3>{{ feed_info.name|default:'Feed' }}</h3>
-	            <div class="feed-header-option-div">
-	                <div id="{{ feed_info.prefix }}-feed-ladder-select-div" class="ajax-change" 
-	                 data-load-url="{{ feed_info.url }}?{{ feed_info.url_parameters|parameters }}&ladder_id=" 
-	                 data-load-target="{{ feed_info.span_name }}"
-	            >
+            <div class="feed-header-option-div">
+                <div id="{{ feed_info.prefix }}-feed-ladder-select-div" class="ajax-change" 
+                     data-load-url="{{ feed_info.url }}?{{ feed_info.url_parameters|parameters }}&ladder_id=" 
+                     data-load-target="{{ feed_info.span_name }}"
+                >
 	                {% if feed_ladder_options %}
 	                <select>
 	                    <option value="">All Ladders</option>

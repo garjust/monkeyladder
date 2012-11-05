@@ -11,5 +11,5 @@ urlpatterns = patterns('leaderboard.views',
     url(r'^content/matches/$', 'matches'),
     url(r'^content/matches/(?P<match_id>\d+)$', 'match'),
     url(r'^content/stats/$', 'stats'),
-    url(r'^content/matchup/$', 'matchup'),
+    url(r'^content/matchups/$', 'matchups'),
 )

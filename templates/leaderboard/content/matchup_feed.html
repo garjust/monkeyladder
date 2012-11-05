@@ -1,0 +1,21 @@
+{% extends "core/content/feed.html" %}
+{% block feed_table %}
+<thead>
+    <tr><th>User</th><th>Match Win %</th><th>Game Win %</th></tr>
+</thead>
+<tbody>
+    {% for matchup in feed_data %}
+    <tr>
+        <tr id="matchup-feed-entry-{{ matchup.user.id }}-{{ matchup.ladder_id }}" class="matchup-feed-entry">
+            <td>vs {{ matchup.user.get_profile.name }}</td>
+            <td>{{ matchup.match_win_percentage|floatformat }}&#37;</td>
+            <td>{{ matchup.game_win_percentage|floatformat }}&#37;</td>
+        </tr>
+    </tr>
+    {% empty %}
+    <tr>
+        <td>-</td><td>-</td><td>-</td>
+    </tr>
+    {% endfor %}
+</tbody>
+{% endblock %}

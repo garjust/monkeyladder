@@ -48,30 +48,52 @@ def edit_ladder(request, ladder_id):
 
 
 @login_required_forbidden
-def matchup(request):
+def matchups(request):
     """
     Return a piece of HTML designed to be embedded in the matchup container
     """
-    ladder_id = request.GET.get('ladder_id')
-    user_id = request.GET.get('user_id')
-    page_number = request.GET.get('page')
-    size = request.GET.get('size', 5)
-    context = {'matchups_size': size, 'matchup_user': get_user_or_404(pk=user_id)}
+    ladder_id = empty_string_if_none(int_or_none(request.GET.get('ladder_id')))
+    user_id = empty_string_if_none(int_or_none(request.GET.get('user_id')))
+    page_number = empty_string_if_none(int_or_none(request.GET.get('page')))
+    size = empty_string_if_none(int_or_none(request.GET.get('size', 5)))
+
+    if ladder_id:
+        ladder = get_ladder_or_404(pk=ladder_id)
+    if user_id:
+        user = get_user_or_404(pk=user_id)
+
+    context = {
+        'matchup_user': user if user_id else user_id,
+        'feed_ladder': ladder if ladder_id else ladder_id,
+        'feed_ladder_options': get_played_ladder_feed(user, order='name') if user_id else None,
+    }
+
     paginator = Paginator(users_played(user_id=user_id, ladder_id=ladder_id), size)
     matchup_users = get_page_or_first_page(paginator, page_number)
-    context['matchup_users'] = matchup_users
+
     matchups = []
-    if ladder_id:
-        context['matchup_ladder'] = get_ladder_or_404(pk=ladder_id)
     for matchup_user in matchup_users:
         matchup = get_stats(user_id, ladder=ladder_id, other_user_id=matchup_user.id)
         matchup['user'] = matchup_user
         if ladder_id:
             matchup['ladder_id'] = ladder_id
         matchups.append(matchup)
-    context['matchups'] = matchups
-    context['matchup_user_ladders'] = get_played_ladder_feed(context['matchup_user'], order='name')
-    return render(request, 'leaderboard/content/matchups.html', context)
+    context['feed'] = matchup_users
+    context['feed_data'] = matchups
+
+    context['feed_info'] = {
+        'name': 'Matchups',
+        'prefix': 'matchup',
+        'span_name': 'matchup-feed-span',
+        'span_size': 6,
+        'url': '/ladders/leaderboard/content/matchups/',
+        'url_parameters': {
+            'ladder_id': ladder_id if ladder_id else '',
+            'user_id': user_id if user_id else '',
+            'size': size,
+        },
+    }
+    return render(request, 'leaderboard/content/matchup_feed.html', context)
 
 
 def matches(request):
@@ -102,8 +124,6 @@ def matches(request):
         'feed_ladder_options': get_played_ladder_feed(user, order='name') if user_id else None,
     }
 
-    if request.GET.get('match_bucket'):
-        context['match_bucket'] = True
     context['feed_info'] = {
         'name': 'Match History',
         'prefix': 'match',

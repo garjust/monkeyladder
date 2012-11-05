@@ -42,8 +42,6 @@
 	margin-bottom: 5px;
 }
 
-#match-feed-ladder-select-div,
-#player-stats-ladder-select-div,
-#matchup-ladder-select-div {
+.feed-header-option-div {
 	text-align: right;
 }
