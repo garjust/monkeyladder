@@ -23,20 +23,18 @@ $(function() {
 /*
  * Changes all anchor tags with the ajax-load class to ajax loads
  */
-function setupAjaxLoad() {
+function linkAjaxAnchorLoad() {
 	$("a.ajax-load").map(function() {
-		$(this).removeClass("ajax-load").addClass("ajax-load-ready")
-		var target = $(this).attr("href")
-		$(this).attr("href", "#")
-		$(this).click(function() {
-			$("#" + $(this).attr("data-load-destination-id")).load(target, function(response, status, xhr) {
+		var loadUrl = $(this).attr("href")
+		$(this).removeClass("ajax-load").addClass("ajax-load-ready").attr("href", "#").click(function() {
+			$("#" + $(this).attr("data-load-target")).load(loadUrl, function(response, status, xhr) {
 				if (status == "error") {
 		            if (xhr.status == 403) {
 		            	// Do nothing
 		            } else if (xhr.status == 405) {
-		            	alert("ERROR LOADING: " + target)
+		            	alert("ERROR LOADING: " + loadUrl)
 		            } else {
-		            	alert("ERROR LOADING: " + target)
+		            	alert("ERROR LOADING: " + loadUrl)
 		            }
 		        }
 			})
@@ -44,7 +42,20 @@ function setupAjaxLoad() {
 	})
 }
 $(function() {
-	setupAjaxLoad()
+	linkAjaxAnchorLoad()
+})
+
+
+/*
+ * 
+ */
+function linkAjaxSelectChange() {
+	$("div.ajax-change").change(function () {
+		$("#" + $(this).attr("data-load-target")).load($(this).attr("data-load-url") + "" + $(this).find("option:selected").attr("value"))
+	})
+}
+$(function() {
+	linkAjaxSelectChange()
 })
 
 

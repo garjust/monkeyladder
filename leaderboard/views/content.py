@@ -83,6 +83,7 @@ def matches(request):
     user_id = request.GET.get('user_id')
     page_number = request.GET.get('page')
     size = request.GET.get('size', 5)
+    match_bucket = request.GET.get('match_bucket')
     filters = {}
     if ladder_id:
         filters['ladder'] = ladder_id
@@ -93,16 +94,29 @@ def matches(request):
         matches = get_page_with_object_id(paginator, match_id)
     else:
         matches = get_page_or_first_page(paginator, page_number)
-    context = {'match_feed': matches, 'match_feed_size': size}
+    context = {'feed': matches, 'match_feed_size': size}
     if match_id:
         context['match_id'] = match_id
     if filters.get('ladder'):
-        context['matches_ladder'] = get_ladder_or_404(pk=filters['ladder'])
+        context['feed_ladder'] = get_ladder_or_404(pk=filters['ladder'])
     if filters.get('user'):
         context['matches_user'] = get_user_or_404(pk=filters['user'])
-        context['matches_user_ladders'] = get_played_ladder_feed(context['matches_user'], order='name')
+        context['feed_ladder_options'] = get_played_ladder_feed(context['matches_user'], order='name')
     if request.GET.get('match_bucket'):
         context['match_bucket'] = True
+    context['feed_info'] = {
+        'name': 'Match History',
+        'prefix': 'match',
+        'span_name': 'match-feed-span',
+        'span_size': 6,
+        'url': '/ladders/leaderboard/content/matches/',
+        'url_parameters': {
+            'ladder_id': ladder_id if ladder_id else '',
+            'user_id': user_id if user_id else '',
+            'size': size,
+            'match_bucket': match_bucket if match_bucket else '',
+        },
+    }
     return render(request, 'leaderboard/content/match_feed.html', context)
 
 

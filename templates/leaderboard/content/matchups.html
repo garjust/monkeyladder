@@ -47,7 +47,7 @@
 
 <script type="text/javascript">
 $(function () {
-    setupAjaxLoad()
+	linkAjaxAnchorLoad()
 	$("#matchup-ladder-select-div").change(function () {
 		$("#player-matchup-span").load("/ladders/leaderboard/content/matchup?ladder_id="+$(this).find("option:selected").attr("value")+"&user_id={{ matchup_user.id }}")
 	})
