@@ -25,7 +25,7 @@ def configure_ladder_page(request, ladder_id):
 @can_view_ladder
 def display_ladder(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    return view_with_ladder(request, ladder, 'basic/content/ladder_display.html')
+    return view_with_ladder(request, ladder, 'basic/content/ladder.html')
 
 
 @ladder_is_active

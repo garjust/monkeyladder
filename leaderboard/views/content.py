@@ -7,7 +7,6 @@ from django.http import Http404
 from django.shortcuts import render
 from django.views.generic.list_detail import object_detail
 from leaderboard.decorators import ladder_player_or_admin
-from django.shortcuts import redirect
 from leaderboard.forms import get_match_form, LadderRankingAndPlayerEditForm
 from leaderboard.logic.feeds import get_match_feed, users_played, get_played_ladder_feed
 from leaderboard.logic.rankings import adjust_rankings, get_ladder_players_for_match_entry
@@ -38,7 +37,7 @@ def create_match(request, ladder_id):
 @can_view_ladder
 def display_ladder(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    return view_with_ladder(request, ladder, 'leaderboard/content/ladder_display.html')
+    return view_with_ladder(request, ladder, 'leaderboard/content/ladder.html')
 
 
 @ladder_is_active
