@@ -8,6 +8,24 @@ from core import decorators
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
 
+@decorators.ladder_is_active
+def ladder_is_active_decorated(request, ladder_id):
+    return 632
+
+
+class LadderIsActiveTest(TestCase):
+    fixtures = FIXTURES
+
+    def setUp(self):
+        self.request = HttpRequest()
+
+    def test_active_ladder_works(self):
+        pass
+
+    def test_inactive_ladder_returns_404(self):
+        pass
+
+
 @decorators.login_required_and_ladder_admin
 def login_required_and_ladder_admin_decorated(request, ladder_id):
     return 4
