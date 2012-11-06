@@ -1,9 +1,13 @@
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns('accounts.views',
+urlpatterns = patterns('accounts.views.pages',
     url(r'^register/$', 'register_page'),
-    url(r'^(?P<user_id>\d+)/profile/$', 'profile_page'),
-    url(r'^(?P<user_id>\d+)/profile/edit/$', 'edit_profile_page'),
+    url(r'^(?P<user_id>\d+)/profile/$', 'profile_page', name='profile_page'),
+)
+
+urlpatterns += patterns('accounts.views.content',
+    url(r'^(?P<user_id>\d+)/info/$', 'user_info'),
+    url(r'^(?P<user_id>\d+)/info/edit/$', 'edit_user_info'),
 )
 
 urlpatterns += patterns('django.contrib.auth.views',

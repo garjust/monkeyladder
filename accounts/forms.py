@@ -16,3 +16,7 @@ class ExtendedUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class UserEditForm(forms.Form):
+    pass

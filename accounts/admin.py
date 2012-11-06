@@ -1,6 +1,6 @@
+from accounts.models import UserProfile
 from django.contrib import admin
 
-from accounts.models import UserProfile
 
 class UserProfileAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -8,6 +8,4 @@ class UserProfileAdmin(admin.ModelAdmin):
     ]
     list_display = ['user', 'name']
     search_fields = ['user__username', 'user__first_name', 'user__last_name']
-
 admin.site.register(UserProfile, UserProfileAdmin)
-

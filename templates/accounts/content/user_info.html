@@ -14,12 +14,12 @@
 	                <td>Last Name</td>
 	                <td>{{ user.last_name }}</td>
 	            </tr>
-	            {% comment %}
+	            {% if request.user == user %}
 	            <tr>
 	                <td>Email</td>
-	                <td>*CENSORED*</td>
+	                <td>{{ user.email }}</td>
 	            </tr>
-	            {% endcomment %}
+	            {% endif %}
 	        </table>
 	    </div>
 	</div>
