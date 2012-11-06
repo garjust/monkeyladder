@@ -21,7 +21,7 @@ $(function() {
 
 
 /*
- * 
+ * Sends AJAX requests for content of .ajax-load spans and binds a loaded callback
  */
 function loadAjaxSpans() {
 	$("div.ajax-load").map(function() {
@@ -29,8 +29,7 @@ function loadAjaxSpans() {
 			linkAjaxAnchorLoad()
 			linkAjaxSubmit()
 		    linkAjaxSelectChange()
-		})
-		$(this).load($(this).attr("data-load"), function(response, status, xhr) {
+		}).load($(this).attr("data-load"), function(response, status, xhr) {
 			if (status == "error") {
 				if (xhr.status == 403) {
 	            	// Do nothing
@@ -51,7 +50,7 @@ $(function() {
 
 
 /*
- * Changes all anchor tags with the ajax-load class to ajax loads
+ * Binds click event of matched anchors to use AJAX to load
  */
 function linkAjaxAnchorLoad() {
 	$("a.ajax-load").map(function() {
@@ -79,7 +78,7 @@ $(function() {
 
 
 /*
- * 
+ * Binds change event of matched selects to trigger an AJAX request
  */
 function linkAjaxSelectChange() {
 	$("div.ajax-change").removeClass("ajax-change").addClass("ajax-change-ready").change(function () {
@@ -94,7 +93,7 @@ $(function() {
 
 
 /*
- * 
+ * Binds click event of submit buttons of matched forms to use AJAX
  */
 function linkAjaxSubmit() {
 	$("form.ajax-submit").map(function() {

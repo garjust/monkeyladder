@@ -8,12 +8,15 @@ urlpatterns = patterns('django.views.generic.simple',
 )
 
 urlpatterns += patterns('',
-    url(r'^home/$', 'core.views.home_page'),
-    url(r'^ladders/', include('core.urls')),
-    url(r'^ladders/basic/', include('basic.urls')),
-    url(r'^ladders/leaderboard/', include('leaderboard.urls')),
-    url(r'^accounts/', include('accounts.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^comments/', include('django.contrib.comments.urls')),
+)
+
+urlpatterns += patterns('',
+    url(r'^home/$', 'core.views.home_page'),
+    url(r'^accounts/', include('accounts.urls')),
+    url(r'^ladders/', include('core.urls')),
+    url(r'^ladders/basic/', include('basic.urls')),
+    url(r'^ladders/leaderboard/', include('leaderboard.urls')),
 )
