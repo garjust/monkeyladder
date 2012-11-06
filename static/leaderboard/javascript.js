@@ -8,6 +8,7 @@ function fixMatchLinks() {
 	})
 }
 
+
 function setupMatchEntry() {
 	$("#match-entry-span fieldset input").attr("autocomplete", "off")
 	$(".player-name-autocomplete").removeClass("player-name-autocomplete").addClass("player-name-autocompleted").typeahead({
