@@ -17,7 +17,8 @@ class PublicLadderFeedTest(TestCase):
     def test_feed_should_have_public_ladders(self):
         ladders = self.fixture()
         for ladder in Ladder.objects.filter(is_private=False):
-            self.assertIn(ladder, ladders)
+            if ladder.is_active:
+                self.assertIn(ladder, ladders)
 
     def test_feed_should_not_have_private_ladders(self):
         ladders = self.fixture()
@@ -44,7 +45,8 @@ class WatchedLadderFeedTest(TestCase):
         feed = self.fixture(self.user)
         watchers = Watcher.objects.filter(user=self.user)
         for watcher in watchers:
-            self.assertIn(watcher.ladder, feed)
+            if watcher.ladder.is_active:
+                self.assertIn(watcher.ladder, feed)
 
     def test_change_size_of_feed(self):
         self.assertEqual(len(self.fixture(self.user, size=0)), 0)

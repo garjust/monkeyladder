@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import AnonymousUser
-from django.http import HttpRequest, HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseForbidden, HttpResponseRedirect, Http404
 from django.test import TestCase
 
 from core import decorators
@@ -18,12 +18,15 @@ class LadderIsActiveTest(TestCase):
 
     def setUp(self):
         self.request = HttpRequest()
+        self.request.user = AnonymousUser()
 
     def test_active_ladder_works(self):
-        pass
+        ladder_is_active_decorated(self.request, 3)
+        ladder_is_active_decorated(self.request, 4)
 
     def test_inactive_ladder_returns_404(self):
-        pass
+        with self.assertRaises(Http404):
+            ladder_is_active_decorated(self.request, 8)
 
 
 @decorators.login_required_and_ladder_admin
