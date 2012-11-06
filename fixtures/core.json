@@ -1,5 +1,18 @@
 [
   {
+    "pk": 8, 
+    "model": "core.ladder", 
+    "fields": {
+      "rungs": 5, 
+      "name": "Inactive Ladder", 
+      "created": "2012-11-06T17:10:17.645Z", 
+      "is_active": false, 
+      "created_by": 1, 
+      "type": "BASIC", 
+      "is_private": false
+    }
+  }, 
+  {
     "pk": 7, 
     "model": "core.ladder", 
     "fields": {
@@ -1218,6 +1231,18 @@
       "created_by": null, 
       "user": 8, 
       "type": "NORM"
+    }
+  }, 
+  {
+    "pk": 53, 
+    "model": "core.watcher", 
+    "fields": {
+      "created": "2012-11-06T17:10:17.649Z", 
+      "ladder": 8, 
+      "favorite": false, 
+      "created_by": null, 
+      "user": 1, 
+      "type": "ADMIN"
     }
   }, 
   {
