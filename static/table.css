@@ -1,0 +1,25 @@
+td.view-button-parent {
+    text-align: right;
+}
+
+table.no-horizontal-lines-table td {
+    border-top-width: 0px;
+}
+
+table.bold-table {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+table.centered-table td {
+    vertical-align: middle;
+}
+
+table.fat-table td {
+    height: 30px;
+}
+
+.well .table tbody tr:hover td,
+.well .table tbody tr:hover th {
+  background-color: #ffffff;
+}

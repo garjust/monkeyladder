@@ -1,12 +1,12 @@
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns('leaderboard.views',
+urlpatterns = patterns('leaderboard.views.pages',
     url(r'^(?P<ladder_id>\d+)/$', 'ladder_page'),
     url(r'^(?P<ladder_id>\d+)/matches/$', 'matches_page'),
     url(r'^(?P<ladder_id>\d+)/configure/$', 'configure_ladder_page'),
 )
 
-urlpatterns += patterns('leaderboard.views',
+urlpatterns += patterns('leaderboard.views.content',
     url(r'^(?P<ladder_id>\d+)/display/$', 'display_ladder'),
     url(r'^(?P<ladder_id>\d+)/edit/$', 'edit_ladder'),
     url(r'^(?P<ladder_id>\d+)/matches/create/$', 'create_match'),
