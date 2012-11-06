@@ -1,8 +1,7 @@
+from core.models import LadderConfigurationKey
 from django.test import TestCase
 
 from core.logic import config
-from core.models import LadderConfigurationKey
-
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
 

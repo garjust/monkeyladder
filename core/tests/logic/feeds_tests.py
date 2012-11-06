@@ -1,9 +1,8 @@
+from core.models import Ladder, Watcher
 from django.contrib.auth.models import User
 from django.test import TestCase
 
 from core.logic import feeds
-from core.models import Ladder, Watcher
-
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
 

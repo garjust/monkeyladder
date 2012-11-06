@@ -1,8 +1,7 @@
+from core.models import Ladder
 from django.test import TestCase
 
 from core.logic import ranks
-from core.models import Ladder
-
 FIXTURES = ['fixtures/users', 'fixtures/core']
 
 
