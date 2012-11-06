@@ -31,6 +31,7 @@ def display_ladder(request, ladder_id):
 @ladder_is_active
 @login_required_and_ladder_admin
 def edit_ladder(request, ladder_id):
-    return handle_form(request, ladder_id, LadderRankingEditForm, 'basic/content/edit_ladder.html',
+    form_result = handle_form(request, ladder_id, LadderRankingEditForm, 'basic/content/edit_ladder.html',
         form_name='ladder_edit_form',
-    ) if not request.POST else display_ladder(request, ladder_id)
+    )
+    return form_result if not request.POST else display_ladder(request, ladder_id)

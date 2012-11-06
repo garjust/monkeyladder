@@ -1,6 +1,6 @@
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
-from core.generic_views import handle_form_and_redirect_to_ladder, view_with_ladder, handle_form
+from core.generic_views import view_with_ladder, handle_form
 from core.logic.util import get_ladder_or_404, get_user_or_404, get_page_or_first_page, get_page_with_object_id, int_or_none, empty_string_if_none
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -41,9 +41,10 @@ def display_ladder(request, ladder_id):
 @ladder_is_active
 @login_required_and_ladder_admin
 def edit_ladder(request, ladder_id):
-    return handle_form(request, ladder_id, LadderRankingAndPlayerEditForm, 'leaderboard/content/edit_ladder.html',
+    form_result = handle_form(request, ladder_id, LadderRankingAndPlayerEditForm, 'leaderboard/content/edit_ladder.html',
         form_name='ladder_edit_form',
-    ) if not request.POST else display_ladder(request, ladder_id)
+    )
+    return form_result if not request.POST else display_ladder(request, ladder_id)
 
 
 @login_required_forbidden
