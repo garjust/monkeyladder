@@ -9,8 +9,8 @@ function fixMatchLinks() {
 }
 
 function setupMatchEntry() {
-	$("#match-entry-span input").attr("autocomplete", "off")
-	$(".player-name-autocomplete").typeahead({
+	$("#match-entry-span fieldset input").attr("autocomplete", "off")
+	$(".player-name-autocomplete").removeClass("player-name-autocomplete").addClass("player-name-autocompleted").typeahead({
         source: $("#player-name-autocomplete-data").text().split(","), items: 10
-    });
+    })
 }

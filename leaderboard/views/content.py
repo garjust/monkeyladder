@@ -8,7 +8,6 @@ from django.shortcuts import render
 from django.views.generic.list_detail import object_detail
 from leaderboard.decorators import ladder_player_or_admin
 from leaderboard.forms import get_match_form, LadderRankingAndPlayerEditForm
-from leaderboard.generic_views import view_with_leaderboard
 from leaderboard.logic.feeds import get_match_feed, users_played, get_played_ladder_feed
 from leaderboard.logic.rankings import adjust_rankings
 from leaderboard.logic.stats import get_stats
@@ -29,7 +28,7 @@ def create_match(request, ladder_id):
             form.success = "Match created successfully"
     else:
         form = get_match_form(ladder, number_of_games=games)
-    return view_with_leaderboard(request, ladder, 'leaderboard/content/match_entry_form.html', form=form)
+    return view_with_ladder(request, ladder, 'leaderboard/content/match_entry_form.html', context={'form': form})
 
 
 @ladder_is_active

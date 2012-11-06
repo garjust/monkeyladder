@@ -20,6 +20,21 @@ def handle_form_and_redirect_to_ladder(request, ladder_id, form_class, template,
     return view_with_ladder(request, ladder, template, context=context)
 
 
+def handle_form(request, ladder_id, form_class, template, context=None, form_name='form'):
+    if not context:
+        context = {}
+    ladder = get_ladder_or_404(pk=ladder_id)
+    if request.POST:
+        form = form_class(ladder, request.POST)
+        if form.is_valid():
+            form.save()
+            form.success = "Form submitted successfully"
+    else:
+        form = form_class(ladder)
+    context[form_name] = form
+    return view_with_ladder(request, ladder, template, context=context)
+
+
 def view_with_ladder(request, ladder, template, context=None):
     if not context:
         context = {}

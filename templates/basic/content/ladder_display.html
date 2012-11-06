@@ -1,72 +1,33 @@
-<div class="row">
-    <div class="span{{ ladder_display_size|default:'6' }} page-header muted">
-        <h1 id="ladder-header">{{ ladder.name }}</h1>
-        {% if not ladder_edit_form and watcher and watcher.admin %}<a id="ladder-edit-link" class="btn btn-medium" href="#">Edit</a>{% endif %}
-        {% if not watcher and not request.user.is_anonymous %}<a id="ladder-watch-link" class="btn btn-medium absolute" href="{{ ladder.get_general_url}}/watch/">Watch</a>{% endif %}
+<div monkey-form-div-free">
+    <div class="page-header muted">
+	    <h1 id="ladder-header">{{ ladder.name }}</h1>
+	    {% if not ladder_edit_form and watcher and watcher.admin %}
+	    <a id="ladder-edit-link" class="btn btn-large btn-info absolute ajax-load" href="{{ ladder.get_absolute_url }}/edit/" data-load-target="ladder-display-span">Edit</a>
+	    {% endif %}
+	    {% if not watcher and not request.user.is_anonymous %}
+	    <a id="ladder-watch-link" class="btn btn-large btn-info absolute" href="{{ ladder.get_general_url}}/watch/">Watch</a>
+	    {% endif %}
     </div>
-</div>
-<div class="row">
-    <div class="span{{ ladder_display_size|default:'6' }} monkey-form-div-free">
-    {% if ladder_edit_form %}<form id="edit-ladder-form" action="{{ ladder.get_absolute_url }}/edit/" method="post">{% csrf_token %}{% endif %}
-        <table class="table table-striped tbcentered-table">
-            {% block ladder_entries %}
-            <thead>
-                <th>Rank</th>
-                <th>Name</th>
-            </thead>
-            <tbody>
-                {% if ladder_edit_form %}
-                    {% for ranked in ladder_edit_form.ranked %}
-                    <tr class="ladder-rank-table-row">
-                        <td class="rank">{{ ranked.field }}</td>
-                        <td>{{ ranked.ranked.display }}</td>
-                    </tr>    
-                    {% endfor %}
-                {% else %}
-                    {% for ranked in ladder.ranking %}
-                    <tr id="ladder-rank-{{ ranked.rank }}" class="ladder-rank-table-row">
-                        <td class="rank">{{ ranked.rank }}</td>
-                        <td>{{ ranked.display }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr><td>-</td><td>-</td></tr>
-                    {% endfor %}
-                {% endif %}           
-            {% endblock %}
-            </tbody>
-        </table>
-        {% if ladder_edit_form %}
-        <a id="ladder-cancel-link" class="btn btn-medium absolute" href="{{ ladder.get_absolute_url }}">Cancel</a>
-        <input id="ladder-save-link" class="btn btn-medium absolute" type="submit" value="Save" />
-        </form>
-        {% endif %}
-    </div>
+    <table class="table table-striped tbcentered-table">
+    {% block ladder_entries %}
+        <thead>
+            <tr><th>Rank</th><th>Name</th></tr>
+        </thead>
+        <tbody>
+        {% for ranked in ladder.ranking %}
+         <tr id="ladder-rank-{{ ranked.rank }}" class="ladder-rank-table-row">
+             <td class="rank">{{ ranked.rank }}</td><td>{{ ranked.display }}</td>
+         </tr>
+        {% empty %}
+            <tr><td>-</td><td>-</td></tr>
+        {% endfor %}
+        </tbody>
+    {% endblock %}
+    </table>
 </div>
 <script type="text/javascript">
-    $(function() {
-        {% if not ladder_edit_form and watcher and watcher.admin %}$("#ladder-edit-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});{% endif %}
-        {% if not watcher %}$("#ladder-watch-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});{% endif %}
-        {% if ladder_edit_form %}$("#ladder-cancel-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});{% endif %}
-        {% if ladder_edit_form %}$("#ladder-save-link").position({of: $("#ladder-cancel-link"), my: "right center", at: "left center"});{% endif %}
-    })
-    $(function() {
-        $("#ladder-edit-link").bind("click", function(e) {
-            $("#ladder-display-span").load("{{ ladder.get_absolute_url }}/edit/")
-        })
-    });
-    /*
-    $(function () {
-        var changes = [
-        {% for rank_change in ladder.last_change.rankingchange_set.all %}[{{ rank_change.ranked.rank }}, {{rank_change.change }}],{% endfor %}
-        ]
-        for (var i = 0; i < changes.length; i++) {
-            var row = $("#ladder-rank-" + changes[i][0])
-            if (changes[i][1] < 0) {
-                row.addClass("rank-up")
-            } else {
-                row.addClass("rank-down")
-            }
-        }
-    })
-    */
+$(function() {
+    $("#ladder-edit-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});
+    $("#ladder-watch-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});
+})
 </script>

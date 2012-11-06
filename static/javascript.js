@@ -27,6 +27,7 @@ function loadAjaxSpans() {
 	$("div.ajax-load").map(function() {
 		$(this).bind("loaded", function() {
 			linkAjaxAnchorLoad()
+			linkAjaxSubmit()
 		    linkAjaxSelectChange()
 		})
 		$(this).load($(this).attr("data-load"), function(response, status, xhr) {
@@ -81,7 +82,7 @@ $(function() {
  * 
  */
 function linkAjaxSelectChange() {
-	$("div.ajax-change").change(function () {
+	$("div.ajax-change").removeClass("ajax-change").addClass("ajax-change-ready").change(function () {
 		$("#" + $(this).attr("data-load-target")).load($(this).attr("data-load-url") + "" + $(this).find("option:selected").attr("value"), function(response, status, xhr) {
 			$(this).trigger("loaded")
 		})
@@ -89,6 +90,33 @@ function linkAjaxSelectChange() {
 }
 $(function() {
 	linkAjaxSelectChange()
+})
+
+
+/*
+ * 
+ */
+function linkAjaxSubmit() {
+	$("form.ajax-submit").map(function() {
+		var form = $(this)
+		form.removeClass("ajax-submit").addClass("ajax-submit-ready").submit(function(e) {
+			var submitButton = $(".monkey-form-actions input")
+			submitButton.attr('disabled', true)
+			$("#" + submitButton.attr("data-load-target")).load(form.attr('action'), form.serializeArray(), function(response, status, xhr) {
+	        	submitButton.attr('disabled', false)
+	            if (status == "error") {
+	                alert("Failed to submit form: " + form)
+	            } else {
+	            	$(this).trigger("loaded")
+	            }
+	            createRightSideErrorTooltips()
+	        });
+	        e.preventDefault();
+		})
+	})
+}
+$(function() {
+	linkAjaxSubmit()
 })
 
 
@@ -104,6 +132,9 @@ function errorTooltip(id, content) {
 }
 
 
+/*
+ * 
+ */
 function clickOnload() {
 	$(".click-onload").map(function() {
 		$(this).click()
