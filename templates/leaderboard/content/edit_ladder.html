@@ -1,0 +1,22 @@
+{% extends "basic/content/edit_ladder.html" %}
+{% block ladder_entries %}
+<thead>
+    <th>Rank</th>
+    <th>Name</th>
+    <th></th>
+</thead>
+<tbody>
+{% for ranked in ladder_edit_form.ranked %}
+    <tr class="ladder-rank-table-row">
+        <td class="rank">{{ ranked.field }}</td>
+        <td>{{ ranked.ranked.display }}</td>
+        <td>{{ ranked.remove_field }}</td>
+    </tr>    
+{% endfor %}
+    <tr class="ladder-rank-table-row">
+        <td class="rank">(Last)</td>
+        <td>{{ ladder_edit_form.new_player }}</td>
+        <td></td>
+    </tr>
+</tbody>           
+{% endblock %}
