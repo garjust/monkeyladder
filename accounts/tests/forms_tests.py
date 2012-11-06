@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from accounts import forms
-
 FIXTURES = ['fixtures/users', 'fixtures/core']
+
 
 class ExtendedUserCreationFormTest(TestCase):
     fixtures = FIXTURES

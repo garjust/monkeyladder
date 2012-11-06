@@ -2,6 +2,7 @@ from accounts import logic
 from accounts.forms import ExtendedUserCreationForm
 from core.logic.feeds import watched_ladder_feed
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 
 import logging
@@ -30,4 +31,6 @@ def profile_page(request, user_id):
 
 @login_required(login_url="/accounts/login")
 def edit_profile_page(request, user_id):
-    return render(request, 'accounts/edit_profile_page.html')
+    if request.user.id == user_id:
+        return render(request, 'accounts/edit_profile_page.html')
+    return HttpResponseForbidden()

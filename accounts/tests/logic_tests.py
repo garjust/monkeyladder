@@ -3,8 +3,8 @@ from django.http import Http404
 from django.test import TestCase
 
 from accounts import logic
-
 FIXTURES = ['fixtures/users', 'fixtures/core']
+
 
 class GetUserOr404Test(TestCase):
     fixtures = FIXTURES

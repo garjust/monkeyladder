@@ -17,10 +17,10 @@ class UserProfile(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('view_profile', (), {'user_id': self.user.id})
+        return ('profile_page', (), {'user_id': self.user.id})
 
     def __unicode__(self):
-        return "profile for %s" % self.username
+        return "%s's Profile" % self.username
 
 
 def create_user_profile(sender, instance, created, **kwargs):
