@@ -8,7 +8,9 @@ from core.generic_views import handle_form_and_redirect_to_ladder, handle_form, 
 @can_view_ladder
 def ladder_page(request, ladder_id):
     ladder = get_ladder_or_404(pk=ladder_id)
-    return view_with_ladder(request, ladder, 'basic/ladder_page.html', {'navbar_active': 'ladder'})
+    return view_with_ladder(request, ladder, 'basic/ladder_page.html',
+        {'navbar_active': 'ladder'}
+    )
 
 
 @ladder_is_active

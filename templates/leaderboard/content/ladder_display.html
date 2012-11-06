@@ -1,5 +1,4 @@
 {% extends "basic/content/ladder_display.html" %}
-
 {% block ladder_entries %}
 <thead>
     <th>Rank</th>
@@ -7,28 +6,14 @@
     <th></th>
 </thead>
 <tbody>
- {% if ladder_edit_form %}
-     {% for ranked in ladder_edit_form.ranked %}
-  <tr class="ladder-rank-table-row">
-      <td class="rank">{{ ranked.field }}</td>
-      <td>{{ ranked.ranked.display }}</td>
-      <td>{{ ranked.remove_field }}</td>
-  </tr>    
-     {% endfor %}
-   <tr class="ladder-rank-table-row">
-      <td class="rank">(Last)</td>
-      <td>{{ ladder_edit_form.new_player }}</td>
-      <td></td>
-  </tr>  
-    {% else %}
-  {% for ranked in ladder.ranking %}
-  <tr id="ladder-rank-{{ ranked.rank }}" class="ladder-rank-table-row">
-      <td class="rank">{{ ranked.rank }}</td>
-      <td>{{ ranked.display }}</td>
-      <td class="view-button-parent"><a class="btn" href="{{ ranked.player.user.get_profile.get_absolute_url }}">Profile</a></td>
-  </tr>
-  {% empty %}
-  <tr><td>-</td><td>-</td></tr>
-    {% endfor %}
-    {% endif %}           
+{% for ranked in ladder.ranking %}
+    <tr id="ladder-rank-{{ ranked.rank }}" class="ladder-rank-table-row">
+        <td class="rank">{{ ranked.rank }}</td>
+        <td>{{ ranked.display }}</td>
+        <td class="view-button-parent"><a class="btn" href="{{ ranked.player.user.get_profile.get_absolute_url }}">Profile</a></td>
+    </tr>
+{% empty %}
+    <tr><td>-</td><td>-</td></tr>
+{% endfor %}
+</tbody>
 {% endblock %}

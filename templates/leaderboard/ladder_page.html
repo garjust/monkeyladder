@@ -4,9 +4,7 @@
     <div class="row">
         <div class="span6">
             <div class="row">
-	            <div id="ladder-display-span" class="span6">
-	           {% include "leaderboard/content/ladder_display.html" %}
-	            </div>
+	            <div id="ladder-display-span" class="span6 ajax-load" data-load="{{ ladder.get_absolute_url }}/display"></div>
             </div>
         </div>
         <div class="span6">

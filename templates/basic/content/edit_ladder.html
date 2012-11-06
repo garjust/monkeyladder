@@ -1,29 +1,27 @@
-<div class="row">
-    <div class="span{{ span_size|default:'12' }} monkey-form-div-free">
-        <div class="page-header muted">
-            <h1 id="ladder-header">{{ ladder }}</h1>
-        </div>
-        <form id="edit-ladder-form" class="form-horizontal ajax-submit" action="{{ ladder.get_absolute_url }}/edit/" method="post">{% csrf_token %}
-            <fieldset>
-	            <table class="table table-striped tbcentered-table">
-	            {% block ladder_entries %}
-	                <thead>
-	                    <tr><th>Rank</th><th>Name</th></tr>
-	                </thead>
-	                <tbody>
-	                {% for ranked in ladder_edit_form.ranked %}
-	                <tr class="ladder-rank-table-row">
-	                    <td class="rank">{{ ranked.field }}</td><td>{{ ranked.ranked.display }}</td>
-	                </tr>    
-	                {% endfor %}
-	                </tbody>
-	            {% endblock %}
-	            </table>
-            </fieldset>
-            <div class="monkey-form-actions">
-                <input id="ladder-edit-save-link" class="btn btn-large btn-success" type="submit" value="Save" data-load-target="ladder-display-span"/>
-                <a id="ladder-edit-cancel-link" class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/display" data-load-target="ladder-display-span">Cancel</a>
-            </div>
-        </form>
+<div class="monkey-form-div-free">
+    <div class="page-header muted">
+        <h1 id="ladder-header">{{ ladder }}</h1>
     </div>
+    <form id="edit-ladder-form" class="form-horizontal ajax-submit" action="{{ ladder.get_absolute_url }}/edit/" method="post">{% csrf_token %}
+        <fieldset>
+         <table class="table table-striped tbcentered-table">
+         {% block ladder_entries %}
+             <thead>
+                 <tr><th>Rank</th><th>Name</th></tr>
+             </thead>
+             <tbody>
+             {% for ranked in ladder_edit_form.ranked %}
+             <tr class="ladder-rank-table-row">
+                 <td class="rank">{{ ranked.field }}</td><td>{{ ranked.ranked.display }}</td>
+             </tr>    
+             {% endfor %}
+             </tbody>
+         {% endblock %}
+         </table>
+        </fieldset>
+        <div class="monkey-form-actions">
+            <input id="ladder-edit-save-link" class="btn btn-large btn-success" type="submit" value="Save" data-load-target="ladder-display-span"/>
+            <a id="ladder-edit-cancel-link" class="btn btn-large ajax-load" href="{{ ladder.get_absolute_url }}/display" data-load-target="ladder-display-span">Cancel</a>
+        </div>
+    </form>
 </div>
