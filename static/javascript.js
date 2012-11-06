@@ -107,7 +107,7 @@ function linkAjaxSubmit() {
 	            if (status == "error") {
 	                alert("Failed to submit form: " + form)
 	            } else {
-	            	$(this).trigger("loaded")
+	            	$(this).trigger("loaded").trigger("submitted")
 	            }
 	            createRightSideErrorTooltips()
 	        });
