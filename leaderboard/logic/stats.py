@@ -28,7 +28,7 @@ def get_stats(user, ladder=None, other_user_id=None):
 
 def get_match_stats(user, ladder=None, other_user_id=None):
     wins = 0
-    games = 0
+    matches = 0
     match_players = MatchPlayer.objects.filter(user=user)
     if ladder:
         match_players = match_players.filter(match__ladder=ladder)
@@ -37,8 +37,9 @@ def get_match_stats(user, ladder=None, other_user_id=None):
             continue
         if match_player.match.winner() == match_player:
             wins += 1
-        games += 1
-    return wins, games
+        matches += 1
+    logger.info("User %s has won %s of %s matches with ladder=%s, opponent_id=%s" % (user, wins, matches, ladder, other_user_id))
+    return wins, matches
 
 
 def get_game_stats(user, ladder=None, other_user_id=None):
@@ -53,4 +54,5 @@ def get_game_stats(user, ladder=None, other_user_id=None):
             wins += match_player.score
             for a_match_player in match_player.match.matchplayer_set.all():
                 games += a_match_player.score
+    logger.info("User %s has won %s of %s games with ladder=%s, opponent_id=%s" % (user, wins, games, ladder, other_user_id))
     return wins, games

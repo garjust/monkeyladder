@@ -1,9 +1,7 @@
-from django.contrib.auth.models import User
-from django.core.paginator import InvalidPage
-from django.shortcuts import get_object_or_404
-from django.http import Http404
-
 from core.models import Ladder
+from django.contrib.auth.models import User
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 
 import logging
 logger = logging.getLogger('monkeyladder')
@@ -16,6 +14,7 @@ def int_or_404(value):
     try:
         return int(value)
     except (TypeError, ValueError):
+        logger.debug("Failed to cast %s to integer, raising 404" % value)
         raise Http404
 
 
@@ -26,10 +25,14 @@ def int_or_none(value):
     try:
         return int(value)
     except (TypeError, ValueError):
+        logger.debug("Failed to cast %s to integer, returning None" % value)
         return None
 
 
 def empty_string_if_none(value):
+    """
+    Returns an empty string if value is equal to None
+    """
     return '' if value == None else value
 
 
@@ -45,23 +48,3 @@ def get_user_or_404(*args, **kwargs):
     Returns a user or a 404 response
     """
     return get_object_or_404(User, *args, **kwargs)
-
-
-def get_page_or_first_page(paginator, page_number):
-    """
-    Returns the requested page from the paginator
-
-    If any errors occur the first page is returned
-    """
-    try:
-        return paginator.page(page_number)
-    except InvalidPage:
-        return paginator.page(1)
-
-
-def get_page_with_object_id(paginator, object_id):
-    for page_number in range(1, paginator.num_pages + 1, 1):
-        page = paginator.page(page_number)
-        if int(object_id) in [item.pk for item in page]:
-            return page
-    return paginator.page(1)

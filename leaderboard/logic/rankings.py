@@ -34,9 +34,9 @@ def get_ladder_watchers_not_playing(ladder):
 
 def get_ladder_players_for_match_entry(ladder):
     """
-    Returns a string of player names for use in javascript
+    Returns a comma separated string of a ladders players names
     """
-    return ','.join(map(lambda n: '%s' % n, get_ladder_players(ladder)))
+    return ','.join([name for name in get_ladder_players(ladder)])
 
 
 def get_ranking_change(match):

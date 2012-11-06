@@ -1,7 +1,8 @@
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
 from core.generic_views import view_with_ladder, handle_form
-from core.logic.util import get_ladder_or_404, get_user_or_404, get_page_or_first_page, get_page_with_object_id, int_or_none, empty_string_if_none
+from core.logic.pagination import get_page, get_page_with_item
+from core.logic.util import get_ladder_or_404, get_user_or_404, int_or_none, empty_string_if_none
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render
@@ -71,7 +72,7 @@ def matchups(request):
     }
 
     paginator = Paginator(users_played(user_id=user_id, ladder_id=ladder_id), size)
-    matchup_users = get_page_or_first_page(paginator, page_number)
+    matchup_users = get_page(paginator, page_number)
 
     matchups = []
     for matchup_user in matchup_users:
@@ -115,9 +116,9 @@ def matches(request):
 
     paginator = Paginator(get_match_feed(ladder=ladder_id, user=user_id), size)
     if match_id:
-        matches = get_page_with_object_id(paginator, match_id)
+        matches = get_page_with_item(paginator, match_id)
     else:
-        matches = get_page_or_first_page(paginator, page_number)
+        matches = get_page(paginator, page_number)
 
     context = {'feed': matches, 'match_feed_size': size,
         'match_id': match_id,

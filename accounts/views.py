@@ -1,9 +1,11 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-
 from accounts import logic
 from accounts.forms import ExtendedUserCreationForm
 from core.logic.feeds import watched_ladder_feed
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
+import logging
+logger = logging.getLogger('monkeyladder')
 
 
 def register_page(request):
