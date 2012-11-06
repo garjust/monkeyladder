@@ -68,6 +68,10 @@ table.centered-table td {
 	vertical-align: middle;
 }
 
+table.fat-table td {
+    height: 30px;
+}
+
 .well .table tbody tr:hover td,
 .well .table tbody tr:hover th {
   background-color: #ffffff;

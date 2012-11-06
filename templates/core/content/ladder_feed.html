@@ -1,20 +1,14 @@
-<div class="row ladder-feed-header">
-    <div class="span{{ ladder_feed_size|default:'3' }} page-header muted">
-        <h2>{{ ladder_feed_name|default:'Ladder Feed' }}</h2>
-    </div>
+<div class="page-header muted">
+    <h2>{{ ladder_feed_name|default:'Ladder Feed' }}</h2>
 </div>
-<div class="row ladder-feed-body">
-    <div class="span{{ ladder_feed_size|default:'3' }}">
-        <table class="table no-horizontal-lines-table bold-table centered-table">
-            <tbody>
-		    {% for ladder in ladder_feed %}
-				<tr>
-				    <td>{{ ladder.name }}</td>
-				    {% if not hide_watcher_count %}<td><span class="badge badge-info">{{ ladder.watcher_count }}</span></td>{% endif %}
-				    <td class="view-button-parent"><a class="btn" href="{{ ladder.get_absolute_url }}">View</a></td>
-				</tr>
-			{% endfor %}
-			</tbody>
-        </table>
-    </div>
-</div>
+<table class="table no-horizontal-lines-table bold-table centered-table fat-table">
+    <tbody>
+    {% for ladder in ladder_feed %}
+	    <tr>
+	        <td>{{ ladder }}</td>
+	        {% if not hide_watcher_count %}<td><span class="badge badge-info">{{ ladder.watcher_count }}</span></td>{% endif %}
+	        <td class="view-button-parent"><a class="btn" href="{{ ladder.get_absolute_url }}">View</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

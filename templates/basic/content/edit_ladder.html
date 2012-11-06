@@ -4,7 +4,7 @@
     </div>
     <form id="edit-ladder-form" class="form-horizontal ajax-submit" action="{{ ladder.get_absolute_url }}/edit/" method="post">{% csrf_token %}
         <fieldset>
-         <table class="table table-striped tbcentered-table">
+         <table class="table table-striped centered-table fat-table">
          {% block ladder_entries %}
              <thead>
                  <tr><th>Rank</th><th>Name</th></tr>
