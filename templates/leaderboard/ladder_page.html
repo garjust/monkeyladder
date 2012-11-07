@@ -23,5 +23,15 @@ $(function() {
 		setupMatchEntry()
     })
 })
+$(function() {
+    $("#match-entry-span").bind("submitted", function() {
+        $("#match-feed-span").load($("#match-feed-span").attr("data-load"), function() {
+            $(this).trigger("loaded")
+        })
+        $("#ladder-display-span").load($("#ladder-display-span").attr("data-load"), function() {
+            $(this).trigger("loaded")
+        })
+    })
+})
 </script>
 {% endblock %}
