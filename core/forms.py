@@ -3,6 +3,16 @@ from django.contrib.auth.forms import forms, _
 from core.models import Ladder, Watcher
 
 
+def handle_form(request, form_class, *form_arguments):
+    if request.POST:
+        form = form_class(*form_arguments, request.POST)
+        if form.is_valid():
+            return form, form.save()
+    else:
+        form = form_class(*form_arguments)
+    return form, None
+
+
 class LadderCreationForm(forms.Form):
     """
     A form that creates a ladder and a ladder admin

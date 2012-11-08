@@ -16,11 +16,6 @@ def _get_single_config(ladder, key):
 
 
 def _put_single_config(ladder, key, dictionary=None):
-    """
-    Retrieves the value of the configuration key for the given ladder
-
-    If the ladder specified does not have a configration for the key the default is used
-    """
     if not dictionary:
         dictionary = {}
     dictionary[key] = _get_single_config(ladder, key)
@@ -28,5 +23,8 @@ def _put_single_config(ladder, key, dictionary=None):
 
 
 def get_config(ladder, key, *keys):
+    """
+    Retrieves the configuration values for each key passed in
+    """
     config = reduce(lambda dictionary, key: _put_single_config(ladder, key, dictionary), keys, _put_single_config(ladder, key))
     return config[key] if len(config) == 1 else config

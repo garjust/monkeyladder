@@ -10,6 +10,6 @@ def parameters(dictionary):
 
     {'a': 1, 'b': 2, 'c': 3} => a=1&b=2&c=3
 
-    Not that ordering is NOT guarenteed
+    Not that ordering is NOT guaranteed
     """
     return '&'.join(['%s=%s' % (key, dictionary[key]) for key in dictionary])
