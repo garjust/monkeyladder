@@ -30,3 +30,19 @@ class GetPageTest(TestCase):
         self.assertIn(User.objects.get(pk=1), page)
         self.assertIn(User.objects.get(pk=3), page)
         self.assertNotIn(User.objects.get(pk=4), page)
+
+
+class GetPageWithItemTest(TestCase):
+    fixtures = FIXTURES
+
+    def setUp(self):
+        self.fixture = pagination.get_page_with_item
+        self.paginator = Paginator(User.objects.all(), 3)
+
+    def test_get_page_with_item_when_item_in_paginator(self):
+        page = self.fixture(self.paginator, 6)
+        self.assertIn(User.objects.get(pk=6), page)
+        self.assertEqual(page.number, 2)
+
+    def test_first_page_returned_when_item_not_in_paginator(self):
+        self.assertEqual(self.fixture(self.paginator, 9999).number, 1)
