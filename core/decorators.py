@@ -1,8 +1,7 @@
 from django.http import HttpResponseForbidden, Http404
 from django.shortcuts import redirect
 
-from core.logic.util import get_ladder_or_404
-from core.models import Watcher
+from core.logic.util import get_ladder_or_404, get_watcher
 
 
 def ladder_is_active(f):
@@ -25,7 +24,7 @@ def can_view_ladder(f):
     """
     def decorated(request, ladder_id, *args, **kwargs):
         ladder = get_ladder_or_404(pk=ladder_id)
-        if ladder.is_private and not (request.user.is_authenticated() and (len(ladder.watcher_set.filter(user=request.user)) != 0)):
+        if ladder.is_private and not (request.user.is_authenticated() and get_watcher(request.user, ladder)):
             return redirect('/home/')
         return f(request, ladder_id, *args, **kwargs)
     return decorated
@@ -38,10 +37,7 @@ def login_required_and_ladder_admin(f):
     Returns an 403 response
     """
     def decorated(request, ladder_id, *args, **kwargs):
-        try:
-            if not request.user.is_authenticated() or request.user.watcher_set.get(ladder=ladder_id).type != 'ADMIN':
-                raise Watcher.DoesNotExist()
-        except Watcher.DoesNotExist:
+        if not (request.user.is_authenticated() and get_watcher(request.user, ladder_id, 'ADMIN')):
             return HttpResponseForbidden()
         return f(request, ladder_id, *args, **kwargs)
     return decorated

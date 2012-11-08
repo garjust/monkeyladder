@@ -1,7 +1,7 @@
 <div monkey-form-div-free">
     <div class="page-header muted">
 	    <h1 id="ladder-header">{{ ladder.name }}</h1>
-	    {% if not ladder_edit_form and watcher and watcher.admin %}
+	    {% if watcher and watcher.admin %}
 	    <a id="ladder-edit-link" class="btn btn-large btn-info absolute ajax-load" href="{{ ladder.get_absolute_url }}/edit/" data-load-target="ladder-display-span">Edit</a>
 	    {% endif %}
 	    {% if not watcher and not request.user.is_anonymous %}

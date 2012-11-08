@@ -1,4 +1,4 @@
-from core.models import Ladder
+from core.models import Ladder, Watcher
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -48,3 +48,15 @@ def get_user_or_404(*args, **kwargs):
     Returns a user or a 404 response
     """
     return get_object_or_404(User, *args, **kwargs)
+
+
+def get_watcher(user, ladder, watcher_type=None):
+    if user.is_anonymous():
+        return None
+    try:
+        watcher = user.watcher_set.get(ladder=ladder)
+        if watcher_type:
+            return watcher if watcher.type == watcher_type else None
+        return watcher
+    except Watcher.DoesNotExist:
+        return None

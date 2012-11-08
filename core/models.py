@@ -33,14 +33,6 @@ class Ladder(DatedModel):
         changes = self.rankingchangeset_set.order_by('-change_date')
         return changes[0] if changes else None
 
-    def watcher(self, user):
-        """DEPRECATED"""
-        if user.is_authenticated():
-            try:
-                return self.watcher_set.get(user=user)
-            except Watcher.DoesNotExist:
-                pass
-
     def watcher_count(self):
         return self.watcher_set.count()
 
