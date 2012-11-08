@@ -1,8 +1,12 @@
 <div class="monkey-form-div-free">
     <div class="page-header muted">
 	    <h1 id="ladder-header">{{ ladder.name }}</h1>
+	    {% if watcher %}
 	    {% if watcher and watcher.admin %}
 	    <a id="ladder-edit-link" class="btn btn-large btn-info absolute ajax-load" href="{{ ladder.get_absolute_url }}/edit/" data-load-target="ladder-display-span">Edit</a>
+	    {% else %}
+	    
+	    {% endif %}
 	    {% endif %}
 	    {% if not watcher and not request.user.is_anonymous %}
 	    <a id="ladder-watch-link" class="btn btn-large btn-info absolute" href="{{ ladder.get_general_url}}/watch/">Watch</a>
@@ -27,7 +31,7 @@
 </div>
 <script type="text/javascript">
 $(function() {
-    $("#ladder-edit-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});
-    $("#ladder-watch-link").position({of: $("#ladder-header"), my: "right center", at: "right center"});
+    $("#ladder-edit-link").position({of: $("#ladder-header"), my: "right center", at: "right center"})
+    $("#ladder-watch-link").position({of: $("#ladder-header"), my: "right center", at: "right center"})
 })
 </script>
