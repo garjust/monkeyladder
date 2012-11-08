@@ -43,14 +43,12 @@ def get_ladder_or_404(*args, **kwargs):
     return get_object_or_404(Ladder, *args, **kwargs)
 
 
-def get_user_or_404(*args, **kwargs):
-    """
-    Returns a user or a 404 response
-    """
-    return get_object_or_404(User, *args, **kwargs)
-
-
 def get_watcher(user, ladder, watcher_type=None):
+    """
+    If a valid user exists for the user and ladder combination it is returned
+
+    If a watcher type is specified then the watcher type must match to be returned
+    """
     if user.is_anonymous():
         return None
     try:

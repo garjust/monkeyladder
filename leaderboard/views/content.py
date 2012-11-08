@@ -1,8 +1,9 @@
+from accounts.logic import get_user_or_404
 from accounts.decorators import login_required_forbidden
 from core.decorators import can_view_ladder, login_required_and_ladder_admin, ladder_is_active
 from core.generic_views import view_with_ladder, handle_form
 from core.logic.pagination import get_page, get_page_with_item
-from core.logic.util import get_ladder_or_404, get_user_or_404, int_or_none, empty_string_if_none
+from core.logic.util import get_ladder_or_404, int_or_none, empty_string_if_none
 from django.core.paginator import Paginator
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render
