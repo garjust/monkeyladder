@@ -3,9 +3,9 @@ from django.contrib.auth.forms import forms, _
 from core.models import Ladder, Watcher
 
 
-def handle_form(request, form_class, *form_arguments):
+def handle_form(request, form_class, **form_arguments):
     if request.POST:
-        form = form_class(*form_arguments, request.POST)
+        form = form_class(request.POST, **form_arguments)
         if form.is_valid():
             return form, form.save()
     else:
