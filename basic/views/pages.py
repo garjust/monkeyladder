@@ -16,6 +16,9 @@ def ladder_page(request, ladder_id):
 @ladder_is_active
 @login_required_and_ladder_admin
 def configure_ladder_page(request, ladder_id):
-    return handle_form_and_redirect_to_ladder(request, ladder_id, LadderConfigurationForm, 'basic/configure_ladder_page.html',
+    return handle_form_and_redirect_to_ladder(request,
+        ladder_id,
+        LadderConfigurationForm,
+        'basic/configure_ladder_page.html',
         context={'navbar_active': 'config'}
     )
