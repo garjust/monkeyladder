@@ -14,9 +14,9 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-    url(r'^home/$', 'core.views.home_page'),
+    url(r'^home/$', 'ladders.views.home_page'),
     url(r'^accounts/', include('accounts.urls')),
-    url(r'^ladders/', include('core.urls')),
+    url(r'^ladders/', include('ladders.urls')),
     url(r'^ladders/basic/', include('basic.urls')),
     url(r'^ladders/leaderboard/', include('leaderboard.urls')),
 )
