@@ -1,4 +1,4 @@
-from monkeyladder.version import VERSION_NUMBER
+from version import VERSION_NUMBER
 
 
 def version_number(request):

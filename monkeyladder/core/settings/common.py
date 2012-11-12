@@ -53,8 +53,8 @@ INSTALLED_APPS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.auth.context_processors.auth',
-    'monkeyladder.context_processors.version_number',
-    'monkeyladder.context_processors.global_announcments',
+    'core.context_processors.version_number',
+    'core.context_processors.global_announcments',
 )
 
 STATICFILES_FINDERS = (
