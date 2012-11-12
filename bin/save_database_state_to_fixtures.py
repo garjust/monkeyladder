@@ -1,8 +1,7 @@
 #!/usr/bin/env python
+from django.core.management import execute_from_command_line
 import os
 import sys
-
-from django.core.management import execute_from_command_line
 
 FIXTURES = ['fixtures/users.json', 'fixtures/ladders.json', 'fixtures/leaderboard.json']
 
@@ -18,7 +17,6 @@ def migrate(target='fixtures'):
     save_fixture('%s/users.json' % target, 'auth.User')
     save_fixture('%s/ladders.json' % target, 'ladders', '-e', 'ladders.LadderConfigurationKey')
     save_fixture('%s/leaderboard.json' % target, 'leaderboard')
-    #ssave_fixture('%s/comments.json' % target, 'comments')
 
 if __name__ == '__main__':
     sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..')))
