@@ -13,7 +13,7 @@ def home_page(request):
 
 @login_required
 def ladder_feeds_page(request):
-    return render(request, 'core/ladder_feeds_page.html', {'navbar_active': 'feeds', 'ladder_feed_size': 4,
+    return render(request, 'ladders/ladder_feeds_page.html', {'navbar_active': 'feeds', 'ladder_feed_size': 4,
         'public_ladder_feed': public_ladder_feed(request.user, size=25),
         'watched_ladder_feed': nonfavorite_ladder_feed(request.user, size=25),
         'favorite_ladder_feed': favorite_ladder_feed(request.user, size=25),
@@ -29,4 +29,4 @@ def create_ladder_page(request):
             return redirect(ladder)
     else:
         form = LadderCreationForm()
-    return render(request, 'core/create_ladder_page.html', {'form': form})
+    return render(request, 'ladders/create_ladder_page.html', {'form': form})

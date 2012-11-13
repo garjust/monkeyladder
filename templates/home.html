@@ -18,14 +18,14 @@
 		</div>
 	{% if user.is_authenticated %}
 	    <div id="public-ladder-feed-span" class="span3">
-        {% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" hide_watcher_count=1 %}
+        {% include "ladders/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" hide_watcher_count=1 %}
         </div>
 		<div id="watched-ladder-feed-span" class="span3">
-        {% include "core/content/ladder_feed.html" with ladder_feed=watched_ladder_feed ladder_feed_name="Watched Ladders" hide_watcher_count=1 %}
+        {% include "ladders/content/ladder_feed.html" with ladder_feed=watched_ladder_feed ladder_feed_name="Watched Ladders" hide_watcher_count=1 %}
         </div>
     {% else %}
         <div id="public-ladder-feed-span" class="span6">
-            {% include "core/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" ladder_feed_size="6" hide_watcher_count=1 %}
+            {% include "ladders/content/ladder_feed.html" with ladder_feed=public_ladder_feed ladder_feed_name="Public Ladders" ladder_feed_size="6" hide_watcher_count=1 %}
         </div>
 	{% endif %}
 	</div>
