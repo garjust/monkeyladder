@@ -8,12 +8,10 @@ TESTABLE_APPS = ['accounts', 'ladders', 'leaderboard']
 
 
 def run_app_tests(*apps_to_tests):
-    for app in apps_to_tests:
-        execute_from_command_line(['manage.py', 'test', '--verbosity=2', app])
+    execute_from_command_line(['manage.py', 'test', '--verbosity=2'] + list(apps_to_tests))
 
 if __name__ == "__main__":
-    sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..', 'project')))
-    print sys.path
-    os.chdir(os.path.abspath(os.path.join(__file__, '..', '..', 'project')))
+    sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..')))
+    os.chdir(os.path.abspath(os.path.join(__file__, '..', '..')))
 
     run_app_tests(*TESTABLE_APPS)

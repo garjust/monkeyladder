@@ -25,9 +25,9 @@ def sync_new_database(fixtures):
 
 if __name__ == "__main__":
     sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..')))
-    os.chdir(os.path.abspath(os.path.join(__file__, '..', '..', 'project')))
+    os.chdir(os.path.abspath(os.path.join(__file__, '..', '..')))
 
-    from project.monkeyladder.settings.development import DATABASES
+    from monkeyladder.settings.development import DATABASES
     destroy_databases(DATABASES)
 
     sync_new_database(FIXTURES)
