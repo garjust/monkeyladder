@@ -20,6 +20,6 @@ def migrate(target='fixtures'):
 
 if __name__ == '__main__':
     sys.path.append(os.path.abspath(os.path.join(__file__, '..', '..')))
-    os.chdir(os.path.abspath(os.path.join(__file__, '..', '..', 'monkeyladder')))
+    os.chdir(os.path.abspath(os.path.join(__file__, '..', '..', 'project')))
 
     migrate()
