@@ -1,6 +1,6 @@
 from django.test import TestCase
-from ladders.views import pages
 
+from ladders.views import pages
 FIXTURES = ['fixtures/users', 'fixtures/ladders']
 
 

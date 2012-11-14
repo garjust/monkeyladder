@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import AnonymousUser
-from django.http import HttpRequest, HttpResponseForbidden, HttpResponseRedirect, Http404
+from django.http import HttpRequest
+from django.http import HttpResponseForbidden
+from django.http import HttpResponseRedirect
+from django.http import Http404
 from django.test import TestCase
 
 from ladders import decorators
-
 FIXTURES = ['fixtures/users', 'fixtures/ladders']
 
 
