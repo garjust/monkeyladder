@@ -1,8 +1,9 @@
-from accounts.logic import get_user_or_404
 from accounts.forms import ExtendedUserCreationForm
-from ladders.logic.feeds import watched_ladder_feed
+from accounts.logic import get_user_or_404
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.shortcuts import render
+from ladders.logic.feeds import watched_ladder_feed
 
 import logging
 logger = logging.getLogger('monkeyladder')

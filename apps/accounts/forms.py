@@ -1,4 +1,6 @@
-from django.contrib.auth.forms import UserCreationForm, forms, _
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import forms
+from django.contrib.auth.forms import _
 
 
 class ExtendedUserCreationForm(UserCreationForm):
