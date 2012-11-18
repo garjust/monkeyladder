@@ -16,7 +16,7 @@ TIME_ZONE = 'America/Toronto'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'C:/db/monkeyladder.db',
+        'NAME': '%s/db/monkeyladder.db' % PROJECT_ROOT,
     }
 }
 
