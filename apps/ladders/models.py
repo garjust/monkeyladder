@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from datedmodels.models import DatedModel
-from ladder_types import LADDER_TYPES
-
+from ladders.ladder_types import LADDER_TYPES
+ 
 LADDER_CONFIGURATION_TYPES = (
     ('STR', 'String'),
     ('INT', 'Integer'),
