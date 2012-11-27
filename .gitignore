@@ -1,5 +1,6 @@
 *.pyc
 
+env/
 db/
 
 .idea/
@@ -7,4 +8,3 @@ db/
 .pydevproject
 
 reports/
-env/
